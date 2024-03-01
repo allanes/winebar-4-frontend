@@ -1,11 +1,12 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { NavBar } from './components/NavBar/NavNar';
+import { Header } from './components/Header/Header';
 
 function App() {
   return (
-    <div className="container">
-      <p className=''>
-        Empezando
-      </p>        
+    <div>
+      <Header />
     </div>
   );
 }
