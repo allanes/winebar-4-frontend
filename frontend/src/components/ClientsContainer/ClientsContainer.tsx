@@ -15,10 +15,24 @@ export const ClientsContainer = () => {
 
   useEffect(() => {
     ClientesService.handleReadClientesBackendApiV1ClientesGet()
-    .then(clients => {
-      console.log(clients);
-      setClientsList(clients)
+    .then((clients) => {
+        console.log(clients);
+        setClientsList(clients);
     })
+    .catch((error) => {
+        const err = error as ApiError; // Cast the error to ApiError type
+        if (err.status === 404) {
+            // Handle "Not Found" errors specifically
+            Swal.fire('Not Found', 'The requested resource was not found.', 'error');
+        } else {
+            // Handle other errors
+            let errorMessage = 'An error occurred.';
+            if (err.body && err.body.detail) {
+                errorMessage = err.body.detail;
+            }
+            Swal.fire('Error', errorMessage, 'error');
+        }
+    });
   }, [])
 
   const handleNewClient = async (newClient: ClienteCreate, tarjetaId: number): Promise<void> => {
@@ -38,6 +52,16 @@ export const ClientsContainer = () => {
       const err = error as ApiError; // or a custom error type if you know the structure
       let errorMessage = 'An error occurred.'; // Start with the message property.
 
+      if (err.status === 404) {
+          // Handle "Not Found" errors specifically
+          Swal.fire('Not Found', 'The requested resource was not found.', 'error');
+      } else if (err.body && err.body.detail) {
+          // If the body property has a message property, add it to the error message.
+          errorMessage = err.body.detail;
+          Swal.fire('Error', errorMessage, 'error');
+      }
+    }
+  }
       if (err.body && err.body.detail) {
         // If the body property has a message property, add it to the error message.
         errorMessage = err.body.detail;
