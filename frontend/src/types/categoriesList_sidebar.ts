@@ -10,5 +10,6 @@ export const  categoriesList_sidebar = [
     {title: "Clientes", link: "/", icon:turnsIcon},
     {title: "Personal Interno", link: "/personal", icon: officesIcon},
     {title: "Tarjetas", link: "/tarjetas", icon:turnsIcon},
-    {title: "Ordenes", link: "/ordenes", icon:turnsIcon},    
+    {title: "Ordenes", link: "/ordenes", icon:turnsIcon},
+    {title: "Turnos", link: "/turnos", icon:turnsIcon},
 ]
