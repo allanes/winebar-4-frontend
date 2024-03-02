@@ -54,10 +54,20 @@ export const ClientsContainer = () => {
   return (
     <div>
       <ClientsCreate onNewClient={(newClient) => {
-          const clienteCreate: ClienteCreate = {
-              ...newClient,
-              contraseña: newClient.contraseña || 'defaultPassword' // Assuming 'contraseña' is the missing field and providing a default or derived value
-          };
+          // Assuming that ClienteCreate is similar to Cliente but with additional properties like 'contraseña'
+          // and that 'contraseña' is not a property of Cliente, we need a different approach.
+          // This example assumes there's a way to safely cast or transform Cliente to ClienteCreate.
+          // This might involve a function or additional logic to ensure 'contraseña' is appropriately handled.
+          let clienteCreate: ClienteCreate;
+          if ('contraseña' in newClient) {
+              clienteCreate = newClient as ClienteCreate;
+          } else {
+              // Handle the case where 'contraseña' is not part of newClient, e.g., by providing a default value or fetching it from elsewhere.
+              clienteCreate = {
+                  ...newClient,
+                  contraseña: 'defaultPassword' // Provide a default or fetch the actual value as needed.
+              };
+          }
           handleNewClient(clienteCreate, 123);
       }} />
       <PatientsList clientsList={clientsList} onDeleteClient={handleDelete} />
