@@ -1,0 +1,55 @@
+.cardRoom-container{
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    width: 250px;
+}
+.cardRoom {
+    height: 21rem;
+    width: 28rem;
+    border: 2px solid ;
+    border-color: $mi-grey-smoke;
+    border-radius: 2rem;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+    background-color: $mi-white;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.cardRoom-Top{
+    background: $mi-cyan;
+    color: $mi-grey-smoke;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+}
+
+// .cardRoom.animation-active table > tbody  {
+.cardRoom.animation-active table > tbody  > tr:first-child{
+    // background: $mi-orange;
+    border-width: 6px; 
+    border-style: solid;
+    font-style: oblique;
+    animation-name: border-color-animation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+  
+@keyframes border-color-animation {
+    100% { 
+        border-color: $mi-cyan-1;
+    }
+}
+
+.carousel-item {
+    display: none;
+}
+  
+.carousel-item.active {
+    display: block;
+}
+
+.carousel-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
