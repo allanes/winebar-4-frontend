@@ -4,6 +4,10 @@
 /* eslint-disable */
 export const $Turno = {
     properties: {
+        abierto_por: {
+            type: 'number',
+            isRequired: true,
+        },
         id: {
             type: 'number',
             isRequired: true,
