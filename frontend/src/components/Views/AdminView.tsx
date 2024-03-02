@@ -6,6 +6,7 @@ import { SideBar } from '../SideBar/SideBar';
 import { ClientsContainer } from '../ClientsContainer/ClientsContainer';
 import { PersonalInternoContainer } from '../PersonalContainer/PersonalContainer';
 import { TarjetasContainer } from '../TarjetasContainer/TarjetasContainer';
+import { OrdenesContainer } from '../OrdenesContainer/OrdenesContainer';
 import { categoriesList_sidebar } from '../../types/categoriesList_sidebar';
 import Error404 from './Error404';
 
@@ -23,8 +24,8 @@ export const AdminView = () => {
               <Route path='/' element={<ClientsContainer />} />
               <Route path={categoriesList_sidebar[1].link} element={<PersonalInternoContainer />} />
               <Route path={categoriesList_sidebar[2].link} element={<TarjetasContainer />} />
-              {/* <Route path={categoriesList_sidebar[3].link} element={<DoctorsContainer />} />
-              <Route path={`${url_waitingRoom}/:query`} element={<OfficesContainerPatientView />} />
+              <Route path={categoriesList_sidebar[3].link} element={<OrdenesContainer />} />
+              {/* <Route path={`${url_waitingRoom}/:query`} element={<OfficesContainerPatientView />} />
               <Route path={categoriesList_sidebar[7].link} element={<DownloadsContainer />} /> */}
               <Route path='*' element={<Error404 />} />
             </Routes>
