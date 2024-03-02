@@ -21,7 +21,7 @@ export const ClientsContainer = () => {
     })
   }, [])
 
-  const handleNewClient = async (newClient: ClienteCreate, tarjetaId: number): CancelablePromise<void> => {
+  const handleNewClient = async (newClient: ClienteCreate, tarjetaId: number): Promise<void> => {
     try {
       await ClientesService.handleCreateClienteWithTarjetaBackendApiV1ClientesPost(tarjetaId, {cliente_in: newClient})
       Swal.fire(
