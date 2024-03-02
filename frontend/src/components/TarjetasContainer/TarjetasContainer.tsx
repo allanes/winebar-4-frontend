@@ -4,6 +4,7 @@ import { Tarjeta, TarjetasService, ApiError, TarjetaCreate } from '../../codegen
 // import { PersonalesCreate } from './PersonalCreate';
 import { TarjetasList } from './TarjetasList';
 import Swal from 'sweetalert2';
+import { TarjetasCreate } from './TarjetasCreate';
 
 export const TarjetasContainer = () => {
   const [tarjetasList, setTarjetasList] = useState<Tarjeta[]>([]);
@@ -51,7 +52,7 @@ export const TarjetasContainer = () => {
 
   return (
     <div>
-      {/* <PersonalesCreate onNewPersonal={handleNewTarjeta} /> */}
+      <TarjetasCreate onNewTarjeta={handleNewTarjeta} />
       <TarjetasList tarjetasList={tarjetasList} onDeleteTarjeta={handleDelete} />
     </div>
   );
