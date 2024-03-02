@@ -9,6 +9,7 @@ import turnsIcon from '../assets/icons/turnsIcon.png'
 export const  categoriesList_sidebar = [
     {title: "Clientes", link: "/", icon:turnsIcon},
     {title: "Personal Interno", link: "/personal", icon: officesIcon},
+    {title: "Tarjetas", link: "/tarjetas", icon:turnsIcon},
     // {title: "Pacientes", link: "/patients", icon:patientsIcon},
     // {title: "Médicos", link: "/doctors", icon:doctorsIcon},
     // {title: "Salas", link: "/waitingRoom/0", icon:waitingRoomIcon},
