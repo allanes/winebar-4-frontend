@@ -60,24 +60,26 @@ export const ClientsContainer = () => {
           errorMessage = err.body.detail;
           Swal.fire('Error', errorMessage, 'error');
       }
-    }).catch((error) => {
-      const err = error as ApiError; // Correctly reintroduce error handling in the catch block
+    // Correctly placed catch block for handling errors in the try block
+    } catch (error) {
+      const err = error as ApiError;
       let errorMessage = 'An error occurred.';
       if (err.body && err.body.detail) {
-        errorMessage = err.body.detail;
+          errorMessage = err.body.detail;
       }
       Swal.fire('Error', errorMessage, 'error');
-    });
+    }
 
-  const handleDelete = (id: number): void => {
-    ClientesService.handleDeleteClienteBackendApiV1ClientesIdDelete(id)
-    .then(() => {
+  const handleDelete = async (id: number): Promise<void> => {
+    try {
+      await ClientesService.handleDeleteClienteBackendApiV1ClientesIdDelete(id);
       setClientsList(prevClients => prevClients.filter(client => client.id !== id));
-    })
-    .catch((error) => {
+      Swal.fire('Success', 'Client deleted successfully.', 'success');
+    } catch (error) {
       console.error("Failed to delete client:", error);
       Swal.fire('Error', 'Failed to delete client.', 'error');
-    });
+    }
+  }
     });
   }
 
