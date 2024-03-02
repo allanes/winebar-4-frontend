@@ -9,15 +9,15 @@ interface Props {
 }
 
 const keysTabOrden = [
-  "id",
-  "precarga_usada",
-  "monto_maximo_orden",
+  "ID",
+  "Precarga",
+  "Monto maximo",
   "turno_id",
   "cliente_id",
-  "monto_cobrado",
-  "timestamp_apertura_orden",
-  "timestamp_cierre_orden",
-  "cerrada_por",
+  "Cobrado",
+  "Abierta",
+  "Cerrada",
+  "Cerrada Por",
   ""
 ]
 

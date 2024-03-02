@@ -9,14 +9,15 @@ interface Props {
 }
 
 const keysTabTurno = [
-  "id",
-  "timestamp_apertura",
-  "cantidad_de_ordenes",
-  "cantidad_tapas",
-  "cantidad_usuarios_vip",
-  "ingresos_totales",
-  "cerrado_por",
-  "timestamp_cierre",
+  "ID",
+  "# de Ordenes",
+  "# de Tapas",
+  "# Usuarios VIP",
+  "Ingresos Totales",
+  "Abierto por",
+  "Cerrado por",
+  "Abierta",
+  "Cerrada",
   ""
 ]
 
@@ -24,7 +25,7 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
 
   const handleDelete = (turno: Turno) => {
     Swal.fire({
-      title: '¿Estás seguro que deseas eliminar esta turno?',
+      title: '¿Estás seguro que deseas eliminar este turno?',
       html: `${turno.id} (${turno.id})`,
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
@@ -60,12 +61,13 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
             return (
               <tr key={index} >
                 <th scope='row'>{turno.id}</th>
-                <td>{turno.timestamp_apertura}</td>
                 <td>{turno.cantidad_de_ordenes}</td>
                 <td>{turno.cantidad_tapas}</td>
                 <td>{turno.cantidad_usuarios_vip}</td>
                 <td>{turno.ingresos_totales}</td>
+                <td>{turno.abierto_por}</td>
                 <td>{turno.cerrado_por}</td>
+                <td>{turno.timestamp_apertura}</td>
                 <td>{turno.timestamp_cierre}</td>
                                 
                 <td>
