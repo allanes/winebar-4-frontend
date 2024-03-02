@@ -60,12 +60,24 @@ export const ClientsContainer = () => {
           errorMessage = err.body.detail;
           Swal.fire('Error', errorMessage, 'error');
       }
-    }
-  // Removed extraneous closing brace and incorrect error handling code outside of catch block.
+    }).catch((error) => {
+      const err = error as ApiError; // Correctly reintroduce error handling in the catch block
+      let errorMessage = 'An error occurred.';
+      if (err.body && err.body.detail) {
+        errorMessage = err.body.detail;
+      }
+      Swal.fire('Error', errorMessage, 'error');
+    });
 
-  const handleDelete = (id: number) => {
-    ClientesService.handleDeleteClienteBackendApiV1ClientesIdDelete(id).then(() => {
-      setClientsList(clientsList.filter((client) => client.id !== id));
+  const handleDelete = (id: number): void => {
+    ClientesService.handleDeleteClienteBackendApiV1ClientesIdDelete(id)
+    .then(() => {
+      setClientsList(prevClients => prevClients.filter(client => client.id !== id));
+    })
+    .catch((error) => {
+      console.error("Failed to delete client:", error);
+      Swal.fire('Error', 'Failed to delete client.', 'error');
+    });
     });
   }
 
