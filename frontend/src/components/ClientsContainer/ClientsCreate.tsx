@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Cliente } from '../../codegen_output'
+import { Cliente, ClienteCreate } from '../../codegen_output'
 import useNewClientForm from '../../hooks/useNewClientsForm'
 
 import { Row, Col, Button, Form } from 'react-bootstrap'
@@ -7,7 +7,7 @@ import { Row, Col, Button, Form } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 
 interface Props {
-  onNewClient: (newClient: Cliente) => void
+  onNewClient: (newClient: Cliente, tarjetaId: number) => void
 }
 
 export const ClientsCreate = ({ onNewClient: onNewClient }: Props) => {
@@ -29,9 +29,14 @@ export const ClientsCreate = ({ onNewClient: onNewClient }: Props) => {
 
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
-    onNewClient(inputValues)
-    formRef.current?.reset()
-
+    console.log(inputValues)
+    if ('tarjetaId' in inputValues) {
+      const { tarjetaId, ...clientData } = inputValues;
+      onNewClient(clientData, Number(tarjetaId));
+    } else {
+      console.error('tarjetaId is missing');
+    }
+    formRef.current?.reset();
   }
 
   return (

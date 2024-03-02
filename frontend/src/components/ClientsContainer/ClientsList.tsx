@@ -14,7 +14,7 @@ const keysTabClients = [
   // ""
 ]
 
-export const PatientsList = ({ clientsList: clientsList, onDeleteClient: onDeleteClient }: Props) => {
+export const ClientsList = ({ clientsList: clientsList, onDeleteClient: onDeleteClient }: Props) => {
 
   const handleDelete = (client: Cliente) => {
     Swal.fire({
