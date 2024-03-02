@@ -2,4 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type TapaConProductoCreate = Record<string, any>;
+export type TapaConProductoCreate = {
+    titulo: string,
+    descripcion?: string,
+    precio: number,
+    stock: number,
+    foto: string,
+}
