@@ -9,16 +9,12 @@ interface Props {
 }
 
 const keysTabClients = [
-  "Dni",
-  "Nombre, Apellido",
-  "Fecha de nacimiento",
-  "Obra social",
-  "Email",
-  "Teléfono",
-  ""
+  "Nombre",
+  "Tarjeta",
+  // ""
 ]
 
-export const PatientsList = ({ clientsList: clientsList, onDeleteClient: onDeleteClient }: Props) => {
+export const ClientsList = ({ clientsList: clientsList, onDeleteClient: onDeleteClient }: Props) => {
 
   const handleDelete = (client: Cliente) => {
     Swal.fire({

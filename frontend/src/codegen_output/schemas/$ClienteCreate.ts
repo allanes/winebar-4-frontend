@@ -8,9 +8,5 @@ export const $ClienteCreate = {
             type: 'string',
             isRequired: true,
         },
-        'contraseña': {
-            type: 'string',
-            isRequired: true,
-        },
     },
 } as const;

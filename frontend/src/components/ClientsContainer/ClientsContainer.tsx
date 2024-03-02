@@ -1,56 +1,57 @@
-import React, { useEffect, useState } from 'react'
-import { Cliente, ClientesService, ApiError, CancelablePromise } from '../../codegen_output'
-import { ClientsCreate } from './ClientsCreate'
-import { PatientsList } from './ClientsList'
-import Swal from 'sweetalert2'
-
-interface ClientsState {
-  clients: Array<Cliente>
-}
+import React, { useEffect, useState } from 'react';
+import { Cliente, ClientesService, ClienteCreate, ApiError } from '../../codegen_output';
+import { ClientsCreate } from './ClientsCreate';
+import { ClientsList } from './ClientsList';
+import Swal from 'sweetalert2';
 
 export const ClientsContainer = () => {
-
-  const [clientsList, setClientsList] = useState<ClientsState["clients"]>([])
+  const [clientsList, setClientsList] = useState<Cliente[]>([]);
 
   useEffect(() => {
+    fetchClients();
+  }, []);
+
+  const fetchClients = () => {
     ClientesService.handleReadClientesBackendApiV1ClientesGet()
-    .then(clients => {
-      console.log(clients);
-      setClientsList(clients)
-    })
-  }, [])
+      .then((clients) => {
+        setClientsList(clients);        
+      })
+      .catch(handleApiError);
+  };
 
-  const handleNewClient = async (newClient: Cliente, tarjetaId: number): CancelablePromise<void> => {
+  const handleApiError = (error: unknown) => {
+    const err = error as ApiError;
+    let errorMessage = 'An error occurred.';
+    if (err.body && err.body.detail) {
+      errorMessage = err.body.detail;
+    }
+    Swal.fire('Error', errorMessage, 'error');
+  };
+
+  const handleNewClient = async (newClient: ClienteCreate, tarjetaId: number): Promise<void> => {
     try {
-      await ClientesService.handleCreateClienteWithTarjetaBackendApiV1ClientesPost(newClient.tarjetaId, {cliente_in: newClient})
-      Swal.fire(
-        `${newClient.nombre}`,
-        'ha sido guardado con éxito',
-        'success'
-      )
-      setClientsList( client => [...clientsList, newClient])
+      const response = await ClientesService.handleCreateClienteWithTarjetaBackendApiV1ClientesPost(tarjetaId, { cliente_in: newClient });
+      Swal.fire(`${newClient.nombre}`, 'ha sido guardado con éxito', 'success');
+      fetchClients(); // Re-fetch the client list after a successful addition
+    } catch (error) {
+      handleApiError(error);
     }
-    catch (error) {
-      const err = error as ApiError; // or a custom error type if you know the structure
-      let errorMessage = 'An error occurred.'; // Start with the message property.
+  };
 
-      if (err.body && err.body.detail) {
-        // If the body property has a message property, add it to the error message.
-        errorMessage = err.body.detail;
-      }
-      Swal.fire('Error', errorMessage, 'error');
+  const handleDelete = async (id: number): Promise<void> => {
+    try {
+      await ClientesService.handleDeleteClienteBackendApiV1ClientesIdDelete(id);
+      setClientsList(clients => clients.filter(client => client.id !== id));
+      Swal.fire('Success', 'Client deleted successfully.', 'success');
+    } catch (error) {
+      handleApiError(error);
     }
-  }
-
-  const handleDelete = (id: number): void => {
-    ClientesService.handleDeleteClienteBackendApiV1ClientesIdDelete(id)
-    setClientsList(clientsList.filter((client) => client.id !== id));
-  }
+  };
 
   return (
     <div>
       <ClientsCreate onNewClient={handleNewClient} />
-      <PatientsList clientsList={clientsList} onDeleteClient={handleDelete} />
+      <ClientsList clientsList={clientsList} onDeleteClient={handleDelete} />
     </div>
-  )
-}
+  );
+};
