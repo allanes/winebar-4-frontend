@@ -29,7 +29,10 @@ export const ClientsContainer = () => {
         'ha sido guardado con éxito',
         'success'
       )
-      setClientsList( client => [...clientsList, newClient])
+      ClientesService.handleReadClientesBackendApiV1ClientesGet()
+      .then(clients => {
+        setClientsList(clients)
+      })
     }
     catch (error) {
       const err = error as ApiError; // or a custom error type if you know the structure
