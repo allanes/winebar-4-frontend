@@ -4,7 +4,7 @@ import { Tapa, TapasService, ApiError, TapaConProductoCreate } from '../../codeg
 // import { PersonalesCreate } from './PersonalCreate';
 import { TapasList } from './TapasList';
 import Swal from 'sweetalert2';
-// import { TapasCreate } from './TapasCreate';
+import { TapasCreate } from './TapasCreate';
 
 export const TapasContainer = () => {
   const [tapasList, setTapasList] = useState<Tapa[]>([]);
@@ -52,7 +52,7 @@ export const TapasContainer = () => {
 
   return (
     <div>
-      {/* <TapasCreate onNewTapa={handleNewTapa} /> */}
+      <TapasCreate onNewTapa={handleNewTapa} />
       <TapasList tapasList={tapasList} onDeleteTapa={handleDelete} />
     </div>
   );
