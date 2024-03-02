@@ -53,7 +53,13 @@ export const ClientsContainer = () => {
 
   return (
     <div>
-      <ClientsCreate onNewClient={(newClient) => handleNewClient(newClient, 123)} />
+      <ClientsCreate onNewClient={(newClient) => {
+          const clienteCreate: ClienteCreate = {
+              ...newClient,
+              contraseña: newClient.contraseña || 'defaultPassword' // Assuming 'contraseña' is the missing field and providing a default or derived value
+          };
+          handleNewClient(clienteCreate, 123);
+      }} />
       <PatientsList clientsList={clientsList} onDeleteClient={handleDelete} />
     </div>
   )
