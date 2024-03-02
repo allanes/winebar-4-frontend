@@ -20,9 +20,9 @@ export const ClientsContainer = () => {
     })
   }, [])
 
-  const handleNewClient = async (newClient: Cliente): CancelablePromise<void> => {
+  const handleNewClient = async (newClient: Cliente, tarjetaId: number): CancelablePromise<void> => {
     try {
-      await ClientesService.handleCreateClienteWithTarjetaBackendApiV1ClientesPost(123, newClient)
+      await ClientesService.handleCreateClienteWithTarjetaBackendApiV1ClientesPost(tarjetaId, {cliente_in: newClient})
       Swal.fire(
         `${newClient.nombre}`,
         'ha sido guardado con éxito',
@@ -46,10 +46,10 @@ export const ClientsContainer = () => {
     ClientesService.handleDeleteClienteBackendApiV1ClientesIdDelete(id)
     setClientsList(clientsList.filter((client) => client.id !== id));
   }
-  
+
   return (
     <div>
-      <ClientsCreate onNewClient={handleNewClient} />
+      <ClientsCreate onNewClient={(newClient) => handleNewClient(newClient, /* tarjetaId value here */)} />
       <PatientsList clientsList={clientsList} onDeleteClient={handleDelete} />
     </div>
   )
