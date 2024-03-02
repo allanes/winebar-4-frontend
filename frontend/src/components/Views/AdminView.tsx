@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Header } from '../Header/Header';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { SideBar } from '../SideBar/SideBar';
-import { ClientsContainer } from '../PatientsContainer/ClientsContainer';
+import { ClientsContainer } from '../ClientsContainer/ClientsContainer';
 // import { OfficesContainer } from '../OfficesContainer/OfficesContainer';
 // import { DoctorsContainer } from '../DoctorsContainer/DoctorsContainer';
 // import { PatientsContainer } from '../PatientsContainer/PatientsContainer';

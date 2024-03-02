@@ -79,6 +79,12 @@ export const ClientsCreate = ({ onNewClient: onNewClient }: Props) => {
               <Form.Control onChange={handleChange} type="text" placeholder="Ingrese el teléfono" />
             </Form.Group>
           </Col> */}
+          <Col>
+           <Form.Group className="mb-3" controlId="tarjetaId">
+             <Form.Label>ID de Tarjeta</Form.Label>
+             <Form.Control onChange={handleChange} type="number" placeholder="Ingrese el ID de la tarjeta" />
+           </Form.Group>
+         </Col>
         </Row> 
 
         <Button variant='outline-warning' type="reset" className="m-2">

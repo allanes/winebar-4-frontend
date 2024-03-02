@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Cliente, ClientesService, ApiError, CancelablePromise } from '../../codegen_output'
+import { Cliente, ClientesService, ClienteCreate, ApiError, CancelablePromise } from '../../codegen_output'
 import { ClientsCreate } from './ClientsCreate'
 import { PatientsList } from './ClientsList'
 import Swal from 'sweetalert2'
 
 interface ClientsState {
   clients: Array<Cliente>
+  clientsCreate: Array<ClienteCreate>
 }
 
 export const ClientsContainer = () => {
@@ -20,7 +21,7 @@ export const ClientsContainer = () => {
     })
   }, [])
 
-  const handleNewClient = async (newClient: Cliente, tarjetaId: number): CancelablePromise<void> => {
+  const handleNewClient = async (newClient: ClienteCreate, tarjetaId: number): CancelablePromise<void> => {
     try {
       await ClientesService.handleCreateClienteWithTarjetaBackendApiV1ClientesPost(tarjetaId, {cliente_in: newClient})
       Swal.fire(
@@ -49,7 +50,7 @@ export const ClientsContainer = () => {
 
   return (
     <div>
-      <ClientsCreate onNewClient={(newClient) => handleNewClient(newClient, /* tarjetaId value here */)} />
+      <ClientsCreate onNewClient={(newClient) => handleNewClient(newClient, 123)} />
       <PatientsList clientsList={clientsList} onDeleteClient={handleDelete} />
     </div>
   )
