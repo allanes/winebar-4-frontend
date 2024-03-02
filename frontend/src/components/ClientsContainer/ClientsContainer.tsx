@@ -61,18 +61,12 @@ export const ClientsContainer = () => {
           Swal.fire('Error', errorMessage, 'error');
       }
     }
-  }
-      if (err.body && err.body.detail) {
-        // If the body property has a message property, add it to the error message.
-        errorMessage = err.body.detail;
-      }
-      Swal.fire('Error', errorMessage, 'error');
-    }
-  }
+  // Removed extraneous closing brace and incorrect error handling code outside of catch block.
 
-  const handleDelete = (id: number): void => {
-    ClientesService.handleDeleteClienteBackendApiV1ClientesIdDelete(id)
-    setClientsList(clientsList.filter((client) => client.id !== id));
+  const handleDelete = (id: number) => {
+    ClientesService.handleDeleteClienteBackendApiV1ClientesIdDelete(id).then(() => {
+      setClientsList(clientsList.filter((client) => client.id !== id));
+    });
   }
 
   return (
