@@ -1,18 +1,20 @@
 import { useReducer } from "react"
-import { Medico } from "../codegen_output"
+import { PersonalInternoCreate } from "../codegen_output"
 
 interface FormState {
-    inputValues: Medico
+    inputValues: PersonalInternoCreate
 }
 
 const INITIAL_STATE = {
-    id: 12345678,
+    id: 12345,
     nombre: "Nombre",
     apellido: "Apellido",
-    email: "email@gmail.com",
-    telefono: "03814567899",
-    especialidad: "Clínico",
-    consultorio: ""
+    // Fecha de nacimiento",
+    telefono: "381",
+    contra_sin_hash: "secret pass"
+    // email,
+    // Tarjeta,
+    // Rol,
 }
 
 type FormReducerAction = {
@@ -25,7 +27,7 @@ type FormReducerAction = {
     type: "clear"
 }
 
-const newDoctorReducer = (state: FormState["inputValues"], action: FormReducerAction) => {
+const newPersonalInternoReducer = (state: FormState["inputValues"], action: FormReducerAction) => {
     switch (action.type) {
         case "change_value":
             const { inputName, inputValue } = action.payload
@@ -42,8 +44,8 @@ const newDoctorReducer = (state: FormState["inputValues"], action: FormReducerAc
     }
 }
 
-const useNewDoctorForm = () => {
-    return useReducer(newDoctorReducer, INITIAL_STATE)
+const useNewPersonalInternoForm = () => {
+    return useReducer(newPersonalInternoReducer, INITIAL_STATE)
 }
 
-export default useNewDoctorForm 
+export default useNewPersonalInternoForm 

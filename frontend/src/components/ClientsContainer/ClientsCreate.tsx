@@ -7,7 +7,7 @@ import { Row, Col, Button, Form } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 
 interface Props {
-  onNewClient: (newClient: Cliente, tarjetaId: number) => void
+  onNewClient: (newClient: ClienteCreate, tarjetaId: number) => void
 }
 
 export const ClientsCreate = ({ onNewClient: onNewClient }: Props) => {

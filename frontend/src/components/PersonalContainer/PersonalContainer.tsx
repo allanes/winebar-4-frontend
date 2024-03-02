@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-// import { Cliente, ClientesService, PersonalInternoCreate, ApiError } from '../../codegen_output';
-import { PersonalInterno, PersonalInternoService, ApiError } from '../../codegen_output';
-// import { ClientsCreate } from './ClientsCreate';
+import { PersonalInterno, PersonalInternoService, PersonalInternoCreate, ApiError } from '../../codegen_output';
+import { PersonalesCreate } from './PersonalCreate';
 import { PersonalList } from './PersonalList';
 import Swal from 'sweetalert2';
 
@@ -22,22 +21,23 @@ export const PersonalInternoContainer = () => {
 
   const handleApiError = (error: unknown) => {
     const err = error as ApiError;
-    let errorMessage = 'An error occurred.';
+    let errorMessage = 'Ocurrió un error.';
     if (err.body && err.body.detail) {
       errorMessage = err.body.detail;
     }
     Swal.fire('Error', errorMessage, 'error');
   };
 
-  // const handleNewPersonal = async (newClient: PersonalInternoCreate, tarjetaId: number): Promise<void> => {
-  //   try {
-  //     const response = await ClientesService.handleCreateClienteWithTarjetaBackendApiV1ClientesPost(tarjetaId, { cliente_in: newClient });
-  //     Swal.fire(`${newClient.nombre}`, 'ha sido guardado con éxito', 'success');
-  //     fetchPersonalInterno(); // Re-fetch the client list after a successful addition
-  //   } catch (error) {
-  //     handleApiError(error);
-  //   }
-  // };
+  const handleNewPersonal = async (newPersonalIn: PersonalInternoCreate, tarjetaId: number): Promise<void> => {
+    try {
+      const personalInternoResponse = await PersonalInternoService.handleCreatePersonalInternoBackendApiV1PersonalPost(newPersonalIn);
+      const personalInternoWithTarjetaResponse = await PersonalInternoService.handleEntregarTarjetaBackendApiV1PersonalEntregarTarjetaPost({ tarjeta_id: tarjetaId, personal_id: newPersonalIn.id });
+      Swal.fire(`${newPersonalIn.nombre}`, 'ha sido guardado con éxito', 'success');
+      fetchPersonalInterno(); // Re-fetch the client list after a successful addition
+    } catch (error) {
+      handleApiError(error);
+    }
+  };
 
   const handleDelete = async (id: number): Promise<void> => {
     try {
@@ -51,7 +51,7 @@ export const PersonalInternoContainer = () => {
 
   return (
     <div>
-      {/* <ClientsCreate onNewClient={handleNewPersonal} /> */}
+      <PersonalesCreate onNewPersonal={handleNewPersonal} />
       <PersonalList personalList={personasInternasList} onDeletePersonal={handleDelete} />
     </div>
   );
