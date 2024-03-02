@@ -1,0 +1,38 @@
+.pages-container{
+    margin: 10px auto;
+}
+
+.table-container-xxl{
+    background-color: $mi-white;
+    width: 95vw;
+    border-radius: 10px;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin: 10px;
+}
+.table-container-xl{
+    background-color: $mi-white;
+    width: 80vw;
+    border-radius: 10px;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin: 10px;
+}
+
+.table-container-l{
+    background-color: $mi-white;
+    width: 78vw;
+    border-radius: 10px;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin: 10px auto;
+}
+
+.table-container-m{
+    background-color: $mi-white;
+    width: 50vw;
+    border-radius: 10px;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin: 10px;
+}

@@ -1,9 +1,21 @@
 // Default configurations and variables
 
 @import './base/settings';
-
-// text, forms, and other styles
+@import './base/pallete';
+@import './base/logocm';
+@import './base/icons';
+@import './base/typography';
 
 // Components styles
 
 @import './components/logoMeta';
+@import './components/doctorView';
+@import './components/mainApp';
+@import './components/sidebar';
+@import './components/pagesContainer';
+@import './components/header';
+@import './components/roomDescription';
+@import './components/toastConfig';
+@import './components/patientsList';
+
+// Default configurations and variables

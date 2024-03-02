@@ -4,6 +4,5 @@
 /* eslint-disable */
 export type ClienteCreate = {
     nombre: string;
-    'contraseña': string;
 };
 

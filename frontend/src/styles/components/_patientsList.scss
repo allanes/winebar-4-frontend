@@ -1,0 +1,26 @@
+.mi-container-flex{
+    display: flex;
+    flex-direction: row;
+}
+
+.mi-patient-card {
+    padding: 5px;
+    margin: 10px;
+}
+.mi-border{
+    border: 2px solid $mi-orange;
+    border-radius: 5px;
+}
+
+.mi-contenedor-video-y-carousel{
+    display: flex;
+    width: 100%;
+    background-color: $mi-black
+}
+
+.patient-cardRoom-Top{
+    background: $mi-cyan;
+    color: $mi-black;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+}
