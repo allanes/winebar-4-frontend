@@ -3,13 +3,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavBar } from './components/NavBar/NavNar';
 import { Header } from './components/Header/Header';
 import { AdminView } from './components/Views/AdminView';
+import CajeroView from './components/Views/CajeroView';
 
 const renderSwitch = (props: string) => {
   switch (props) {
     case 'taperosView':
       return <AdminView />;
     case 'cajerosView':
-      return <AdminView />;
+      return <CajeroView />;
     default:
       return <AdminView />;
   }

@@ -4,7 +4,11 @@ import { ClientsCreate } from './ClientsCreate';
 import { ClientsList } from './ClientsList';
 import Swal from 'sweetalert2';
 
-export const ClientsContainer = () => {
+interface ClientsContainerProps {
+  showClientList?: boolean;
+}
+
+export const ClientsContainer = ({ showClientList = true }: ClientsContainerProps) => {
   const [clientsList, setClientsList] = useState<Cliente[]>([]);
 
   useEffect(() => {
@@ -51,7 +55,7 @@ export const ClientsContainer = () => {
   return (
     <div>
       <ClientsCreate onNewClient={handleNewClient} />
-      <ClientsList clientsList={clientsList} onDeleteClient={handleDelete} />
+      {showClientList && <ClientsList clientsList={clientsList} onDeleteClient={handleDelete} />}
     </div>
   );
 };
