@@ -1,14 +1,26 @@
 // AccionesPanel.tsx
 import React, { useState } from 'react';
 import { Button, Modal, Card } from 'react-bootstrap';
-import { ClientsContainer } from '../../ClientsContainer/ClientsContainer';
+import { handleApiError } from '../../ClientsContainer/ClientsContainer';
+import ClientsCreate from '../../ClientsContainer/ClientsCreate';
+import { ClienteCreate, ClientesService } from '../../../codegen_output';
 import { PersonBadge, People, CashCoin } from 'react-bootstrap-icons';
+import Swal from 'sweetalert2';
 
 const AccionesPanel = () => {
   const [showModal, setShowModal] = useState(false);
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
+
+  const handleNewClient = async (newClient: ClienteCreate, tarjetaId: number): Promise<void> => {
+    try {
+      const response = await ClientesService.handleCreateClienteWithTarjetaBackendApiV1ClientesPost(tarjetaId, { cliente_in: newClient });
+      Swal.fire(`${newClient.nombre}`, 'ha sido guardado con éxito', 'success');      
+    } catch (error) {
+      handleApiError(error);
+    }
+  };
 
   return (
     <Card>
@@ -67,7 +79,7 @@ const AccionesPanel = () => {
                     <Modal.Title>Nuevo Cliente Estandar</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <ClientsContainer showClientList={false}/>
+                    <ClientsCreate onNewClient={handleNewClient} expanded={true}/>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

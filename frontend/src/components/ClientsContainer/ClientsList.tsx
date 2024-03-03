@@ -9,8 +9,8 @@ interface Props {
 }
 
 const keysTabClients = [
+  "ID",
   "Nombre",
-  "Tarjeta",
   ""
 ]
 
@@ -50,16 +50,16 @@ export const ClientsList = ({ clientsList: clientsList, onDeleteClient: onDelete
           </tr>
         </thead>
         <tbody className='table-group-divider' >
-          {clientsList.map((patient, index) => {
+          {clientsList.map((clienteData, index) => {
             return (
               <tr key={index} >
-                <th scope='row'>{patient.id}</th>
-                <td>{patient.nombre}</td>                
+                <th scope='row'>{clienteData.id}</th>
+                <td>{clienteData.nombre}</td>                
                 {/* <td>{patient.email}</td> */}
                 <td>
                   <button className='icons-border icon--size icon--delete'
                     type='button'
-                    onClick={() => { handleDelete(patient) }} >
+                    onClick={() => { handleDelete(clienteData) }} >
                     <img className='icon-img--size' src={deleteIcon} alt="" />
                   </button>
                 </td>

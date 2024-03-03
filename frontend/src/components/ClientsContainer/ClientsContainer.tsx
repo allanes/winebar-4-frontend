@@ -4,11 +4,16 @@ import { ClientsCreate } from './ClientsCreate';
 import { ClientsList } from './ClientsList';
 import Swal from 'sweetalert2';
 
-interface ClientsContainerProps {
-  showClientList?: boolean;
-}
+export const handleApiError = (error: unknown) => {
+  const err = error as ApiError;
+  let errorMessage = 'An error occurred.';
+  if (err.body && err.body.detail) {
+    errorMessage = err.body.detail;
+  }
+  Swal.fire('Error', errorMessage, 'error');
+};
 
-export const ClientsContainer = ({ showClientList = true }: ClientsContainerProps) => {
+export const ClientsContainer = () => {
   const [clientsList, setClientsList] = useState<Cliente[]>([]);
 
   useEffect(() => {
@@ -21,15 +26,6 @@ export const ClientsContainer = ({ showClientList = true }: ClientsContainerProp
         setClientsList(clients);        
       })
       .catch(handleApiError);
-  };
-
-  const handleApiError = (error: unknown) => {
-    const err = error as ApiError;
-    let errorMessage = 'An error occurred.';
-    if (err.body && err.body.detail) {
-      errorMessage = err.body.detail;
-    }
-    Swal.fire('Error', errorMessage, 'error');
   };
 
   const handleNewClient = async (newClient: ClienteCreate, tarjetaId: number): Promise<void> => {
@@ -55,7 +51,7 @@ export const ClientsContainer = ({ showClientList = true }: ClientsContainerProp
   return (
     <div>
       <ClientsCreate onNewClient={handleNewClient} />
-      {showClientList && <ClientsList clientsList={clientsList} onDeleteClient={handleDelete} />}
+      <ClientsList clientsList={clientsList} onDeleteClient={handleDelete} />
     </div>
   );
 };
