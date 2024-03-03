@@ -1,6 +1,6 @@
 // StatusPanel.tsx
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Row, Col } from 'react-bootstrap';
 import InfoCard from './InfoCard';
 
 const StatusPanel = () => {
@@ -12,25 +12,20 @@ const StatusPanel = () => {
   };
 
   return (
-    <Card className="contenedor-paneles--estado">
+    <Card >
         <Card.Header>Estado</Card.Header>
-        <Card.Body className="estado--contenedor">
-            <InfoCard 
-              title='Clientes Activos'
-              count={statusData.activeClients}
-            />
-            {/* <div className="estado--tarjeta">
-                    <p className="estado--contador">{statusData.activeClients}</p>
-                    <p className="estado--titulo">Clientes Activos</p>
-            </div> */}
-            <div className="estado--tarjeta"> 
-                    <p className="estado--contador">{statusData.shiftClients}</p>
-                    <p className="estado--titulo">Clientes Totales</p>
-            </div>
-            <div className="estado--tarjeta">
-                    <p className="estado--contador">{statusData.totalAmount}</p>
-                    <p className="estado--titulo">Monto cobrado</p>
-            </div>            
+        <Card.Body>
+            <Row >
+              <Col>
+                <InfoCard title='Clientes Activos' count={statusData.activeClients} />
+              </Col>
+              <Col>
+                <InfoCard title='Clientes Totales' count={statusData.shiftClients} />
+              </Col>
+            </Row>
+              <Col>
+                <InfoCard title='Monto cobrado' count={`$${statusData.totalAmount}`} />
+              </Col>
         </Card.Body>
     </Card>
   );

@@ -9,18 +9,18 @@ interface InfoCardProps {
 }
 
 const InfoCard = ({ title, count }: InfoCardProps) => {
-  return (
-    <Card className="estado--tarjeta">
-      <Card.Body className="d-flex flex-column align-items-center justify-content-center">
-        <div className="estado--contador">
-          {count}
-        </div>
-        <div className="estado--titulo">
-          {title}
-        </div>
-      </Card.Body>
-    </Card>
-  );
+    return (
+        <Card className="info-card">
+          <Card.Body className="info-card-body">
+            <div className="info-card-count">
+              {count}
+            </div>
+            <div className="info-card-title">
+              {title}
+            </div>
+          </Card.Body>
+        </Card>
+    );
 };
 
 export default InfoCard;

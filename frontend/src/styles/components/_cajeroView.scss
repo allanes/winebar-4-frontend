@@ -14,44 +14,43 @@
     margin-right: 20px;
 }
 
-.estado--tarjeta {
-    width: 250px;
-    height: 170px; /* Set the height equal to the width for a square card */
-    background-color: $mi-red-1;
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    border-radius: 15%;
+// Assuming these are the colors from your palette
+
+.info-card {
+  background-color: $mi-yellow-light;
+  border-radius: 15px;
+  width: 230px; // Adjust as needed
+  margin: 10px auto; // Center the card with automatic horizontal margins
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Optional shadow for depth
+  border: none; // Remove the default card border
 }
 
-.estado--contador {
-    font-size: 40px; /* Adjust font size as needed */
-    width: 130px;
-    margin: 5px;
-    border-radius: 70%; /* Create a circular shape */
-    background-color: $mi-cyan;
-    color: $mi-white;
+.info-card-body {
+  padding: 3px 3px 3px 3px; // Adjust padding as needed
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.estado--titulo {
-    font-size: 30px; /* Adjust font size as needed */
-    margin: 0;
-    margin-top: 8px; /* Add spacing between the counter and title */
+.info-card-count {
+  background-color: $mi-dark-red;
+  color: $mi-yellow;
+  font-size: 70px; // Adjust font size as needed
+  border-radius: 13px;
+  width: 100%; // Adjust as needed
+  height: 100px; // Adjust as needed
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px; // Space between the count and title
+  font-weight: bold;
+//   margin-top: 1px;
 }
 
-.estado--contenedor {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 50px;
-    flex-wrap: wrap;
-}
-
-.contenedor-paneles--estado {
-    width: 50%;
-    margin-left: auto;
-    /* border: 1px solid red; */
+.info-card-title {
+  color: $mi-dark-red;
+  font-size: 20px; // Adjust font size as needed
+  margin: 0; // Remove any default margins
+  font-weight: bold;
 }
