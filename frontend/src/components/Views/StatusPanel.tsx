@@ -14,9 +14,22 @@ const StatusPanel = () => {
     <Card>
         <Card.Header>Estado</Card.Header>
         <Card.Body>
-            <p>Clientes Activos: {statusData.activeClients}</p>
-            <p>Clientes Totales: {statusData.shiftClients}</p>
-            <p>Monto cobrado: ${statusData.totalAmount}</p>
+            <div className='contenedor-paneles--estado'>
+            <div className="estado--contenedor">
+                <div className="estado--tarjeta">
+                        <p className="estado--contador">{statusData.activeClients}</p>
+                        <p className="estado--titulo">Clientes Activos</p>
+                </div>
+                <div className="estado--tarjeta">
+                        <p className="estado--contador">{statusData.shiftClients}</p>
+                        <p className="estado--titulo">Clientes Totales</p>
+                </div>
+                <div className="estado--tarjeta">
+                        <p className="estado--contador">{statusData.totalAmount}</p>
+                        <p className="estado--titulo">Monto cobrado</p>
+                </div>
+            </div>
+            </div>
         </Card.Body>
     </Card>
   );

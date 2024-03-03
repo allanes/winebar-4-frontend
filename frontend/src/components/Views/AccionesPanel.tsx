@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Button, Modal, Card } from 'react-bootstrap';
 import { ClientsContainer } from '../ClientsContainer/ClientsContainer';
+import { PersonBadge, People, CashCoin } from 'react-bootstrap-icons';
 
 const AccionesPanel = () => {
   const [showModal, setShowModal] = useState(false);
@@ -13,30 +14,51 @@ const AccionesPanel = () => {
     <Card>
         <Card.Header>Acciones</Card.Header>
         <Card.Body>
-            <Button 
-                variant="secondary" 
-                className="me-2"
-                onClick={handleShow}
-            >
-                Nuevo Cliente Estandar
-            </Button>
-            <Button 
-                variant="secondary" 
-                className="me-2"
-            >
-                Nuevo Cliente VIP
-            </Button>
-            <Button 
-                variant="secondary" 
-                className="me-2"
-            >
-                Nuevo Cliente Grupal
-            </Button>
-            <Button 
-                variant="secondary"
-            >
-                Consultar Consumos
-            </Button>
+            <div className="accionable" >
+                <Button 
+                    variant="primary" 
+                    className="me-2"
+                    onClick={handleShow}
+                >
+                    <div className="accionable--contenido">
+                        <PersonBadge className="icon"/>
+                        <h3>Cliente Estandar</h3>
+                    </div>
+                </Button>
+            </div>
+            <div className="accionable" >
+                <Button 
+                    variant="primary" 
+                    className="me-2"
+                >
+                    <div className="accionable--contenido">
+                        <PersonBadge className="icon"/>
+                        <h3>Cliente VIP</h3>
+                    </div>
+                </Button>
+            </div>
+            <div className="accionable" >
+                <Button 
+                    variant="primary" 
+                    className="me-2"
+                >
+                    <div className="accionable--contenido">
+                        <People className="icon"/>
+                        <h3>Cliente Grupal</h3>
+                    </div>
+                </Button>
+            </div>
+            <div className="accionable" >
+                <Button 
+                    variant="success"
+                    className='me-2'
+                >
+                    <div className="accionable--contenido">
+                        <CashCoin className="icon"/>
+                        <h3>Cobrar Tarjeta</h3>
+                    </div>
+                </Button>
+            </div>
         </Card.Body>
     
         <div>

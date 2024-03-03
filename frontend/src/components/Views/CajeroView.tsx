@@ -8,23 +8,21 @@ import StatusPanel from './StatusPanel';
 const CajeroView = () => {
   return (
     <>
-      <Header />
+      <Header title='Cajero' />
       <Container fluid>
-        <Row className="mb-4">
-          <Col>
-            <TurnoPanel />
-          </Col>
-        </Row>
-
         <Row className="mb-4">
           <Col>
             <AccionesPanel />
           </Col>
+          
+          <Col>
+            <StatusPanel />
+          </Col>
         </Row>
 
         <Row className="mb-4">
           <Col>
-            <StatusPanel />
+            <TurnoPanel />
           </Col>
         </Row>
       </Container>
