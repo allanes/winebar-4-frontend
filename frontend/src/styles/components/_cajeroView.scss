@@ -1,0 +1,56 @@
+.accionable--contenido {
+    display: flex;
+    align-items: center;    
+}
+
+.accionable {
+    margin-left: 50px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.icon {
+    font-size: 80px;
+    margin-right: 20px;
+}
+
+// Assuming these are the colors from your palette
+
+.info-card {
+  background-color: $mi-yellow-light;
+  border-radius: 15px;
+  width: 230px; // Adjust as needed
+  margin: 10px auto; // Center the card with automatic horizontal margins
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Optional shadow for depth
+  border: none; // Remove the default card border
+}
+
+.info-card-body {
+  padding: 3px 3px 3px 3px; // Adjust padding as needed
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-card-count {
+  background-color: $mi-dark-red;
+  color: $mi-yellow;
+  font-size: 70px; // Adjust font size as needed
+  border-radius: 13px;
+  width: 100%; // Adjust as needed
+  height: 100px; // Adjust as needed
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px; // Space between the count and title
+  font-weight: bold;
+//   margin-top: 1px;
+}
+
+.info-card-title {
+  color: $mi-dark-red;
+  font-size: 20px; // Adjust font size as needed
+  margin: 0; // Remove any default margins
+  font-weight: bold;
+}

@@ -4,9 +4,8 @@
 /* eslint-disable */
 import type { Producto } from './Producto';
 export type Tapa = {
+    foto?: (string | null);
     id: number;
-    foto: string;
-    id_producto: number;
-    producto: Producto;    
+    producto: Producto;
 };
 

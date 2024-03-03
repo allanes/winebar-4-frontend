@@ -15,7 +15,7 @@ import Error404 from './Error404';
 export const AdminView = () => {
   return (
     <>
-      <Header />
+      <Header title='Panel de Administración' />
       <div className='mi-app back-grey'>
         <Router>
           <div className='sidebar-container'>
