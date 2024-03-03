@@ -1,5 +1,6 @@
 // StatusPanel.tsx
 import React from 'react';
+import { Card, Button } from 'react-bootstrap';
 
 const StatusPanel = () => {
   // Placeholder data - you'll fetch actual data from the backend
@@ -10,12 +11,14 @@ const StatusPanel = () => {
   };
 
   return (
-    <div>
-      <h3>Status Metrics</h3>
-      <p>Active Clients: {statusData.activeClients}</p>
-      <p>Shift Clients: {statusData.shiftClients}</p>
-      <p>Total Amount: ${statusData.totalAmount}</p>
-    </div>
+    <Card>
+        <Card.Header>Estado</Card.Header>
+        <Card.Body>
+            <p>Clientes Activos: {statusData.activeClients}</p>
+            <p>Clientes Totales: {statusData.shiftClients}</p>
+            <p>Monto cobrado: ${statusData.totalAmount}</p>
+        </Card.Body>
+    </Card>
   );
 };
 
