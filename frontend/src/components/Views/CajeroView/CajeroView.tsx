@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { Header } from '../Header/Header';
+import { Header } from '../../Header/Header';
 import TurnoPanel from './TurnoPanel';
 import AccionesPanel from './AccionesPanel';
-import StatusPanel from './StatusPanel';
+import StatusPanel from './StatusPanel/StatusPanel';
 
 const CajeroView = () => {
   return (

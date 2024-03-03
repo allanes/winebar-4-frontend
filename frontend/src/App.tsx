@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavBar } from './components/NavBar/NavNar';
 import { Header } from './components/Header/Header';
 import { AdminView } from './components/Views/AdminView';
-import CajeroView from './components/Views/CajeroView';
+import CajeroView from './components/Views/CajeroView/CajeroView';
 
 const renderSwitch = (props: string) => {
   switch (props) {

@@ -1,7 +1,7 @@
 // AccionesPanel.tsx
 import React, { useState } from 'react';
 import { Button, Modal, Card } from 'react-bootstrap';
-import { ClientsContainer } from '../ClientsContainer/ClientsContainer';
+import { ClientsContainer } from '../../ClientsContainer/ClientsContainer';
 import { PersonBadge, People, CashCoin } from 'react-bootstrap-icons';
 
 const AccionesPanel = () => {
