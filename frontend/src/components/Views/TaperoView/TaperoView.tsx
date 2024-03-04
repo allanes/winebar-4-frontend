@@ -8,12 +8,41 @@ import Cart from './CarritoContainer/Cart';
 // import Cart from './Cart';
 // import { CartProvider } from './CartContext';
 import { CartProvider } from './CartContext';
+import { useState, useEffect } from 'react';
+import CardReaderModal from '../../ClientsContainer/CardReaderModal';
+import { PedidosService } from '../../../../codegen_output';
 
 const TaperoView = () => {
+  const [showCardReaderModal, setShowCardReaderModal] = useState(true);
+  const [pedido, setPedido] = useState(null);
+
+  useEffect(() => {
+    if (pedido === null) {
+      setShowCardReaderModal(true);
+    }
+  }, [pedido]);
+
+  const handleCardRead = (tarjetaId: string) => {
+    PedidosService.handleAbrirPedidoBackendApiV1PedidosAbrirPost(parseInt(tarjetaId))
+      .then((response) => {
+        setPedido(response);
+        setShowCardReaderModal(false);
+      })
+      .catch((error) => {
+        console.error('Error opening order:', error);
+        // Optionally, handle error (e.g., show error message)
+      });
+  };
+
   return (
     <CartProvider>
     <>
       <Header title='Atención de Clientes' />
+      <CardReaderModal
+        show={showCardReaderModal}
+        onHide={() => setShowCardReaderModal(false)}
+        onCardRead={handleCardRead}
+      />
       <Container fluid className='main'>
         <TaperoHeader />
         <MenuList />
