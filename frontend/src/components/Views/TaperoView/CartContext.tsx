@@ -4,11 +4,14 @@ import { Renglon } from '../../../../codegen_output';
 interface CartContextType {
   cartItems: Renglon[];
   addToCart: (item: Renglon) => void;
+  removeFromCart: (id: number) => void;
+  updateQuantityInCart: (id: number, quantity: number) => void;
 }
 
+export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const CartProvider: React.FC = ({ children }) => {
+export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
   const [cartItems, setCartItems] = useState<Renglon[]>([]);
 
   const addToCart = (newItem: Renglon) => {
@@ -18,6 +21,14 @@ export const CartProvider: React.FC = ({ children }) => {
     } else {
       setCartItems([...cartItems, newItem]);
     }
+  };
+
+  const removeFromCart = (id: number) => {
+    setCartItems(cartItems.filter(item => item.id !== id));
+  };
+
+  const updateQuantityInCart = (id: number, quantity: number) => {
+    setCartItems(cartItems.map(item => item.id === id ? { ...item, cantidad: quantity } : item));
   };
 
   return (

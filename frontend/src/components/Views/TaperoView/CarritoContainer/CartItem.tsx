@@ -3,13 +3,10 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { Tapa } from '../../../../codegen_output';
 import { PlusCircle, DashCircle, XCircle } from 'react-bootstrap-icons';
-
-interface ItemCarrito extends Tapa {
-  qty: number;
-}
+import { Renglon } from '../../../../codegen_output';
 
 interface Props {
-  item: ItemCarrito
+  item: Renglon
 }
 import { useCart } from '../CartContext';
 
@@ -36,12 +33,14 @@ function CartItem({ item }: Props) {
     <Card className="cart-item" key={item.id}>
       <Card.Body className="d-flex justify-content-between">
         <div>
-          <Card.Title>{item.producto.titulo}</Card.Title>
+          // Assuming you have a way to get the product's title, replace `item.producto.titulo` with the correct property or method
+          <Card.Title>{/* item.producto.titulo */}</Card.Title>
           <Card.Text>
-            Subtot. ${(item.producto.precio * item.qty).toFixed(2)}
+            // Assuming you have a way to get the product's price, replace `item.producto.precio` with the correct property or method
+            Subtot. ${(/* item.producto.precio */ * item.cantidad).toFixed(2)}
           </Card.Text>
           <Card.Text>
-            Cantidad: {item.qty || 1}
+            Cantidad: {item.cantidad}
           </Card.Text>
         </div>
         <div className="cart-item-buttons">
