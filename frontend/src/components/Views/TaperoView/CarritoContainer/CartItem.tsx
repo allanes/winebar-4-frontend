@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import { Tapa } from '../../../../codegen_output';
 import { PlusCircle, DashCircle, XCircle } from 'react-bootstrap-icons';
 import { Renglon } from '../../../../codegen_output';
+import { useCart } from '../CartContext';
 
 interface Props {
   item: Renglon
