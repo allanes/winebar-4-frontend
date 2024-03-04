@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useState } from 'react';
 import { Renglon } from '../../../codegen_output';
-import { Renglon } from '../../../codegen_output';
 const CartContext = createContext<CartContextType | null>(null);
 
 interface CartContextType {
   cartItems: Renglon[];
   addToCart: (item: Renglon) => void;
+  removeFromCart: (id: number) => void;
+  updateQuantityInCart: (id: number, quantity: number) => void;
   removeFromCart: (id: number) => void;
   updateQuantityInCart: (id: number, quantity: number) => void;
 }
@@ -31,7 +32,7 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantityInCart }}>
       {children}
     </CartContext.Provider>
   );

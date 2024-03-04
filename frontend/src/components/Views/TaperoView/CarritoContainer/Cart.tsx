@@ -5,12 +5,12 @@ import { Row, Col } from 'react-bootstrap';
 import { useCart } from '../CartContext';
 
 function Cart() {
-  const { cartItems } = useCart();
+  const { cartItems } = useCart()!;
 
   return (
     <Row className="cart ">
       <Col md={6} className="cart-items separador-principal">
-        {cartItems.map((item) => (
+        {cartItems.map((item: Renglon) => (
           <CartItem key={item.id} item={item} />
         ))}
       </Col>

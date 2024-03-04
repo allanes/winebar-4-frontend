@@ -10,7 +10,7 @@ import { useCart } from '../CartContext';
 import { PedidosService, RenglonCreate } from '../../../../codegen_output';
 
 function MenuItem({ tapa }: Props) {
-  const { addToCart } = useCart();
+  const { addToCart } = useCart()!;
 
   const handleAddToCart = () => {
     const renglonCreate: RenglonCreate = {

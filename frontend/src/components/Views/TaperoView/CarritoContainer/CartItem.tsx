@@ -3,12 +3,10 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { PlusCircle, DashCircle, XCircle } from 'react-bootstrap-icons';
 import { Renglon } from '../../../../codegen_output';
-import { useCart } from '../CartContext';
 
 interface Props {
   item: Renglon
 }
-import { useCart } from '../CartContext';
 
 function CartItem({ item }: Props) {
   const { removeFromCart, updateQuantityInCart } = useCart();
