@@ -3,9 +3,17 @@ import CartItem from './CartItem';
 // import CartSummary from './CartSummary';
 import { Row, Col } from 'react-bootstrap';
 import { useCart } from '../CartContext';
+import { Renglon } from '../../../../codegen_output';
 
 function Cart() {
-  const { cartItems } = useCart()!;
+  const context = useCart();
+  
+  if (!context) {
+    // Handle the case where context is null, perhaps return a loading spinner or a message
+    return <div>Loading...</div>;
+  }
+
+  const { cartItems } = context;
 
   return (
     <Row className="cart ">

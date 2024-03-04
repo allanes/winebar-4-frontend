@@ -1,19 +1,19 @@
 import React, { createContext, useContext, useState } from 'react';
 import { Renglon } from '../../../codegen_output';
-const CartContext = createContext<CartContextType | null>(null);
+
 
 interface CartContextType {
   cartItems: Renglon[];
-  addToCart: (item: Renglon) => void;
-  removeFromCart: (id: number) => void;
-  updateQuantityInCart: (id: number, quantity: number) => void;
+  addToCart: (newItem: Renglon) => void;
   removeFromCart: (id: number) => void;
   updateQuantityInCart: (id: number, quantity: number) => void;
 }
 
+const CartContext = createContext<CartContextType | null>(null);
+
 export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
   const [cartItems, setCartItems] = useState<Renglon[]>([]);
-
+  
   const addToCart = (newItem: Renglon) => {
     const existingItem = cartItems.find(item => item.id === newItem.id);
     if (existingItem) {

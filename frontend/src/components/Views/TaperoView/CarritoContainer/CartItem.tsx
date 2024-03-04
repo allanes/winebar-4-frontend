@@ -3,13 +3,22 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { PlusCircle, DashCircle, XCircle } from 'react-bootstrap-icons';
 import { Renglon } from '../../../../codegen_output';
+import { useCart } from '../CartContext';
 
 interface Props {
-  item: Renglon
+  item: Renglon;
 }
 
 function CartItem({ item }: Props) {
-  const { removeFromCart, updateQuantityInCart } = useCart();
+  const context = useCart();
+
+  if (!context) {
+    // Handle the case where context is null, perhaps return a loading spinner or a message
+    return <div>Loading...</div>;
+  }
+
+  // Destructure the needed functions from context
+  const { removeFromCart, updateQuantityInCart } = context;
 
   const handleRemoveFromCart = () => {
     removeFromCart(item.id);
@@ -31,11 +40,9 @@ function CartItem({ item }: Props) {
     <Card className="cart-item" key={item.id}>
       <Card.Body className="d-flex justify-content-between">
         <div>
-          {/* // Assuming you have a way to get the product's title, replace `item.producto.titulo` with the correct property or method */}
-          <Card.Title>{/* item.producto.titulo */}</Card.Title>
+          <Card.Title>{/* Title from item */}</Card.Title>
           <Card.Text>
-            {/* // Assuming you have a way to get the product's price, replace `item.producto.precio` with the correct property or method */}
-            ${(item.monto).toFixed(2)}
+            ${item.monto.toFixed(2)}
           </Card.Text>
           <Card.Text>
             Cantidad: {item.cantidad}
