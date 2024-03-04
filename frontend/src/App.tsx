@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavBar } from './components/NavBar/NavNar';
-import { Header } from './components/Header/Header';
 import { AdminView } from './components/Views/AdminView';
 import CajeroView from './components/Views/CajeroView/CajeroView';
+import TaperoView from './components/Views/TaperoView/TaperoView';
 
 const renderSwitch = (props: string) => {
   switch (props) {
     case 'taperosView':
-      return <AdminView />;
+      return <TaperoView />;
     case 'cajerosView':
       return <CajeroView />;
     default:
