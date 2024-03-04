@@ -1,26 +1,25 @@
 import React, { useContext } from 'react';
-import { Tapa } from '../../../codegen_output';
-import { CartContext } from './CartContext';
+import { Tapa } from '../../../../codegen_output';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 interface Props {
-  product: Tapa
+  tapa: Tapa
 }
 
-function MenuItem({ product }: Props) {
-  const { addToCart } = useContext(CartContext);
+function MenuItem({ tapa }: Props) {
+  // const { addToCart } = useContext(CartContext);
 
   const handleAddToCart = () => {
-    addToCart(product);
+    // addToCart(product);
   };
 
   return (
-    <Card className="product-item" id={product.id}>
+    <Card className="product-item" id={`${tapa.id}`}>
       <Card.Body>
-        <Card.Title>{product.nombre}</Card.Title>
+        <Card.Title>{tapa.producto.titulo}</Card.Title>
         <Card.Text>
-          Precio: ${product.precio} 
+          ${tapa.producto.precio} 
         </Card.Text>
         <Button variant="primary" onClick={handleAddToCart}>Agregar</Button>
       </Card.Body>

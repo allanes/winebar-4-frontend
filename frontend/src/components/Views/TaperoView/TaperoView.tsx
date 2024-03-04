@@ -1,23 +1,22 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Header } from '../../Header/Header';
-import MenuList from './MenuList';
+import TaperoHeader from './TaperoHeader';
+import MenuList from './MenuContainer/MenuList';
+import Cart from './CarritoContainer/Cart';
 // import FooterBanner from './Footer';
 // import Cart from './Cart';
-import { CartProvider } from './CartContext';
+// import { CartProvider } from './CartContext';
 
 const TaperoView = () => {
   return (
     <>
       <Header title='Atención de Clientes' />
-      {/* <Container fluid> */}
       <Container fluid className='main'>
-        <CartProvider>
-            <Header />
-            <MenuList />
-            {/* <Cart /> */}
-            {/* <FooterBanner /> */}
-        </CartProvider>
+        <TaperoHeader />
+        <MenuList />
+        <Cart />
+        {/* <FooterBanner /> */}
       </Container>
     </>
   );

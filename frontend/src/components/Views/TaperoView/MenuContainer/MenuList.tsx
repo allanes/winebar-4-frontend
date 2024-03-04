@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Tapa, TapasService, ApiError } from '../../../codegen_output';
+import { Tapa, TapasService, ApiError } from '../../../../codegen_output';
 import MenuItem from './MenuItem';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -33,9 +33,9 @@ function MenuList() {
   return (
     <Container className="menu-list">
       <Row className="separador-principal" >
-        {tapasList.map((product) => (
+        {tapasList.map((tapa) => (
           <Col >
-            <MenuItem key={product.id} product={product} />
+            <MenuItem key={tapa.id} tapa={tapa} />
           </Col>
         ))}
       </Row>
