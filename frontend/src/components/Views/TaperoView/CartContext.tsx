@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { Renglon } from '../../../../codegen_output';
+import { Renglon } from '../../../codegen_output';
 
 interface CartContextType {
   cartItems: Renglon[];
@@ -7,9 +7,6 @@ interface CartContextType {
   removeFromCart: (id: number) => void;
   updateQuantityInCart: (id: number, quantity: number) => void;
 }
-
-export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
-const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
   const [cartItems, setCartItems] = useState<Renglon[]>([]);

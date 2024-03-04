@@ -18,12 +18,12 @@ function CartItem({ item }: Props) {
   };
 
   const handleIncreaseQuantity = () => {
-    updateQuantityInCart(item.id, item.qty + 1);
+    updateQuantityInCart(item.id, item.cantidad + 1);
   };
 
   const handleDecreaseQuantity = () => {
-    if (item.qty > 1) {
-      updateQuantityInCart(item.id, item.qty - 1);
+    if (item.cantidad > 1) {
+      updateQuantityInCart(item.id, item.cantidad - 1);
     } else {
       removeFromCart(item.id);
     }
@@ -33,11 +33,11 @@ function CartItem({ item }: Props) {
     <Card className="cart-item" key={item.id}>
       <Card.Body className="d-flex justify-content-between">
         <div>
-          // Assuming you have a way to get the product's title, replace `item.producto.titulo` with the correct property or method
+          {/* // Assuming you have a way to get the product's title, replace `item.producto.titulo` with the correct property or method */}
           <Card.Title>{/* item.producto.titulo */}</Card.Title>
           <Card.Text>
-            // Assuming you have a way to get the product's price, replace `item.producto.precio` with the correct property or method
-            Subtot. ${(/* item.producto.precio */ * item.cantidad).toFixed(2)}
+            {/* // Assuming you have a way to get the product's price, replace `item.producto.precio` with the correct property or method */}
+            ${(item.monto).toFixed(2)}
           </Card.Text>
           <Card.Text>
             Cantidad: {item.cantidad}
