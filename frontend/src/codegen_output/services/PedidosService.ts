@@ -74,6 +74,26 @@ export class PedidosService {
         });
     }
     /**
+     * Handle Abrir Pedido
+     * @param tarjetaCliente
+     * @returns Pedido Successful Response
+     * @throws ApiError
+     */
+    public static handleAbrirPedidoBackendApiV1PedidosAbrirPost(
+        tarjetaCliente: number,
+    ): CancelablePromise<Pedido> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/backend/api/v1/pedidos/abrir',
+            query: {
+                'tarjeta_cliente': tarjetaCliente,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Handle Agregar Producto
      * @param tarjetaCliente
      * @param requestBody
