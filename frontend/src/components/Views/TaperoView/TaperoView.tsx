@@ -10,11 +10,11 @@ import Cart from './CarritoContainer/Cart';
 import { CartProvider } from './CartContext';
 import { useState, useEffect } from 'react';
 import CardReaderModal from '../../ClientsContainer/CardReaderModal';
-import { PedidosService } from '../../../../codegen_output';
+import { Pedido, PedidosService } from '../../../codegen_output';
 
 const TaperoView = () => {
   const [showCardReaderModal, setShowCardReaderModal] = useState(true);
-  const [pedido, setPedido] = useState(null);
+  const [pedido, setPedido] = useState<Pedido>();
 
   useEffect(() => {
     if (pedido === null) {
