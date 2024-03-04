@@ -11,23 +11,24 @@ interface ItemCarrito extends Tapa {
 interface Props {
   item: ItemCarrito
 }
+import { useCart } from '../CartContext';
 
 function CartItem({ item }: Props) {
-  // const { removeFromCart, updateQuantityInCart } = useContext(CartContext);
+  const { removeFromCart, updateQuantityInCart } = useCart();
 
   const handleRemoveFromCart = () => {
-    // removeFromCart(item.id);
+    removeFromCart(item.id);
   };
 
   const handleIncreaseQuantity = () => {
-    // updateQuantityInCart(item.id, item.qty + 1);
+    updateQuantityInCart(item.id, item.qty + 1);
   };
 
   const handleDecreaseQuantity = () => {
     if (item.qty > 1) {
-      // updateQuantityInCart(item.id, item.qty - 1);
+      updateQuantityInCart(item.id, item.qty - 1);
     } else {
-      // removeFromCart(item.id);
+      removeFromCart(item.id);
     }
   };
 

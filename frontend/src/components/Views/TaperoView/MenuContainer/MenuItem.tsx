@@ -6,12 +6,22 @@ import Button from 'react-bootstrap/Button';
 interface Props {
   tapa: Tapa
 }
+import { useCart } from '../CartContext';
+import { PedidosService, RenglonCreate } from '../../../../codegen_output';
 
 function MenuItem({ tapa }: Props) {
-  // const { addToCart } = useContext(CartContext);
+  const { addToCart } = useCart();
 
   const handleAddToCart = () => {
-    // addToCart(product);
+    const renglonCreate: RenglonCreate = {
+      cantidad: 1,
+      producto_id: tapa.producto.id,
+    };
+    PedidosService.handleAgregarProductoBackendApiV1PedidosAgregarProductoPost(tapa.id, renglonCreate)
+      .then((renglon) => {
+        addToCart(renglon);
+      })
+      .catch((error) => console.error('Error adding item to cart:', error));
   };
 
   return (
