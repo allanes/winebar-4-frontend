@@ -1,23 +1,22 @@
 import React, { useContext } from 'react';
-import { Tapa } from '../../../../codegen_output';
+import { Tapa, PedidosService, RenglonCreate } from '../../../../codegen_output';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import { useCart } from '../CartContext';
 
 interface Props {
   tapa: Tapa
 }
-import { useCart } from '../CartContext';
-import { PedidosService, RenglonCreate } from '../../../../codegen_output';
 
 function MenuItem({ tapa }: Props) {
-  const { addToCart } = useCart()!;
+  const { tarjetaCliente, addToCart } = useCart()!;
 
   const handleAddToCart = () => {
     const renglonCreate: RenglonCreate = {
       cantidad: 1,
       producto_id: tapa.producto.id,
     };
-    PedidosService.handleAgregarProductoBackendApiV1PedidosAgregarProductoPost(tapa.id, renglonCreate)
+    PedidosService.handleAgregarProductoBackendApiV1PedidosAgregarProductoPost(parseInt(tarjetaCliente), renglonCreate)
       .then((renglon) => {
         addToCart(renglon);
       })

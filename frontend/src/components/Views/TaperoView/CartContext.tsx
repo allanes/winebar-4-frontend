@@ -4,15 +4,19 @@ import { Renglon } from '../../../codegen_output';
 
 interface CartContextType {
   cartItems: Renglon[];
+  tarjetaCliente: string;
+  setTarjetaCliente: (id: string) => void;  // Add this line
   addToCart: (newItem: Renglon) => void;
   removeFromCart: (id: number) => void;
   updateQuantityInCart: (id: number, quantity: number) => void;
+  emptyCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | null>(null);
 
 export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
   const [cartItems, setCartItems] = useState<Renglon[]>([]);
+  const [tarjetaCliente, setTarjetaCliente] = useState<string>('');
   
   const addToCart = (newItem: Renglon) => {
     const existingItem = cartItems.find(item => item.id === newItem.id);
@@ -31,8 +35,12 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
     setCartItems(cartItems.map(item => item.id === id ? { ...item, cantidad: quantity } : item));
   };
 
+  const emptyCart = () => {
+    setCartItems([]);
+  }
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantityInCart }}>
+    <CartContext.Provider value={{ cartItems, tarjetaCliente, setTarjetaCliente, addToCart, removeFromCart, updateQuantityInCart, emptyCart }}>
       {children}
     </CartContext.Provider>
   );

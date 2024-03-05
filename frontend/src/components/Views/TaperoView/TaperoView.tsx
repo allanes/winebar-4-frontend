@@ -1,28 +1,32 @@
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Container } from 'react-bootstrap';
 import { Header } from '../../Header/Header';
 import TaperoHeader from './TaperoHeader';
 import MenuList from './MenuContainer/MenuList';
 import Cart from './CarritoContainer/Cart';
-// import FooterBanner from './Footer';
-// import Cart from './Cart';
-// import { CartProvider } from './CartContext';
-import { CartProvider } from './CartContext';
-import { useState, useEffect } from 'react';
+import { CartProvider, useCart } from './CartContext';
 import CardReaderModal from '../../ClientsContainer/CardReaderModal';
 import { Pedido, PedidosService } from '../../../codegen_output';
 
-const TaperoView = () => {
+const TaperoViewContent = () => {
   const [showCardReaderModal, setShowCardReaderModal] = useState(true);
-  const [pedido, setPedido] = useState<Pedido>();
+  const [pedido, setPedido] = useState<Pedido | null>(null);
 
   useEffect(() => {
-    if (pedido === null) {
+    if (!pedido) {
       setShowCardReaderModal(true);
     }
   }, [pedido]);
 
+  const context = useCart();
+  if (!context) {
+    console.error('Cart context is not available.');
+    return null;  // Or handle this case as you see fit
+  }
+  const { setTarjetaCliente } = context;  
+
   const handleCardRead = (tarjetaId: string) => {
+    setTarjetaCliente(tarjetaId);
     PedidosService.handleAbrirPedidoBackendApiV1PedidosAbrirPost(parseInt(tarjetaId))
       .then((response) => {
         setPedido(response);
@@ -35,9 +39,7 @@ const TaperoView = () => {
   };
 
   return (
-    <CartProvider>
     <>
-      <Header title='Atención de Clientes' />
       <CardReaderModal
         show={showCardReaderModal}
         onHide={() => setShowCardReaderModal(false)}
@@ -50,8 +52,16 @@ const TaperoView = () => {
         {/* <FooterBanner /> */}
       </Container>
     </>
+  );
+};
+
+const TaperoView = () => {
+  return (
+    <CartProvider>
+      <Header title='Atención de Clientes' />
+      <TaperoViewContent />
     </CartProvider>
   );
-}
+};
 
 export default TaperoView;

@@ -1,9 +1,7 @@
 import React, { useContext } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-// import { CartContext } from './CartContext';
 
-function TaperoHeader() {
-  // const { cartItems } = useContext(CartContext);
+function TaperoHeader() {    
 
   return (
     <Navbar bg="light" expand="lg">
