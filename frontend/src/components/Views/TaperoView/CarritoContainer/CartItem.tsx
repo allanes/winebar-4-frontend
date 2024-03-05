@@ -49,9 +49,9 @@ function CartItem({ item }: Props) {
           </Card.Text>
         </div>
         <div className="cart-item-buttons">
-          <Button variant="danger" onClick={handleRemoveFromCart} className="cart-item-button" size="lg"><XCircle /></Button>
           <Button variant="primary" onClick={handleIncreaseQuantity} className="cart-item-button" size="lg"><PlusCircle /></Button>
           <Button variant="primary" onClick={handleDecreaseQuantity} className="cart-item-button" size="lg"><DashCircle /></Button>
+          <Button variant="danger" onClick={handleRemoveFromCart} className="cart-item-button" size="lg"><XCircle /></Button>
         </div>
       </Card.Body>
     </Card>

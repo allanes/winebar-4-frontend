@@ -4,6 +4,7 @@ import CartItem from './CartItem';
 import { Row, Col } from 'react-bootstrap';
 import { useCart } from '../CartContext';
 import { Renglon } from '../../../../codegen_output';
+import CartSummaryContainer from '../SummaryContainer/CartSummaryContainer';
 
 function Cart() {
   const context = useCart();
@@ -23,7 +24,7 @@ function Cart() {
         ))}
       </Col>
       <Col md={6} className="cart-summary">
-        {/* <CartSummary /> */}
+        <CartSummaryContainer />
       </Col>
     </Row>
   );

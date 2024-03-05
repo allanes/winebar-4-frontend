@@ -6,7 +6,7 @@ import MenuList from './MenuContainer/MenuList';
 import Cart from './CarritoContainer/Cart';
 import { CartProvider, useCart } from './CartContext';
 import CardReaderModal from '../../ClientsContainer/CardReaderModal';
-import { Pedido, PedidosService } from '../../../codegen_output';
+import { Pedido, PedidosService, ClientesService, OrdenesService } from '../../../codegen_output';
 
 const TaperoViewContent = () => {
   const [showCardReaderModal, setShowCardReaderModal] = useState(true);
@@ -23,19 +23,27 @@ const TaperoViewContent = () => {
     console.error('Cart context is not available.');
     return null;  // Or handle this case as you see fit
   }
-  const { setTarjetaCliente } = context;  
+  const { setClienteData } = context;  
 
   const handleCardRead = (tarjetaId: string) => {
-    setTarjetaCliente(tarjetaId);
-    PedidosService.handleAbrirPedidoBackendApiV1PedidosAbrirPost(parseInt(tarjetaId))
-      .then((response) => {
-        setPedido(response);
-        setShowCardReaderModal(false);
+    ClientesService.handleReadClienteByTarjetaIdBackendApiV1ClientesConTarjetaTarjetaIdGet(parseInt(tarjetaId))
+      .then ((clienteResponse) => {
+        OrdenesService.handleReadOrdenByClientRfidBackendApiV1OrdenesByRfidTarjetaIdGet(parseInt(tarjetaId))
+          .then((ordenResponse) => {
+            PedidosService.handleAbrirPedidoBackendApiV1PedidosAbrirPost(parseInt(tarjetaId))
+              .then((pedidosResponse) => {
+                // Local variables
+                setPedido(pedidosResponse);
+                // CartProvider variables
+                setClienteData(clienteResponse, ordenResponse, pedidosResponse);
+                setShowCardReaderModal(false);
+              })
+              .catch((error) => {
+                console.error('Error opening order:', error);
+                // Optionally, handle error (e.g., show error message)
+              });
+          })
       })
-      .catch((error) => {
-        console.error('Error opening order:', error);
-        // Optionally, handle error (e.g., show error message)
-      });
   };
 
   return (

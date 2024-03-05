@@ -10,13 +10,16 @@ interface Props {
 
 function MenuItem({ tapa }: Props) {
   const { tarjetaCliente, addToCart } = useCart()!;
+  if (!tarjetaCliente) {
+    return <></>
+  }
 
   const handleAddToCart = () => {
     const renglonCreate: RenglonCreate = {
       cantidad: 1,
       producto_id: tapa.producto.id,
     };
-    PedidosService.handleAgregarProductoBackendApiV1PedidosAgregarProductoPost(parseInt(tarjetaCliente), renglonCreate)
+    PedidosService.handleAgregarProductoBackendApiV1PedidosAgregarProductoPost(tarjetaCliente, renglonCreate)
       .then((renglon) => {
         addToCart(renglon);
       })
