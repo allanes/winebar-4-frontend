@@ -6,7 +6,8 @@ import MenuList from './MenuContainer/MenuList';
 import Cart from './CarritoContainer/Cart';
 import { CartProvider, useCart } from './CartContext';
 import CardReaderModal from '../../ClientsContainer/CardReaderModal';
-import { Pedido, PedidosService, ClientesService, OrdenesService } from '../../../codegen_output';
+import { Pedido, PedidosService, ClientesService, OrdenesService, ApiError } from '../../../codegen_output';
+import Swal from 'sweetalert2';
 
 const TaperoViewContent = () => {
   const [showCardReaderModal, setShowCardReaderModal] = useState(true);
@@ -17,6 +18,25 @@ const TaperoViewContent = () => {
       setShowCardReaderModal(true);
     }
   }, [pedido]);
+
+  const handleApiErrorCustom = (error: unknown) => {
+    const err = error as ApiError;
+    let errorMessage = 'Ocurrió un error.';
+    if (err.body && err.body.detail) {
+      errorMessage = err.body.detail;
+    }
+
+    Swal.fire({
+      title: 'Error',
+      text: errorMessage,
+      icon: 'error',
+      allowOutsideClick: false,
+      allowEnterKey: false,
+      showConfirmButton: false,
+      timer: 2300, // Auto close after 5 seconds
+      didClose: () => setShowCardReaderModal(true) // Re-show the card reader modal after the alert closes
+    });
+  };
 
   const context = useCart();
   if (!context) {
@@ -38,12 +58,11 @@ const TaperoViewContent = () => {
                 setClienteData(clienteResponse, ordenResponse, pedidosResponse);
                 setShowCardReaderModal(false);
               })
-              .catch((error) => {
-                console.error('Error opening order:', error);
-                // Optionally, handle error (e.g., show error message)
-              });
+              .catch(handleApiErrorCustom);
           })
+          .catch(handleApiErrorCustom);
       })
+      .catch(handleApiErrorCustom);
   };
 
   return (
