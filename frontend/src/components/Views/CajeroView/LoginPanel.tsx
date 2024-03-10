@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Form } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
+import CardReaderModal from '../../ClientsContainer/CardReaderModal';
 import { LoginService } from '../../../codegen_output/services/LoginService';
 
 const LoginPanel = () => {
@@ -23,10 +25,19 @@ const LoginPanel = () => {
     return (
         <Card>
             <Card.Body>
-                <Button onClick={handleLogin}>Login with RFID</Button>
+    const [rfid, setRfid] = useState('');
+    const [showCardReader, setShowCardReader] = useState(false);
+
+                <Button onClick={() => setShowCardReader(true)}>Login with RFID</Button>
+            <CardReaderModal show={showCardReader} onHide={() => setShowCardReader(false)} onCardRead={handleCardRead} title="Login RFID" />
             </Card.Body>
         </Card>
     );
+
+    const handleCardRead = (cardId: string) => {
+        setRfid(cardId);
+        handleLogin();
+    };
 };
 
 export default LoginPanel;
