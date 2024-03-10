@@ -4,6 +4,7 @@ import { Header } from '../../Header/Header';
 import TurnoPanel from './TurnoPanel';
 import AccionesPanel from './AccionesPanel';
 import StatusPanel from './StatusPanel/StatusPanel';
+import LoginPanel from './LoginPanel';
 
 const CajeroView = () => {
   return (
@@ -12,9 +13,15 @@ const CajeroView = () => {
       <Container fluid>
         <Row className="mb-4">
           <Col>
+            <LoginPanel />
+          </Col>
+        </Row>
+        <Row className="mb-4">
+          <Col>
             <AccionesPanel />
           </Col>
           
+
           <Col>
             <StatusPanel />
           </Col>
