@@ -10,10 +10,12 @@ const LoginPanel = () => {
     const handleLogin = async () => {
         try {
             // Simulate reading RFID from card reader
-            const formData = new FormData();
-            formData.append('username', rfid); // Assuming 'username' field can be used for RFID
-            formData.append('password', ''); // Assuming password is not needed for RFID login
-            const response = await LoginService.loginBackendApiV1LoginAccessTokenPost(formData, true);
+            // Correctly construct the object expected by the login method
+            const loginData: Body_login_backend_api_v1_login_access_token_post = {
+                username: rfid, // Assuming 'username' field can be used for RFID
+                password: '', // Assuming password is not needed for RFID login
+            };
+            const response = await LoginService.loginBackendApiV1LoginAccessTokenPost(loginData, true);
             console.log('Login successful', response);
             // Proceed with login success actions
         } catch (error) {
