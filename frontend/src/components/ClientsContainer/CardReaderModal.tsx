@@ -8,7 +8,7 @@ interface CardReaderModalProps {
   onCardRead: (tarjetaId: string) => void;
 }
 
-const CardReaderModal: React.FC<CardReaderModalProps> = ({ show, onHide, onCardRead }) => {
+const CardReaderModal: React.FC<CardReaderModalProps> = ({ show, onHide, title, onCardRead }) => {
   const [cardNumber, setCardNumber] = useState('');
 
   useEffect(() => {

@@ -1,44 +1,81 @@
-import React, { useState } from 'react';
-import { Card, Button, Form } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
 import CardReaderModal from '../../ClientsContainer/CardReaderModal';
-import { LoginService } from '../../../codegen_output/services/LoginService';
+import { Token, LoginService, Body_login_backend_api_v1_login_access_token_post, ApiError } from '../../../codegen_output';
+import Swal from 'sweetalert2';
 
-const LoginPanel = () => {
-    const [rfid, setRfid] = useState('');
-    const [showCardReader, setShowCardReader] = useState(false);
+interface LoginPanelProps {
+  onLoginSuccess: (token: Token) => void;
+}
 
-    const handleLogin = async () => {
-        try {
-            // Simulate reading RFID from card reader
-            // Correctly construct the object expected by the login method
-            const loginData: Body_login_backend_api_v1_login_access_token_post = {
-                username: rfid, // Assuming 'username' field can be used for RFID
-                password: '', // Assuming password is not needed for RFID login
-            };
-            const response = await LoginService.loginBackendApiV1LoginAccessTokenPost(loginData, true);
-            console.log('Login successful', response);
-            // Proceed with login success actions
-        } catch (error) {
-            console.error('Login failed', error);
-            // Handle login failure
-        }
-    };
-    
-    const handleCardRead = (cardId: string) => {
-        setRfid(cardId);
-        handleLogin();
-    };
+const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
+  const [rfid, setRfid] = useState('');
+  const [password, setPassword] = useState('');
+  const [showCardReader, setShowCardReader] = useState(true);
 
-    return (
-        <Card>
-            <Card.Body>
-                <Button onClick={() => setShowCardReader(true)}>Login with RFID</Button>
-                <CardReaderModal show={showCardReader} onHide={() => setShowCardReader(false)} onCardRead={handleCardRead} title="Login RFID" />
-            </Card.Body>
-        </Card>
-    );
+  useEffect(() => {
+    fetchPassword(false);
+  }, []);
 
-    
+  useEffect(() => {
+    if (rfid) {
+      console.log('Tarjeta configurada: ' + rfid);
+      handleLogin();
+    }
+  }, [rfid]); // This useEffect runs when 'rfid' changes.
+
+  const fetchPassword = async (raise_exc = true) => {
+    try {
+      const response = await fetch('http://localhost:3001/getPassword');
+      const data = await response.json();
+      setPassword(data.api_key);
+    } catch (error) {
+      console.error('Failed to fetch password', error);
+      if (raise_exc === true) {
+        handleApiError(error);
+      }
+    }
+  };
+
+  const handleApiError = (error: unknown) => {
+    const err = error as ApiError;
+    let errorMessage = 'Ocurrió un error.';
+    if (err.body && err.body.detail) {
+      errorMessage = err.body.detail;
+    }
+    Swal.fire('Error', errorMessage, 'error');
+  };
+
+  const handleLogin = async () => {
+    if (!password || !rfid) {
+      console.error('Login failed: Missing RFID or password');
+      return;
+    }
+
+    try {
+      const loginData: Body_login_backend_api_v1_login_access_token_post = {
+        username: rfid,
+        password: password,
+      };
+      const response = await LoginService.loginBackendApiV1LoginAccessTokenPost(loginData);
+      onLoginSuccess(response); // Assuming the token is in response.data
+    } catch (error) {
+      console.error('Login failed', error);
+      handleApiError(error);
+    }
+};
+
+  const handleCardRead = (cardId: string) => {
+    setRfid(cardId); // This will trigger the useEffect above
+  };
+
+  return (
+    <CardReaderModal 
+        show={showCardReader} 
+        onHide={() => setShowCardReader(false)} 
+        onCardRead={handleCardRead} 
+        title="Login RFID" 
+    />
+  );
 };
 
 export default LoginPanel;
