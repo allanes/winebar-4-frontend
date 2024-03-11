@@ -12,19 +12,19 @@ export class LoginService {
     /**
      * Login
      * @param formData
-     * @param conTarjeta
+     * @param usarApiKey
      * @returns Token Successful Response
      * @throws ApiError
      */
     public static loginBackendApiV1LoginAccessTokenPost(
         formData: Body_login_backend_api_v1_login_access_token_post,
-        conTarjeta: boolean = true,
+        usarApiKey: boolean = true,
     ): CancelablePromise<Token> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/backend/api/v1/login/access-token',
             query: {
-                'con_tarjeta': conTarjeta,
+                'usar_api_key': usarApiKey,
             },
             formData: formData,
             mediaType: 'application/x-www-form-urlencoded',
