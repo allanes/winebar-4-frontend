@@ -50,7 +50,7 @@ const CajeroView = () => {
         onLogout={handleLogout} 
       />
       <Container fluid>
-        {showLoginModal && <LoginPanel onLoginSuccess={handleLoginSuccess} />}
+        {showLoginModal && <LoginPanel onLoginSuccess={handleLoginSuccess} target='caja' />}
         {isLoggedIn && (
           <>
             <Row className="mb-4">

@@ -5,9 +5,10 @@ import Swal from 'sweetalert2';
 
 interface LoginPanelProps {
   onLoginSuccess: (token: Token) => void;
+  target: string;
 }
 
-const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
+const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess, target }) => {
   const [rfid, setRfid] = useState('');
   const [password, setPassword] = useState('');
   const [showCardReader, setShowCardReader] = useState(true);
@@ -25,7 +26,7 @@ const LoginPanel: React.FC<LoginPanelProps> = ({ onLoginSuccess }) => {
 
   const fetchPassword = async (raise_exc = true) => {
     try {
-      const response = await fetch('http://localhost:3001/getPassword');
+      const response = await fetch(`http://localhost:3001/getPassword/${target}`);
       const data = await response.json();
       setPassword(data.api_key);
     } catch (error) {
