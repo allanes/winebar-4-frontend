@@ -20,13 +20,5 @@ export const $PersonalInternoUpdate = {
                 type: 'null',
             }],
         },
-        contra_sin_hash: {
-            type: 'any-of',
-            contains: [{
-                type: 'string',
-            }, {
-                type: 'null',
-            }],
-        },
     },
 } as const;

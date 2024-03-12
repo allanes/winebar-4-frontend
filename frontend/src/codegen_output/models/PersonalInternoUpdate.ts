@@ -5,6 +5,5 @@
 export type PersonalInternoUpdate = {
     nombre?: (string | null);
     apellido?: (string | null);
-    contra_sin_hash?: (string | null);
 };
 

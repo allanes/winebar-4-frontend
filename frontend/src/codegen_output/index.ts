@@ -8,6 +8,7 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { Body_handle_create_cliente_with_tarjeta_backend_api_v1_clientes__post } from './models/Body_handle_create_cliente_with_tarjeta_backend_api_v1_clientes__post';
+export type { Body_login_backend_api_v1_login_access_token_post } from './models/Body_login_backend_api_v1_login_access_token_post';
 export type { Cliente } from './models/Cliente';
 export type { ClienteCreate } from './models/ClienteCreate';
 export type { ClienteOperaConTarjeta } from './models/ClienteOperaConTarjeta';
@@ -32,11 +33,13 @@ export type { TapaUpdate } from './models/TapaUpdate';
 export type { Tarjeta } from './models/Tarjeta';
 export type { TarjetaCreate } from './models/TarjetaCreate';
 export type { TarjetaUpdate } from './models/TarjetaUpdate';
+export type { Token } from './models/Token';
 export type { Turno } from './models/Turno';
 export type { TurnoUpdate } from './models/TurnoUpdate';
 export type { ValidationError } from './models/ValidationError';
 
 export { $Body_handle_create_cliente_with_tarjeta_backend_api_v1_clientes__post } from './schemas/$Body_handle_create_cliente_with_tarjeta_backend_api_v1_clientes__post';
+export { $Body_login_backend_api_v1_login_access_token_post } from './schemas/$Body_login_backend_api_v1_login_access_token_post';
 export { $Cliente } from './schemas/$Cliente';
 export { $ClienteCreate } from './schemas/$ClienteCreate';
 export { $ClienteOperaConTarjeta } from './schemas/$ClienteOperaConTarjeta';
@@ -61,11 +64,13 @@ export { $TapaUpdate } from './schemas/$TapaUpdate';
 export { $Tarjeta } from './schemas/$Tarjeta';
 export { $TarjetaCreate } from './schemas/$TarjetaCreate';
 export { $TarjetaUpdate } from './schemas/$TarjetaUpdate';
+export { $Token } from './schemas/$Token';
 export { $Turno } from './schemas/$Turno';
 export { $TurnoUpdate } from './schemas/$TurnoUpdate';
 export { $ValidationError } from './schemas/$ValidationError';
 
 export { ClientesService } from './services/ClientesService';
+export { LoginService } from './services/LoginService';
 export { OrdenesService } from './services/OrdenesService';
 export { PedidosService } from './services/PedidosService';
 export { PersonalInternoService } from './services/PersonalInternoService';

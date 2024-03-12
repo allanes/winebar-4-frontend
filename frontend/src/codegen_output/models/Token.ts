@@ -2,10 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type PersonalInternoCreate = {
-    id: number;
-    nombre: string;
-    apellido: string;
-    telefono?: (string | null);
+export type Token = {
+    access_token: string;
+    token_type: string;
 };
 

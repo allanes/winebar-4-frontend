@@ -11,61 +11,19 @@ import { request as __request } from '../core/request';
 export class TapasService {
     /**
      * Handle Read Tapa By Id
-     * @param tapaId
+     * @param id
      * @returns Tapa Successful Response
      * @throws ApiError
      */
-    public static handleReadTapaByIdBackendApiV1TapasTapaIdGet(
-        tapaId: number,
+    public static handleReadTapaByIdBackendApiV1TapasIdGet(
+        id: number,
     ): CancelablePromise<Tapa> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/backend/api/v1/tapas/{tapa_id}',
+            url: '/backend/api/v1/tapas/{id}',
             path: {
-                'tapa_id': tapaId,
+                'id': id,
             },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
-     * Handle Read Tapas
-     * @param skip
-     * @param limit
-     * @returns Tapa Successful Response
-     * @throws ApiError
-     */
-    public static handleReadTapasBackendApiV1TapasGet(
-        skip?: number,
-        limit: number = 100,
-    ): CancelablePromise<Array<Tapa>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/backend/api/v1/tapas/',
-            query: {
-                'skip': skip,
-                'limit': limit,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
-     * Handle Create Tapa With Tarjeta
-     * @param requestBody
-     * @returns Tapa Successful Response
-     * @throws ApiError
-     */
-    public static handleCreateTapaWithTarjetaBackendApiV1TapasPost(
-        requestBody: TapaConProductoCreate,
-    ): CancelablePromise<Tapa> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/backend/api/v1/tapas/',
-            body: requestBody,
-            mediaType: 'application/json',
             errors: {
                 422: `Validation Error`,
             },
@@ -110,6 +68,48 @@ export class TapasService {
             path: {
                 'id': id,
             },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Handle Read Tapas
+     * @param skip
+     * @param limit
+     * @returns Tapa Successful Response
+     * @throws ApiError
+     */
+    public static handleReadTapasBackendApiV1TapasGet(
+        skip?: number,
+        limit: number = 100,
+    ): CancelablePromise<Array<Tapa>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/tapas/',
+            query: {
+                'skip': skip,
+                'limit': limit,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Handle Create Tapa With Tarjeta
+     * @param requestBody
+     * @returns Tapa Successful Response
+     * @throws ApiError
+     */
+    public static handleCreateTapaWithTarjetaBackendApiV1TapasPost(
+        requestBody: TapaConProductoCreate,
+    ): CancelablePromise<Tapa> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/backend/api/v1/tapas/',
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 422: `Validation Error`,
             },

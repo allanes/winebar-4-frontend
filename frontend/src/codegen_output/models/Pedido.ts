@@ -6,10 +6,9 @@ import type { Renglon } from './Renglon';
 export type Pedido = {
     atendido_por: number;
     id: number;
-    timestamp_pedido: string;
+    timestamp_pedido: (string | null);
     cerrado: boolean;
-    promocion_aplicada: boolean;
     orden_id: number;
-    renglon: Array<Renglon>;
+    renglones: Array<Renglon>;
 };
 

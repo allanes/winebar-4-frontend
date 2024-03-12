@@ -13,15 +13,16 @@ export const $Pedido = {
             isRequired: true,
         },
         timestamp_pedido: {
-            type: 'string',
+            type: 'any-of',
+            contains: [{
+                type: 'string',
+                format: 'date-time',
+            }, {
+                type: 'null',
+            }],
             isRequired: true,
-            format: 'date-time',
         },
         cerrado: {
-            type: 'boolean',
-            isRequired: true,
-        },
-        promocion_aplicada: {
             type: 'boolean',
             isRequired: true,
         },
@@ -29,7 +30,7 @@ export const $Pedido = {
             type: 'number',
             isRequired: true,
         },
-        renglon: {
+        renglones: {
             type: 'array',
             contains: {
                 type: 'Renglon',

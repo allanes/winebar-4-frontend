@@ -4,10 +4,11 @@ import { Modal, Spinner } from 'react-bootstrap';
 interface CardReaderModalProps {
   show: boolean;
   onHide: () => void;
+  title?: string;
   onCardRead: (tarjetaId: string) => void;
 }
 
-const CardReaderModal: React.FC<CardReaderModalProps> = ({ show, onHide, onCardRead }) => {
+const CardReaderModal: React.FC<CardReaderModalProps> = ({ show, onHide, title, onCardRead }) => {
   const [cardNumber, setCardNumber] = useState('');
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const CardReaderModal: React.FC<CardReaderModalProps> = ({ show, onHide, onCardR
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Lectura de Tarjeta</Modal.Title>
+        <Modal.Title>{title || 'Lectura de Tarjeta'}</Modal.Title>
       </Modal.Header>
       <Modal.Body className="text-center">
         <p>Acerque la tarjeta al lector</p>

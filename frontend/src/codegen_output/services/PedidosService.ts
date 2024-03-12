@@ -11,26 +11,6 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class PedidosService {
     /**
-     * Handle Read Pedidos By Id
-     * @param pedidoId
-     * @returns Pedido Successful Response
-     * @throws ApiError
-     */
-    public static handleReadPedidosByIdBackendApiV1PedidosPedidoIdGet(
-        pedidoId: number,
-    ): CancelablePromise<Pedido> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/backend/api/v1/pedidos/{pedido_id}',
-            path: {
-                'pedido_id': pedidoId,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
      * Handle Read Pedido By Rfid
      * @param tarjetaId
      * @returns Pedido Successful Response
@@ -44,29 +24,6 @@ export class PedidosService {
             url: '/backend/api/v1/pedidos/by-rfid/{tarjeta_id}',
             path: {
                 'tarjeta_id': tarjetaId,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
-     * Handle Read Pedidos
-     * @param skip
-     * @param limit
-     * @returns Pedido Successful Response
-     * @throws ApiError
-     */
-    public static handleReadPedidosBackendApiV1PedidosGet(
-        skip?: number,
-        limit: number = 100,
-    ): CancelablePromise<Array<Pedido>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/backend/api/v1/pedidos/',
-            query: {
-                'skip': skip,
-                'limit': limit,
             },
             errors: {
                 422: `Validation Error`,
@@ -156,6 +113,49 @@ export class PedidosService {
             },
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Handle Read Pedidos By Id
+     * @param id
+     * @returns Pedido Successful Response
+     * @throws ApiError
+     */
+    public static handleReadPedidosByIdBackendApiV1PedidosIdGet(
+        id: number,
+    ): CancelablePromise<Pedido> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/pedidos/{id}',
+            path: {
+                'id': id,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Handle Read Pedidos
+     * @param skip
+     * @param limit
+     * @returns Pedido Successful Response
+     * @throws ApiError
+     */
+    public static handleReadPedidosBackendApiV1PedidosGet(
+        skip?: number,
+        limit: number = 100,
+    ): CancelablePromise<Array<Pedido>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/pedidos/',
+            query: {
+                'skip': skip,
+                'limit': limit,
+            },
             errors: {
                 422: `Validation Error`,
             },

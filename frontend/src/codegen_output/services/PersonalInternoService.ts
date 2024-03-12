@@ -12,62 +12,59 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class PersonalInternoService {
     /**
-     * Handle Read Personal Interno By Id
-     * @param personalInternoId
-     * @returns PersonalInterno Successful Response
-     * @throws ApiError
-     */
-    public static handleReadPersonalInternoByIdBackendApiV1PersonalPersonalInternoIdGet(
-        personalInternoId: number,
-    ): CancelablePromise<PersonalInterno> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/backend/api/v1/personal/{personal_interno_id}',
-            path: {
-                'personal_interno_id': personalInternoId,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
-     * Handle Read Personal Internos
-     * @param skip
-     * @param limit
-     * @returns PersonalInterno Successful Response
-     * @throws ApiError
-     */
-    public static handleReadPersonalInternosBackendApiV1PersonalGet(
-        skip?: number,
-        limit: number = 100,
-    ): CancelablePromise<Array<PersonalInterno>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/backend/api/v1/personal/',
-            query: {
-                'skip': skip,
-                'limit': limit,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
-     * Handle Create Personal Interno
+     * Handle Entregar Tarjeta
      * @param requestBody
      * @returns PersonalInterno Successful Response
      * @throws ApiError
      */
-    public static handleCreatePersonalInternoBackendApiV1PersonalPost(
-        requestBody: PersonalInternoCreate,
+    public static handleEntregarTarjetaBackendApiV1PersonalEntregarTarjetaPost(
+        requestBody: PersonalInternoYTarjeta,
     ): CancelablePromise<PersonalInterno> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/backend/api/v1/personal/',
+            url: '/backend/api/v1/personal/entregar-tarjeta',
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Handle Devolver Tarjeta
+     * @param tarjetaId
+     * @returns Tarjeta Successful Response
+     * @throws ApiError
+     */
+    public static handleDevolverTarjetaBackendApiV1PersonalDevolverTarjetaPost(
+        tarjetaId: number,
+    ): CancelablePromise<Tarjeta> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/backend/api/v1/personal/devolver-tarjeta',
+            query: {
+                'tarjeta_id': tarjetaId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Handle Read Personal Interno By Id
+     * @param id
+     * @returns PersonalInterno Successful Response
+     * @throws ApiError
+     */
+    public static handleReadPersonalInternoByIdBackendApiV1PersonalIdGet(
+        id: number,
+    ): CancelablePromise<PersonalInterno> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/personal/{id}',
+            path: {
+                'id': id,
+            },
             errors: {
                 422: `Validation Error`,
             },
@@ -118,39 +115,42 @@ export class PersonalInternoService {
         });
     }
     /**
-     * Handle Entregar Tarjeta
-     * @param requestBody
+     * Handle Read Personal Internos
+     * @param skip
+     * @param limit
      * @returns PersonalInterno Successful Response
      * @throws ApiError
      */
-    public static handleEntregarTarjetaBackendApiV1PersonalEntregarTarjetaPost(
-        requestBody: PersonalInternoYTarjeta,
-    ): CancelablePromise<PersonalInterno> {
+    public static handleReadPersonalInternosBackendApiV1PersonalGet(
+        skip?: number,
+        limit: number = 100,
+    ): CancelablePromise<Array<PersonalInterno>> {
         return __request(OpenAPI, {
-            method: 'POST',
-            url: '/backend/api/v1/personal/entregar-tarjeta',
-            body: requestBody,
-            mediaType: 'application/json',
+            method: 'GET',
+            url: '/backend/api/v1/personal/',
+            query: {
+                'skip': skip,
+                'limit': limit,
+            },
             errors: {
                 422: `Validation Error`,
             },
         });
     }
     /**
-     * Handle Devolver Tarjeta
-     * @param tarjetaId
-     * @returns Tarjeta Successful Response
+     * Handle Create Personal Interno
+     * @param requestBody
+     * @returns PersonalInterno Successful Response
      * @throws ApiError
      */
-    public static handleDevolverTarjetaBackendApiV1PersonalDevolverTarjetaPost(
-        tarjetaId: number,
-    ): CancelablePromise<Tarjeta> {
+    public static handleCreatePersonalInternoBackendApiV1PersonalPost(
+        requestBody: PersonalInternoCreate,
+    ): CancelablePromise<PersonalInterno> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/backend/api/v1/personal/devolver-tarjeta',
-            query: {
-                'tarjeta_id': tarjetaId,
-            },
+            url: '/backend/api/v1/personal/',
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 422: `Validation Error`,
             },
