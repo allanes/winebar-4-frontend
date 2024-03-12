@@ -9,26 +9,6 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class OrdenesService {
     /**
-     * Handle Read Orden By Id
-     * @param ordenId
-     * @returns OrdenCompra Successful Response
-     * @throws ApiError
-     */
-    public static handleReadOrdenByIdBackendApiV1OrdenesOrdenIdGet(
-        ordenId: number,
-    ): CancelablePromise<OrdenCompra> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/backend/api/v1/ordenes/{orden_id}',
-            path: {
-                'orden_id': ordenId,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
      * Handle Read Orden By Client Rfid
      * @param tarjetaId
      * @returns OrdenCompra Successful Response
@@ -42,29 +22,6 @@ export class OrdenesService {
             url: '/backend/api/v1/ordenes/by-rfid/{tarjeta_id}',
             path: {
                 'tarjeta_id': tarjetaId,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
-     * Handle Read Ordens
-     * @param skip
-     * @param limit
-     * @returns OrdenCompra Successful Response
-     * @throws ApiError
-     */
-    public static handleReadOrdensBackendApiV1OrdenesGet(
-        skip?: number,
-        limit: number = 100,
-    ): CancelablePromise<Array<OrdenCompra>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/backend/api/v1/ordenes/',
-            query: {
-                'skip': skip,
-                'limit': limit,
             },
             errors: {
                 422: `Validation Error`,
@@ -130,6 +87,49 @@ export class OrdenesService {
             },
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Handle Read Orden By Id
+     * @param id
+     * @returns OrdenCompra Successful Response
+     * @throws ApiError
+     */
+    public static handleReadOrdenByIdBackendApiV1OrdenesIdGet(
+        id: number,
+    ): CancelablePromise<OrdenCompra> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/ordenes/{id}',
+            path: {
+                'id': id,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Handle Read Ordens
+     * @param skip
+     * @param limit
+     * @returns OrdenCompra Successful Response
+     * @throws ApiError
+     */
+    public static handleReadOrdensBackendApiV1OrdenesGet(
+        skip?: number,
+        limit: number = 100,
+    ): CancelablePromise<Array<OrdenCompra>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/ordenes/',
+            query: {
+                'skip': skip,
+                'limit': limit,
+            },
             errors: {
                 422: `Validation Error`,
             },

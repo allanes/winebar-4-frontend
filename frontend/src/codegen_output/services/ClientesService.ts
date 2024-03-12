@@ -32,18 +32,62 @@ export class ClientesService {
     }
     /**
      * Handle Read Cliente By Id
-     * @param clienteId
+     * @param id
      * @returns Cliente Successful Response
      * @throws ApiError
      */
-    public static handleReadClienteByIdBackendApiV1ClientesClienteIdGet(
-        clienteId: number,
+    public static handleReadClienteByIdBackendApiV1ClientesIdGet(
+        id: number,
     ): CancelablePromise<Cliente> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/backend/api/v1/clientes/{cliente_id}',
+            url: '/backend/api/v1/clientes/{id}',
             path: {
-                'cliente_id': clienteId,
+                'id': id,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Handle Update Cliente
+     * @param id
+     * @param requestBody
+     * @returns Cliente Successful Response
+     * @throws ApiError
+     */
+    public static handleUpdateClienteBackendApiV1ClientesIdPut(
+        id: number,
+        requestBody: ClienteUpdate,
+    ): CancelablePromise<Cliente> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/backend/api/v1/clientes/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Handle Delete Cliente
+     * @param id
+     * @returns Cliente Successful Response
+     * @throws ApiError
+     */
+    public static handleDeleteClienteBackendApiV1ClientesIdDelete(
+        id: number,
+    ): CancelablePromise<Cliente> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/backend/api/v1/clientes/{id}',
+            path: {
+                'id': id,
             },
             errors: {
                 422: `Validation Error`,
@@ -92,50 +136,6 @@ export class ClientesService {
             },
             body: requestBody,
             mediaType: 'application/json',
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
-     * Handle Update Cliente
-     * @param id
-     * @param requestBody
-     * @returns Cliente Successful Response
-     * @throws ApiError
-     */
-    public static handleUpdateClienteBackendApiV1ClientesIdPut(
-        id: number,
-        requestBody: ClienteUpdate,
-    ): CancelablePromise<Cliente> {
-        return __request(OpenAPI, {
-            method: 'PUT',
-            url: '/backend/api/v1/clientes/{id}',
-            path: {
-                'id': id,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
-     * Handle Delete Cliente
-     * @param id
-     * @returns Cliente Successful Response
-     * @throws ApiError
-     */
-    public static handleDeleteClienteBackendApiV1ClientesIdDelete(
-        id: number,
-    ): CancelablePromise<Cliente> {
-        return __request(OpenAPI, {
-            method: 'DELETE',
-            url: '/backend/api/v1/clientes/{id}',
-            path: {
-                'id': id,
-            },
             errors: {
                 422: `Validation Error`,
             },

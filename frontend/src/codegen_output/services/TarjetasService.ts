@@ -11,61 +11,19 @@ import { request as __request } from '../core/request';
 export class TarjetasService {
     /**
      * Read Tarjeta By Id
-     * @param tarjetaId
+     * @param id
      * @returns Tarjeta Successful Response
      * @throws ApiError
      */
-    public static readTarjetaByIdBackendApiV1TarjetasTarjetaIdGet(
-        tarjetaId: number,
+    public static readTarjetaByIdBackendApiV1TarjetasIdGet(
+        id: number,
     ): CancelablePromise<Tarjeta> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/backend/api/v1/tarjetas/{tarjeta_id}',
+            url: '/backend/api/v1/tarjetas/{id}',
             path: {
-                'tarjeta_id': tarjetaId,
+                'id': id,
             },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
-     * Read Tarjetas
-     * @param skip
-     * @param limit
-     * @returns Tarjeta Successful Response
-     * @throws ApiError
-     */
-    public static readTarjetasBackendApiV1TarjetasGet(
-        skip?: number,
-        limit: number = 100,
-    ): CancelablePromise<Array<Tarjeta>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/backend/api/v1/tarjetas/',
-            query: {
-                'skip': skip,
-                'limit': limit,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
-     * Create Tarjeta
-     * @param requestBody
-     * @returns Tarjeta Successful Response
-     * @throws ApiError
-     */
-    public static createTarjetaBackendApiV1TarjetasPost(
-        requestBody: TarjetaCreate,
-    ): CancelablePromise<Tarjeta> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/backend/api/v1/tarjetas/',
-            body: requestBody,
-            mediaType: 'application/json',
             errors: {
                 422: `Validation Error`,
             },
@@ -110,6 +68,48 @@ export class TarjetasService {
             path: {
                 'id': id,
             },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Read Tarjetas
+     * @param skip
+     * @param limit
+     * @returns Tarjeta Successful Response
+     * @throws ApiError
+     */
+    public static readTarjetasBackendApiV1TarjetasGet(
+        skip?: number,
+        limit: number = 100,
+    ): CancelablePromise<Array<Tarjeta>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/tarjetas/',
+            query: {
+                'skip': skip,
+                'limit': limit,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Create Tarjeta
+     * @param requestBody
+     * @returns Tarjeta Successful Response
+     * @throws ApiError
+     */
+    public static createTarjetaBackendApiV1TarjetasPost(
+        requestBody: TarjetaCreate,
+    ): CancelablePromise<Tarjeta> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/backend/api/v1/tarjetas/',
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 422: `Validation Error`,
             },
