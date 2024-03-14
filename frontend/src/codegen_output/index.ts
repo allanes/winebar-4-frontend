@@ -74,6 +74,7 @@ export { LoginService } from './services/LoginService';
 export { OrdenesService } from './services/OrdenesService';
 export { PedidosService } from './services/PedidosService';
 export { PersonalInternoService } from './services/PersonalInternoService';
+export { RolesService } from './services/RolesService';
 export { TapasService } from './services/TapasService';
 export { TarjetasService } from './services/TarjetasService';
 export { TurnosService } from './services/TurnosService';
