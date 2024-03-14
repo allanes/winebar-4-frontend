@@ -22,7 +22,7 @@ export const RolesDropdown = ({ onRoleSelect }: Props) => {
         setRoles(fetchedRoles);
         if (fetchedRoles.length > 0) {
           setSelectedRole(fetchedRoles[3].id);
-          onRoleSelect(fetchedRoles[3].id, fetchedRoles[3].nombre_largo);
+          onRoleSelect(fetchedRoles[3].id, fetchedRoles[3].nombre_corto);
         }
       })
       .catch((error: unknown) => {
@@ -36,7 +36,7 @@ export const RolesDropdown = ({ onRoleSelect }: Props) => {
     const selectedRole = roles.find(role => role.id === selectedId);
     setSelectedRole(selectedId);
     if (selectedRole) {
-      onRoleSelect(selectedId, selectedRole.nombre_largo);
+      onRoleSelect(selectedId, selectedRole.nombre_corto);
     }
   };
 

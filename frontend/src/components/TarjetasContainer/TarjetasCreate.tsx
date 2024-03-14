@@ -39,6 +39,9 @@ export const TarjetasCreate = ({ onNewTarjeta: onNewTarjetaPropIn }: Props) => {
 
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
+    if (!inputValues.raw_rfid) {
+      return
+    }
     onNewTarjetaPropIn(inputValues)
     formRef.current?.reset()
   }
@@ -51,26 +54,26 @@ export const TarjetasCreate = ({ onNewTarjeta: onNewTarjetaPropIn }: Props) => {
       <Form ref={formRef} onSubmit={handleSubmit} >
       <Row>
           <Col>
-            <Form.Group className="mb-3" controlId="raw_rfid">
-              <Form.Label>ID de Tarjeta</Form.Label>
-              <Form.Control onChange={handleChange} type="number" placeholder="Acerque la tarjeta al lector" />
-            </Form.Group>
-          </Col>          
-          <Col>
             <Form.Group className="mb-3" controlId="rol_nombre">
               <Form.Label>Rol</Form.Label>
               <RolesDropdown onRoleSelect={handleRoleSelect} />
             </Form.Group>
-          </Col>          
+          </Col>
+          <Col>
+            <Form.Group className="mb-3" controlId="raw_rfid">
+              <Form.Label>ID de Tarjeta</Form.Label>
+              <Form.Control onChange={handleChange} type="number" placeholder="Acerque la tarjeta al lector" />
+            </Form.Group>
+          </Col>                    
         </Row>
         
-        <Button variant='outline-warning' type="reset" className="m-2">
+        {/* <Button variant='outline-warning' type="reset" className="m-2">
           Borrar
         </Button>
 
         <Button type="submit" className="m-2">
           Dar de alta
-        </Button>
+        </Button> */}
       </Form>
     </div>
   )

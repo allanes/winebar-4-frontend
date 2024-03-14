@@ -35,7 +35,6 @@ export const TarjetasList = ({ tarjetasList, onDeleteTarjeta: onDeleteTarjeta_pr
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Tarjeta eliminada!', '', 'error')
         onDeleteTarjeta_propin(tarjeta.id)
       }
     })

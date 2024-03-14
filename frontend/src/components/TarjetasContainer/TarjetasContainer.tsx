@@ -33,7 +33,16 @@ export const TarjetasContainer = () => {
   const handleNewTarjeta = async (newTarjetaIn: TarjetaCreate): Promise<void> => {
     try {
       const response = await TarjetasService.createTarjetaBackendApiV1TarjetasPost(newTarjetaIn);
-      Swal.fire(`${response.rol.nombre_largo}`, `tarjeta ID ${response.id} guardada.`, 'success');
+      Swal.fire({
+        title: `${response.rol.nombre_largo}`,
+        text: `tarjeta ID ${response.id} guardada.`,
+        icon: 'success',
+        allowOutsideClick: true,
+        allowEnterKey: true,
+        showConfirmButton: true,
+        timer: 2000, // Auto close after 5 seconds
+        // didClose: () => setShowCardReaderModal(true) // Re-show the card reader modal after the alert closes
+      });
       fetchTarjeta(); // Re-fetch the client list after a successful addition
     } catch (error) {
       handleApiError(error);
@@ -44,7 +53,7 @@ export const TarjetasContainer = () => {
     try {
       await TarjetasService.deleteTarjetaBackendApiV1TarjetasIdDelete(id);
       setTarjetasList(clients => clients.filter(client => client.id !== id));
-      Swal.fire('Success', 'Persona borrada exitosamente.', 'success');
+      Swal.fire('Tarjeta borrada', '', 'success');
     } catch (error) {
       handleApiError(error);
     }

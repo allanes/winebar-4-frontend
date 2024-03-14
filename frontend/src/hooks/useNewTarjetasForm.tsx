@@ -6,8 +6,10 @@ interface FormState {
 }
 
 const INITIAL_STATE = {
-    raw_rfid: "12345",
-    rol_nombre: "Cliente",    
+    // raw_rfid: "12345",
+    // rol_nombre: "Cliente",
+    raw_rfid: "",
+    rol_nombre: "",
 }
 
 type FormReducerAction = {
