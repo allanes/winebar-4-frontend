@@ -12,7 +12,6 @@ interface Props {
 
 const keysTabTarjeta = [
   "RFID",
-  "Activa",
   "Alta",
   "Ultimo Uso",
   "Entregada",
@@ -60,10 +59,7 @@ export const TarjetasList = ({ tarjetasList, onDeleteTarjeta: onDeleteTarjeta_pr
           {tarjetasList.map((tarjeta, index) => {
             return (
               <tr key={index} >
-                <th scope='row'>{tarjeta.id}</th>
-                <td>
-                  <BooleanBadge value={tarjeta.activa} />
-                </td>
+                <th scope='row'>{tarjeta.id}</th>                
                 <td>{tarjeta.fecha_alta}</td>
                 <td>{tarjeta.fecha_ultimo_uso}</td>
                 <td>
