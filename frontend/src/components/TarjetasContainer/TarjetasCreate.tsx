@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { Tarjeta, TarjetaCreate } from '../../codegen_output'
 import useNewTarjetasForm from '../../hooks/useNewTarjetasForm'
-
+import { RolesDropdown } from '../RolesContainer/RolesList'
 import { Row, Col, Button, Form } from 'react-bootstrap'
 
 import Swal from 'sweetalert2'
@@ -27,6 +27,16 @@ export const TarjetasCreate = ({ onNewTarjeta: onNewTarjetaPropIn }: Props) => {
     })
   }
 
+  const handleRoleSelect = (selectedRoleId: number, selectedRoleName: string) => {
+    dispatch({
+      type: "change_value",
+      payload: {
+        inputName: 'rol_nombre',
+        inputValue: selectedRoleName
+      }
+    });
+  };
+
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
     onNewTarjetaPropIn(inputValues)
@@ -49,7 +59,7 @@ export const TarjetasCreate = ({ onNewTarjeta: onNewTarjetaPropIn }: Props) => {
           <Col>
             <Form.Group className="mb-3" controlId="rol_nombre">
               <Form.Label>Rol</Form.Label>
-              <Form.Control onChange={handleChange} type="text" placeholder="Ingrese el nombre" />
+              <RolesDropdown onRoleSelect={handleRoleSelect} />
             </Form.Group>
           </Col>          
         </Row>
