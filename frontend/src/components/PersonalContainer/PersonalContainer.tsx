@@ -36,6 +36,7 @@ export const PersonalInternoContainer = () => {
       fetchPersonalInterno(); // Re-fetch the client list after a successful addition
     } catch (error) {
       handleApiError(error);
+      throw error;
     }
   };
 

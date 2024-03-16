@@ -2,19 +2,17 @@ import { useReducer } from "react"
 import { PersonalInternoCreate } from "../codegen_output"
 
 interface FormState {
-    inputValues: PersonalInternoCreate
+    inputValues: PersonalInternoCreate & {
+        tarjetaId?: string;
+    }
 }
 
 const INITIAL_STATE = {
-    id: 12345,
-    nombre: "Nombre",
-    apellido: "Apellido",
-    // Fecha de nacimiento",
-    telefono: "381",
-    contra_sin_hash: "secret pass"
-    // email,
-    // Tarjeta,
-    // Rol,
+    id: 0,
+    nombre: '',
+    apellido: '',
+    telefono: '',
+    tarjetaId: '',
 }
 
 type FormReducerAction = {
