@@ -1,6 +1,7 @@
 import React from 'react'
 import { PersonalInterno } from '../../codegen_output'
 import deleteIcon from '../../assets/icons/outline_delete_white_24dp.png'
+import { RolBadge } from '../RolesContainer/RolBadge'
 import Swal from 'sweetalert2'
 
 interface Props {
@@ -14,7 +15,7 @@ const keysTabPersonal = [
   // "Fecha de nacimiento",
   "Teléfono",
   // "Email",
-  "Activo",
+  // "Activo",
   "Tarjeta",
   "Rol",
   ""
@@ -50,7 +51,7 @@ export const PersonalList = ({ personalList: personalList, onDeletePersonal: onD
           <tr>
             {keysTabPersonal.map((item, index) => {
               return (
-                <th key={index}>{item}</th>
+                <th key={index} className='text-center'>{item}</th>
               )
             })}
           </tr>
@@ -62,9 +63,15 @@ export const PersonalList = ({ personalList: personalList, onDeletePersonal: onD
                 <th scope='row'>{personal.id}</th>
                 <td>{personal.nombre} {personal.apellido}</td>                
                 <td>{personal.telefono}</td>
-                <td>{personal.activa ? "Si" : "No"}</td>
                 <td>{personal.tarjeta?.id}</td>
-                <td>{personal.tarjeta?.rol.nombre_largo}</td>
+                <td>
+                  {personal.tarjeta && 
+                    <RolBadge 
+                    key={personal.tarjeta.rol.id} 
+                    roleId={personal.tarjeta.rol.id} 
+                    roleName={personal.tarjeta.rol.nombre_corto} 
+                  />}
+                </td>
                 {/* <td>{personal.email}</td> */}
                 
                 <td>
