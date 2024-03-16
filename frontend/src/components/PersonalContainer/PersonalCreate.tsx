@@ -1,18 +1,15 @@
-import React, { useRef } from 'react'
-import { PersonalInterno, PersonalInternoCreate } from '../../codegen_output'
-import useNewPersonalInternoForm from '../../hooks/useNewPersonalForm'
-import CustomFormField from './CustomFormField'
-
-import { Row, Col, Button, Form } from 'react-bootstrap'
-
-import Swal from 'sweetalert2'
+import React, { useRef } from 'react';
+import { PersonalInterno, PersonalInternoCreate } from '../../codegen_output';
+import useNewPersonalInternoForm from '../../hooks/useNewPersonalForm';
+import TarjetaInputField from './TarjetaInputField';
+import CustomFormField from './CustomFormField';
+import { Row, Col, Button, Form } from 'react-bootstrap';
 
 interface Props {
-  onNewPersonal: (newPersonalInterno: PersonalInternoCreate, tarjetaId: number) => void
+  onNewPersonal: (newPersonalInterno: PersonalInternoCreate, tarjetaId: number) => void;
 }
 
 export const PersonalesCreate = ({ onNewPersonal: onNewPersonalInterno }: Props) => {
-
   const [inputValues, dispatch] = useNewPersonalInternoForm();
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -28,16 +25,21 @@ export const PersonalesCreate = ({ onNewPersonal: onNewPersonalInterno }: Props)
     });
   };
 
-  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     console.log(inputValues);
     if ('tarjetaId' in inputValues) {
       const { tarjetaId, ...personalInternoData } = inputValues;
-      onNewPersonalInterno(personalInternoData, Number(tarjetaId));
+      try {
+        await onNewPersonalInterno(personalInternoData, Number(tarjetaId));
+        formRef.current?.reset();
+      } catch (error) {
+        console.error('Error creating personal interno:', error);
+        // Handle the error silently without displaying any messages
+      }
     } else {
       console.error('tarjetaId is missing');
     }
-    formRef.current?.reset();
   };
 
   return (
@@ -93,10 +95,9 @@ export const PersonalesCreate = ({ onNewPersonal: onNewPersonalInterno }: Props)
             />
           </Col>
           <Col>
-            <CustomFormField
+            <TarjetaInputField
               id="tarjetaId"
-              label="ID de Tarjeta"
-              type="number"
+              label="Tarjeta"
               placeholder="Haga clic aquí y acerque la tarjeta al lector"
               onChange={handleChange}
               value={inputValues.tarjetaId || ''}

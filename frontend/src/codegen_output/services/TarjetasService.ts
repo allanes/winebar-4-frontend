@@ -10,6 +10,26 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class TarjetasService {
     /**
+     * Handle Check Puede Ser Entregada A Personal
+     * @param id
+     * @returns Tarjeta Successful Response
+     * @throws ApiError
+     */
+    public static handleCheckPuedeSerEntregadaAPersonalBackendApiV1TarjetasPuedeSerEntregadaIdGet(
+        id: number,
+    ): CancelablePromise<Tarjeta> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/tarjetas/puede-ser-entregada/{id}',
+            path: {
+                'id': id,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Read Tarjeta By Id
      * @param id
      * @returns Tarjeta Successful Response
