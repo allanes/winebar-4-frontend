@@ -5,7 +5,7 @@ import editIcon from '../../assets/icons/outline_edit_white_24dp.png';
 import addIcon from '../../assets/icons/outline_add_white_24dp.png';
 import { RolBadge } from '../RolesContainer/RolBadge';
 import Swal from 'sweetalert2';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Row, Col } from 'react-bootstrap';
 import TarjetaInputField from './TarjetaInputField';
 
 interface Props {
@@ -116,27 +116,31 @@ export const PersonalList = ({ personalList, onDeletePersonal, onAssignTarjeta, 
               <th scope='row'>{personal.id}</th>
                 <td>{personal.nombre} {personal.apellido}</td>                
                 <td>{personal.telefono}</td>                
-                <td className='d-flex'>
+                <td className='text-center align-items-center'>
                   {personal.tarjeta ? (
-                    <>
+                    <Row>
+                      <Col className='text-end'>
                         <RolBadge 
                           key={personal.tarjeta.rol.id} 
                           roleId={personal.tarjeta.rol.id} 
                           roleName={personal.tarjeta.rol.nombre_corto} 
                         />
-                        <button
-                          className='icons-border icon--size icon--delete ms-2'
-                          onClick={() => handleUnassignTarjeta(personal.tarjeta?.id || 0)}
-                        >
-                          <img className='icon-img--size' src={deleteIcon} alt="" />
-                        </button>
-                        <button 
-                          className='icons-border icon--size icon--edit' 
-                          onClick={() => handleChangeTarjeta(personal)}>
-                          <img className='icon-img--size' src={editIcon} alt="" />
-                        </button>
-                      {personal.tarjeta.id}
-                    </>
+                        </Col>
+                        <Col className='text-start'>
+                          {`(${personal.tarjeta.id})`}
+                          <button
+                            className='icons-border icon--size icon--delete ms-2'
+                            onClick={() => handleUnassignTarjeta(personal.tarjeta?.id || 0)}
+                          >
+                            <img className='icon-img--size' src={deleteIcon} alt="" />
+                          </button>
+                          <button 
+                            className='icons-border icon--size icon--edit' 
+                            onClick={() => handleChangeTarjeta(personal)}>
+                            <img className='icon-img--size' src={editIcon} alt="" />
+                          </button>                        
+                        </Col>
+                      </Row>                    
                 ) : (
                   <button
                     className='icons-border icon--size icon--add'
@@ -145,15 +149,7 @@ export const PersonalList = ({ personalList, onDeletePersonal, onAssignTarjeta, 
                     <img className='icon-img--size' src={addIcon} alt="" />
                   </button>
                 )}
-              </td>
-              {/* <td>
-                  {personal.tarjeta && 
-                    <RolBadge 
-                    key={personal.tarjeta.rol.id} 
-                    roleId={personal.tarjeta.rol.id} 
-                    roleName={personal.tarjeta.rol.nombre_corto} 
-                  />}
-                  </td> */}
+              </td>              
               <td>
               <button className='icons-border icon--size icon--delete'
                     type='button'

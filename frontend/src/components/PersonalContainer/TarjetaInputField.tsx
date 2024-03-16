@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Tarjeta, TarjetasService, ApiError } from '../../codegen_output';
-import { Form } from 'react-bootstrap';
+import { Form, Col, Row } from 'react-bootstrap';
 import { RolBadge } from '../RolesContainer/RolBadge';
 import { CheckCircleFill, XCircleFill } from 'react-bootstrap-icons';
 
@@ -43,29 +43,35 @@ const TarjetaInputField: React.FC<TarjetaInputFieldProps> = ({
   };
 
   return (
-    <Form.Group className="mb-3" controlId={id}>
-      <Form.Label>{label}</Form.Label>
-      <div className="d-flex align-items-center">
-        <Form.Control
-          type="text"
-          placeholder={placeholder}
-          onChange={onChange}
-          onKeyDown={handleKeyDown}
-          required={required}
-          value={value}
-        />        
-      </div>
-      
-      {tarjeta && (
-        <RolBadge key={tarjeta.rol.id} roleId={tarjeta.rol.id} roleName={tarjeta.rol.nombre_corto} />
-      )}
-      {errorMessage && 
-      <>
-        <XCircleFill className="text-danger ml-2" />
-        <Form.Text className="text-danger">{errorMessage}</Form.Text>
-        </>
-        }
-    </Form.Group>
+    <Row className='mb-3'>
+        <Col xs={3}>
+            <Form.Label>{label}</Form.Label>
+        </Col>
+        <Col xs={5}>
+            <div className="d-flex align-items-center mb-2">
+                <Form.Control
+                    id={id}
+                    type="text"
+                    placeholder={placeholder}
+                    onChange={onChange}
+                    onKeyDown={handleKeyDown}
+                    required={required}
+                    value={value}
+                />        
+            </div>
+        </Col>
+        <Col xs={4} className='mt-1 text-start'>
+            {tarjeta && (
+                <RolBadge key={tarjeta.rol.id} roleId={tarjeta.rol.id} roleName={tarjeta.rol.nombre_corto} />
+            )}
+            {errorMessage && 
+                <>
+                    <XCircleFill className="text-danger ml-2" />
+                    <Form.Text className="text-danger">{errorMessage}</Form.Text>
+                </>
+            }
+        </Col>
+    </Row>
   );
 };
 

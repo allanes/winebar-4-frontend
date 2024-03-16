@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Col, Row } from 'react-bootstrap';
 
 interface CustomFormFieldProps {
   id: string;
@@ -27,24 +27,35 @@ const CustomFormField: React.FC<CustomFormFieldProps> = ({
     setTouched(true);
   };
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(event);
+  };
+
   const isInvalid = required && touched && (value === '' || value === 0);
 
   return (
-    <Form.Group className="mb-3" controlId={id}>
-      <Form.Label>{label}</Form.Label>
-      <Form.Control
-        type={type}
-        placeholder={placeholder}
-        onChange={onChange}
-        onBlur={handleBlur}
-        isInvalid={isInvalid || (submitted && isInvalid)}
-        required={required}
-        value={value}
-      />
-      <Form.Control.Feedback type="invalid">
-        Este campo es obligatorio.
-      </Form.Control.Feedback>
-    </Form.Group>
+    <Row className='mb-3'>
+        <Col xs={3}>
+            <Form.Label>{label}</Form.Label>
+        </Col>
+        <Col xs={5}>
+            <Form.Control
+                id={id}
+                type={type}
+                placeholder={placeholder}
+                onChange={onChange}
+                onBlur={handleBlur}
+                isInvalid={isInvalid || (submitted && isInvalid)}
+                required={required}
+                value={value}
+            />
+
+            <Form.Control.Feedback type="invalid">
+                Este campo es obligatorio.
+            </Form.Control.Feedback>
+        </Col>
+        
+    </Row>
   );
 };
 
