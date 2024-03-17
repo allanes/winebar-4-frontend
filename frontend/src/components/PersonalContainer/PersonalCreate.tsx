@@ -46,66 +46,71 @@ export const PersonalesCreate = ({ onNewPersonal, expanded = false }: Props) => 
   const defaultActiveKey = expanded ? '0' : undefined;
 
   return (
-    <Accordion defaultActiveKey={defaultActiveKey} className='table-container-m mb-4'>
-      <Accordion.Item eventKey="0" className='table-container-s text-center mb-3'>
-        <Accordion.Header><h3>Agregar Cliente</h3></Accordion.Header>
-        <Accordion.Body>
+    // <Accordion defaultActiveKey={defaultActiveKey} className='table-container-m mb-4'>
+    //   <Accordion.Item eventKey="0" className='table-container-s text-center mb-3'>
+    //     <Accordion.Header><h3>Agregar Cliente</h3></Accordion.Header>
+    //     <Accordion.Body>
+    <div className="table-container-s mb-4">
           <Form ref={formRef} onSubmit={handleSubmit}>
-            <TarjetaInputField
-              id="tarjetaId"
-              label="Tarjeta"
-              placeholder="Haga clic aquí y acerque la tarjeta al lector"
-              onChange={handleChange}
-              value={inputValues.tarjetaId || ''}
-              required
-            />
-            <CustomFormField
-              id="id"
-              label="Documento de identidad (*)"
-              type="number"
-              placeholder="Ingrese el DNI"
-              onChange={handleChange}
-              required
-              value={inputValues.id}
-            />
-            <CustomFormField
-              id="nombre"
-              label="Nombre (*)"
-              type="text"
-              placeholder="Ingrese el nombre"
-              onChange={handleChange}
-              required
-              value={inputValues.nombre}
-            />
-            <CustomFormField
-              id="apellido"
-              label="Apellido (*)"
-              type="text"
-              placeholder="Ingrese el apellido"
-              onChange={handleChange}
-              required
-              value={inputValues.apellido}
-            />
-            <CustomFormField
-              id="telefono"
-              label="Teléfono"
-              type="text"
-              placeholder="Ingrese el teléfono"
-              onChange={handleChange}
-              value={inputValues.telefono || ''}
-            />            
-          
-            <Button variant="outline-warning" type="reset" className="m-2">
-              Borrar
-            </Button>
+            <Row>
+              <Col>
+              
+                <TarjetaInputField
+                  id="tarjetaId"
+                  label="Tarjeta"
+                  placeholder="Haga clic aquí y acerque la tarjeta al lector"
+                  onChange={handleChange}
+                  value={inputValues.tarjetaId || ''}
+                  required
+                />
+                <CustomFormField
+                  id="id"
+                  label="Documento de identidad (*)"
+                  type="number"
+                  placeholder="Ingrese el DNI"
+                  onChange={handleChange}
+                  required
+                  value={inputValues.id}
+                />
+                <CustomFormField
+                  id="nombre"
+                  label="Nombre (*)"
+                  type="text"
+                  placeholder="Ingrese el nombre"
+                  onChange={handleChange}
+                  required
+                  value={inputValues.nombre}
+                />
+                <CustomFormField
+                  id="apellido"
+                  label="Apellido (*)"
+                  type="text"
+                  placeholder="Ingrese el apellido"
+                  onChange={handleChange}
+                  required
+                  value={inputValues.apellido}
+                />
+                <CustomFormField
+                  id="telefono"
+                  label="Teléfono"
+                  type="text"
+                  placeholder="Ingrese el teléfono"
+                  onChange={handleChange}
+                  value={inputValues.telefono || ''}
+                />            
+              </Col>
+            </Row>
+            <div className="d-flex justify-content-center">
+          <Button variant="outline-warning" type="reset" className="m-2">
+            Borrar
+          </Button>
 
-            <Button type="submit" className="m-2">
-              Dar de alta
-            </Button>
-        </Form>
-      </Accordion.Body>      
-    </Accordion.Item>
-  </Accordion>
+          <Button type="submit" className="m-2">
+            Dar de alta
+          </Button>
+        </div>
+      </Form>
+    </div>
     
   );
 };

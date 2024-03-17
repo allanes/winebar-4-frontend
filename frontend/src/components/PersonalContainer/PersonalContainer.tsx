@@ -7,10 +7,13 @@ import {
 } from '../../codegen_output';
 import { PersonalesCreate } from './PersonalCreate';
 import { PersonalList } from './PersonalList';
+import { AddPersonalButton } from './AddPersonalButton';
 import Swal from 'sweetalert2';
+import { Modal, Col, Row } from 'react-bootstrap';
 
 export const PersonalInternoContainer = () => {
   const [personasInternasList, setPersonasInternasList] = useState<PersonalInterno[]>([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     fetchPersonalInterno();
@@ -86,16 +89,39 @@ export const PersonalInternoContainer = () => {
     }
   };
 
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div>
-      <PersonalesCreate onNewPersonal={handleNewPersonal} />
-      <PersonalList
-        personalList={personasInternasList}
-        onDeletePersonal={handleDelete}
-        onAssignTarjeta={handleAssignTarjeta}
-        onUnassignTarjeta={handleUnassignTarjeta}
-        onChangeTarjeta={handleChangeTarjeta}
-      />
+      <Row className="mb-3">
+        <Col>
+          <PersonalList
+            personalList={personasInternasList}
+            onDeletePersonal={handleDelete}
+            onAssignTarjeta={handleAssignTarjeta}
+            onUnassignTarjeta={handleUnassignTarjeta}
+            onChangeTarjeta={handleChangeTarjeta}
+          />
+        </Col>
+        <Col xs="auto" className='mt-3'>
+          <AddPersonalButton onClick={handleOpenModal} />
+        </Col>
+      </Row>
+
+      <Modal show={showModal} onHide={handleCloseModal} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Agregar Personal</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <PersonalesCreate onNewPersonal={handleNewPersonal} />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
