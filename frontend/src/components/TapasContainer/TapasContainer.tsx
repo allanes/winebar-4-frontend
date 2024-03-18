@@ -5,9 +5,13 @@ import { Tapa, TapasService, ApiError, TapaConProductoCreate } from '../../codeg
 import { TapasList } from './TapasList';
 import Swal from 'sweetalert2';
 import { TapasCreate } from './TapasCreate';
+import { Modal, Row, Col } from 'react-bootstrap';
+import { AddPersonalButton } from '../PersonalContainer/AddPersonalButton';
+
 
 export const TapasContainer = () => {
   const [tapasList, setTapasList] = useState<Tapa[]>([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     fetchTapa();
@@ -50,10 +54,37 @@ export const TapasContainer = () => {
     }
   };
 
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div>
-      <TapasCreate onNewTapa={handleNewTapa} />
-      <TapasList tapasList={tapasList} onDeleteTapa={handleDelete} />
+      <Row className="mb-3">
+        <Col>
+          <TapasList 
+            tapasList={tapasList} 
+            onDeleteTapa={handleDelete} 
+          />          
+        </Col>
+        <Col xs="auto" className='mt-3'>
+          <AddPersonalButton onClick={handleOpenModal} />
+        </Col>
+      </Row>
+      
+
+      <Modal show={showModal} onHide={handleCloseModal} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Agregar Tapa</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <TapasCreate onNewTapa={handleNewTapa} />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

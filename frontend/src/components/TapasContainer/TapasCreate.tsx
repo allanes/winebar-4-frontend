@@ -3,6 +3,7 @@ import { Tapa, TapaConProductoCreate } from '../../codegen_output'
 import useNewTapasForm from '../../hooks/useNewTapasForm'
 
 import { Row, Col, Button, Form } from 'react-bootstrap'
+import TarjetaInputField from '../PersonalContainer/TarjetaInputField'
 
 import Swal from 'sweetalert2'
 
@@ -10,7 +11,7 @@ interface Props {
   onNewTapa: (newTapa: TapaConProductoCreate) => void
 }
 
-export const TapasCreate = ({ onNewTapa: onNewTapaPropIn }: Props) => {
+export const TapasCreate = ({ onNewTapa }: Props) => {
 
   const [inputValues, dispatch] = useNewTapasForm()
   const formRef = useRef<HTMLFormElement>(null)
@@ -29,59 +30,65 @@ export const TapasCreate = ({ onNewTapa: onNewTapaPropIn }: Props) => {
 
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
-    onNewTapaPropIn(inputValues)
+    onNewTapa(inputValues)
     formRef.current?.reset()
   }
 
   return (
-    <div className='table-container-xl mb-4'>
-      <div className='table-container-l text-center mb-5'>
-        <p className='h3'>Nueva Tapa</p>
-      </div>
-      <Form ref={formRef} onSubmit={handleSubmit} >
-      <Row>
-          <Col>
-            <Form.Group className="mb-3" controlId="titulo">
-              <Form.Label>Títutlo</Form.Label>
-              <Form.Control onChange={handleChange} type="text" placeholder="Titulo" />
-            </Form.Group>
-          </Col>          
-          <Col>
-            <Form.Group className="mb-3" controlId="precio">
-              <Form.Label>Precio</Form.Label>
-              <Form.Control onChange={handleChange} type="float" placeholder="Ingrese el precio" />
-            </Form.Group>
-          </Col>          
-        </Row>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3" controlId="stock">
-              <Form.Label>Stock</Form.Label>
-              <Form.Control onChange={handleChange} type="number" placeholder="0" />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3" controlId="descripcion">
-              <Form.Label>Descripción</Form.Label>
-              <Form.Control onChange={handleChange} type="text" placeholder="Ingrese la Descripción" />
-            </Form.Group>
-          </Col>                    
-          <Col>
-            <Form.Group className="mb-3" controlId="foto">
-              <Form.Label>Foto</Form.Label>
-              <Form.Control onChange={handleChange} type="text" placeholder="Ruta a la foto" />
-            </Form.Group>
-          </Col>          
-        </Row>
-        
-        <Button variant='outline-warning' type="reset" className="m-2">
-          Borrar
-        </Button>
+    <div className="table-container-s mb-4">
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <Row>
+              <Col>
+                <TarjetaInputField
+                  id="titulo"
+                  label="Títutlo"
+                  placeholder="Titulo"
+                  onChange={handleChange}
+                  value={inputValues.titulo || ''}
+                  required
+                />          
+                <TarjetaInputField
+                  id="precio"
+                  label="Precio"
+                  placeholder="Ingrese el precio"
+                  onChange={handleChange}
+                  value={inputValues.precio || ''}
+                  required
+                />          
+                <TarjetaInputField
+                  id="stock"
+                  label="Stock"
+                  placeholder="0"
+                  onChange={handleChange}
+                  value={inputValues.stock || ''}                  
+                />          
+                <TarjetaInputField
+                  id="descripcion"
+                  label="Descripción"
+                  placeholder="Ingrese la Descripción"
+                  onChange={handleChange}
+                  value={inputValues.descripcion || ''}                  
+                />          
+                <TarjetaInputField
+                  id="foto"
+                  label="Foto"
+                  placeholder="Ruta a la foto"
+                  onChange={handleChange}
+                  value={inputValues.foto || ''}                  
+                />
+              </Col>          
+            </Row>
 
-        <Button type="submit" className="m-2">
-          Dar de alta
-        </Button>
-      </Form>
-    </div>
-  )
-}
+            <div className="d-flex justify-content-center">
+              <Button variant='outline-warning' type="reset" className="m-2">
+                Borrar
+              </Button>
+
+              <Button type="submit" className="m-2">
+                Dar de alta
+              </Button>
+            </div>
+          </Form>
+        </div>
+      )
+    }

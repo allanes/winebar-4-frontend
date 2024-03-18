@@ -101,14 +101,14 @@ export const PersonalesCreate = ({ onNewPersonal, expanded = false }: Props) => 
               </Col>
             </Row>
             <div className="d-flex justify-content-center">
-          <Button variant="outline-warning" type="reset" className="m-2">
-            Borrar
-          </Button>
+              <Button variant="outline-warning" type="reset" className="m-2">
+                Borrar
+              </Button>
 
-          <Button type="submit" className="m-2">
-            Dar de alta
-          </Button>
-        </div>
+              <Button type="submit" className="m-2">
+                Dar de alta
+              </Button>
+            </div>
       </Form>
     </div>
     
