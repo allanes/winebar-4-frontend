@@ -46,9 +46,9 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
   const defaultActiveKey = expanded ? '0' : undefined;
 
   return (
-    <Accordion defaultActiveKey={defaultActiveKey}>
-      <Accordion.Item eventKey="0">
-        <Accordion.Header>Agregar Cliente</Accordion.Header>
+    <Accordion defaultActiveKey={defaultActiveKey} className='table-container-xl mb-4'>
+      <Accordion.Item eventKey="0" className='table-container-l text-center mb-5'>
+        <Accordion.Header><h3>Agregar Cliente</h3></Accordion.Header>
         <Accordion.Body>
           <Form ref={formRef} onSubmit={handleContinue}>
             <Row>

@@ -1,100 +1,116 @@
-import React, { useRef } from 'react'
-import { PersonalInterno, PersonalInternoCreate } from '../../codegen_output'
-import useNewPersonalInternoForm from '../../hooks/useNewPersonalForm'
-
-import { Row, Col, Button, Form } from 'react-bootstrap'
-
-import Swal from 'sweetalert2'
+import React, { useRef } from 'react';
+import { PersonalInterno, PersonalInternoCreate } from '../../codegen_output';
+import useNewPersonalInternoForm from '../../hooks/useNewPersonalForm';
+import TarjetaInputField from './TarjetaInputField';
+import CustomFormField from './CustomFormField';
+import { Row, Col, Button, Form, Accordion } from 'react-bootstrap';
 
 interface Props {
-  onNewPersonal: (newPersonalInterno: PersonalInternoCreate, tarjetaId: number) => void
+  onNewPersonal: (newPersonalInterno: PersonalInternoCreate, tarjetaId: number) => void;
+  expanded?: boolean;
 }
 
-export const PersonalesCreate = ({ onNewPersonal: onNewPersonalInterno }: Props) => {
-
-  const [inputValues, dispatch] = useNewPersonalInternoForm()
-  const formRef = useRef<HTMLFormElement>(null)
+export const PersonalesCreate = ({ onNewPersonal, expanded = false }: Props) => {
+  const [inputValues, dispatch] = useNewPersonalInternoForm();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = evt.target
+    const { id, value } = evt.target;
 
     dispatch({
-      type: "change_value",
+      type: 'change_value',
       payload: {
         inputName: id,
-        inputValue: value
-      }
-    })
-  }
+        inputValue: value,
+      },
+    });
+  };
 
-  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
-    evt.preventDefault()
-    console.log(inputValues)
+  const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    console.log(inputValues);
     if ('tarjetaId' in inputValues) {
       const { tarjetaId, ...personalInternoData } = inputValues;
-      onNewPersonalInterno(personalInternoData, Number(tarjetaId));
+      try {
+        await onNewPersonal(personalInternoData, Number(tarjetaId));
+        formRef.current?.reset();
+      } catch (error) {
+        console.error('Error creating personal interno:', error);
+        // Handle the error silently without displaying any messages
+      }
     } else {
       console.error('tarjetaId is missing');
     }
-    formRef.current?.reset();
-  }
+  };
+
+  const defaultActiveKey = expanded ? '0' : undefined;
 
   return (
-    <div className='table-container-xl mb-4'>
-      <div className='table-container-l text-center mb-5'>
-        <p className='h3'>Nuevo Personal Interno</p>
-      </div>
-      <Form ref={formRef} onSubmit={handleSubmit} >
-      <Row>
-          <Col>
-            <Form.Group className="mb-3" controlId="id">
-              <Form.Label>Documento de identidad</Form.Label>
-              <Form.Control onChange={handleChange} type="number" placeholder="Ingrese el DNI" />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3" controlId="nombre">
-              <Form.Label>Nombre</Form.Label>
-              <Form.Control onChange={handleChange} type="text" placeholder="Ingrese el nombre" />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3" controlId="apellido">
-              <Form.Label>Apellido</Form.Label>
-              <Form.Control onChange={handleChange} type="text" placeholder="Ingrese el apellido" />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          {/* <Col>
-            <Form.Group className="mb-3" controlId="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control onChange={handleChange} type="text" placeholder="Ingrese el email" />
-            </Form.Group>
-          </Col> */}
-          <Col>
-            <Form.Group className="mb-3" controlId="telefono">
-              <Form.Label>Teléfono</Form.Label>
-              <Form.Control onChange={handleChange} type="text" placeholder="Ingrese el teléfono" />
-            </Form.Group>
-          </Col>
-          
-          <Col>
-           <Form.Group className="mb-3" controlId="tarjetaId">
-             <Form.Label>ID de Tarjeta</Form.Label>
-             <Form.Control onChange={handleChange} type="number" placeholder="Acerque la tarjeta al lector" />
-           </Form.Group>
-         </Col>
-        </Row> 
+    // <Accordion defaultActiveKey={defaultActiveKey} className='table-container-m mb-4'>
+    //   <Accordion.Item eventKey="0" className='table-container-s text-center mb-3'>
+    //     <Accordion.Header><h3>Agregar Cliente</h3></Accordion.Header>
+    //     <Accordion.Body>
+    <div className="table-container-s mb-4">
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <Row>
+              <Col>
+              
+                <TarjetaInputField
+                  id="tarjetaId"
+                  label="Tarjeta"
+                  placeholder="Haga clic aquí y acerque la tarjeta al lector"
+                  onChange={handleChange}
+                  value={inputValues.tarjetaId || ''}
+                  required
+                />
+                <CustomFormField
+                  id="id"
+                  label="Documento de identidad (*)"
+                  type="number"
+                  placeholder="Ingrese el DNI"
+                  onChange={handleChange}
+                  required
+                  value={inputValues.id}
+                />
+                <CustomFormField
+                  id="nombre"
+                  label="Nombre (*)"
+                  type="text"
+                  placeholder="Ingrese el nombre"
+                  onChange={handleChange}
+                  required
+                  value={inputValues.nombre}
+                />
+                <CustomFormField
+                  id="apellido"
+                  label="Apellido (*)"
+                  type="text"
+                  placeholder="Ingrese el apellido"
+                  onChange={handleChange}
+                  required
+                  value={inputValues.apellido}
+                />
+                <CustomFormField
+                  id="telefono"
+                  label="Teléfono"
+                  type="text"
+                  placeholder="Ingrese el teléfono"
+                  onChange={handleChange}
+                  value={inputValues.telefono || ''}
+                />            
+              </Col>
+            </Row>
+            <div className="d-flex justify-content-center">
+          <Button variant="outline-warning" type="reset" className="m-2">
+            Borrar
+          </Button>
 
-        <Button variant='outline-warning' type="reset" className="m-2">
-          Borrar
-        </Button>
-
-        <Button type="submit" className="m-2">
-          Dar de alta
-        </Button>
+          <Button type="submit" className="m-2">
+            Dar de alta
+          </Button>
+        </div>
       </Form>
     </div>
-  )
-}
+    
+  );
+};

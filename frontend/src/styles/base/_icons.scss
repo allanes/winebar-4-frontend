@@ -15,7 +15,7 @@
 }
 
 .icon--delete{
-    background: $mi-red-1;
+    background: $mi-red-1;    
 }
 
 .icon--add{
@@ -24,4 +24,13 @@
 
 .icon--edit{
     background: $mi-cyan-1;
+    margin-left: 5px;
+}
+
+.button-add-entity{
+    background: $mi-green-1;
+    border-color: $mi-green-1;
+    border-radius: 50px;
+    width: 70px;
+    height: 70px;
 }
