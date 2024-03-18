@@ -44,7 +44,7 @@ const TarjetaInputField: React.FC<TarjetaInputFieldProps> = ({
 
   return (
     <Row className='mb-3'>
-        <Col xs={3}>
+        <Col xs={2}>
             <Form.Label>{label}</Form.Label>
         </Col>
         <Col xs={5}>

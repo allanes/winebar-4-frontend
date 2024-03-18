@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Tapa, TapasService, ApiError, TapaConProductoCreate } from '../../codegen_output';
+import { Body_handle_upload_foto_backend_api_v1_tapas_foto__id__post } from '../../codegen_output';
 // import { PersonalInterno, PersonalInternoService, PersonalInternoCreate, ApiError } from '../../codegen_output';
 // import { PersonalesCreate } from './PersonalCreate';
 import { TapasList } from './TapasList';
@@ -34,11 +35,19 @@ export const TapasContainer = () => {
     Swal.fire('Error', errorMessage, 'error');
   };
 
-  const handleNewTapa = async (newTapaIn: TapaConProductoCreate): Promise<void> => {
+  const handleNewTapa = async (newTapaIn: TapaConProductoCreate, fotoFile: File | null): Promise<void> => {
     try {
       const response = await TapasService.handleCreateTapaWithTarjetaBackendApiV1TapasPost(newTapaIn);
+      
+      if (fotoFile) {
+        const fotoData: Body_handle_upload_foto_backend_api_v1_tapas_foto__id__post = {
+          foto: fotoFile,
+        };
+        await TapasService.handleUploadFotoBackendApiV1TapasFotoIdPost(response.id, fotoData);
+      }
+  
       Swal.fire(`${response.producto.titulo}`, `tapa ID ${response.id} guardada.`, 'success');
-      fetchTapa(); // Re-fetch the client list after a successful addition
+      fetchTapa();
     } catch (error) {
       handleApiError(error);
     }

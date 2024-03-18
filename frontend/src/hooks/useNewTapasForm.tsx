@@ -6,10 +6,10 @@ interface FormState {
 }
 
 const INITIAL_STATE = {
-    titulo: "Titulo de Tapa",
-    descripcion: "Descripcion de Tapa",
-    precio: 10.0,
-    stock: 1,
+    titulo: "",
+    descripcion: "",
+    precio: 0,
+    stock: 0,
     foto: ''
 }
 
