@@ -8,9 +8,10 @@ import CustomFormField from '../PersonalContainer/CustomFormField';
 interface Props {
   tapa: Tapa;
   onUpdateTapa: (updatedTapa: TapaConProductoCreate, fotoFile: File | null) => void;
+  tapaImageUrl: string | null;
 }
 
-export const TapasUpdate = ({ tapa, onUpdateTapa }: Props) => {
+export const TapasUpdate = ({ tapa, onUpdateTapa, tapaImageUrl }: Props) => {
   const [inputValues, dispatch] = useNewTapasForm(tapa);
   const [fotoFile, setFotoFile] = useState<File | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -42,57 +43,69 @@ export const TapasUpdate = ({ tapa, onUpdateTapa }: Props) => {
   return (
     <div className="table-container-s mb-4">
       <Form ref={formRef} onSubmit={handleSubmit}>
-      <CustomFormField
-              id="titulo"
-              label="Títutlo"
-              type="string"
-              placeholder="Titulo"
-              onChange={handleChange}
-              value={inputValues.titulo || ''}
-              required
-            />          
-            <CustomFormField
-              id="precio"
-              label="Precio"
-              type="number"
-              placeholder="Ingrese el precio"
-              onChange={handleChange}
-              value={inputValues.precio || ''}
-              required
-            />          
-            <CustomFormField
-              id="stock"
-              label="Stock"
-              type="number"
-              placeholder="0"
-              onChange={handleChange}
-              value={inputValues.stock || ''}                  
-            />          
-            <CustomFormField
-              id="descripcion"
-              label="Descripción"
-              type="string"
-              placeholder="Ingrese la Descripción"
-              onChange={handleChange}
-              value={inputValues.descripcion || ''}                  
-            />          
-            <Row>
-              <Col xs={2}>
+        <CustomFormField
+            id="titulo"
+            label="Títutlo"
+            type="string"
+            placeholder="Titulo"
+            onChange={handleChange}
+            value={inputValues.titulo || ''}
+            required
+        />          
+        <CustomFormField
+            id="precio"
+            label="Precio"
+            type="number"
+            placeholder="Ingrese el precio"
+            onChange={handleChange}
+            value={inputValues.precio || ''}
+            required
+        />          
+        <CustomFormField
+            id="stock"
+            label="Stock"
+            type="number"
+            placeholder="0"
+            onChange={handleChange}
+            value={inputValues.stock || ''}                  
+        />          
+        <CustomFormField
+            id="descripcion"
+            label="Descripción"
+            type="string"
+            placeholder="Ingrese la Descripción"
+            onChange={handleChange}
+            value={inputValues.descripcion || ''}                  
+        />          
+        <Row>
+            <Col xs={2}>
                 <Form.Label>Foto</Form.Label>
-              </Col>
-              <Col xs={7}>
+            </Col>
+            <Col xs={7}>
                 <Form.Control type="file" onChange={handleFotoChange}/>
-              </Col>
-            </Row>
+            </Col>
+        </Row>
+        <Row>
+            <Col>
+                <div className="image-preview-container">
+                    {tapaImageUrl ? (
+                        <img src={tapaImageUrl} alt={`Foto de ${tapa.producto.titulo}`} className='image-preview' />
+                    ) : (
+                        <span>No image available</span>
+                    )}
+                </div>
+            </Col>
+        </Row>
             
         <div className="d-flex justify-content-center">
-          <Button variant="outline-warning" type="reset" className="m-2">
-            Borrar
-          </Button>
-          <Button type="submit" className="m-2">
-            Actualizar
-          </Button>
+            <Button variant="outline-warning" type="reset" className="m-2">
+                Borrar
+            </Button>
+            <Button type="submit" className="m-2">
+                Actualizar
+            </Button>
         </div>
+ 
       </Form>
     </div>
   );

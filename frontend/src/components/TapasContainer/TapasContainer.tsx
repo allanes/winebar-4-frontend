@@ -13,6 +13,7 @@ export const TapasContainer = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [selectedTapa, setSelectedTapa] = useState<Tapa | null>(null);
+  const [tapaImageUrl, setTapaImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
     fetchTapa();
@@ -93,8 +94,17 @@ export const TapasContainer = () => {
     setShowCreateModal(false);
   };
 
-  const handleOpenUpdateModal = (tapa: Tapa) => {
+  const handleOpenUpdateModal = async (tapa: Tapa) => {
     setSelectedTapa(tapa);
+    try {
+      // Fetch the image using the existing service
+      const imageBlob = await TapasService.handleGetFotoBackendApiV1TapasFotoIdGet(tapa.id);
+      const imageUrl = URL.createObjectURL(imageBlob);
+      setTapaImageUrl(imageUrl);
+    } catch (error) {
+      handleApiError(error);
+      setTapaImageUrl(null);
+    }
     setShowUpdateModal(true);
   };
 
@@ -133,7 +143,12 @@ export const TapasContainer = () => {
           <Modal.Title>Actualizar Tapa</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {selectedTapa && <TapasUpdate tapa={selectedTapa} onUpdateTapa={handleUpdate} />}
+          {selectedTapa && 
+            <TapasUpdate 
+              tapa={selectedTapa} 
+              onUpdateTapa={handleUpdate} 
+              tapaImageUrl={tapaImageUrl} 
+            />}
         </Modal.Body>
       </Modal>
     </div>

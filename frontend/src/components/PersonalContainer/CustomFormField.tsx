@@ -27,10 +27,6 @@ const CustomFormField: React.FC<CustomFormFieldProps> = ({
     setTouched(true);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(event);
-  };
-
   const isInvalid = required && touched && (value === '' || value === 0);
 
   return (

@@ -17,6 +17,7 @@ const keysTabTapa = [
   "Descripcion",
   "Precio",
   "Stock",
+  "",
   ""
 ]
 
