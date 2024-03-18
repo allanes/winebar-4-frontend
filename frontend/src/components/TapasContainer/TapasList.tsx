@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import { Tapa, TapasService, Producto, TapaConProductoCreate } from '../../codegen_output'
 import deleteIcon from '../../assets/icons/outline_delete_white_24dp.png'
+import editIcon from '../../assets/icons/outline_edit_white_24dp.png'
 import Swal from 'sweetalert2'
 
 interface Props {
   tapasList: Array<Tapa>
   onDeleteTapa: (id: number) => void
+  onUpdateTapa: (tapa: Tapa) => void
 }
 
 const keysTabTapa = [
@@ -18,7 +20,7 @@ const keysTabTapa = [
   ""
 ]
 
-export const TapasList = ({ tapasList, onDeleteTapa: onDeleteTapa_propin }: Props) => {
+export const TapasList = ({ tapasList, onDeleteTapa, onUpdateTapa }: Props) => {
   const [loadedImages, setLoadedImages] = useState<{ [key: number]: string }>({});
 
   useEffect(() => {
@@ -54,8 +56,6 @@ export const TapasList = ({ tapasList, onDeleteTapa: onDeleteTapa_propin }: Prop
     // Only run this effect on component mount and when tapasList changes.
   }, [tapasList]);
   
-  
-
   const handleDelete = (tapa: Tapa) => {
     Swal.fire({
       title: '¿Estás seguro que deseas eliminar esta tapa?',
@@ -68,9 +68,13 @@ export const TapasList = ({ tapasList, onDeleteTapa: onDeleteTapa_propin }: Prop
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         Swal.fire('Tapa eliminada!', '', 'error')
-        onDeleteTapa_propin(tapa.id)
+        onDeleteTapa(tapa.id)
       }
     })
+  }
+
+  const handleEdit = (tapa: Tapa) => {
+    onUpdateTapa(tapa)
   }
 
   return (
@@ -103,6 +107,13 @@ export const TapasList = ({ tapasList, onDeleteTapa: onDeleteTapa_propin }: Prop
                 <td>{tapa.producto.descripcion}</td>
                 <td>{tapa.producto.precio}</td>
                 <td>{tapa.producto.stock}</td>
+                <td>
+                  <button className='icons-border icon--size icon--edit'
+                    type='button'
+                    onClick={() => { handleEdit(tapa) }} >
+                    <img className='icon-img--size' src={editIcon} alt="" />
+                  </button>
+                </td>
                 <td>
                   <button className='icons-border icon--size icon--delete'
                     type='button'
