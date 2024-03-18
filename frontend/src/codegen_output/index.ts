@@ -8,6 +8,7 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { Body_handle_create_cliente_with_tarjeta_backend_api_v1_clientes__post } from './models/Body_handle_create_cliente_with_tarjeta_backend_api_v1_clientes__post';
+export type { Body_handle_upload_foto_backend_api_v1_tapas_foto__id__post } from './models/Body_handle_upload_foto_backend_api_v1_tapas_foto__id__post';
 export type { Body_login_backend_api_v1_login_access_token_post } from './models/Body_login_backend_api_v1_login_access_token_post';
 export type { Cliente } from './models/Cliente';
 export type { ClienteCreate } from './models/ClienteCreate';
@@ -39,6 +40,7 @@ export type { TurnoUpdate } from './models/TurnoUpdate';
 export type { ValidationError } from './models/ValidationError';
 
 export { $Body_handle_create_cliente_with_tarjeta_backend_api_v1_clientes__post } from './schemas/$Body_handle_create_cliente_with_tarjeta_backend_api_v1_clientes__post';
+export { $Body_handle_upload_foto_backend_api_v1_tapas_foto__id__post } from './schemas/$Body_handle_upload_foto_backend_api_v1_tapas_foto__id__post';
 export { $Body_login_backend_api_v1_login_access_token_post } from './schemas/$Body_login_backend_api_v1_login_access_token_post';
 export { $Cliente } from './schemas/$Cliente';
 export { $ClienteCreate } from './schemas/$ClienteCreate';
