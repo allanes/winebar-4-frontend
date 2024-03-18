@@ -1,5 +1,5 @@
-import React from 'react'
-import { Tapa, Producto, TapaConProductoCreate } from '../../codegen_output'
+import React, {useState, useEffect} from 'react'
+import { Tapa, TapasService, Producto, TapaConProductoCreate } from '../../codegen_output'
 import deleteIcon from '../../assets/icons/outline_delete_white_24dp.png'
 import Swal from 'sweetalert2'
 
@@ -10,15 +10,51 @@ interface Props {
 
 const keysTabTapa = [
   "ID",
+  "Foto",
   "Ttitulo",
   "Descripcion",
   "Precio",
   "Stock",
-  "Foto",
   ""
 ]
 
 export const TapasList = ({ tapasList, onDeleteTapa: onDeleteTapa_propin }: Props) => {
+  const [loadedImages, setLoadedImages] = useState<{ [key: number]: string }>({});
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const newImages: { [key: number]: string } = {};
+      const fetchPromises = tapasList.map(async (tapa) => {
+        if (tapa.foto) {
+          try {
+            // Make sure the response is treated as a blob
+            const response = await TapasService.handleGetFotoBackendApiV1TapasFotoIdGet(tapa.id);
+            if (response instanceof Blob) {
+              const imageUrl = URL.createObjectURL(response);
+              newImages[tapa.id] = imageUrl;
+            } else {
+              console.error('Response is not a Blob:', response);
+            }
+          } catch (error) {
+            console.error('Error fetching image:', error);
+          }
+        }
+      });
+  
+      // Wait for all the images to be fetched before updating the state
+      await Promise.all(fetchPromises);
+      setLoadedImages(newImages);
+    };
+  
+    fetchImages();
+    // Clean up the object URLs when the component unmounts.
+    return () => {
+      Object.values(loadedImages).forEach(URL.revokeObjectURL);
+    };
+    // Only run this effect on component mount and when tapasList changes.
+  }, [tapasList]);
+  
+  
 
   const handleDelete = (tapa: Tapa) => {
     Swal.fire({
@@ -58,13 +94,15 @@ export const TapasList = ({ tapasList, onDeleteTapa: onDeleteTapa_propin }: Prop
             return (
               <tr key={index} >
                 <th scope='row'>{tapa.id}</th>
+                <td>
+                  {tapa.foto &&
+                    <img src={loadedImages[tapa.id]} alt="Tapa" style={{ height: '50px' }} /> 
+                  }
+                </td>
                 <td>{tapa.producto.titulo}</td>
                 <td>{tapa.producto.descripcion}</td>
                 <td>{tapa.producto.precio}</td>
                 <td>{tapa.producto.stock}</td>
-                <td>{tapa.foto}</td>
-                {/* <td>{tapa.foto}</td> */}
-                                
                 <td>
                   <button className='icons-border icon--size icon--delete'
                     type='button'

@@ -49,6 +49,7 @@ export class TapasService {
             path: {
                 'id': id,
             },
+            responseType: 'blob',
             errors: {
                 422: `Validation Error`,
             },
