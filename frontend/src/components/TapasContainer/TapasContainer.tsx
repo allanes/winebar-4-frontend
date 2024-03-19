@@ -4,7 +4,7 @@ import { Body_handle_upload_foto_backend_api_v1_tapas_foto__id__post } from '../
 import { TapasList } from './TapasList';
 import Swal from 'sweetalert2';
 import { TapasCreate } from './TapasCreate';
-import { TapasUpdate } from './TapasUpdate'; // Import the TapasUpdate component
+import { TapasUpdate } from './TapasUpdate';
 import { Modal, Row, Col } from 'react-bootstrap';
 import { AddPersonalButton } from '../PersonalContainer/AddPersonalButton';
 

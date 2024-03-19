@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Cliente, ClientesService, ClienteCreate, ApiError } from '../../codegen_output';
 import { ClientsCreate } from './ClientsCreate';
 import { ClientsList } from './ClientsList';
+import { Modal, Col, Row } from 'react-bootstrap';
+import { AddPersonalButton } from '../PersonalContainer/AddPersonalButton';
 import Swal from 'sweetalert2';
 
 export const handleApiError = (error: unknown) => {
@@ -15,6 +17,7 @@ export const handleApiError = (error: unknown) => {
 
 export const ClientsContainer = () => {
   const [clientsList, setClientsList] = useState<Cliente[]>([]);
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   useEffect(() => {
     fetchClients();
@@ -48,10 +51,39 @@ export const ClientsContainer = () => {
     }
   };
 
+  const handleOpenCreateModal = () => {
+    setShowCreateModal(true);
+  };
+
+  const handleCloseCreateModal = () => {
+    setShowCreateModal(false);
+  };
+
   return (
     <div>
-      <ClientsCreate onNewClient={handleNewClient} />
-      <ClientsList clientsList={clientsList} onDeleteClient={handleDelete} />
+      <Row className="mb-3">
+        <Col>
+          <ClientsList clientsList={clientsList} onDeleteClient={handleDelete} />
+          {/* <TapasList 
+            tapasList={tapasList} 
+            onDeleteTapa={handleDelete} 
+            onUpdateTapa={handleOpenUpdateModal}
+          />           */}
+        </Col>
+        <Col xs="auto" className='mt-3'>
+          <AddPersonalButton onClick={handleOpenCreateModal} />
+        </Col>
+      </Row>
+      
+      <Modal show={showCreateModal} onHide={handleCloseCreateModal} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Agregar Cliente</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ClientsCreate onNewClient={handleNewClient} />
+        </Modal.Body>
+      </Modal>
+      
     </div>
   );
 };
