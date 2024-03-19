@@ -1,14 +1,13 @@
 import { useReducer } from "react"
-import { Cliente } from "../codegen_output"
+import { ClienteCreate } from "../codegen_output"
 
 interface FormState {
-    inputValues: Cliente
+    inputValues: ClienteCreate
 }
 
 const INITIAL_STATE = {
-    id: 12,
-    nombre: "Nombre",
-    activa: true
+    id: 0,
+    nombre: "",
 }
 
 type FormReducerAction = {
