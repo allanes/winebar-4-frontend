@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react';
+import LoginPanel from './CajeroView/LoginPanel';
+import { PersonalInterno, LoginService, Token, OpenAPI } from '../../codegen_output';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Header } from '../Header/Header';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -12,7 +14,31 @@ import { TapasContainer } from '../TapasContainer/TapasContainer';
 import { categoriesList_sidebar } from '../../types/categoriesList_sidebar';
 import Error404 from './Error404';
 
-export const AdminView = () => {
+const AdminView: React.FC = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(true);
+  const [usuarioLogueado, setUsuarioLogueado] = useState<PersonalInterno | null>(null);
+
+  const handleLoginSuccess = async (token: Token) => {
+    localStorage.setItem('token', token.access_token); // Save token locally
+    OpenAPI.TOKEN = token.access_token;
+    try {
+      const usuarioLogueadoData = await LoginService.readUsersMeBackendApiV1LoginUsersMeGet();
+      setUsuarioLogueado(usuarioLogueadoData);
+      setIsLoggedIn(true);
+      setShowLoginModal(false);
+    } catch (error) {
+      console.error("Error fetching user data", error);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Clear token
+    OpenAPI.TOKEN = '';
+    setIsLoggedIn(false);
+    setUsuarioLogueado(null);
+  };
+
   return (
     <>
       <Header title='Panel de Administración' />
@@ -36,7 +62,9 @@ export const AdminView = () => {
           </div>
         </Router>
       </div>
+      )}
     </>
   );
 }
 
+export default AdminView;
