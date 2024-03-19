@@ -53,7 +53,7 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
   };
 
   // Use the expanded prop to set the defaultActiveKey of the Accordion
-  const defaultActiveKey = expanded ? '0' : undefined;
+  const defaultActiveKey = expanded ? undefined : '0';
 
   return (
     <div className="table-container-s mb-4">
