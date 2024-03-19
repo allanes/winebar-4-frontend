@@ -1,18 +1,21 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { Tapa, TapaConProductoCreate } from '../../codegen_output'
 import useNewTapasForm from '../../hooks/useNewTapasForm'
 
 import { Row, Col, Button, Form } from 'react-bootstrap'
+import CustomFormField from '../PersonalContainer/CustomFormField'
 
 import Swal from 'sweetalert2'
 
 interface Props {
-  onNewTapa: (newTapa: TapaConProductoCreate) => void
+  onNewTapa: (
+    newTapa: TapaConProductoCreate,
+    fotoFile: File | null) => void
 }
 
-export const TapasCreate = ({ onNewTapa: onNewTapaPropIn }: Props) => {
-
+export const TapasCreate = ({ onNewTapa }: Props) => {
   const [inputValues, dispatch] = useNewTapasForm()
+  const [fotoFile, setFotoFile] = useState<File | null>(null);
   const formRef = useRef<HTMLFormElement>(null)
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,61 +30,70 @@ export const TapasCreate = ({ onNewTapa: onNewTapaPropIn }: Props) => {
     })
   }
 
+  const handleFotoChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const file = evt.target.files && evt.target.files[0];
+    setFotoFile(file || null);
+  };
+
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
-    evt.preventDefault()
-    onNewTapaPropIn(inputValues)
-    formRef.current?.reset()
-  }
+    evt.preventDefault();
+    onNewTapa(inputValues, fotoFile);
+    formRef.current?.reset();
+    setFotoFile(null);
+  };
 
   return (
-    <div className='table-container-xl mb-4'>
-      <div className='table-container-l text-center mb-5'>
-        <p className='h3'>Nueva Tapa</p>
-      </div>
-      <Form ref={formRef} onSubmit={handleSubmit} >
-      <Row>
-          <Col>
-            <Form.Group className="mb-3" controlId="titulo">
-              <Form.Label>Títutlo</Form.Label>
-              <Form.Control onChange={handleChange} type="text" placeholder="Titulo" />
-            </Form.Group>
-          </Col>          
-          <Col>
-            <Form.Group className="mb-3" controlId="precio">
-              <Form.Label>Precio</Form.Label>
-              <Form.Control onChange={handleChange} type="float" placeholder="Ingrese el precio" />
-            </Form.Group>
-          </Col>          
-        </Row>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3" controlId="stock">
-              <Form.Label>Stock</Form.Label>
-              <Form.Control onChange={handleChange} type="number" placeholder="0" />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3" controlId="descripcion">
-              <Form.Label>Descripción</Form.Label>
-              <Form.Control onChange={handleChange} type="text" placeholder="Ingrese la Descripción" />
-            </Form.Group>
-          </Col>                    
-          <Col>
-            <Form.Group className="mb-3" controlId="foto">
-              <Form.Label>Foto</Form.Label>
-              <Form.Control onChange={handleChange} type="text" placeholder="Ruta a la foto" />
-            </Form.Group>
-          </Col>          
-        </Row>
-        
-        <Button variant='outline-warning' type="reset" className="m-2">
-          Borrar
-        </Button>
+    <div className="table-container-s mb-4">
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <CustomFormField
+              id="titulo"
+              label="Títutlo"
+              type="string"
+              placeholder="Titulo"
+              onChange={handleChange}
+              value={inputValues.titulo || ''}
+              required
+            />          
+            <CustomFormField
+              id="precio"
+              label="Precio"
+              type="number"
+              placeholder="Ingrese el precio"
+              onChange={handleChange}
+              value={inputValues.precio || ''}
+              required
+            />          
+            <CustomFormField
+              id="stock"
+              label="Stock"
+              type="number"
+              placeholder="0"
+              onChange={handleChange}
+              value={inputValues.stock || ''}                  
+            />          
+            <CustomFormField
+              id="descripcion"
+              label="Descripción"
+              type="string"
+              placeholder="Ingrese la Descripción"
+              onChange={handleChange}
+              value={inputValues.descripcion || ''}                  
+            />          
+            <Row>
+              <Col xs={2}>
+                <Form.Label>Foto</Form.Label>
+              </Col>
+              <Col xs={7}>
+                <Form.Control type="file" onChange={handleFotoChange}/>
+              </Col>
+            </Row>
 
-        <Button type="submit" className="m-2">
-          Dar de alta
-        </Button>
-      </Form>
-    </div>
-  )
-}
+            <div className="d-flex justify-content-center">
+              <Button type="submit" className="m-4" size='lg'>
+                Dar de alta
+              </Button>
+            </div>
+          </Form>
+        </div>
+      )
+    }

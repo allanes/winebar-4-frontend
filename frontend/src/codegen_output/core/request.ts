@@ -300,7 +300,21 @@ export const request = <T>(config: OpenAPIConfig, options: ApiRequestOptions): C
 
             if (!onCancel.isCancelled) {
                 const response = await sendRequest(config, options, url, body, formData, headers, onCancel);
-                const responseBody = await getResponseBody(response);
+
+                // Handle different response types based on responseType
+                let responseBody;
+                if (options.responseType === 'blob') {
+                    responseBody = await response.blob();
+                } else if (options.responseType === 'json') {
+                    responseBody = await response.json();
+                } else if (options.responseType === 'text') {
+                    responseBody = await response.text();
+                } else if (options.responseType === 'arraybuffer') {
+                    responseBody = await response.arrayBuffer();
+                } else {
+                    responseBody = await getResponseBody(response);
+                }
+
                 const responseHeader = getResponseHeader(response, options.responseHeader);
 
                 const result: ApiResult = {

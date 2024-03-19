@@ -27,18 +27,14 @@ const CustomFormField: React.FC<CustomFormFieldProps> = ({
     setTouched(true);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(event);
-  };
-
   const isInvalid = required && touched && (value === '' || value === 0);
 
   return (
     <Row className='mb-3'>
-        <Col xs={3}>
+        <Col xs={2}>
             <Form.Label>{label}</Form.Label>
         </Col>
-        <Col xs={5}>
+        <Col xs={6}>
             <Form.Control
                 id={id}
                 type={type}
@@ -49,10 +45,10 @@ const CustomFormField: React.FC<CustomFormFieldProps> = ({
                 required={required}
                 value={value}
             />
-
-            <Form.Control.Feedback type="invalid">
-                Este campo es obligatorio.
-            </Form.Control.Feedback>
+        
+        <Form.Control.Feedback type="invalid">
+            Este campo es obligatorio.
+        </Form.Control.Feedback>
         </Col>
         
     </Row>

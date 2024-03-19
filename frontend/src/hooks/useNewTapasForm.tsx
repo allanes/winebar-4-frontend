@@ -1,15 +1,21 @@
 import { useReducer } from "react"
-import { TapaConProductoCreate } from "../codegen_output"
+import { Tapa } from "../codegen_output"
 
 interface FormState {
-    inputValues: TapaConProductoCreate
+    inputValues: {
+        titulo: string,
+        descripcion: string,
+        precio: number,
+        stock: number,
+        foto: string,
+    }
 }
 
 const INITIAL_STATE = {
-    titulo: "Titulo de Tapa",
-    descripcion: "Descripcion de Tapa",
-    precio: 10.0,
-    stock: 1,
+    titulo: "",
+    descripcion: "",
+    precio: 0,
+    stock: 0,
     foto: ''
 }
 
@@ -40,8 +46,15 @@ const newTapasReducer = (state: FormState["inputValues"], action: FormReducerAct
     }
 }
 
-const useNewTapasForm = () => {
-    return useReducer(newTapasReducer, INITIAL_STATE)
+const useNewTapasForm = (tapa?: Tapa) => {
+    const initialState = tapa ? {
+        titulo: tapa.producto.titulo,
+        descripcion: tapa.producto.descripcion || '',
+        precio: tapa.producto.precio,
+        stock: tapa.producto.stock,
+        foto: tapa.foto || ''
+    } : INITIAL_STATE
+    return useReducer(newTapasReducer, initialState)
 }
 
-export default useNewTapasForm 
+export default useNewTapasForm
