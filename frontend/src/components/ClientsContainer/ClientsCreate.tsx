@@ -2,7 +2,8 @@ import React, { useState, useRef } from 'react';
 import { ClienteCreate } from '../../codegen_output';
 import CardReaderModal from './CardReaderModal';
 import useNewClientForm from '../../hooks/useNewClientsForm';
-import { Row, Col, Button, Form, Accordion, Modal, Spinner } from 'react-bootstrap';
+import { Row, Col, Button, Form } from 'react-bootstrap';
+import CustomFormField from '../PersonalContainer/CustomFormField';
 import Swal from 'sweetalert2';
 
 interface Props {
@@ -46,38 +47,31 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
   const defaultActiveKey = expanded ? '0' : undefined;
 
   return (
-    <Accordion defaultActiveKey={defaultActiveKey} className='table-container-xl mb-4'>
-      <Accordion.Item eventKey="0" className='table-container-l text-center mb-5'>
-        <Accordion.Header><h3>Agregar Cliente</h3></Accordion.Header>
-        <Accordion.Body>
-          <Form ref={formRef} onSubmit={handleContinue}>
-            <Row>
-              <Col>
-                <Form.Group className="mb-3" controlId="nombre">
-                  <Form.Label>Nombre</Form.Label>
-                  <Form.Control onChange={handleChange} type="text" placeholder="Ingrese el nombre" />
-                </Form.Group>
-              </Col>
-              {/* Other fields */}
-            </Row>
-
-            <Button variant="outline-warning" type="reset" className="m-2">
-              Borrar
-            </Button>
-
-            <Button type="submit" className="m-2">
-              Continuar
-            </Button>
-          </Form>
-        </Accordion.Body>
-      </Accordion.Item>
+    <div className="table-container-s mb-4">
+      <Form ref={formRef} onSubmit={handleContinue}>
+        <CustomFormField
+          id="nombre"
+          label="Nombre"
+          type="string"
+          placeholder="Ingrese el Nombre"
+          onChange={handleChange}
+          value={inputValues.nombre}
+          required
+        />             
+        
+        <div className="d-flex justify-content-center">
+          <Button type="submit" className="m-4" size='lg'>
+            Dar de alta
+          </Button>
+        </div>
+      </Form>
 
       <CardReaderModal 
         show={showCardReader} 
         onHide={() => setShowCardReader(false)}
         onCardRead={handleCardRead}
       />      
-    </Accordion>
+    </div>
   );
 };
 
