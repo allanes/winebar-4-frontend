@@ -34,7 +34,7 @@ const CustomFormField: React.FC<CustomFormFieldProps> = ({
         <Col xs={2}>
             <Form.Label>{label}</Form.Label>
         </Col>
-        <Col xs={5}>
+        <Col xs={6}>
             <Form.Control
                 id={id}
                 type={type}
@@ -46,9 +46,9 @@ const CustomFormField: React.FC<CustomFormFieldProps> = ({
                 value={value}
             />
         
-            <Form.Control.Feedback type="invalid">
-                Este campo es obligatorio.
-            </Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">
+            Este campo es obligatorio.
+        </Form.Control.Feedback>
         </Col>
         
     </Row>

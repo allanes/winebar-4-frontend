@@ -97,11 +97,7 @@ export const PersonalesCreate = ({ onNewPersonal, expanded = false }: Props) => 
             />            
             
             <div className="d-flex justify-content-center">
-              <Button variant="outline-warning" type="reset" className="m-2">
-                Borrar
-              </Button>
-
-              <Button type="submit" className="m-2">
+             <Button type="submit" className="m-4" size='lg'>
                 Dar de alta
               </Button>
             </div>

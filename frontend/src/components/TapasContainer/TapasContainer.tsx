@@ -102,7 +102,6 @@ export const TapasContainer = () => {
       const imageUrl = URL.createObjectURL(imageBlob);
       setTapaImageUrl(imageUrl);
     } catch (error) {
-      handleApiError(error);
       setTapaImageUrl(null);
     }
     setShowUpdateModal(true);
@@ -138,7 +137,7 @@ export const TapasContainer = () => {
         </Modal.Body>
       </Modal>
 
-      <Modal show={showUpdateModal} onHide={handleCloseUpdateModal} size="lg">
+      <Modal show={showUpdateModal} onHide={handleCloseUpdateModal} size="xl">
         <Modal.Header closeButton>
           <Modal.Title>Actualizar Tapa</Modal.Title>
         </Modal.Header>

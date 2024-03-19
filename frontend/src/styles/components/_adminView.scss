@@ -5,11 +5,27 @@
 }
 
 .image-preview-container {
-  border-radius: 1px solid #ced4da;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  text-align: center; // Center the image within the column
+  padding: 10px; // Add some padding around the image
 }
 
+// Since you have a max-width on the image, you might not need a max-width on the container
+// Remove max-width from here if you want the container to adjust based on image size
 .image-preview {
-  max-width: 500px;
+  max-width: 100%; // Make the image responsive to the container size
+  height: auto; // Maintain aspect ratio
+}
+
+// Adjust your container if necessary to align items
+.tapas-update-container {
+  display: flex;
+  flex-direction: column;
+  // Other styles...
+}
+
+// You can add media queries if you need to adjust for smaller screens
+@media (max-width: 768px) {
+  .image-preview-container {
+    order: -1; // This will move the image above the form on small screens
+  }
 }
