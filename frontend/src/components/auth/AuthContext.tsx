@@ -33,7 +33,9 @@ export const AuthProvider: React.FC<AuthProvidertProps> = ({ children }) => {
     if (err.body && err.body.detail) {
       errorMessage = err.body.detail;
     }
-    Swal.fire('Error', errorMessage, 'error');
+    Swal.fire('Error', errorMessage, 'error').then(() => {
+      window.location.reload();
+    })
   };
 
   const fetchUserDetails = async () => {
@@ -62,7 +64,7 @@ export const AuthProvider: React.FC<AuthProvidertProps> = ({ children }) => {
       }
     } catch (error) {
       console.error('Login failed', error);
-      handleApiError(error);
+      handleApiError(error);            
     }
   };
 

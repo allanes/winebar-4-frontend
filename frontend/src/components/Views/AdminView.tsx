@@ -17,60 +17,32 @@ import { useAuth } from '../auth/AuthContext';
 import Error404 from './Error404';
 
 export const AdminView: React.FC = () => {
-  const [showLoginModal, setShowLoginModal] = useState(true);
-  const [usuarioLogueado, setUsuarioLogueado] = useState<PersonalInterno | null>(null);
-  const { isLoggedIn, user, logout } = useAuth();
-
-  // const handleLoginSuccess = async (token: Token) => {
-  //   localStorage.setItem('token', token.access_token); // Save token locally
-  //   OpenAPI.TOKEN = token.access_token;
-  //   try {
-  //     const usuarioLogueadoData = await LoginService.readUsersMeBackendApiV1LoginUsersMeGet();
-  //     setUsuarioLogueado(usuarioLogueadoData);
-  //     setIsLoggedIn(true);
-  //     setShowLoginModal(false);
-  //   } catch (error) {
-  //     console.error("Error fetching user data", error);
-  //   }
-  // };
-
-  // const handleLogout = () => {
-  //   localStorage.removeItem('token'); // Clear token
-  //   OpenAPI.TOKEN = '';
-  //   setIsLoggedIn(false);
-  //   setUsuarioLogueado(null);
-  // };
-
-  // const handleShowLoginModal = () => {
-  //   setShowLoginModal(true);
-  // };
+  const { isLoggedIn } = useAuth();
 
   return (
     <>
-      {/* <Header title='Panel de Administración' /> */}
       <HeaderWithUser 
-        title='Panel de Administración'         
+        title='Panel de Administración'
+        target='admin'
       />
-      {showLoginModal && <LoginPanel target='caja' />}
-      
         <div className='mi-app back-grey'>
           <Router>
             <div className='sidebar-container'>
-              {isLoggedIn &&
-                <SideBar />
-              }
+              <SideBar />              
             </div>
-            <div className='pages-container'>
-              <Routes>
-                <Route path='/' element={<ClientsContainer />} />
-                <Route path={categoriesList_sidebar[1].link} element={<PersonalInternoContainer />} />
-                <Route path={categoriesList_sidebar[2].link} element={<TarjetasContainer />} />
-                <Route path={categoriesList_sidebar[3].link} element={<OrdenesContainer />} />
-                <Route path={categoriesList_sidebar[4].link} element={<TurnosContainer />} />
-                <Route path={categoriesList_sidebar[5].link} element={<TapasContainer />} />
-                <Route path='*' element={<Error404 />} />
-              </Routes>
-            </div>
+            {isLoggedIn && 
+              <div className='pages-container'>
+                <Routes>
+                  <Route path='/' element={<ClientsContainer />} />
+                  <Route path={categoriesList_sidebar[1].link} element={<PersonalInternoContainer />} />
+                  <Route path={categoriesList_sidebar[2].link} element={<TarjetasContainer />} />
+                  <Route path={categoriesList_sidebar[3].link} element={<OrdenesContainer />} />
+                  <Route path={categoriesList_sidebar[4].link} element={<TurnosContainer />} />
+                  <Route path={categoriesList_sidebar[5].link} element={<TapasContainer />} />
+                  <Route path='*' element={<Error404 />} />
+                </Routes>
+              </div>
+            }
           </Router>
         </div>
     </>

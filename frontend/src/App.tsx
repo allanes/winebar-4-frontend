@@ -4,6 +4,7 @@ import { NavBar } from './components/NavBar/NavNar';
 import { AdminView } from './components/Views/AdminView';
 import CajeroView from './components/Views/CajeroView/CajeroView';
 import TaperoView from './components/Views/TaperoView/TaperoView';
+import { useAuth } from './components/auth/AuthContext';
 
 const renderSwitch = (props: string) => {
   switch (props) {
@@ -22,7 +23,7 @@ interface appState {
 
 function App() {
   const [currentRoute, setCurrentRoute] = useState<appState["route"]>([]);
-
+  
   useEffect(() => {
     setCurrentRoute((window.location.pathname).split("/"));
   }, [])

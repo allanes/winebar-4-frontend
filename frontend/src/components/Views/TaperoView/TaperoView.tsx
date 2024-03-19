@@ -6,8 +6,8 @@ import MenuList from './MenuContainer/MenuList';
 import Cart from './CarritoContainer/Cart';
 import { CartProvider, useCart } from './CartContext';
 import CardReaderModal from '../../ClientsContainer/CardReaderModal';
-import { Pedido, PedidosService, ClientesService, OrdenesService, PersonalInterno, LoginService, Token, OpenAPI, ApiError } from '../../../codegen_output';
-import LoginPanel from '../CajeroView/LoginPanel';
+import { Pedido, PedidosService, ClientesService, OrdenesService, ApiError } from '../../../codegen_output';
+import { useAuth } from '../../auth/AuthContext';
 import Swal from 'sweetalert2';
 
 const TaperoViewContent = () => {
@@ -84,48 +84,17 @@ const TaperoViewContent = () => {
 };
 
 const TaperoView = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(true);
-  const [usuarioLogueado, setUsuarioLogueado] = useState<PersonalInterno | null>(null);
-
-  const handleLoginSuccess = async (token: Token) => {
-    localStorage.setItem('token', token.access_token); // Save token locally
-    OpenAPI.TOKEN = token.access_token;
-    // Configure your API client to use the token
-    // Assuming your codegen automatically handles bearer tokens if configured:
-    try {
-      const usuarioLogueadoData = await LoginService.readUsersMeBackendApiV1LoginUsersMeGet();
-      setUsuarioLogueado(usuarioLogueadoData);
-      setIsLoggedIn(true);
-      setShowLoginModal(false);
-    } catch (error) {
-      console.error("Error fetching user data", error);
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('token'); // Clear token
-    OpenAPI.TOKEN = '';
-    setIsLoggedIn(false);
-    setUsuarioLogueado(null);
-    // Implement additional logout logic as needed
-  };
-
-  const handleShowLoginModal = () => {
-    setShowLoginModal(true);
-  };
+  const {isLoggedIn} = useAuth()
 
   return (
     <CartProvider>
       <HeaderWithUser 
-        title='Atención de Clientes' 
-        isLoggedIn={isLoggedIn} 
-        user={{ name: usuarioLogueado?.nombre || 'Invitado' }} 
-        onLogin={handleShowLoginModal} 
-        onLogout={handleLogout} 
+        title='Atención de Clientes'
+        target='tapa'
       />
-      {showLoginModal && <LoginPanel onLoginSuccess={handleLoginSuccess} target='tapa' />}      
-      {isLoggedIn && <TaperoViewContent />}
+      {isLoggedIn && 
+        <TaperoViewContent />
+      }
     </CartProvider>
   );
 };
