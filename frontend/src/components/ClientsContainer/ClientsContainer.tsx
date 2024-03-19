@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Cliente, ClientesService, ClienteCreate, ApiError } from '../../codegen_output';
+import { Cliente, ClientesService, ClienteCreate, ApiError, DetallesAdicionalesForUI } from '../../codegen_output';
 import { ClientsCreate } from './ClientsCreate';
 import { ClientsList } from './ClientsList';
 import { Modal, Col, Row } from 'react-bootstrap';
@@ -31,9 +31,12 @@ export const ClientsContainer = () => {
       .catch(handleApiError);
   };
 
-  const handleNewClient = async (newClient: ClienteCreate, tarjetaId: number): Promise<void> => {
+  const handleNewClient = async (newClient: ClienteCreate, tarjetaId: number, additionalDetails?: DetallesAdicionalesForUI): Promise<void> => {
     try {
-      const response = await ClientesService.handleCreateClienteWithTarjetaBackendApiV1ClientesPost(tarjetaId, { cliente_in: newClient });
+      const response = await ClientesService.handleCreateClienteWithTarjetaBackendApiV1ClientesPost(tarjetaId, {
+        cliente_in: newClient,
+        detalle_adicional_in: additionalDetails,
+      });
       Swal.fire(`${newClient.nombre}`, 'ha sido guardado con éxito', 'success');
       fetchClients(); // Re-fetch the client list after a successful addition
     } catch (error) {
