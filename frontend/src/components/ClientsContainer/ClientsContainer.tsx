@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Cliente, ClientesService, ClienteCreate, ApiError, DetallesAdicionalesForUI } from '../../codegen_output';
+import { Cliente, ClientesService, ClienteCreate, ClienteWithDetails, ApiError, DetallesAdicionalesForUI } from '../../codegen_output';
 import { ClientsCreate } from './ClientsCreate';
 import { ClientsList } from './ClientsList';
 import { Modal, Col, Row } from 'react-bootstrap';
@@ -16,7 +16,7 @@ export const handleApiError = (error: unknown) => {
 };
 
 export const ClientsContainer = () => {
-  const [clientsList, setClientsList] = useState<Cliente[]>([]);
+  const [clientsList, setClientsList] = useState<ClienteWithDetails[]>([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export const ClientsContainer = () => {
     try {
       await ClientesService.handleDeleteClienteBackendApiV1ClientesIdDelete(id);
       setClientsList(clients => clients.filter(client => client.id !== id));
-      Swal.fire('Success', 'Client deleted successfully.', 'success');
+      Swal.fire('Cliente Eliminado', '', 'success');
     } catch (error) {
       handleApiError(error);
     }

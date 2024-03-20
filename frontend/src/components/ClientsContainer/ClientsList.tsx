@@ -1,22 +1,33 @@
 import React from 'react'
-import { Cliente } from '../../codegen_output'
+import { ClienteWithDetails } from '../../codegen_output'
+import { BooleanBadge } from '../BooleanBadge'
+import { RolBadge } from '../RolesContainer/RolBadge'
 import deleteIcon from '../../assets/icons/outline_delete_white_24dp.png'
 import Swal from 'sweetalert2'
 
 interface Props {
-  clientsList: Array<Cliente>
+  clientsList: Array<ClienteWithDetails>
   onDeleteClient: (id: number) => void
 }
 
 const keysTabClients = [
+  // Atributos del cliente
   "ID",
   "Nombre",
+  // Atributos de detalles adicionales
+  "Apellido",
+  "DNI",
+  // Atributos de tarjeta
+  "Rol",
+  // "Tarjeta",
+  "Tarjeta entregada",
+  "Tarjeta en salón",
   ""
 ]
 
 export const ClientsList = ({ clientsList: clientsList, onDeleteClient: onDeleteClient }: Props) => {
 
-  const handleDelete = (client: Cliente) => {
+  const handleDelete = (client: ClienteWithDetails) => {
     Swal.fire({
       title: '¿Estás seguro que deseas eliminar el cliente?',
       html: `${client.nombre}`,
@@ -27,7 +38,7 @@ export const ClientsList = ({ clientsList: clientsList, onDeleteClient: onDelete
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Eliminado!', '', 'error')
+        // Swal.fire('Eliminado!', '', 'error')
         onDeleteClient(client.id)
       }
     })
@@ -53,9 +64,24 @@ export const ClientsList = ({ clientsList: clientsList, onDeleteClient: onDelete
           {clientsList.map((clienteData, index) => {
             return (
               <tr key={index} >
+                {/* Atributos de Cliente */}
                 <th scope='row'>{clienteData.id}</th>
-                <td>{clienteData.nombre}</td>                
-                {/* <td>{patient.email}</td> */}
+                <td>{clienteData.nombre}</td>
+                {/* Atributos de DetallesAdicionales */}
+                <td>{clienteData.detalle?.apellido}</td>
+                <td>{clienteData.detalle?.dni}</td>
+                {/* Atributos de la Tarjeta */}
+                <td>
+                  {clienteData.tarjeta && 
+                    <RolBadge 
+                      key={clienteData.tarjeta.rol.id} 
+                      roleId={clienteData.tarjeta.rol.id} 
+                      roleName={clienteData.tarjeta.rol.nombre_corto} 
+                    />
+                  }
+                </td>
+                <td><BooleanBadge value={!!clienteData.tarjeta?.entregada}/></td>
+                <td><BooleanBadge value={!!clienteData.tarjeta?.presente_en_salon}/></td>
                 <td>
                   <button className='icons-border icon--size icon--delete'
                     type='button'
