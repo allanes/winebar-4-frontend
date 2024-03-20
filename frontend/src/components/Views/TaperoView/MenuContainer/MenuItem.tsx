@@ -63,7 +63,7 @@ function MenuItem({ tapa }: Props) {
       >
         <div className="card-content">
           <Card.Title>{tapa.producto.titulo}</Card.Title>
-          <Card.Text>${tapa.producto.precio}</Card.Text>
+          <Card.Subtitle className='mt-3 mb-2'>${tapa.producto.precio}</Card.Subtitle>
           <Button variant="dark" onClick={handleAddToCart}>
             Agregar
           </Button>

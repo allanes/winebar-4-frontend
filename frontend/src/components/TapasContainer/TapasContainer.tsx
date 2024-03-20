@@ -59,7 +59,6 @@ export const TapasContainer = () => {
     try {
       await TapasService.handleDeleteTapaBackendApiV1TapasIdDelete(id);
       setTapasList(clients => clients.filter(client => client.id !== id));
-      // Swal.fire('Success', 'Tapa borrada exitosamente.', 'success');
     } catch (error) {
       handleApiError(error);
     }
