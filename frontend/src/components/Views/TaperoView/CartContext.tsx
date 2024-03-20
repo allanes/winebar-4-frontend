@@ -28,7 +28,12 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
   const addToCart = (newItem: Renglon) => {
     const existingItem = cartItems.find(item => item.id === newItem.id);
     if (existingItem) {
-      setCartItems(cartItems.map(item => item.id === newItem.id ? { ...item, cantidad: item.cantidad + newItem.cantidad } : item));
+      setCartItems(
+        cartItems.map(item => item.id === newItem.id ? 
+          { ...item, cantidad: newItem.cantidad } : 
+          item
+        )
+      );
     } else {
       setCartItems([...cartItems, newItem]);
     }

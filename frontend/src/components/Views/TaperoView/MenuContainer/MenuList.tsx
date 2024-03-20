@@ -35,7 +35,7 @@ function MenuList() {
       <Container>
         <Row className="menu-list flex-nowrap">
           {tapasList.map((tapa) => (
-            <Col key={tapa.id} xs={9} sm={6} md={4} lg={3}>
+            <Col key={tapa.id} xs={9} sm={6} md={4} lg={3} >
               <MenuItem tapa={tapa} />
             </Col>
           ))}
