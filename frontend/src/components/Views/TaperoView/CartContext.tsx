@@ -10,7 +10,7 @@ interface CartContextType {
   tarjetaCliente: number | null;
   setClienteData: (clienteIn: ClienteOperaConTarjeta | null, ordenIn: OrdenCompra | null, pedidoIn: Pedido | null) => void;  // Add this line
   addToCart: (productoId: number, qtty?: number) => void;
-  removeFromCart: (id: number) => void;  
+  removeFromCart: (productId: number) => void;  
   emptyCart: () => void;
   clearClientData: () => void;
 }
@@ -50,8 +50,16 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
       .catch((error) => console.error('Error al agregar producto al carrito:', error));
   };
 
-  const removeFromCart = (id: number) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
+  const removeFromCart = (productId: number) => {
+    if (!tarjetaCliente) {
+      return;
+    }
+
+    PedidosService.handleQuitarRenglonBackendApiV1PedidosQuitarProductoPost(tarjetaCliente, productId)
+      .then((renglon) => {
+        setCartItems(cartItems.filter(item => item.id !== renglon.id));
+      })
+      .catch((error) => console.error('Error al quitar producto del carrito:', error));
   };
 
   const emptyCart = () => {

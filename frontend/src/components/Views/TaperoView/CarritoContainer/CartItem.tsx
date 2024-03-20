@@ -21,7 +21,7 @@ function CartItem({ item }: Props) {
   const { removeFromCart, addToCart } = context;
 
   const handleRemoveFromCart = () => {
-    removeFromCart(item.id);
+    removeFromCart(item.producto_id);
   };
 
   const handleIncreaseQuantity = () => {
