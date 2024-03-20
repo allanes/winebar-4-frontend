@@ -23,7 +23,7 @@ function MenuItem({ tapa }: Props) {
       .then((renglon) => {
         addToCart(renglon);
       })
-      .catch((error) => console.error('Error adding item to cart:', error));
+      .catch((error) => console.error('Error al agregar producto al carrito:', error));
   };
 
   return (

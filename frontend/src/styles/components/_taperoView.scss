@@ -7,12 +7,15 @@
     flex-direction: column;
 }
 
-.menu-list {
-    display: flex;
-    background-color: #f8f9fa;
+.menu-container {
+    overflow-x: auto;
+    white-space: nowrap;
     padding: 10px;
-    height: auto;
-    justify-content: center;    
+    background-color: #f8f9fa;
+}
+
+.menu-list {
+    flex-wrap: nowrap;
 }
 
 .separador-principal {
@@ -51,8 +54,11 @@
 
 .product-item {
     border: 1px solid black;
-    width: 200px;
-}.modal-content {
+    width: 100%;
+    margin-bottom: 10px;    
+}
+
+.modal-content {
   text-align: center;
   padding: 20px;
 }

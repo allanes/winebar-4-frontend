@@ -31,15 +31,17 @@ function MenuList() {
   };
 
   return (
-    <Container className="menu-list">
-      <Row className="separador-principal" >
-        {tapasList.map((tapa) => (
-          <Col >
-            <MenuItem key={tapa.id} tapa={tapa} />
-          </Col>
-        ))}
-      </Row>
-    </Container>
+    <div className="menu-container">
+      <Container>
+        <Row className="menu-list flex-nowrap">
+          {tapasList.map((tapa) => (
+            <Col key={tapa.id} xs={9} sm={6} md={4} lg={3}>
+              <MenuItem tapa={tapa} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </div>
   );
 }
 
