@@ -78,7 +78,7 @@ const TaperoView = () => {
 
   return (
     <CartProvider>
-      <HeaderWithUser title='Atención de Clientes' target='tapa' />
+      <HeaderWithUser title='Atención de Clientes'/>
       {isLoggedIn && <TaperoViewContent />}
     </CartProvider>
   );

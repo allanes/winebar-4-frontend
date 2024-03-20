@@ -6,10 +6,9 @@ import LoginPanel from '../auth/LoginPanel';
 
 interface HeaderWithUserProps {
     title: string;
-    target: string;
 }
 
-const HeaderWithUser: React.FC<HeaderWithUserProps> = ({ title, target }) => {
+const HeaderWithUser: React.FC<HeaderWithUserProps> = ({ title }) => {
     const [showLoginModal, setShowLoginModal] = useState(true);
     const { isLoggedIn, user, login, logout } = useAuth();
 
@@ -45,7 +44,7 @@ const HeaderWithUser: React.FC<HeaderWithUserProps> = ({ title, target }) => {
                 </div>		
             </div>
             {showLoginModal && !isLoggedIn && (
-                <LoginPanel target={target} />
+                <LoginPanel />
             )}
         </div>
     );

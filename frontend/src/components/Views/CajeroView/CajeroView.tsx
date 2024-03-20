@@ -14,7 +14,6 @@ const CajeroView = () => {
     <>
       <HeaderWithUser 
         title='Cajero'
-        target='caja'
       />
       <Container fluid>
         {isLoggedIn && (

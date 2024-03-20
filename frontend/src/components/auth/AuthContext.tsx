@@ -6,7 +6,7 @@ interface AuthContextType {
   isLoggedIn: boolean;
   user: PersonalInterno | null;
   token: Token | null;
-  login: (rfid: string, target: string) => Promise<void>;
+  login: (rfid: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -21,8 +21,8 @@ export const AuthProvider: React.FC<AuthProvidertProps> = ({ children }) => {
   const [token, setToken] = useState<Token | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  const fetchPassword = async (target: string): Promise<string> => {
-    const response = await fetch(`http://localhost:3001/getPassword/${target}`);
+  const fetchPassword = async (): Promise<string> => {
+    const response = await fetch(`http://localhost:3001/getPassword`);
     const data = await response.json();
     return data.api_key;
   };
@@ -41,9 +41,9 @@ export const AuthProvider: React.FC<AuthProvidertProps> = ({ children }) => {
     }
   };
 
-  const login = async (rfid: string, target: string) => {
+  const login = async (rfid: string) => {
     try {
-      const password = await fetchPassword(target);
+      const password = await fetchPassword();
       const loginData: Body_login_backend_api_v1_login_access_token_post = {
         username: rfid,
         password: password,

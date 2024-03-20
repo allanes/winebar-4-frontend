@@ -23,7 +23,6 @@ export const AdminView: React.FC = () => {
     <>
       <HeaderWithUser 
         title='Panel de Administración'
-        target='admin'
       />
         <div className='mi-app back-grey'>
           <Router>
