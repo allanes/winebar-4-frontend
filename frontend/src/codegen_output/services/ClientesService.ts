@@ -6,6 +6,7 @@ import type { Body_handle_create_cliente_with_tarjeta_backend_api_v1_clientes__p
 import type { Cliente } from '../models/Cliente';
 import type { ClienteOperaConTarjeta } from '../models/ClienteOperaConTarjeta';
 import type { ClienteUpdate } from '../models/ClienteUpdate';
+import type { ClienteWithDetails } from '../models/ClienteWithDetails';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -98,13 +99,13 @@ export class ClientesService {
      * Handle Read Clientes
      * @param skip
      * @param limit
-     * @returns Cliente Successful Response
+     * @returns ClienteWithDetails Successful Response
      * @throws ApiError
      */
     public static handleReadClientesBackendApiV1ClientesGet(
         skip?: number,
         limit: number = 100,
-    ): CancelablePromise<Array<Cliente>> {
+    ): CancelablePromise<Array<ClienteWithDetails>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/backend/api/v1/clientes/',
