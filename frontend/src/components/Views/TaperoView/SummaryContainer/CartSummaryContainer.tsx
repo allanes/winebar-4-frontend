@@ -6,7 +6,7 @@ import { PedidosService, ApiError } from '../../../../codegen_output';
 import Swal from 'sweetalert2';
 
 const CartSummaryContainer = () => {    
-  const { cartItems, tarjetaCliente, clienteSiendoAtendido, ordenCliente } = useCart()!;
+  const { cartItems, tarjetaCliente, clienteSiendoAtendido, ordenCliente, confirmOrder } = useCart()!;
 
   if (!tarjetaCliente || !clienteSiendoAtendido || !ordenCliente) {
     return <></>
@@ -14,36 +14,6 @@ const CartSummaryContainer = () => {
 
   const itemCount = cartItems.reduce((count, item) => count + item.cantidad, 0);
   const subtotal = cartItems.reduce((total, item) => total + item.cantidad * item.monto, 0);
-
-  const handleApiError = (error: unknown) => {
-    const err = error as ApiError;
-    let errorMessage = 'Ocurrió un error.';
-    if (err.body && err.body.detail) {
-      errorMessage = err.body.detail;
-    }
-    Swal.fire('Error', errorMessage, 'error');
-  };
-
-  const handleConfirmar = () => {
-    console.log('Confirmar')
-    PedidosService.handleCerrarPedidoBackendApiV1PedidosCerrarPost(tarjetaCliente)
-        .then((response) => {
-            Swal.fire('Pedido cargado', `
-                <div>
-                    <p>Nombre: ${clienteSiendoAtendido.nombre}</p>
-                    <p>Atendido por: ${response.atendido_por}</p>
-                    <p>Fecha: ${response.timestamp_pedido}</p>
-                    <p>Cerrado: ${response.cerrado}</p>
-                    <p>Monto cargado: ${subtotal}</p>
-                </div>                
-            `).then(() => {
-                window.location.reload();
-            })
-        })
-        .catch((error) => {
-            handleApiError(error)
-        })
-  }
 
   return (
     <Card className="mt-3 ">
@@ -58,7 +28,7 @@ const CartSummaryContainer = () => {
                 <p>Orden: #{ordenCliente.id}</p>
                 <p>Subtotal: ${subtotal.toFixed(2)}</p>
         </Card.Text>
-        <Button variant="primary" onClick={handleConfirmar}>Confirmar</Button>
+        <Button variant="primary" onClick={confirmOrder}>Confirmar</Button>
       </Card.Body>
     </Card>
   );

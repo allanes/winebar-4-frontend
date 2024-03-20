@@ -32,7 +32,7 @@ function CartItem({ item }: Props) {
     if (item.cantidad > 1) {
       addToCart(item.producto_id, -1);
     } else {
-      removeFromCart(item.id);
+      removeFromCart(item.producto_id);
     }
   };
 

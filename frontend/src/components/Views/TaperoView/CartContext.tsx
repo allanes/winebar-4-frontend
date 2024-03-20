@@ -1,6 +1,17 @@
 import React, { createContext, useContext, useState } from 'react';
-import { OrdenCompra, Pedido, Renglon, Cliente, ClienteOperaConTarjeta, PedidosService, RenglonCreate, Tapa } from '../../../codegen_output';
-
+import { 
+  OrdenCompra, 
+  Pedido, 
+  Renglon, 
+  Cliente, 
+  ClienteOperaConTarjeta, 
+  PedidosService, 
+  RenglonCreate, 
+  ClientesService,
+  OrdenesService } from '../../../codegen_output';
+import { handleApiError } from '../../ClientsContainer/ClientsContainer';
+import Swal from 'sweetalert2';
+import { ApiError } from '../../../codegen_output';
 
 interface CartContextType {
   cartItems: Renglon[];
@@ -11,8 +22,10 @@ interface CartContextType {
   setClienteData: (clienteIn: ClienteOperaConTarjeta | null, ordenIn: OrdenCompra | null, pedidoIn: Pedido | null) => void;  // Add this line
   addToCart: (productoId: number, qtty?: number) => void;
   removeFromCart: (productId: number) => void;  
+  confirmOrder: () => void;
   emptyCart: () => void;
   clearClientData: () => void;
+  handleCardRead: (tarjetaId: string) => void;
 }
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -62,6 +75,55 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
       .catch((error) => console.error('Error al quitar producto del carrito:', error));
   };
 
+  const confirmOrder = () => {
+    if (!tarjetaCliente || !clienteSiendoAtendido || !ordenCliente) {
+      return;
+    }
+  
+    const itemCount = cartItems.reduce((count, item) => count + item.cantidad, 0);
+    const subtotal = cartItems.reduce((total, item) => total + item.cantidad * item.monto, 0);
+  
+    PedidosService.handleCerrarPedidoBackendApiV1PedidosCerrarPost(tarjetaCliente)
+      .then((response) => {
+        Swal.fire('Pedido cargado', `
+          <div>
+            <p>Nombre: ${clienteSiendoAtendido.nombre}</p>
+            <p>Atendido por: ${response.atendido_por}</p>
+            <p>Fecha: ${response.timestamp_pedido}</p>
+            <p>Cerrado: ${response.cerrado}</p>
+            <p>Monto cargado: ${subtotal}</p>
+          </div>                
+        `).then(() => {
+          clearClientData(); // Clear the client data after confirming the order
+        });
+      })
+      .catch((error) => {
+        handleApiError(error);
+      });
+  };
+
+  const handleCardRead = (tarjetaId: string) => {
+    return new Promise<void>((resolve, reject) => {
+      ClientesService.handleReadClienteByTarjetaIdBackendApiV1ClientesConTarjetaTarjetaIdGet(parseInt(tarjetaId))
+        .then((clienteResponse) => {
+          OrdenesService.handleReadOrdenByClientRfidBackendApiV1OrdenesByRfidTarjetaIdGet(parseInt(tarjetaId))
+            .then((ordenResponse) => {
+              PedidosService.handleAbrirPedidoBackendApiV1PedidosAbrirPost(parseInt(tarjetaId))
+                .then((pedidosResponse) => {
+                  // Update the context state
+                  setClienteData(clienteResponse, ordenResponse, pedidosResponse);
+                  setPedidoEnCurso(pedidosResponse);
+                  setCartItems(pedidosResponse.renglones)
+                  resolve();
+                })
+                .catch(reject);
+            })
+            .catch(reject);
+        })
+        .catch(reject);
+    });
+  };
+
   const emptyCart = () => {
     setCartItems([]);
   }
@@ -102,8 +164,10 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
       setClienteData, 
       addToCart, 
       removeFromCart, 
+      confirmOrder,
       emptyCart,
-      clearClientData }}>
+      clearClientData,
+      handleCardRead }}>
       {children}
     </CartContext.Provider>
   );
