@@ -27,24 +27,17 @@ export const AuthProvider: React.FC<AuthProvidertProps> = ({ children }) => {
     return data.api_key;
   };
 
-  const handleApiError = (error: unknown) => {
-    const err = error as ApiError;
-    let errorMessage = 'Ocurrió un error.';
-    if (err.body && err.body.detail) {
-      errorMessage = err.body.detail;
-    }
-    Swal.fire('Error', errorMessage, 'error').then(() => {
-      window.location.reload();
-    })
-  };
-
   const fetchUserDetails = async () => {
     try {
       const userDetails = await LoginService.readUsersMeBackendApiV1LoginUsersMeGet();
       setUser(userDetails);
+      setIsLoggedIn(true);
     } catch (error) {
       console.error('Failed to fetch user details', error);
-      handleApiError(error);
+      setIsLoggedIn(false);
+      setToken(null);
+      OpenAPI.TOKEN = '';
+      localStorage.removeItem('token');
     }
   };
 
@@ -58,13 +51,18 @@ export const AuthProvider: React.FC<AuthProvidertProps> = ({ children }) => {
       const response = await LoginService.loginBackendApiV1LoginAccessTokenPost(loginData);
       if (response && response.access_token) {
         setToken(response);
-        OpenAPI.TOKEN = response.access_token
+        OpenAPI.TOKEN = response.access_token;
+        localStorage.setItem('token', response.access_token);
         await fetchUserDetails();
-        setIsLoggedIn(true);
       }
     } catch (error) {
       console.error('Login failed', error);
-      handleApiError(error);            
+      const err = error as ApiError;
+      let errorMessage = 'No se pudo validar las credenciales.';
+      if (err.body && err.body.detail) {
+        errorMessage = err.body.detail;
+      }
+      Swal.fire('Error', errorMessage, 'error');
     }
   };
 
@@ -72,8 +70,18 @@ export const AuthProvider: React.FC<AuthProvidertProps> = ({ children }) => {
     setUser(null);
     setToken(null);
     OpenAPI.TOKEN = '';
+    localStorage.removeItem('token');
     setIsLoggedIn(false);
   };
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setToken({ access_token: storedToken, token_type: 'bearer' });
+      OpenAPI.TOKEN = storedToken;
+      fetchUserDetails();
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, user, token, login, logout }}>
