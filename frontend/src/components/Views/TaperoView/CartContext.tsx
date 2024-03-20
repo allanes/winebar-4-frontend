@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { OrdenCompra, Pedido, Renglon, Cliente, ClienteOperaConTarjeta } from '../../../codegen_output';
+import { OrdenCompra, Pedido, Renglon, Cliente, ClienteOperaConTarjeta, PedidosService, RenglonCreate, Tapa } from '../../../codegen_output';
 
 
 interface CartContextType {
@@ -9,9 +9,8 @@ interface CartContextType {
   clienteSiendoAtendido: Cliente | null;
   tarjetaCliente: number | null;
   setClienteData: (clienteIn: ClienteOperaConTarjeta | null, ordenIn: OrdenCompra | null, pedidoIn: Pedido | null) => void;  // Add this line
-  addToCart: (newItem: Renglon) => void;
-  removeFromCart: (id: number) => void;
-  updateQuantityInCart: (id: number, quantity: number) => void;
+  addToCart: (productoId: number, qtty?: number) => void;
+  removeFromCart: (id: number) => void;  
   emptyCart: () => void;
   clearClientData: () => void;
 }
@@ -25,26 +24,34 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
   const [clienteSiendoAtendido, setClienteSiendoAtendido] = useState<Cliente | null>(null);
   const [tarjetaCliente, setTarjetaCliente] = useState<number | null>(null)
   
-  const addToCart = (newItem: Renglon) => {
-    const existingItem = cartItems.find(item => item.id === newItem.id);
-    if (existingItem) {
-      setCartItems(
-        cartItems.map(item => item.id === newItem.id ? 
-          { ...item, cantidad: newItem.cantidad } : 
-          item
-        )
-      );
-    } else {
-      setCartItems([...cartItems, newItem]);
+  const addToCart = (productoId: number, qtty: number = 1) => {
+    if (!tarjetaCliente) {
+      return;
     }
+    const renglonCreate: RenglonCreate = {
+      cantidad: qtty,
+      producto_id: productoId,
+    };
+  
+    PedidosService.handleAgregarProductoBackendApiV1PedidosAgregarProductoPost(tarjetaCliente, renglonCreate)
+      .then((renglon) => {
+        const existingItem = cartItems.find(item => item.id === renglon.id);
+        if (existingItem) {
+          setCartItems(
+            cartItems.map(item => item.id === renglon.id ? 
+              { ...item, cantidad: renglon.cantidad } : 
+              item
+            )
+          );
+        } else {
+          setCartItems([...cartItems, renglon]);
+        }
+      })
+      .catch((error) => console.error('Error al agregar producto al carrito:', error));
   };
 
   const removeFromCart = (id: number) => {
     setCartItems(cartItems.filter(item => item.id !== id));
-  };
-
-  const updateQuantityInCart = (id: number, quantity: number) => {
-    setCartItems(cartItems.map(item => item.id === id ? { ...item, cantidad: quantity } : item));
   };
 
   const emptyCart = () => {
@@ -87,7 +94,6 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
       setClienteData, 
       addToCart, 
       removeFromCart, 
-      updateQuantityInCart, 
       emptyCart,
       clearClientData }}>
       {children}

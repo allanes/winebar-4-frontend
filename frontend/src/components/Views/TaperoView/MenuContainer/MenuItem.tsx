@@ -10,7 +10,7 @@ interface Props {
 }
 
 function MenuItem({ tapa }: Props) {
-  const { tarjetaCliente, addToCart } = useCart()!;
+  const { addToCart } = useCart()!;
   const [loadedImage, setLoadedImage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -40,19 +40,7 @@ function MenuItem({ tapa }: Props) {
   }, [tapa.id, tapa.foto]);
 
   const handleAddToCart = () => {
-    if (!tarjetaCliente) {
-      return;
-    }
-    const renglonCreate: RenglonCreate = {
-      cantidad: 1,
-      producto_id: tapa.producto.id,
-    };
-    
-    PedidosService.handleAgregarProductoBackendApiV1PedidosAgregarProductoPost(tarjetaCliente, renglonCreate)
-      .then((renglon) => {
-        addToCart(renglon);
-      })
-      .catch((error) => console.error('Error al agregar producto al carrito:', error));
+    addToCart(tapa.producto.id);
   };
 
   return (

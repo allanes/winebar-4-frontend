@@ -18,19 +18,19 @@ function CartItem({ item }: Props) {
   }
 
   // Destructure the needed functions from context
-  const { removeFromCart, updateQuantityInCart } = context;
+  const { removeFromCart, addToCart } = context;
 
   const handleRemoveFromCart = () => {
     removeFromCart(item.id);
   };
 
   const handleIncreaseQuantity = () => {
-    updateQuantityInCart(item.id, item.cantidad + 1);
+    addToCart(item.producto_id, 1);
   };
 
   const handleDecreaseQuantity = () => {
     if (item.cantidad > 1) {
-      updateQuantityInCart(item.id, item.cantidad - 1);
+      addToCart(item.producto_id, -1);
     } else {
       removeFromCart(item.id);
     }
