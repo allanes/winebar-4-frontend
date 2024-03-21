@@ -9,6 +9,7 @@ export type Pedido = {
     timestamp_pedido: (string | null);
     cerrado: boolean;
     orden_id: number;
+    monto_maximo_pedido: number;
     renglones: Array<Renglon>;
 };
 

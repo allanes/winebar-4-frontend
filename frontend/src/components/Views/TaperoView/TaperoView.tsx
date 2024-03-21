@@ -66,7 +66,7 @@ const TaperoViewContent = () => {
         onCardRead={handleCardReadWrapper}
       />
       <Container fluid className='main'>
-        <TaperoHeader />
+        {/* <TaperoHeader /> */}
         <Col>
           <Row xs={12} md={8} className='menu-col'>
             <MenuList />
