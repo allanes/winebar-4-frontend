@@ -9,6 +9,7 @@ export type OrdenCompra = {
     cliente_id: number;
     abierta_por: number;
     id: number;
+    monto_cargado: number;
     monto_cobrado: number;
     timestamp_apertura_orden: string;
     timestamp_cierre_orden?: (string | null);
