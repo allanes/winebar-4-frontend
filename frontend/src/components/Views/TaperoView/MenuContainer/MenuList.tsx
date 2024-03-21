@@ -33,7 +33,7 @@ function MenuList() {
   return (
     <div className="menu-container">
       <Container>
-        <Row className="menu-list flex-nowrap">
+        <Row className="menu-list">
           {tapasList.map((tapa) => (
             <Col key={tapa.id} xs={9} sm={6} md={4} lg={3} >
               <MenuItem tapa={tapa} />

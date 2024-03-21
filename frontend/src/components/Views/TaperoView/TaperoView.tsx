@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import HeaderWithUser from '../../Header/HeaderWithUser';
 import TaperoHeader from './TaperoHeader';
 import MenuList from './MenuContainer/MenuList';
@@ -14,12 +14,9 @@ const TaperoViewContent = () => {
   const [showCardReaderModal, setShowCardReaderModal] = useState(true);
 
   const context = useCart();
-  if (!context) {
-    console.error('Cart context is not available.');
-    return null; // Or handle this case as you see fit
-  }
-  const { pedidoEnCurso, handleCardRead } = context;
-
+  
+  const { pedidoEnCurso, handleCardRead } = context!;
+  
   useEffect(() => {
     if (pedidoEnCurso) {
       setShowCardReaderModal(false);
@@ -27,6 +24,11 @@ const TaperoViewContent = () => {
       setShowCardReaderModal(true);
     }
   }, [pedidoEnCurso]);
+
+  if (!context) {
+    console.error('Cart context is not available.');
+    return null; // Or handle this case as you see fit
+  }
 
   const handleApiErrorCustom = (error: unknown) => {
     const err = error as ApiError;
@@ -65,8 +67,14 @@ const TaperoViewContent = () => {
       />
       <Container fluid className='main'>
         <TaperoHeader />
-        <MenuList />
-        <Cart />
+        <Col>
+          <Row xs={12} md={8} className='menu-col'>
+            <MenuList />
+          </Row>
+          <Row xs={12} md={4}>
+            <Cart />
+          </Row>
+        </Col>
         {/* <FooterBanner /> */}
       </Container>
     </>

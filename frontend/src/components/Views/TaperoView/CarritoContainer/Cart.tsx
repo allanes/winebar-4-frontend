@@ -18,10 +18,12 @@ function Cart() {
 
   return (
     <Row className="cart ">
-      <Col md={6} className="cart-items separador-principal">
-        {cartItems.map((item: Renglon) => (
-          <CartItem key={item.id} item={item} />
-        ))}
+      <Col md={6} className="cart-items-container separador-principal">
+        <div className="cart-items">
+          {cartItems.map((item: Renglon) => (
+            <CartItem key={item.id} item={item} />
+          ))}
+        </div>
       </Col>
       <Col md={6} className="cart-summary">
         <CartSummaryContainer />
