@@ -11,6 +11,7 @@ import {
   OrdenesService } from '../../../codegen_output';
 import { handleApiError } from '../../ClientsContainer/ClientsContainer';
 import Swal from 'sweetalert2';
+import ResumenPedidoCerrado from './SummaryContainer/ResumenPedidoCerrado';
 import { ApiError } from '../../../codegen_output';
 
 interface CartContextType {
@@ -41,6 +42,7 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
     if (!tarjetaCliente) {
       return;
     }
+    
     const renglonCreate: RenglonCreate = {
       cantidad: qtty,
       producto_id: productoId,
@@ -75,31 +77,27 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
       .catch((error) => console.error('Error al quitar producto del carrito:', error));
   };
 
+  const [showResumen, setShowResumen] = useState(false);
+  const [orderClosed, setOrderClosed] = useState(false);
+
   const confirmOrder = () => {
     if (!tarjetaCliente || !clienteSiendoAtendido || !ordenCliente) {
       return;
     }
-  
-    const itemCount = cartItems.reduce((count, item) => count + item.cantidad, 0);
-    const subtotal = cartItems.reduce((total, item) => total + item.cantidad * item.monto, 0);
-  
+
     PedidosService.handleCerrarPedidoBackendApiV1PedidosCerrarPost(tarjetaCliente)
       .then((response) => {
-        Swal.fire('Pedido cargado', `
-          <div>
-            <p>Nombre: ${clienteSiendoAtendido.nombre}</p>
-            <p>Atendido por: ${response.atendido_por}</p>
-            <p>Fecha: ${response.timestamp_pedido}</p>
-            <p>Cerrado: ${response.cerrado}</p>
-            <p>Monto cargado: ${subtotal}</p>
-          </div>                
-        `).then(() => {
-          clearClientData(); // Clear the client data after confirming the order
-        });
+        setOrderClosed(response.cerrado);
+        setShowResumen(true);
       })
       .catch((error) => {
         handleApiError(error);
       });
+  };
+
+  const closeResumen = () => {
+    setShowResumen(false);
+    clearClientData(); // Clear the client data after closing the resumen
   };
 
   const handleCardRead = (tarjetaId: string) => {
@@ -168,8 +166,15 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
       emptyCart,
       clearClientData,
       handleCardRead }}>
-      {children}
-    </CartContext.Provider>
+      
+    {children}
+    {showResumen && (
+      <ResumenPedidoCerrado
+        orderClosed={orderClosed}
+        onClose={closeResumen}
+      />
+    )}
+  </CartContext.Provider>
   );
 };
 
