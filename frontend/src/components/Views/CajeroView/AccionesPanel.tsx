@@ -5,6 +5,7 @@ import { handleApiError } from '../../ClientsContainer/ClientsContainer';
 import ClientsCreate from '../../ClientsContainer/ClientsCreate';
 import { ClienteCreate, ClientesService } from '../../../codegen_output';
 import { PersonBadge, People, CashCoin } from 'react-bootstrap-icons';
+import PanelCobro from './PanelCobro';
 import Swal from 'sweetalert2';
 
 const AccionesPanel = () => {
@@ -12,6 +13,7 @@ const AccionesPanel = () => {
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
+  const [showPanelCobro, setShowPanelCobro] = useState(false);
 
   const handleNewClient = async (newClient: ClienteCreate, tarjetaId: number): Promise<void> => {
     try {
@@ -21,6 +23,14 @@ const AccionesPanel = () => {
       handleApiError(error);
     }
   };
+
+  const handleClosePanelCobro = () => {
+    setShowPanelCobro(false);
+  };
+
+  const handleAbrirPanelCobro = () => {
+    setShowPanelCobro(true)
+  }
 
   return (
     <Card>
@@ -64,6 +74,7 @@ const AccionesPanel = () => {
                 <Button 
                     variant="success"
                     className='me-2'
+                    onClick={handleAbrirPanelCobro}
                 >
                     <div className="accionable--contenido">
                         <CashCoin className="icon"/>
@@ -88,6 +99,11 @@ const AccionesPanel = () => {
                 </Modal.Footer>
             </Modal>
         </div>
+
+        <PanelCobro
+            show={showPanelCobro}
+            onHide={handleClosePanelCobro}
+        />
     </Card>
   );
 };
