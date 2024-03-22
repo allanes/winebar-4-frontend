@@ -5,7 +5,7 @@ import { handleApiError } from '../../ClientsContainer/ClientsContainer';
 import ClientsCreate from '../../ClientsContainer/ClientsCreate';
 import { ClienteCreate, ClientesService } from '../../../codegen_output';
 import { PersonBadge, People, CashCoin } from 'react-bootstrap-icons';
-import PanelCobro from './PanelCobro';
+import PanelCobro from './OrdenDetallada/PanelCobro';
 import Swal from 'sweetalert2';
 
 const AccionesPanel = () => {
