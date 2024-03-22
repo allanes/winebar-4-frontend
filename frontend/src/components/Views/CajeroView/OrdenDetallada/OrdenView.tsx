@@ -12,7 +12,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData }) => {
   return (
     <div className="orden-view">
       <Row>
-        <OrdenMetadata ordenData={ordenData} />
+        <OrdenMetadata ordenData={ordenData} onCobrar={() => {}}/>
       </Row>
       <Row>
         <Accordion defaultActiveKey="" className="pedidos-accordion">
