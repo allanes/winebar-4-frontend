@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { OrdenCompra } from '../models/OrdenCompra';
+import type { OrdenCompraCerrada } from '../models/OrdenCompraCerrada';
 import type { OrdenCompraUpdate } from '../models/OrdenCompraUpdate';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -11,12 +12,12 @@ export class OrdenesService {
     /**
      * Handle Read Orden By Client Rfid
      * @param tarjetaId
-     * @returns OrdenCompra Successful Response
+     * @returns OrdenCompraCerrada Successful Response
      * @throws ApiError
      */
     public static handleReadOrdenByClientRfidBackendApiV1OrdenesByRfidTarjetaIdGet(
         tarjetaId: number,
-    ): CancelablePromise<OrdenCompra> {
+    ): CancelablePromise<OrdenCompraCerrada> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/backend/api/v1/ordenes/by-rfid/{tarjeta_id}',
