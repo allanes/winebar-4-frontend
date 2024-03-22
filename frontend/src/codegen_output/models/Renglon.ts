@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Producto } from './Producto';
 export type Renglon = {
     cantidad: number;
     producto_id: number;
@@ -9,5 +10,6 @@ export type Renglon = {
     monto: number;
     promocion_aplicada: boolean;
     pedido_id: number;
+    producto: Producto;
 };
 

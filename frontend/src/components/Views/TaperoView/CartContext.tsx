@@ -1,6 +1,18 @@
 import React, { createContext, useContext, useState } from 'react';
-import { OrdenCompra, Pedido, Renglon, Cliente, ClienteOperaConTarjeta } from '../../../codegen_output';
-
+import { 
+  OrdenCompra, 
+  Pedido, 
+  Renglon, 
+  Cliente, 
+  ClienteOperaConTarjeta, 
+  PedidosService, 
+  RenglonCreate, 
+  ClientesService,
+  OrdenesService } from '../../../codegen_output';
+import { handleApiError } from '../../ClientsContainer/ClientsContainer';
+import Swal from 'sweetalert2';
+import ResumenPedidoCerrado from './SummaryContainer/ResumenPedidoCerrado';
+import { ApiError } from '../../../codegen_output';
 
 interface CartContextType {
   cartItems: Renglon[];
@@ -9,11 +21,12 @@ interface CartContextType {
   clienteSiendoAtendido: Cliente | null;
   tarjetaCliente: number | null;
   setClienteData: (clienteIn: ClienteOperaConTarjeta | null, ordenIn: OrdenCompra | null, pedidoIn: Pedido | null) => void;  // Add this line
-  addToCart: (newItem: Renglon) => void;
-  removeFromCart: (id: number) => void;
-  updateQuantityInCart: (id: number, quantity: number) => void;
+  addToCart: (productoId: number, qtty?: number) => void;
+  removeFromCart: (productId: number) => void;  
+  confirmOrder: () => void;
   emptyCart: () => void;
   clearClientData: () => void;
+  handleCardRead: (tarjetaId: string) => void;
 }
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -25,21 +38,88 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
   const [clienteSiendoAtendido, setClienteSiendoAtendido] = useState<Cliente | null>(null);
   const [tarjetaCliente, setTarjetaCliente] = useState<number | null>(null)
   
-  const addToCart = (newItem: Renglon) => {
-    const existingItem = cartItems.find(item => item.id === newItem.id);
-    if (existingItem) {
-      setCartItems(cartItems.map(item => item.id === newItem.id ? { ...item, cantidad: item.cantidad + newItem.cantidad } : item));
-    } else {
-      setCartItems([...cartItems, newItem]);
+  const addToCart = (productoId: number, qtty: number = 1) => {
+    if (!tarjetaCliente) {
+      return;
     }
+    
+    const renglonCreate: RenglonCreate = {
+      cantidad: qtty,
+      producto_id: productoId,
+    };
+  
+    PedidosService.handleAgregarProductoBackendApiV1PedidosAgregarProductoPost(tarjetaCliente, renglonCreate)
+      .then((renglon) => {
+        const existingItem = cartItems.find(item => item.id === renglon.id);
+        if (existingItem) {
+          setCartItems(
+            cartItems.map(item => item.id === renglon.id ? 
+              { ...item, cantidad: renglon.cantidad } : 
+              item
+            )
+          );
+        } else {
+          setCartItems([...cartItems, renglon]);
+        }
+      })
+      .catch((error) => console.error('Error al agregar producto al carrito:', error));
   };
 
-  const removeFromCart = (id: number) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
+  const removeFromCart = (productId: number) => {
+    if (!tarjetaCliente) {
+      return;
+    }
+
+    PedidosService.handleQuitarRenglonBackendApiV1PedidosQuitarProductoPost(tarjetaCliente, productId)
+      .then((renglon) => {
+        setCartItems(cartItems.filter(item => item.id !== renglon.id));
+      })
+      .catch((error) => console.error('Error al quitar producto del carrito:', error));
   };
 
-  const updateQuantityInCart = (id: number, quantity: number) => {
-    setCartItems(cartItems.map(item => item.id === id ? { ...item, cantidad: quantity } : item));
+  const [showResumen, setShowResumen] = useState(false);
+  const [orderClosed, setOrderClosed] = useState(false);
+
+  const confirmOrder = () => {
+    if (!tarjetaCliente || !clienteSiendoAtendido || !ordenCliente) {
+      return;
+    }
+
+    PedidosService.handleCerrarPedidoBackendApiV1PedidosCerrarPost(tarjetaCliente)
+      .then((response) => {
+        setOrderClosed(response.cerrado);
+        setShowResumen(true);
+      })
+      .catch((error) => {
+        handleApiError(error);
+      });
+  };
+
+  const closeResumen = () => {
+    setShowResumen(false);
+    clearClientData(); // Clear the client data after closing the resumen
+  };
+
+  const handleCardRead = (tarjetaId: string) => {
+    return new Promise<void>((resolve, reject) => {
+      ClientesService.handleReadClienteByTarjetaIdBackendApiV1ClientesConTarjetaTarjetaIdGet(parseInt(tarjetaId))
+        .then((clienteResponse) => {
+          OrdenesService.handleReadOrdenByClientRfidBackendApiV1OrdenesByRfidTarjetaIdGet(parseInt(tarjetaId))
+            .then((ordenResponse) => {
+              PedidosService.handleAbrirPedidoBackendApiV1PedidosAbrirPost(parseInt(tarjetaId))
+                .then((pedidosResponse) => {
+                  // Update the context state
+                  setClienteData(clienteResponse, ordenResponse, pedidosResponse);
+                  setPedidoEnCurso(pedidosResponse);
+                  setCartItems(pedidosResponse.renglones)
+                  resolve();
+                })
+                .catch(reject);
+            })
+            .catch(reject);
+        })
+        .catch(reject);
+    });
   };
 
   const emptyCart = () => {
@@ -82,11 +162,19 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
       setClienteData, 
       addToCart, 
       removeFromCart, 
-      updateQuantityInCart, 
+      confirmOrder,
       emptyCart,
-      clearClientData }}>
-      {children}
-    </CartContext.Provider>
+      clearClientData,
+      handleCardRead }}>
+      
+    {children}
+    {showResumen && (
+      <ResumenPedidoCerrado
+        orderClosed={orderClosed}
+        onClose={closeResumen}
+      />
+    )}
+  </CartContext.Provider>
   );
 };
 

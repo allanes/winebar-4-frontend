@@ -75,6 +75,29 @@ export class PedidosService {
         });
     }
     /**
+     * Handle Quitar Renglon
+     * @param tarjetaCliente
+     * @param productoId
+     * @returns Renglon Successful Response
+     * @throws ApiError
+     */
+    public static handleQuitarRenglonBackendApiV1PedidosQuitarProductoPost(
+        tarjetaCliente: number,
+        productoId: number,
+    ): CancelablePromise<Renglon> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/backend/api/v1/pedidos/quitar-producto',
+            query: {
+                'tarjeta_cliente': tarjetaCliente,
+                'producto_id': productoId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Handle Cerrar Pedido
      * @param tarjetaCliente
      * @returns Pedido Successful Response

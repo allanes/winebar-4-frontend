@@ -68,7 +68,7 @@ export const TapasList = ({ tapasList, onDeleteTapa, onUpdateTapa }: Props) => {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Tapa eliminada!', '', 'error')
+        Swal.fire('Tapa eliminada!', '', 'success')
         onDeleteTapa(tapa.id)
       }
     })

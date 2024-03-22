@@ -6,7 +6,7 @@ interface AuthContextType {
   isLoggedIn: boolean;
   user: PersonalInterno | null;
   token: Token | null;
-  login: (rfid: string, target: string) => Promise<void>;
+  login: (rfid: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -21,36 +21,29 @@ export const AuthProvider: React.FC<AuthProvidertProps> = ({ children }) => {
   const [token, setToken] = useState<Token | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  const fetchPassword = async (target: string): Promise<string> => {
-    const response = await fetch(`http://localhost:3001/getPassword/${target}`);
+  const fetchPassword = async (): Promise<string> => {
+    const response = await fetch(`http://localhost:3001/getPassword`);
     const data = await response.json();
     return data.api_key;
-  };
-
-  const handleApiError = (error: unknown) => {
-    const err = error as ApiError;
-    let errorMessage = 'Ocurrió un error.';
-    if (err.body && err.body.detail) {
-      errorMessage = err.body.detail;
-    }
-    Swal.fire('Error', errorMessage, 'error').then(() => {
-      window.location.reload();
-    })
   };
 
   const fetchUserDetails = async () => {
     try {
       const userDetails = await LoginService.readUsersMeBackendApiV1LoginUsersMeGet();
       setUser(userDetails);
+      setIsLoggedIn(true);
     } catch (error) {
       console.error('Failed to fetch user details', error);
-      handleApiError(error);
+      setIsLoggedIn(false);
+      setToken(null);
+      OpenAPI.TOKEN = '';
+      localStorage.removeItem('token');
     }
   };
 
-  const login = async (rfid: string, target: string) => {
+  const login = async (rfid: string) => {
     try {
-      const password = await fetchPassword(target);
+      const password = await fetchPassword();
       const loginData: Body_login_backend_api_v1_login_access_token_post = {
         username: rfid,
         password: password,
@@ -58,13 +51,18 @@ export const AuthProvider: React.FC<AuthProvidertProps> = ({ children }) => {
       const response = await LoginService.loginBackendApiV1LoginAccessTokenPost(loginData);
       if (response && response.access_token) {
         setToken(response);
-        OpenAPI.TOKEN = response.access_token
+        OpenAPI.TOKEN = response.access_token;
+        localStorage.setItem('token', response.access_token);
         await fetchUserDetails();
-        setIsLoggedIn(true);
       }
     } catch (error) {
       console.error('Login failed', error);
-      handleApiError(error);            
+      const err = error as ApiError;
+      let errorMessage = 'No se pudo validar las credenciales.';
+      if (err.body && err.body.detail) {
+        errorMessage = err.body.detail;
+      }
+      Swal.fire('Error', errorMessage, 'error');
     }
   };
 
@@ -72,8 +70,18 @@ export const AuthProvider: React.FC<AuthProvidertProps> = ({ children }) => {
     setUser(null);
     setToken(null);
     OpenAPI.TOKEN = '';
+    localStorage.removeItem('token');
     setIsLoggedIn(false);
   };
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setToken({ access_token: storedToken, token_type: 'bearer' });
+      OpenAPI.TOKEN = storedToken;
+      fetchUserDetails();
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, user, token, login, logout }}>

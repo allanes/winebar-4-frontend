@@ -28,6 +28,10 @@ export const $OrdenCompra = {
             type: 'number',
             isRequired: true,
         },
+        monto_cargado: {
+            type: 'number',
+            isRequired: true,
+        },
         monto_cobrado: {
             type: 'number',
             isRequired: true,

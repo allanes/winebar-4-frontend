@@ -28,5 +28,9 @@ export const $Renglon = {
             type: 'number',
             isRequired: true,
         },
+        producto: {
+            type: 'Producto',
+            isRequired: true,
+        },
     },
 } as const;
