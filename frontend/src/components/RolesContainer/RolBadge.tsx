@@ -1,30 +1,26 @@
-// src/components/RoleBadge/RoleBadge.tsx
-
 import React from 'react';
 import Badge from 'react-bootstrap/Badge';
 
 interface RolBadgeProps {
-  roleId: number;
   roleName: string;
 }
 
-const badgeColors: { [key: number]: string } = {
-  1: "primary",   // ADMIN
-  2: "success",   // EMPLEADO_CAJERO
-  3: "info",      // EMPLEADO_TAPERO
-  4: "warning",   // CLIENTE_ESTANDAR
-  5: "danger",    // CLIENTE_VIP
-  6: "dark"       // CLIENTE_GRUPAL
+const badgeColors: { [key: string]: string } = {
+  ADMIN: "primary",
+  EMPLEADO_CAJERO: "success",
+  EMPLEADO_TAPERO: "info",
+  CLIENTE_ESTANDAR: "warning",
+  CLIENTE_VIP: "danger",
+  CLIENTE_GRUPAL: "dark"
 };
 
-export const RolBadge = ({ roleId, roleName }: RolBadgeProps) => {
-  const badgeColor = badgeColors[roleId] || 'secondary';
-    console.log(`color: ${badgeColor}`)
+export const RolBadge: React.FC<RolBadgeProps> = ({ roleName }) => {
+  const badgeColor = badgeColors[roleName] || 'secondary';
   return (
     <h5>
-        <Badge pill bg={badgeColor}>
-            {roleName}
-        </Badge>
+      <Badge pill bg={badgeColor}>
+        {roleName}
+      </Badge>
     </h5>
   );
 };

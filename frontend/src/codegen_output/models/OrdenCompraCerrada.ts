@@ -16,5 +16,7 @@ export type OrdenCompraCerrada = {
     timestamp_cierre_orden?: (string | null);
     cerrada_por?: (number | null);
     pedidos: Array<Pedido>;
+    nombre_cliente: string;
+    rol: string;
 };
 

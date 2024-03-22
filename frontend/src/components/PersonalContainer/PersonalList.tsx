@@ -122,7 +122,6 @@ export const PersonalList = ({ personalList, onDeletePersonal, onAssignTarjeta, 
                       <Col className='text-end'>
                         <RolBadge 
                           key={personal.tarjeta.rol.id} 
-                          roleId={personal.tarjeta.rol.id} 
                           roleName={personal.tarjeta.rol.nombre_corto} 
                         />
                         </Col>
