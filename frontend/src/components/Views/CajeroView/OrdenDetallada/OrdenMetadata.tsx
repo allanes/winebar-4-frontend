@@ -10,6 +10,8 @@ interface OrdenMetadataProps {
 }
 
 const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) => {
+  const openedPedidos = ordenData.pedidos.filter(pedido => pedido.cerrado===false).length;
+
   return (
     <Container>
       <Card>
@@ -41,7 +43,7 @@ const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) =>
             <Col>
               <Badge pill bg='success' className='ps-5 pe-5'>
                 <Row>
-                  <h1>${ordenData.monto_cargado}</h1>
+                  <h1>{`$ ${ordenData.monto_cargado}`}</h1>
                 </Row>
                 <Row>
                   <h6>Monto Cargado</h6>
@@ -51,11 +53,17 @@ const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) =>
           </Row>        
         </Card.Body>
         <Card.Footer>
-          <Row className="justify-content-center">
-            <Col md={4}>
+          <Row >
+            <Col md={4} />
+            <Col md={4} className='justify-content-center'>
               <Button variant="primary" size="lg"  onClick={onCobrar}>
                 Cobrar
               </Button>
+            </Col>
+            <Col md={4} className='boton-cobro-advertencia '>
+              {(openedPedidos > 0) && (
+                "Los pedidos abiertos seran borrados"
+              )}
             </Col>
           </Row>
         </Card.Footer>
