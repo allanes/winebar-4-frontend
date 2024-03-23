@@ -45,8 +45,12 @@
 
 .pedidos-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 20px;
+    // display: flex;
+    // flex-direction: column;
+    justify-content: center;
+    // align-items: center;
 }
 
 .pedido-card {
@@ -71,6 +75,7 @@
 
   .badge-row {
     margin-bottom: 15px; /* Add margin below each row of badges */
+    align-items: center;    
   }
 
   .renglon-list {

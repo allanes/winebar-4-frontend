@@ -34,6 +34,15 @@ export const $Pedido = {
             type: 'number',
             isRequired: true,
         },
+        monto_cargado: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+            isRequired: true,
+        },
         atendido_por_nombre: {
             type: 'any-of',
             contains: [{
