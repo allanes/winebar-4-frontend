@@ -6,17 +6,18 @@ import TimestampFormateadoBadge from '../../../Common/TimestampFormateadoBadge';
 import { CheckCircleFill, ExclamationCircle } from 'react-bootstrap-icons';
 
 interface PedidoCardProps {
-pedido: Pedido;
+    pedido: Pedido;
+    pedidoNumberedNumber: number;
 }
 
-const PedidoCard: React.FC<PedidoCardProps> = ({ pedido }) => {
+const PedidoCard: React.FC<PedidoCardProps> = ({ pedido, pedidoNumberedNumber }) => {
 return (
     <Card className="pedido-card">
     <Card.Header className="d-flex justify-content-between align-items-center">
-        <strong>Pedido</strong>        
+        <strong>Pedido {pedidoNumberedNumber}</strong>        
         {pedido.cerrado ? (
             <span className="text-success">
-                <CheckCircleFill /> Cerrado
+                <CheckCircleFill /> Cargado
             </span>
             ) : (
             <span className="text-warning">
@@ -28,7 +29,7 @@ return (
         <div className="pedido-metadata">
             <Row className="badge-row justify-content-between">
                 <Col md={3}>
-                    <Badge pill><strong>#{pedido.id}</strong></Badge>
+                    <Badge pill bg='secondary'><strong>#{pedido.id}</strong></Badge>
                 </Col>
                 <Col md={6}>
                     {pedido.timestamp_pedido && 
@@ -38,7 +39,7 @@ return (
             </Row>
             <Row className="badge-row">
                 <Col>
-                    <Badge pill className='ps-4 pe-4'>
+                    <Badge pill bg='secondary' className='ps-4 pe-4'>
                         <Row className='text-center'>
                             <span>Atendido por</span>
                         </Row>
