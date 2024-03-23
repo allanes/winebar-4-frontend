@@ -38,7 +38,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData }) => {
 
   return (
     <div className="orden-view">
-      <Row>
+      <Row className="sticky-top">
         <OrdenMetadata 
             ordenData={ordenData} 
             onCobrar={handleCobrar}/>
@@ -53,7 +53,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData }) => {
               <Col md={3}>
                 <OverlayTrigger
                   placement="top"
-                  delay={{ show: 50, hide: 700 }}
+                  delay={{ show: 50, hide: 200 }}
                   overlay={renderTooltip}
                 >
                     <Badge bg='light' className='text-dark'><CartFill size={24} color='green' /> {totalPedidos}</Badge>
@@ -62,7 +62,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData }) => {
               <Col md={3} className='text-end pe-5'>
                 <OverlayTrigger
                   placement="top"
-                  delay={{ show: 50, hide: 700 }}
+                  delay={{ show: 50, hide: 200 }}
                   overlay={renderTooltip2}
                 >
                     <Badge bg='light' className='text-dark'><CartX size={24} color='red' /> {openedPedidos}</Badge>
