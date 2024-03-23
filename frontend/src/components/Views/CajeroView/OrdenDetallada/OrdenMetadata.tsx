@@ -56,7 +56,7 @@ const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) =>
           <Row >
             <Col md={4} />
             <Col md={4} className='justify-content-center'>
-              <Button variant="primary" size="lg"  onClick={onCobrar}>
+              <Button variant="success" size="lg"  onClick={onCobrar}>
                 Cobrar
               </Button>
             </Col>

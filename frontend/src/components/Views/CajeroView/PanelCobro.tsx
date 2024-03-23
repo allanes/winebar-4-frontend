@@ -38,7 +38,9 @@ const PanelCobro: React.FC<PanelCobroProps> = ({ show, onHide }) => {
       </Modal.Header>
       <Modal.Body>
         {tarjetaIdCliente && ordenData ? (
-          <OrdenView ordenData={ordenData} />
+          <div style={{ position: 'relative', zIndex: 1050 }}>
+            <OrdenView ordenData={ordenData} />
+          </div>
         ) : (
           <CardReaderInput onCardRead={handleCardReadWrapper} />
         )}
