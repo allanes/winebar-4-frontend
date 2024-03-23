@@ -30,6 +30,18 @@ export const $Pedido = {
             type: 'number',
             isRequired: true,
         },
+        monto_maximo_pedido: {
+            type: 'number',
+            isRequired: true,
+        },
+        atendido_por_nombre: {
+            type: 'any-of',
+            contains: [{
+                type: 'string',
+            }, {
+                type: 'null',
+            }],
+        },
         renglones: {
             type: 'array',
             contains: {

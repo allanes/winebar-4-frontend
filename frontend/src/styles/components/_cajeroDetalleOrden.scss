@@ -61,12 +61,16 @@
     border-bottom: none;
   }
   
-  .pedido-card .pedido-metadata {
+  .pedido-card {
     margin-bottom: 20px;
   }
   
-  .pedido-card .pedido-metadata p {
+  .pedido-card p {
     margin-bottom: 5px;
+  }
+
+  .badge-row {
+    margin-bottom: 15px; /* Add margin below each row of badges */
   }
 
   .renglon-list {

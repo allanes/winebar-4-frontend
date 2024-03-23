@@ -10,6 +10,7 @@ export type Pedido = {
     cerrado: boolean;
     orden_id: number;
     monto_maximo_pedido: number;
+    atendido_por_nombre?: (string | null);
     renglones: Array<Renglon>;
 };
 

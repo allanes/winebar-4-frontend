@@ -68,12 +68,10 @@ export const $OrdenCompraCerrada = {
         nombre_cliente: {
             type: 'string',
             isRequired: true,
-            format: 'date-time',
         },
         rol: {
             type: 'string',
             isRequired: true,
-            format: 'date-time',
         },
     },
 } as const;
