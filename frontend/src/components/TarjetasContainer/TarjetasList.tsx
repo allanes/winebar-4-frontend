@@ -72,7 +72,6 @@ export const TarjetasList = ({ tarjetasList, onDeleteTarjeta: onDeleteTarjeta_pr
                 <td>
                   <RolBadge 
                     key={tarjeta.rol.id} 
-                    roleId={tarjeta.rol.id} 
                     roleName={tarjeta.rol.nombre_corto} 
                   />
                 </td>

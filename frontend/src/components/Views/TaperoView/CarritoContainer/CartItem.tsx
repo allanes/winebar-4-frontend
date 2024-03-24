@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { PlusCircle, DashCircle, XCircle } from 'react-bootstrap-icons';
 import { Renglon } from '../../../../codegen_output';
 import { useCart } from '../CartContext';
 import tapaNotAvailableImage from '../../../../assets/icons/generic_tapa_not_available.webp'
+import { fetchTapaImageByProductId } from '../../../Common/ImageFetcher';
 
 interface Props {
   item: Renglon;
@@ -12,6 +13,16 @@ interface Props {
 
 function CartItem({ item }: Props) {
   const context = useCart();
+  const [loadedImage, setLoadedImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      const imageUrl = await fetchTapaImageByProductId(item.producto_id);
+      setLoadedImage(imageUrl);
+    };
+  
+    fetchImage();
+  }, [item.producto_id]);
 
   if (!context) {
     return <div>Loading...</div>;
@@ -41,7 +52,7 @@ function CartItem({ item }: Props) {
         <div className="d-flex align-items-center">
           {/* Product Image */}
           <div className="cart-item-image">
-            <img src={tapaNotAvailableImage} alt={item.producto.titulo} />
+            <img src={loadedImage || tapaNotAvailableImage} alt={item.producto.titulo} />
           </div>
           {/* Quantity Buttons */}
           <div className="cart-item-quantity">

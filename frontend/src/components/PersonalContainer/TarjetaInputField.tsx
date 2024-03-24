@@ -62,7 +62,10 @@ const TarjetaInputField: React.FC<TarjetaInputFieldProps> = ({
         </Col>
         <Col xs={4} className='mt-1 text-start'>
             {tarjeta && (
-                <RolBadge key={tarjeta.rol.id} roleId={tarjeta.rol.id} roleName={tarjeta.rol.nombre_corto} />
+                <RolBadge 
+                  key={tarjeta.rol.id} 
+                  roleName={tarjeta.rol.nombre_corto} 
+                />
             )}
             {errorMessage && 
                 <>

@@ -37,11 +37,13 @@ export class TapasService {
     /**
      * Handle Get Foto
      * @param id
+     * @param byProductId
      * @returns any Successful Response
      * @throws ApiError
      */
     public static handleGetFotoBackendApiV1TapasFotoIdGet(
         id: number,
+        byProductId: boolean = false,
     ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -50,6 +52,9 @@ export class TapasService {
                 'id': id,
             },
             responseType: 'blob',
+            query: {
+                'by_product_id': byProductId,
+            },
             errors: {
                 422: `Validation Error`,
             },

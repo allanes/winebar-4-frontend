@@ -1,0 +1,123 @@
+// .cart-item-quantity-cajero {
+//   // display: flex;
+//   align-items: center;
+//   text-align: center;
+//   // margin-left: 10px;
+
+//   // p {
+//   //   font-size: 0.7rem;
+//   //   margin: 0;
+//   // }
+// }
+
+.orden-view {
+    padding: 20px;
+  }
+  
+  .orden-view .card {
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .orden-view .card-header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    border-bottom: none;
+  }
+  
+  .orden-view .list-group-item {
+    border: none;
+    padding: 10px 20px;
+  }
+  
+  .orden-view .list-group-item:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+  
+  .orden-view .list-group-item strong {
+    margin-right: 10px;
+  }
+  
+  .orden-view .pedidos-accordion {
+    margin-top: 20px;
+  }
+  
+  .orden-view .pedidos-accordion .accordion-header {
+    background-color: #e9ecef;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .orden-view .pedidos-accordion .accordion-body {
+    padding: 20px;
+  }
+
+  .offcanvas-body.wide {
+    width: 70vw; /* adjust the width as needed */
+    max-width: 1000px; /* add a max-width if needed */
+  }
+
+.pedidos-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+    // display: flex;
+    // flex-direction: column;
+    justify-content: center;
+    // align-items: center;
+}
+
+.pedido-card {
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .pedido-card .card-header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    border-bottom: none;
+  }
+  
+  .pedido-card {
+    margin-bottom: 20px;
+  }
+  
+  .pedido-card p {
+    margin-bottom: 5px;
+  }
+
+  .badge-row {
+    margin-bottom: 15px; /* Add margin below each row of badges */
+    align-items: center;    
+  }
+
+  .renglon-list {
+    padding: 20px 20px;
+  }
+
+  .renglon-item {
+    border: none;
+    padding: 10px 20px;
+  }
+  
+  .renglon-item:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+  
+  .renglon-item .renglon-details p {
+    margin-bottom: 5px;
+  }
+
+.boton-cobro-advertencia {
+    // justify-content: start;
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 15px;
+    margin-left: 0px;
+    margin-right: 0px;
+    text-wrap: nowrap;
+}

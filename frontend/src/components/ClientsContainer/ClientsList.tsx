@@ -75,7 +75,6 @@ export const ClientsList = ({ clientsList: clientsList, onDeleteClient: onDelete
                   {clienteData.tarjeta && 
                     <RolBadge 
                       key={clienteData.tarjeta.rol.id} 
-                      roleId={clienteData.tarjeta.rol.id} 
                       roleName={clienteData.tarjeta.rol.nombre_corto} 
                     />
                   }
