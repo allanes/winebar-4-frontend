@@ -21,11 +21,11 @@ const PedidoCard: React.FC<PedidoCardProps> = ({ pedido, pedidoNumberedNumber })
                     <Card.Header >
                         <Row md={12}>
                             <Col md={4}>
-                                <h5><strong>Pedido {pedidoNumberedNumber}</strong></h5>
+                                <h6><strong>Pedido {pedidoNumberedNumber}</strong></h6>
                             </Col>
                             <Col md={4}>
                                 {pedido.timestamp_pedido && 
-                                    <h5><TimestampFormateadoBadge timestamp={pedido.timestamp_pedido} /></h5>
+                                    <h6><TimestampFormateadoBadge timestamp={pedido.timestamp_pedido} /></h6>
                                 }
                             </Col>                    
                             <Col md={4}>
@@ -57,7 +57,7 @@ const PedidoCard: React.FC<PedidoCardProps> = ({ pedido, pedidoNumberedNumber })
                                 <Col >
                                     <Badge bg='secondary' className='ps-4 pe-4'>
                                         <Row className='text-center mt-1 mb-0'>
-                                            <h5>{totalCantidad}</h5>
+                                            <h6>{totalCantidad}</h6>
                                         </Row>
                                         <Row className='mt-0'>
                                             <span>{totalCantidad === 1 ? ' item' : ' items'}</span>
@@ -65,7 +65,10 @@ const PedidoCard: React.FC<PedidoCardProps> = ({ pedido, pedidoNumberedNumber })
                                     </Badge>
                                 </Col>
                                 <Col>
-                                    <h2><Badge bg='success'>$ {pedido.monto_cargado}</Badge></h2>
+                                    <Badge bg='success'>
+                                        <Row><h4>$ {pedido.monto_cargado}</h4></Row>
+                                        <Row className='ps-2 pe-2'>Monto pedido</Row>
+                                    </Badge>
                                 </Col>
                             </Row>
                         </div>

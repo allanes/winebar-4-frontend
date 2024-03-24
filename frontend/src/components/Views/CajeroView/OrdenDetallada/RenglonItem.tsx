@@ -24,8 +24,17 @@ const RenglonItem: React.FC<RenglonItemProps> = ({ renglon }) => {
         <div className="cart-item">
             <div className="card-content">
                 <Row className="d-flex align-items-center">
-                    <Col md={1} className="cart-item-quantity ">                        
-                        {renglon.cantidad}
+                    <Col md={2} className="text-center  ">
+                        <Badge bg='light' className='text-dark'>
+                            <Row>
+                                <h6>
+                                    <Badge pill bg={'secondary'} className=''>
+                                        {renglon.cantidad}
+                                    </Badge>
+                                </h6>
+                            </Row>
+                            <Row><p className=' '>Cant.</p></Row>
+                        </Badge>
                     </Col>
                     <Col md={2} className='me-2 p-0'>
                         <img
@@ -35,17 +44,20 @@ const RenglonItem: React.FC<RenglonItemProps> = ({ renglon }) => {
                         />                        
                     </Col>                
                     <Col md={3}>
-                        <h3><Badge bg='secondary' className='p-1'>$ {renglon.monto}</Badge></h3>
-                    </Col>
-                    <Col className="cart-item-details">
-                        <Row className='text-start'>
-                            <h4>{renglon.producto.titulo}</h4>
+                        <Row>
+                            <h4><Badge bg='secondary' className='p-1'>$ {renglon.monto}</Badge></h4>
                         </Row>
-                        <Row md={4} className='justify-content-end me-5 pe-3'>
+                        <Row className='justify-content-end'>
                             {renglon.promocion_aplicada && 
-                                <h5><Badge bg='warning'>Con Promo</Badge></h5>
+                                <h6><Badge bg='warning'>Con Promo</Badge></h6>
                             }                            
                         </Row>
+                    </Col>
+                    <Col md={4} className="cart-item-details">
+                        <Row className='text-center'>
+                            <h5>{renglon.producto.titulo}</h5>
+                        </Row>
+                        
                     </Col>
                 </Row>
             </div>
