@@ -3,6 +3,7 @@ import { Tapa, PedidosService, RenglonCreate, TapasService } from '../../../../c
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { useCart } from '../CartContext';
+import { fetchTapaImage } from '../../../Common/ImageFetcher';
 import tapaNotAvailableImage from '../../../../assets/icons/generic_tapa_not_available.webp'
 
 interface Props {
@@ -15,20 +16,9 @@ function MenuItem({ tapa }: Props) {
 
   useEffect(() => {
     const fetchImage = async () => {
-      if (tapa.foto) {
-        try {
-          const response = await TapasService.handleGetFotoBackendApiV1TapasFotoIdGet(tapa.id);
-          if (response instanceof Blob) {
-            const imageUrl = URL.createObjectURL(response);
-            setLoadedImage(imageUrl);
-          } else {
-            console.error('Response is not a Blob:', response);
-          }
-        } catch (error) {
-          console.error('Error fetching image:', error);
-        }
-      }
-    };
+      const imageUrl = await fetchTapaImage(tapa); // Use the fetchTapaImage function
+          setLoadedImage(imageUrl);
+      };
 
     fetchImage();
     // Clean up the object URL when the component unmounts.
