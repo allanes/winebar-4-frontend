@@ -51,18 +51,18 @@ export class OrdenesService {
     }
     /**
      * Handle Cerrar Orden
-     * @param tarjetaCliente
+     * @param id
      * @returns OrdenCompra Successful Response
      * @throws ApiError
      */
     public static handleCerrarOrdenBackendApiV1OrdenesCerrarPost(
-        tarjetaCliente: number,
+        id: number,
     ): CancelablePromise<OrdenCompra> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/backend/api/v1/ordenes/cerrar',
             query: {
-                'tarjeta_cliente': tarjetaCliente,
+                'id': id,
             },
             errors: {
                 422: `Validation Error`,

@@ -6,20 +6,18 @@ interface FormattedTimestampProps {
   variantToRender?: string;
 }
 
-const FORMAT = 'HH:mm';
-const FORMAT_WITH_DAY = 'HH:mm (dd)';
-
 const TimestampFormateadoBadge: React.FC<FormattedTimestampProps> = ({ timestamp, variantToRender = 'secondary' }) => {
   const date = new Date(timestamp);
   const now = new Date();
-  const diffInDays = Math.ceil((now.getTime() - date.getTime()) / (1000 * 3600 * 24));
-  const formattedDate = date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
-  const formattedDateWithDay = date.toLocaleDateString('es-ES', { day: 'numeric' });
-  const formattedTimestamp = diffInDays === 0
-    ? formattedDate
-    : diffInDays === 1
-      ? `${formattedDate} (Ayer)`
-      : `${formattedDate} (Hace ${diffInDays} días)`;
+
+  const isSameDate = date.getDate() === now.getDate() && date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear();
+
+  const formattedTime = date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
+
+  const formattedTimestamp = isSameDate
+    ? formattedTime
+    : `${formattedTime} (${date.toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })})`;
+
   return (
     <Badge pill bg={variantToRender}>
       {formattedTimestamp}

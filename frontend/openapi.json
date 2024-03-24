@@ -1704,12 +1704,12 @@
         ],
         "parameters": [
           {
-            "name": "tarjeta_cliente",
+            "name": "id",
             "in": "query",
             "required": true,
             "schema": {
               "type": "integer",
-              "title": "Tarjeta Cliente"
+              "title": "Id"
             }
           }
         ],
