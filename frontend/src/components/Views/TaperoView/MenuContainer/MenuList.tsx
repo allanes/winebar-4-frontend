@@ -10,7 +10,11 @@ function MenuList() {
   const [tapasList, setTapasList] = useState<Tapa[]>([]);
 
   useEffect(() => {
-    fetchTapa();
+    TapasService.handleReadTapasBackendApiV1TapasGet()
+      .then((tapas) => {
+        setTapasList(tapas);        
+      })
+      .catch(handleApiError);
   }, []);
 
   const fetchTapa = () => {
