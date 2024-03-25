@@ -71,3 +71,11 @@
   text-align: center;
   // align-items: center;
 }
+
+.info-card.clickable {
+  cursor: pointer;
+}
+
+.info-card.clickable:hover {
+  background-color: #f5f5f5;
+}

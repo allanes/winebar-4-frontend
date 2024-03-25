@@ -1669,6 +1669,52 @@
         }
       }
     },
+    "/backend/api/v1/ordenes/by-turno/{turno_id}": {
+      "get": {
+        "tags": [
+          "Ordenes"
+        ],
+        "summary": "Handle Read Orden By Turno Id",
+        "operationId": "handle_read_orden_by_turno_id_backend_api_v1_ordenes_by_turno__turno_id__get",
+        "parameters": [
+          {
+            "name": "turno_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Turno Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrdenCompraCerrada"
+                  },
+                  "title": "Response Handle Read Orden By Turno Id Backend Api V1 Ordenes By Turno  Turno Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/backend/api/v1/ordenes/abrir": {
       "post": {
         "tags": [

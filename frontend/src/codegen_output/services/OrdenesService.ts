@@ -30,6 +30,26 @@ export class OrdenesService {
         });
     }
     /**
+     * Handle Read Orden By Turno Id
+     * @param turnoId
+     * @returns OrdenCompraCerrada Successful Response
+     * @throws ApiError
+     */
+    public static handleReadOrdenByTurnoIdBackendApiV1OrdenesByTurnoTurnoIdGet(
+        turnoId: number,
+    ): CancelablePromise<Array<OrdenCompraCerrada>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/ordenes/by-turno/{turno_id}',
+            path: {
+                'turno_id': turnoId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Handle Abrir Orden
      * @param tarjetaCliente
      * @returns OrdenCompra Successful Response
