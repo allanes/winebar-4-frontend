@@ -3,21 +3,11 @@ import { Card, Row, Col, Button } from 'react-bootstrap';
 import InfoCard from './InfoCard';
 import { Turno, TurnosService } from '../../../../codegen_output';
 import { handleApiError } from '../../../ClientsContainer/ClientsContainer';
-
-const noStatusData: Turno = {
-  abierto_por: 0,
-  id: 0,
-  timestamp_apertura: '',
-  cantidad_de_ordenes: 0,
-  cantidad_tapas: 0,
-  cantidad_usuarios_vip: 0,
-  ingresos_totales: 0,
-  cerrado_por: null,
-  timestamp_cierre: null,
-};
+import CierreDeCaja from './CierreDeCaja';
 
 const StatusPanel = () => {
   const [turnoData, setTurnoData] = useState<Turno | null>(null);
+  const [showCierreDeCaja, setShowCierreDeCaja] = useState(false);
 
   useEffect(() => {
     handleGetTurnoInfo();
@@ -41,8 +31,23 @@ const StatusPanel = () => {
       })
       .catch((error: unknown) => {
         setTurnoData(null);
-        handleApiError(error); // You can remove this line
+        handleApiError(error);
       });
+  };
+
+  const handleCerrarTurno = async () => {
+    try {
+      const updatedTurnoData = await TurnosService.handleGetTurnoAbiertoBackendApiV1TurnosTurnoEnCursoGet();
+      setTurnoData(updatedTurnoData);
+      setShowCierreDeCaja(true);
+    } catch (error: unknown) {
+      setTurnoData(null);
+      // handleApiError(error); // You can remove this line
+    }
+  };
+
+  const handleCloseCierreDeCaja = () => {
+    setShowCierreDeCaja(false);
   };
 
   return (
@@ -61,24 +66,28 @@ const StatusPanel = () => {
             <Col>
               <InfoCard
                 title="Clientes Activos"
-                count={turnoData ? turnoData.cantidad_de_ordenes : '0'}
+                count={(turnoData && turnoData.clientes_activos) ? turnoData.clientes_activos : '0'}
               />
             </Col>
             <Col>
               <InfoCard
                 title="Clientes Totales"
-                count={turnoData ? turnoData.cantidad_de_ordenes : -1}
+                count={turnoData ? turnoData.cantidad_de_ordenes : 0}
               />
             </Col>
           </Row>
-          <Col>
-            <InfoCard
-              title="Monto cobrado"
-              count={`$${turnoData ? turnoData.ingresos_totales : '0'}`}
-            />
-          </Col>
-                
       </Card.Body>
+      <Card.Footer className='d-flex justify-content-center'>
+        <Button variant='warning' onClick={handleCerrarTurno}>Cerrar Caja</Button>
+      </Card.Footer>
+
+      <CierreDeCaja
+        show={showCierreDeCaja}
+        onHide={handleCloseCierreDeCaja}
+        turnoData={turnoData}
+        handleGetTurnoInfo={handleGetTurnoInfo}
+        handleCerrarTurno={handleCerrarTurno}
+      />
     </Card>
   );
 };
