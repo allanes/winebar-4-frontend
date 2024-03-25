@@ -54,3 +54,20 @@
   margin: 0; // Remove any default margins
   font-weight: bold;
 }
+
+.sin-turno-abierto-overlay {
+  position: absolute;
+  top: 1;
+  left: 1;
+  width: 95%;
+  height: 85%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1; 
+  border-radius: 10px;
+}
+
+.sin-turno-abierto-overlay-p { 
+  color: white;
+  text-align: center;
+  // align-items: center;
+}
