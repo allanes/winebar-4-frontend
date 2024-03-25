@@ -50,5 +50,13 @@ export const $Turno = {
                 type: 'null',
             }],
         },
+        clientes_activos: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
     },
 } as const;

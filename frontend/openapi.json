@@ -3670,6 +3670,18 @@
               }
             ],
             "title": "Timestamp Cierre"
+          },
+          "clientes_activos": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clientes Activos",
+            "default": 0
           }
         },
         "type": "object",
