@@ -31,6 +31,17 @@ export class TurnosService {
         });
     }
     /**
+     * Handle Get Turno Abierto
+     * @returns Turno Successful Response
+     * @throws ApiError
+     */
+    public static handleGetTurnoAbiertoBackendApiV1TurnosTurnoEnCursoGet(): CancelablePromise<Turno> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/turnos/turno-en-curso',
+        });
+    }
+    /**
      * Handle Update Turno
      * @param id
      * @param requestBody

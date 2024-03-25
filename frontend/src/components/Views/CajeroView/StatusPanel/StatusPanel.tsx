@@ -1,15 +1,41 @@
 // StatusPanel.tsx
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
 import InfoCard from './InfoCard';
+import { Turno, TurnosService } from '../../../../codegen_output';
+import { handleApiError } from '../../../ClientsContainer/ClientsContainer';
+import PanelCobro from '../PanelCobro';
+
+const noStatusData: Turno = {
+  abierto_por: 0,
+  id: 0,
+  timestamp_apertura: '',
+  cantidad_de_ordenes: 0,
+  cantidad_tapas: 0,
+  cantidad_usuarios_vip: 0,
+  ingresos_totales: 0,
+  cerrado_por: null,
+  timestamp_cierre: null,
+};
+
 
 const StatusPanel = () => {
-  // Placeholder data - you'll fetch actual data from the backend
-  const statusData = {
-    activeClients: 30,
-    shiftClients: 100,
-    totalAmount: 5000,
-  };
+  const [turnoData, setTurnoData] = useState<Turno | null>(null)
+
+  useEffect(() => {
+    handleGetTurnoInfo()
+}, []);
+
+  const handleGetTurnoInfo = async () => {
+    TurnosService.handleGetTurnoAbiertoBackendApiV1TurnosTurnoEnCursoGet()
+    .then((turnoResponse) => {
+      setTurnoData(turnoResponse)
+    })    
+    .catch((error: unknown) => {
+      setTurnoData(noStatusData)
+      handleApiError(error)
+    })
+  }
 
   return (
     <Card >
@@ -17,14 +43,23 @@ const StatusPanel = () => {
         <Card.Body>
             <Row >
               <Col>
-                <InfoCard title='Clientes Activos' count={statusData.activeClients} />
+                <InfoCard 
+                  title='Clientes Activos' 
+                  count={turnoData ? turnoData.cantidad_de_ordenes : '0'} 
+                />
               </Col>
               <Col>
-                <InfoCard title='Clientes Totales' count={statusData.shiftClients} />
+                <InfoCard 
+                  title='Clientes Totales' 
+                  count={turnoData ? turnoData.cantidad_de_ordenes : -1} 
+                />
               </Col>
             </Row>
               <Col>
-                <InfoCard title='Monto cobrado' count={`$${statusData.totalAmount}`} />
+                <InfoCard 
+                  title='Monto cobrado' 
+                  count={`$${turnoData ? turnoData.ingresos_totales : '0'}`} 
+                />
               </Col>
         </Card.Body>
     </Card>

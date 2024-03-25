@@ -1452,6 +1452,32 @@
         ]
       }
     },
+    "/backend/api/v1/turnos/turno-en-curso": {
+      "get": {
+        "tags": [
+          "Turnos"
+        ],
+        "summary": "Handle Get Turno Abierto",
+        "operationId": "handle_get_turno_abierto_backend_api_v1_turnos_turno_en_curso_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Turno"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
     "/backend/api/v1/turnos/{id}": {
       "put": {
         "tags": [
