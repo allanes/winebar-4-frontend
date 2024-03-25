@@ -10,20 +10,15 @@ function MenuList() {
   const [tapasList, setTapasList] = useState<Tapa[]>([]);
 
   useEffect(() => {
-    TapasService.handleReadTapasBackendApiV1TapasGet()
-      .then((tapas) => {
-        setTapasList(tapas);        
-      })
-      .catch(handleApiError);
-  }, []);
-
-  const fetchTapa = () => {
-    TapasService.handleReadTapasBackendApiV1TapasGet()
-      .then((tapas) => {
-        setTapasList(tapas);        
-      })
-      .catch(handleApiError);
-  };
+    const fetchTapas = () => {
+      TapasService.handleReadTapasBackendApiV1TapasGet()
+        .then((tapas) => {
+          setTapasList(tapas);        
+        })
+        .catch(handleApiError);
+    };
+    fetchTapas()
+  }, []);  
 
   const handleApiError = (error: unknown) => {
     const err = error as ApiError;
