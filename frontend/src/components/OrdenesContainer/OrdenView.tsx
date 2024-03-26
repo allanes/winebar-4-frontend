@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { Row, Accordion, Col, Card, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Placement } from 'react-bootstrap/esm/types';
 import { CartFill, CartX } from 'react-bootstrap-icons';
-import { OrdenCompra, OrdenCompraDetallada, OrdenesService } from '../../../../codegen_output';
-import PedidosList from './PedidosList';
-import OrdenMetadata from './OrdenMetadata';
-import { handleApiError } from '../../../ClientsContainer/ClientsContainer';
+import { OrdenCompra, OrdenCompraDetallada, OrdenesService } from '../../codegen_output';
+import PedidosList from '../Views/CajeroView/OrdenDetallada/PedidosList';
+import OrdenMetadata from '../Views/CajeroView/OrdenDetallada/OrdenMetadata';
+import { handleApiError } from '../ClientsContainer/ClientsContainer';
 import Swal from 'sweetalert2';
 
 interface OrdenViewProps {
   ordenData: OrdenCompraDetallada;
+  onCobrar: () => void;
 }
 
 interface TooltipProps {
@@ -18,7 +19,7 @@ interface TooltipProps {
   delay?: { show: number; hide: number; } | undefined;
 }
 
-const OrdenView: React.FC<OrdenViewProps> = ({ ordenData }) => {
+const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, onCobrar }) => {
   const totalPedidos = ordenData.pedidos.length;
   const openedPedidos = ordenData.pedidos.filter(pedido => pedido.cerrado===false).length;
   const [ordenCobrada, setOrdenCobrada] = useState<OrdenCompra | null>(null)
@@ -35,23 +36,12 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData }) => {
     </Tooltip>
   );
 
-  const handleCobrar = async () => {
-    OrdenesService.handleCerrarOrdenBackendApiV1OrdenesCerrarPost(
-      ordenData.id
-    ).then((ordenResponse) => {
-      setOrdenCobrada(ordenResponse)
-      Swal.fire('Orden Cobrada', `Monto $ ${ordenResponse.monto_cobrado}`, 'success')
-      
-    })
-    .catch(handleApiError)
-  }
-
   return (
     <div className="orden-view">
       <Row className="sticky-top">
         <OrdenMetadata 
             ordenData={ordenData} 
-            onCobrar={handleCobrar}/>
+            onCobrar={onCobrar}/>
       </Row>
       <Row>
         <Accordion defaultActiveKey="" className="pedidos-accordion">

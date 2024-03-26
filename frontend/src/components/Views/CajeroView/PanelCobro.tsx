@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
-import { OrdenesService, OrdenCompraDetallada } from '../../../codegen_output';
+import { OrdenCompra, OrdenesService, OrdenCompraDetallada } from '../../../codegen_output';
 import CardReaderInput from '../../ClientsContainer/CardReaderInput';
-import OrdenView from './OrdenDetallada/OrdenView';
+import OrdenView from '../../OrdenesContainer/OrdenView';
 import { handleApiError } from '../../ClientsContainer/ClientsContainer';
+import Swal from 'sweetalert2';
 
 interface PanelCobroProps {
   show: boolean;
@@ -13,6 +14,7 @@ interface PanelCobroProps {
 const PanelCobro: React.FC<PanelCobroProps> = ({ show, onHide }) => {
   const [tarjetaIdCliente, setTarjetaIdCliente] = useState('');
   const [ordenData, setOrdenData] = useState<OrdenCompraDetallada | null>(null);
+  const [ordenCobrada, setOrdenCobrada] = useState<OrdenCompra | null>(null);
 
   const handleCardReadWrapper = async (tarjetaId: string) => {
     try {
@@ -31,6 +33,18 @@ const PanelCobro: React.FC<PanelCobroProps> = ({ show, onHide }) => {
     onHide();
   };
 
+  const handleCobrar = async () => {
+    if (ordenData) {
+      OrdenesService.handleCerrarOrdenBackendApiV1OrdenesCerrarPost(
+        ordenData.id
+      ).then((ordenResponse) => {
+        setOrdenCobrada(ordenResponse)
+        Swal.fire('Orden Cobrada', `Monto $ ${ordenResponse.monto_cobrado}`, 'success')
+      })
+      .catch(handleApiError)
+    }
+  }
+
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
       <Modal.Header closeButton>
@@ -39,7 +53,10 @@ const PanelCobro: React.FC<PanelCobroProps> = ({ show, onHide }) => {
       <Modal.Body>
         {tarjetaIdCliente && ordenData ? (
           <div style={{ position: 'relative', zIndex: 1050 }}>
-            <OrdenView ordenData={ordenData} />
+            <OrdenView 
+              ordenData={ordenData} 
+              onCobrar={handleCobrar}
+            />
           </div>
         ) : (
           <CardReaderInput onCardRead={handleCardReadWrapper} />
