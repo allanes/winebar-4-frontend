@@ -58,6 +58,14 @@ export const $OrdenCompraCerrada = {
                 type: 'null',
             }],
         },
+        cerrada_por_nombre: {
+            type: 'any-of',
+            contains: [{
+                type: 'string',
+            }, {
+                type: 'null',
+            }],
+        },
         pedidos: {
             type: 'array',
             contains: {

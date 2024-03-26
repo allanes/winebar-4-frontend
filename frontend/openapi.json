@@ -2823,6 +2823,17 @@
               }
             ],
             "title": "Cerrada Por"
+          },
+          "cerrada_por_nombre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cerrada Por Nombre"
           }
         },
         "type": "object",
@@ -2900,6 +2911,17 @@
               }
             ],
             "title": "Cerrada Por"
+          },
+          "cerrada_por_nombre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cerrada Por Nombre"
           },
           "pedidos": {
             "items": {

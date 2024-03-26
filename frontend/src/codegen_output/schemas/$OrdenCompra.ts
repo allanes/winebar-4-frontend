@@ -58,5 +58,13 @@ export const $OrdenCompra = {
                 type: 'null',
             }],
         },
+        cerrada_por_nombre: {
+            type: 'any-of',
+            contains: [{
+                type: 'string',
+            }, {
+                type: 'null',
+            }],
+        },
     },
 } as const;

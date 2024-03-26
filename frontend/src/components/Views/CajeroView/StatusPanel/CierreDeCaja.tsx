@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import { Modal, Button, Row, Col, Badge, Accordion } from 'react-bootstrap';
 import InfoCard from './InfoCard';
-import { Turno, OrdenesService, OrdenCompra } from '../../../../codegen_output';
+import { Turno, OrdenesService, OrdenCompra, OrdenCompraCerrada } from '../../../../codegen_output';
 import TimestampFormateadoBadge from '../../../Common/TimestampFormateadoBadge';
 import { OrdenesList } from '../../../OrdenesContainer/OrdenesList';
 
@@ -22,14 +22,32 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
         handleRecuperarOrdenesDelTurno();
     }, []);
 
+    const parseOrdenCompraCerrada = (ordenCerrada: OrdenCompraCerrada): OrdenCompra => {
+        return {
+          precarga_usada: ordenCerrada.precarga_usada,
+          monto_maximo_orden: ordenCerrada.monto_maximo_orden,
+          turno_id: ordenCerrada.turno_id,
+          cliente_id: ordenCerrada.cliente_id,
+          abierta_por: ordenCerrada.abierta_por,
+          id: ordenCerrada.id,
+          monto_cargado: ordenCerrada.monto_cargado,
+          monto_cobrado: ordenCerrada.monto_cobrado,
+          timestamp_apertura_orden: ordenCerrada.timestamp_apertura_orden,
+          timestamp_cierre_orden: ordenCerrada.timestamp_cierre_orden,
+          cerrada_por: ordenCerrada.cerrada_por,
+          cerrada_por_nombre: ordenCerrada.cerrada_por_nombre,
+        };
+      };
+
     const handleRecuperarOrdenesDelTurno = async () => {
         if (turnoData) {
             try {
-            const ordenesResponse = await OrdenesService.handleReadOrdenByTurnoIdBackendApiV1OrdenesByTurnoTurnoIdGet(turnoData.id);
-            setOrdenesDelTurno(ordenesResponse);
+                const ordenesResponse = await OrdenesService.handleReadOrdenByTurnoIdBackendApiV1OrdenesByTurnoTurnoIdGet(turnoData.id);
+                const parsedOrdenes = ordenesResponse.map(parseOrdenCompraCerrada);
+                setOrdenesDelTurno(parsedOrdenes);
             } catch (error: unknown) {
-            setOrdenesDelTurno([]);
-            // handleApiError(error); // You can remove this line
+                setOrdenesDelTurno([]);
+                // handleApiError(error); // You can remove this line
             }
         }
     };
@@ -99,11 +117,12 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
                 <Accordion activeKey={activeKey} onSelect={handleClientesActivosClick}>
                     <Accordion.Item eventKey="0">
                     <Accordion.Header>Lista de Ordenes</Accordion.Header>
-                    <Accordion.Body>
+                    <Accordion.Body className='ms-4'>
                         {turnoData && (
                             <OrdenesList
                                 ordenesList={ordenesDelTurno || []}
                                 onDeleteOrden={() => {}}
+                                columnasReducidas={true}
                             />
                         )}
                     </Accordion.Body>
