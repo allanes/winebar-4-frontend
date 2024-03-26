@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
-import { OrdenesService, OrdenCompraCerrada } from '../../../codegen_output';
+import { OrdenesService, OrdenCompraDetallada } from '../../../codegen_output';
 import CardReaderInput from '../../ClientsContainer/CardReaderInput';
 import OrdenView from './OrdenDetallada/OrdenView';
 import { handleApiError } from '../../ClientsContainer/ClientsContainer';
@@ -12,7 +12,7 @@ interface PanelCobroProps {
 
 const PanelCobro: React.FC<PanelCobroProps> = ({ show, onHide }) => {
   const [tarjetaIdCliente, setTarjetaIdCliente] = useState('');
-  const [ordenData, setOrdenData] = useState<OrdenCompraCerrada | null>(null);
+  const [ordenData, setOrdenData] = useState<OrdenCompraDetallada | null>(null);
 
   const handleCardReadWrapper = async (tarjetaId: string) => {
     try {

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Col, Card, Container, Row, Badge, Button } from 'react-bootstrap';
-import { OrdenCompraCerrada } from '../../../../codegen_output';
+import { OrdenCompraDetallada } from '../../../../codegen_output';
 import { RolBadge } from '../../../RolesContainer/RolBadge';
 import TimestampFormateadoBadge from '../../../Common/TimestampFormateadoBadge';
 
 interface OrdenMetadataProps {
-  ordenData: OrdenCompraCerrada;
+  ordenData: OrdenCompraDetallada;
   onCobrar: () => void;
 }
 

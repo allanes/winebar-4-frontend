@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $OrdenCompraCerrada = {
+export const $OrdenCompraDetallada = {
     properties: {
         precarga_usada: {
             type: 'number',

@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import { Modal, Button, Row, Col, Badge, Accordion } from 'react-bootstrap';
 import InfoCard from './InfoCard';
-import { Turno, OrdenesService, OrdenCompra, OrdenCompraCerrada } from '../../../../codegen_output';
+import { Turno, OrdenesService, OrdenCompra, OrdenCompraDetallada } from '../../../../codegen_output';
 import TimestampFormateadoBadge from '../../../Common/TimestampFormateadoBadge';
 import { OrdenesList } from '../../../OrdenesContainer/OrdenesList';
 
@@ -20,9 +20,9 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
 
     useEffect(() => {
         handleRecuperarOrdenesDelTurno();
-    }, []);
+    }, [turnoData]);
 
-    const parseOrdenCompraCerrada = (ordenCerrada: OrdenCompraCerrada): OrdenCompra => {
+    const parseOrdenCompraDetallada = (ordenCerrada: OrdenCompraDetallada): OrdenCompra => {
         return {
           precarga_usada: ordenCerrada.precarga_usada,
           monto_maximo_orden: ordenCerrada.monto_maximo_orden,
@@ -43,7 +43,7 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
         if (turnoData) {
             try {
                 const ordenesResponse = await OrdenesService.handleReadOrdenByTurnoIdBackendApiV1OrdenesByTurnoTurnoIdGet(turnoData.id);
-                const parsedOrdenes = ordenesResponse.map(parseOrdenCompraCerrada);
+                const parsedOrdenes = ordenesResponse.map(parseOrdenCompraDetallada);
                 setOrdenesDelTurno(parsedOrdenes);
             } catch (error: unknown) {
                 setOrdenesDelTurno([]);

@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Row, Accordion, Col, Card, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Placement } from 'react-bootstrap/esm/types';
 import { CartFill, CartX } from 'react-bootstrap-icons';
-import { OrdenCompra, OrdenCompraCerrada, OrdenesService } from '../../../../codegen_output';
+import { OrdenCompra, OrdenCompraDetallada, OrdenesService } from '../../../../codegen_output';
 import PedidosList from './PedidosList';
 import OrdenMetadata from './OrdenMetadata';
 import { handleApiError } from '../../../ClientsContainer/ClientsContainer';
 import Swal from 'sweetalert2';
 
 interface OrdenViewProps {
-  ordenData: OrdenCompraCerrada;
+  ordenData: OrdenCompraDetallada;
 }
 
 interface TooltipProps {

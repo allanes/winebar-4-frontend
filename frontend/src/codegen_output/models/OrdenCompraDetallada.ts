@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Pedido } from './Pedido';
-export type OrdenCompraCerrada = {
+export type OrdenCompraDetallada = {
     precarga_usada: number;
     monto_maximo_orden: number;
     turno_id: number;

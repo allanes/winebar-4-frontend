@@ -1651,7 +1651,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrdenCompraCerrada"
+                  "$ref": "#/components/schemas/OrdenCompraDetallada"
                 }
               }
             }
@@ -1695,7 +1695,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/OrdenCompraCerrada"
+                    "$ref": "#/components/schemas/OrdenCompraDetallada"
                   },
                   "title": "Response Handle Read Orden By Turno Id Backend Api V1 Ordenes By Turno  Turno Id  Get"
                 }
@@ -1883,7 +1883,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrdenCompra"
+                  "$ref": "#/components/schemas/OrdenCompraDetallada"
                 }
               }
             }
@@ -2850,7 +2850,7 @@
         ],
         "title": "OrdenCompra"
       },
-      "OrdenCompraCerrada": {
+      "OrdenCompraDetallada": {
         "properties": {
           "precarga_usada": {
             "type": "number",
@@ -2954,7 +2954,7 @@
           "nombre_cliente",
           "rol"
         ],
-        "title": "OrdenCompraCerrada"
+        "title": "OrdenCompraDetallada"
       },
       "OrdenCompraUpdate": {
         "properties": {
