@@ -5,12 +5,11 @@ import { CartFill, CartX } from 'react-bootstrap-icons';
 import { OrdenCompra, OrdenCompraDetallada, OrdenesService } from '../../codegen_output';
 import PedidosList from '../Views/CajeroView/OrdenDetallada/PedidosList';
 import OrdenMetadata from '../Views/CajeroView/OrdenDetallada/OrdenMetadata';
-import { handleApiError } from '../ClientsContainer/ClientsContainer';
-import Swal from 'sweetalert2';
 
 interface OrdenViewProps {
   ordenData: OrdenCompraDetallada;
-  onCobrar: () => void;
+  onCobrar?: () => void;
+  showPanelCobro?: boolean;
 }
 
 interface TooltipProps {
@@ -19,7 +18,7 @@ interface TooltipProps {
   delay?: { show: number; hide: number; } | undefined;
 }
 
-const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, onCobrar }) => {
+const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, onCobrar, showPanelCobro = false }) => {
   const totalPedidos = ordenData.pedidos.length;
   const openedPedidos = ordenData.pedidos.filter(pedido => pedido.cerrado===false).length;
   const [ordenCobrada, setOrdenCobrada] = useState<OrdenCompra | null>(null)
@@ -36,12 +35,18 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, onCobrar }) => {
     </Tooltip>
   );
 
+  const handleCobrar = () => {
+    if (showPanelCobro) {
+      onCobrar?.();
+    }
+  };
+
   return (
     <div className="orden-view">
       <Row className="sticky-top">
         <OrdenMetadata 
             ordenData={ordenData} 
-            onCobrar={onCobrar}/>
+            onCobrar={handleCobrar}/>
       </Row>
       <Row>
         <Accordion defaultActiveKey="" className="pedidos-accordion">

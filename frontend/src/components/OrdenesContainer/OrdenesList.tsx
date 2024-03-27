@@ -1,10 +1,12 @@
-import React from 'react';
-import { OrdenCompra } from '../../codegen_output';
+import React, {useState} from 'react';
+import { OrdenCompra, OrdenesService, OrdenCompraDetallada } from '../../codegen_output';
 import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge';
 import deleteIcon from '../../assets/icons/outline_delete_white_24dp.png';
-import { Badge, Col, Row, Button } from 'react-bootstrap';
+import { Badge, Col, Row, Button, Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { CheckCircleFill } from 'react-bootstrap-icons';
+import OrdenView from './OrdenView';
+import { handleApiError } from '../ClientsContainer/ClientsContainer';
 
 interface Props {
   ordenesList: Array<OrdenCompra>;
@@ -45,6 +47,9 @@ export const OrdenesList = ({
   onDeleteOrden: onDeleteOrden_propin,
   columnasReducidas = false,
 }: Props) => {
+  const [selectedOrden, setSelectedOrden] = useState<OrdenCompraDetallada | null>(null);
+  const [showOrdenView, setShowOrdenView] = useState(false);
+
   const handleDelete = (orden: OrdenCompra) => {
     Swal.fire({
       title: '¿Estás seguro que deseas eliminar esta orden?',
@@ -60,6 +65,21 @@ export const OrdenesList = ({
         onDeleteOrden_propin(orden.id);
       }
     });
+  };
+
+  const handleOrdenClick = async (ordenId: number) => {
+    OrdenesService.handleReadOrdenByIdBackendApiV1OrdenesIdGet(
+      ordenId
+    ).then((ordenDetalladaResponse) => {
+      setSelectedOrden(ordenDetalladaResponse);
+      setShowOrdenView(true);
+    })
+    .catch(handleApiError)
+  };
+
+  const handleCloseOrdenView = () => {
+    setSelectedOrden(null);
+    setShowOrdenView(false);
   };
 
   const selectedKeys = columnasReducidas ? keysTabOrdenReducido : keysTabOrden;
@@ -83,7 +103,7 @@ export const OrdenesList = ({
             </thead>
             <tbody className="table-group-divider">
               {ordenesList.map((orden, index) => (
-                <tr key={index}>
+                <tr  key={index} onClick={() => handleOrdenClick(orden.id)}>
                   <th scope="row">{orden.id}</th>
                   {/* {!columnasReducidas && <td>{orden.precarga_usada}</td>} */}
                   {!columnasReducidas && <td>{orden.monto_maximo_orden}</td>}
@@ -123,6 +143,18 @@ export const OrdenesList = ({
           </table>
         </Row>
       </Col>
+      <Modal show={showOrdenView} onHide={handleCloseOrdenView} centered size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Detalle de Orden</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedOrden && (
+            <OrdenView 
+              ordenData={selectedOrden} 
+            />
+          )}
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
