@@ -29,9 +29,17 @@ export const $Turno = {
             type: 'number',
             isRequired: true,
         },
-        ingresos_totales: {
+        monto_en_caja: {
             type: 'number',
             isRequired: true,
+        },
+        comentarios: {
+            type: 'any-of',
+            contains: [{
+                type: 'string',
+            }, {
+                type: 'null',
+            }],
         },
         cerrado_por: {
             type: 'any-of',

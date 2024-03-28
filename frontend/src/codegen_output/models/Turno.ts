@@ -9,7 +9,8 @@ export type Turno = {
     cantidad_de_ordenes: number;
     cantidad_tapas: number;
     cantidad_usuarios_vip: number;
-    ingresos_totales: number;
+    monto_en_caja: number;
+    comentarios?: (string | null);
     cerrado_por?: (number | null);
     timestamp_cierre?: (string | null);
     clientes_activos?: (number | null);

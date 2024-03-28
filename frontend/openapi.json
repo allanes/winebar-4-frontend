@@ -1433,6 +1433,16 @@
         ],
         "summary": "Handle Cerrar Turno",
         "operationId": "handle_cerrar_turno_backend_api_v1_turnos_cerrar_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InfoDeCierre"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -1440,6 +1450,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Turno"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -2762,6 +2782,24 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
+      "InfoDeCierre": {
+        "properties": {
+          "comentarios": {
+            "type": "string",
+            "title": "Comentarios"
+          },
+          "monto_en_caja": {
+            "type": "number",
+            "title": "Monto En Caja"
+          }
+        },
+        "type": "object",
+        "required": [
+          "comentarios",
+          "monto_en_caja"
+        ],
+        "title": "InfoDeCierre"
+      },
       "OrdenCompra": {
         "properties": {
           "precarga_usada": {
@@ -3712,9 +3750,21 @@
             "type": "integer",
             "title": "Cantidad Usuarios Vip"
           },
-          "ingresos_totales": {
+          "monto_en_caja": {
             "type": "number",
-            "title": "Ingresos Totales"
+            "title": "Monto En Caja"
+          },
+          "comentarios": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comentarios",
+            "default": ""
           },
           "cerrado_por": {
             "anyOf": [
@@ -3772,7 +3822,7 @@
           "cantidad_de_ordenes",
           "cantidad_tapas",
           "cantidad_usuarios_vip",
-          "ingresos_totales"
+          "monto_en_caja"
         ],
         "title": "Turno"
       },
