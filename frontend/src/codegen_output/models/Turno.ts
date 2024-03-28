@@ -13,5 +13,6 @@ export type Turno = {
     cerrado_por?: (number | null);
     timestamp_cierre?: (string | null);
     clientes_activos?: (number | null);
+    suma_ordenes_cobradas?: (number | null);
 };
 

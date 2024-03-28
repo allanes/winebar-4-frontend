@@ -64,7 +64,21 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
     return (
         <Modal show={show} onHide={onHide} centered size='lg'>
         <Modal.Header closeButton>
-            <Modal.Title>Cierre de Caja</Modal.Title>
+            <Modal.Title className='d-flex justify-content-between align-items-center'>
+                {/* <Row  > */}
+                    <Col md={8}>
+                        Cierre de Caja
+                    </Col>
+                    <Col className='justify-content-end'>
+                        {turnoData && turnoData.cerrado_por ?
+                            <Badge bg='success'>Cerrada</Badge>
+                        : 
+                            <Badge bg='warning'>Abierta</Badge>
+                        }
+                    </Col>
+                    {/* <Col></Col> */}
+                {/* </Row> */}
+            </Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <Row className='mb-2 align-items-center'>
@@ -110,7 +124,7 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
             </Row>        
             <Row>
                 <Col>
-                    <InfoCard title="Ingresos Totales" count={turnoData?.ingresos_totales || 0} />
+                    <InfoCard title="Monto Cobrado" count={turnoData?.suma_ordenes_cobradas || 0} />
                 </Col>
             </Row>
             <Row>

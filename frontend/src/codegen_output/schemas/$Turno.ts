@@ -58,5 +58,13 @@ export const $Turno = {
                 type: 'null',
             }],
         },
+        suma_ordenes_cobradas: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
     },
 } as const;

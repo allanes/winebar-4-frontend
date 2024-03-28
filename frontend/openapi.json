@@ -3750,6 +3750,18 @@
             ],
             "title": "Clientes Activos",
             "default": 0
+          },
+          "suma_ordenes_cobradas": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suma Ordenes Cobradas",
+            "default": 0
           }
         },
         "type": "object",
