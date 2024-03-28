@@ -7,7 +7,7 @@ import CierreDeCaja from './CierreDeCaja';
 
 const StatusPanel = () => {
   const [turnoData, setTurnoData] = useState<Turno | null>(null);
-  const [showCierreDeCaja, setShowCierreDeCaja] = useState(false);
+  const [showCierreDeCajaDetalle, setShowCierreDeCajaDetalle] = useState(false);
 
   useEffect(() => {
     handleGetTurnoInfo();
@@ -38,16 +38,21 @@ const StatusPanel = () => {
   const handleCerrarTurno = async () => {
     try {
       const updatedTurnoData = await TurnosService.handleGetTurnoAbiertoBackendApiV1TurnosTurnoEnCursoGet();
-      setTurnoData(updatedTurnoData);
-      setShowCierreDeCaja(true);
+      setTurnoData(updatedTurnoData);      
     } catch (error: unknown) {
-      setTurnoData(null);
-      // handleApiError(error); // You can remove this line
+      // setTurnoData(null);
+      handleApiError(error); // You can remove this line
     }
   };
 
-  const handleCloseCierreDeCaja = () => {
-    setShowCierreDeCaja(false);
+  const handleShowCierreDeCajaDetalle = () => {
+    handleGetTurnoInfo()
+    setShowCierreDeCajaDetalle(true);
+  }
+
+  const handleCloseCierreDeCajaDetalle = () => {
+    setTurnoData(null)
+    setShowCierreDeCajaDetalle(false);
   };
 
   return (
@@ -78,12 +83,12 @@ const StatusPanel = () => {
           </Row>
       </Card.Body>
       <Card.Footer className='d-flex justify-content-center'>
-        <Button variant='warning' onClick={handleCerrarTurno}>Cerrar Caja</Button>
+        <Button variant='warning' onClick={handleShowCierreDeCajaDetalle}>Cerrar Caja</Button>
       </Card.Footer>
 
       <CierreDeCaja
-        show={showCierreDeCaja}
-        onHide={handleCloseCierreDeCaja}
+        show={showCierreDeCajaDetalle}
+        onHide={handleCloseCierreDeCajaDetalle}
         turnoData={turnoData}
         handleGetTurnoInfo={handleGetTurnoInfo}
         handleCerrarTurno={handleCerrarTurno}
