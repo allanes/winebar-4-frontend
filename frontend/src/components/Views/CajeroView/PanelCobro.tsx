@@ -33,18 +33,16 @@ const PanelCobro: React.FC<PanelCobroProps> = ({ show, onHide }) => {
     onHide();
   };
 
-  const handleCobrar = async () => {
-    if (ordenData) {
-      OrdenesService.handleCerrarOrdenBackendApiV1OrdenesCerrarPost(
-        ordenData.id
-      ).then((ordenResponse) => {
-        setOrdenCobrada(ordenResponse)
-        Swal.fire('Orden Cobrada', `Monto $ ${ordenResponse.monto_cobrado}`, 'success')
-      })
-      .catch(handleApiError)
-    }
+  const handleCobrar = async (ordenId: number) => {
+    OrdenesService.handleCerrarOrdenBackendApiV1OrdenesCerrarPost(
+      ordenId
+    ).then((ordenResponse) => {
+      setOrdenCobrada(ordenResponse)
+      Swal.fire('Orden Cobrada', `Monto $ ${ordenResponse.monto_cobrado}`, 'success')
+    })
+    .catch(handleApiError)
   }
-
+  
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
       <Modal.Header closeButton>

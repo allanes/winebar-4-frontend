@@ -3,12 +3,14 @@ import { Col, Row, Button } from 'react-bootstrap';
 
 interface FooterOrdenAbiertaProps {
   openedPedidos: number;
-  onCobrar?: () => void;
+  onCobrar: (ordenId: number) => void;
+  ordenId: number;
 }
 
-const FooterOrdenAbierta: React.FC<FooterOrdenAbiertaProps> = ({ openedPedidos, onCobrar }) => {
+const FooterOrdenAbierta: React.FC<FooterOrdenAbiertaProps> = ({ openedPedidos, onCobrar, ordenId }) => {
   const handleCobrar = () => {
-    onCobrar?.();
+    console.log()
+    onCobrar(ordenId);
   };
   
   return (
@@ -16,7 +18,7 @@ const FooterOrdenAbierta: React.FC<FooterOrdenAbiertaProps> = ({ openedPedidos, 
       <Col md={4} />
       <Col md={4} className='justify-content-center'>
         {/* <Button variant="success" size="lg" onClick={onCobrar}> */}
-        <Button variant="success" size="lg" onClick={handleCobrar} disabled={!onCobrar}>
+        <Button variant="success" size="lg" onClick={handleCobrar}>
           Cobrar
         </Button>
       </Col>

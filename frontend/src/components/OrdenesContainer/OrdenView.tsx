@@ -8,7 +8,7 @@ import OrdenMetadata from '../Views/CajeroView/OrdenDetallada/OrdenMetadata';
 
 interface OrdenViewProps {
   ordenData: OrdenCompraDetallada;
-  onCobrar?: () => void;
+  onCobrar?: (ordenId: number) => void;
   showPanelCobro?: boolean;
 }
 
@@ -36,8 +36,12 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, onCobrar, showPanelCob
   );
 
   const handleCobrar = () => {
+    console.log('Cobrando desde ordenView')
+    onCobrar?.(ordenData.id);
     if (showPanelCobro) {
-      onCobrar?.();
+    }
+    else {
+      console.log('No pudo cobrar desde ordenView')
     }
   };
 

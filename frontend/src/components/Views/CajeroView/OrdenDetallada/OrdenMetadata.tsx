@@ -8,7 +8,7 @@ import FooterOrdenCerrada from './FooterOrdenCerrada';
 
 interface OrdenMetadataProps {
   ordenData: OrdenCompraDetallada;
-  onCobrar?: () => void;
+  onCobrar?: (ordenId: number) => void;
 }
 
 const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) => {
@@ -71,7 +71,8 @@ const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) =>
                 ) : (
                   <FooterOrdenAbierta 
                     openedPedidos={openedPedidos} 
-                    onCobrar={onCobrar} 
+                    onCobrar={onCobrar!} 
+                    ordenId={ordenData.id}
                   />
                 )}
               {/* </Row>
