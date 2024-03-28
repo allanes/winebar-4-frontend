@@ -1452,6 +1452,32 @@
         ]
       }
     },
+    "/backend/api/v1/turnos/turno-en-curso": {
+      "get": {
+        "tags": [
+          "Turnos"
+        ],
+        "summary": "Handle Get Turno Abierto",
+        "operationId": "handle_get_turno_abierto_backend_api_v1_turnos_turno_en_curso_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Turno"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
     "/backend/api/v1/turnos/{id}": {
       "put": {
         "tags": [
@@ -1625,7 +1651,53 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrdenCompraCerrada"
+                  "$ref": "#/components/schemas/OrdenCompraDetallada"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/backend/api/v1/ordenes/by-turno/{turno_id}": {
+      "get": {
+        "tags": [
+          "Ordenes"
+        ],
+        "summary": "Handle Read Orden By Turno Id",
+        "operationId": "handle_read_orden_by_turno_id_backend_api_v1_ordenes_by_turno__turno_id__get",
+        "parameters": [
+          {
+            "name": "turno_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Turno Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrdenCompraDetallada"
+                  },
+                  "title": "Response Handle Read Orden By Turno Id Backend Api V1 Ordenes By Turno  Turno Id  Get"
                 }
               }
             }
@@ -1811,7 +1883,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrdenCompra"
+                  "$ref": "#/components/schemas/OrdenCompraDetallada"
                 }
               }
             }
@@ -2751,6 +2823,17 @@
               }
             ],
             "title": "Cerrada Por"
+          },
+          "cerrada_por_nombre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cerrada Por Nombre"
           }
         },
         "type": "object",
@@ -2767,7 +2850,7 @@
         ],
         "title": "OrdenCompra"
       },
-      "OrdenCompraCerrada": {
+      "OrdenCompraDetallada": {
         "properties": {
           "precarga_usada": {
             "type": "number",
@@ -2829,6 +2912,17 @@
             ],
             "title": "Cerrada Por"
           },
+          "cerrada_por_nombre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cerrada Por Nombre"
+          },
           "pedidos": {
             "items": {
               "$ref": "#/components/schemas/Pedido"
@@ -2860,7 +2954,7 @@
           "nombre_cliente",
           "rol"
         ],
-        "title": "OrdenCompraCerrada"
+        "title": "OrdenCompraDetallada"
       },
       "OrdenCompraUpdate": {
         "properties": {
@@ -3644,6 +3738,18 @@
               }
             ],
             "title": "Timestamp Cierre"
+          },
+          "clientes_activos": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clientes Activos",
+            "default": 0
           }
         },
         "type": "object",

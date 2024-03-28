@@ -3,7 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { OrdenCompra } from '../models/OrdenCompra';
-import type { OrdenCompraCerrada } from '../models/OrdenCompraCerrada';
+import type { OrdenCompraDetallada } from '../models/OrdenCompraDetallada';
 import type { OrdenCompraUpdate } from '../models/OrdenCompraUpdate';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -12,17 +12,37 @@ export class OrdenesService {
     /**
      * Handle Read Orden By Client Rfid
      * @param tarjetaId
-     * @returns OrdenCompraCerrada Successful Response
+     * @returns OrdenCompraDetallada Successful Response
      * @throws ApiError
      */
     public static handleReadOrdenByClientRfidBackendApiV1OrdenesByRfidTarjetaIdGet(
         tarjetaId: number,
-    ): CancelablePromise<OrdenCompraCerrada> {
+    ): CancelablePromise<OrdenCompraDetallada> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/backend/api/v1/ordenes/by-rfid/{tarjeta_id}',
             path: {
                 'tarjeta_id': tarjetaId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Handle Read Orden By Turno Id
+     * @param turnoId
+     * @returns OrdenCompraDetallada Successful Response
+     * @throws ApiError
+     */
+    public static handleReadOrdenByTurnoIdBackendApiV1OrdenesByTurnoTurnoIdGet(
+        turnoId: number,
+    ): CancelablePromise<Array<OrdenCompraDetallada>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/ordenes/by-turno/{turno_id}',
+            path: {
+                'turno_id': turnoId,
             },
             errors: {
                 422: `Validation Error`,
@@ -96,12 +116,12 @@ export class OrdenesService {
     /**
      * Handle Read Orden By Id
      * @param id
-     * @returns OrdenCompra Successful Response
+     * @returns OrdenCompraDetallada Successful Response
      * @throws ApiError
      */
     public static handleReadOrdenByIdBackendApiV1OrdenesIdGet(
         id: number,
-    ): CancelablePromise<OrdenCompra> {
+    ): CancelablePromise<OrdenCompraDetallada> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/backend/api/v1/ordenes/{id}',

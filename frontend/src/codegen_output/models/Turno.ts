@@ -12,5 +12,6 @@ export type Turno = {
     ingresos_totales: number;
     cerrado_por?: (number | null);
     timestamp_cierre?: (string | null);
+    clientes_activos?: (number | null);
 };
 
