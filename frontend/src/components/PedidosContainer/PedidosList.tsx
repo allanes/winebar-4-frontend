@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Pedido } from '../../../../codegen_output';
+import { Pedido } from '../../codegen_output';
 import PedidoCard from './PedidoCard';
 
 interface PedidosListProps {

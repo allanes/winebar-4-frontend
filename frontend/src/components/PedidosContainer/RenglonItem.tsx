@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { ListGroup, Button, Card, Row, Col, Badge } from 'react-bootstrap';
-import { Renglon, Tapa } from '../../../../codegen_output';
-import { fetchTapaImageByProductId } from '../../../Common/ImageFetcher';
-import tapaNotAvailableImage from '../../../../assets/icons/generic_tapa_not_available.webp'
+import { Renglon, Tapa } from '../../codegen_output';
+import { fetchTapaImageByProductId } from '../Common/ImageFetcher';
+import tapaNotAvailableImage from '../../assets/icons/generic_tapa_not_available.webp'
 
 interface RenglonItemProps {
     renglon: Renglon;

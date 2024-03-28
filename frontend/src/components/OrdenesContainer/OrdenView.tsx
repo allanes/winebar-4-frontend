@@ -3,8 +3,8 @@ import { Row, Accordion, Col, Card, Badge, OverlayTrigger, Tooltip } from 'react
 import { Placement } from 'react-bootstrap/esm/types';
 import { CartFill, CartX } from 'react-bootstrap-icons';
 import { OrdenCompra, OrdenCompraDetallada, OrdenesService } from '../../codegen_output';
-import PedidosList from '../Views/CajeroView/OrdenDetallada/PedidosList';
-import OrdenMetadata from '../Views/CajeroView/OrdenDetallada/OrdenMetadata';
+import PedidosList from '../PedidosContainer/PedidosList';
+import OrdenMetadata from './OrdenDetallada/OrdenMetadata';
 
 interface OrdenViewProps {
   ordenData: OrdenCompraDetallada;

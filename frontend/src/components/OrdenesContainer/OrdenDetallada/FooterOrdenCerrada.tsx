@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { CheckCircleFill } from 'react-bootstrap-icons';
-import TimestampFormateadoBadge from '../../../Common/TimestampFormateadoBadge';
+import TimestampFormateadoBadge from '../../Common/TimestampFormateadoBadge';
 
 interface FooterOrdenCerradaProps {
   timestamp_cierre_orden: string;
