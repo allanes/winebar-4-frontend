@@ -4,7 +4,6 @@ import { OrdenCompra, OrdenesService, OrdenCompraDetallada } from '../../../code
 import CardReaderInput from '../../ClientsContainer/CardReaderInput';
 import OrdenView from '../../OrdenesContainer/OrdenView';
 import { handleApiError } from '../../ClientsContainer/ClientsContainer';
-import Swal from 'sweetalert2';
 
 interface PanelCobroProps {
   show: boolean;
@@ -32,16 +31,6 @@ const PanelCobro: React.FC<PanelCobroProps> = ({ show, onHide }) => {
     setTarjetaIdCliente('');
     onHide();
   };
-
-  const handleCobrar = async (ordenId: number) => {
-    OrdenesService.handleCerrarOrdenBackendApiV1OrdenesCerrarPost(
-      ordenId
-    ).then((ordenResponse) => {
-      setOrdenCobrada(ordenResponse)
-      Swal.fire('Orden Cobrada', `Monto $ ${ordenResponse.monto_cobrado}`, 'success')
-    })
-    .catch(handleApiError)
-  }
   
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
@@ -52,8 +41,7 @@ const PanelCobro: React.FC<PanelCobroProps> = ({ show, onHide }) => {
         {tarjetaIdCliente && ordenData ? (
           <div style={{ position: 'relative', zIndex: 1050 }}>
             <OrdenView 
-              ordenData={ordenData} 
-              onCobrar={handleCobrar}
+              ordenData={ordenData}
             />
           </div>
         ) : (

@@ -5,10 +5,11 @@ import { CartFill, CartX } from 'react-bootstrap-icons';
 import { OrdenCompra, OrdenCompraDetallada, OrdenesService } from '../../codegen_output';
 import PedidosList from '../PedidosContainer/PedidosList';
 import OrdenMetadata from './OrdenDetallada/OrdenMetadata';
+import { handleApiError } from '../ClientsContainer/ClientsContainer';
+import Swal from 'sweetalert2';
 
 interface OrdenViewProps {
   ordenData: OrdenCompraDetallada;
-  onCobrar?: (ordenId: number) => void;
   showPanelCobro?: boolean;
 }
 
@@ -18,7 +19,7 @@ interface TooltipProps {
   delay?: { show: number; hide: number; } | undefined;
 }
 
-const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, onCobrar, showPanelCobro = false }) => {
+const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false }) => {
   const totalPedidos = ordenData.pedidos.length;
   const openedPedidos = ordenData.pedidos.filter(pedido => pedido.cerrado===false).length;
   const [ordenCobrada, setOrdenCobrada] = useState<OrdenCompra | null>(null)
@@ -36,14 +37,31 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, onCobrar, showPanelCob
   );
 
   const handleCobrar = () => {
-    console.log('Cobrando desde ordenView')
-    onCobrar?.(ordenData.id);
     if (showPanelCobro) {
+      console.log('Cobrando desde ordenView')
     }
     else {
       console.log('No pudo cobrar desde ordenView')
     }
+    
+    OrdenesService.handleCerrarOrdenBackendApiV1OrdenesCerrarPost(
+      ordenData.id
+    ).then((ordenResponse) => {
+      setOrdenCobrada(ordenResponse)
+      Swal.fire('Orden Cobrada', `Monto $ ${ordenResponse.monto_cobrado}`, 'success')
+    })
+    .catch(handleApiError)    
   };
+
+  // const handleCobrar = async () => {
+  //   OrdenesService.handleCerrarOrdenBackendApiV1OrdenesCerrarPost(
+  //     ordenData.id
+  //   ).then((ordenResponse) => {
+  //     setOrdenCobrada(ordenResponse)
+  //     Swal.fire('Orden Cobrada', `Monto $ ${ordenResponse.monto_cobrado}`, 'success')
+  //   })
+  //   .catch(handleApiError)
+  // }
 
   return (
     <div className="orden-view">
