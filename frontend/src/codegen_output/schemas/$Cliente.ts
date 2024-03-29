@@ -16,5 +16,13 @@ export const $Cliente = {
             type: 'boolean',
             isRequired: true,
         },
+        rol_usado_nombre: {
+            type: 'any-of',
+            contains: [{
+                type: 'string',
+            }, {
+                type: 'null',
+            }],
+        },
     },
 } as const;

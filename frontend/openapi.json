@@ -2482,6 +2482,17 @@
           "activa": {
             "type": "boolean",
             "title": "Activa"
+          },
+          "rol_usado_nombre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rol Usado Nombre"
           }
         },
         "type": "object",
@@ -2605,6 +2616,17 @@
           "activa": {
             "type": "boolean",
             "title": "Activa"
+          },
+          "rol_usado_nombre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rol Usado Nombre"
           },
           "detalle": {
             "anyOf": [

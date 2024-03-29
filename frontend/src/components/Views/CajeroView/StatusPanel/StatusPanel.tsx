@@ -4,6 +4,7 @@ import InfoCard from './InfoCard';
 import { Turno, TurnosService } from '../../../../codegen_output';
 import { handleApiError } from '../../../ClientsContainer/ClientsContainer';
 import CierreDeCaja from './CierreDeCaja';
+import Swal from 'sweetalert2';
 
 const StatusPanel = () => {
   const [turnoData, setTurnoData] = useState<Turno | null>(null);
@@ -43,7 +44,9 @@ const StatusPanel = () => {
           'comentarios': ''
         }
       );
-      setTurnoData(updatedTurnoData);      
+      setTurnoData(updatedTurnoData);    
+      Swal.fire('Turno Cerrado', '', 'success')
+      .then(() => window.location.reload())
     } catch (error: unknown) {
       // setTurnoData(null);
       handleApiError(error); // You can remove this line

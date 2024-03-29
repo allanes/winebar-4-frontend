@@ -111,7 +111,7 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
 
       <Modal show={showTurnoView} onHide={handleCloseTurnoView} centered size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>Detalle de Orden</Modal.Title>
+          <Modal.Title>Detalle de Turno</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedTurno && (

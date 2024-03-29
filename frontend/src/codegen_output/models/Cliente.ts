@@ -6,5 +6,6 @@ export type Cliente = {
     nombre: string;
     id: number;
     activa: boolean;
+    rol_usado_nombre?: (string | null);
 };
 

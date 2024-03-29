@@ -92,14 +92,21 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
                     <Col>
                         <Badge bg='secondary' className='ps-4 pe-4'>
                             <Row className='text-center'>
-                                <h6>Atendido por</h6>
+                                <h6>Abierto por</h6>
                             </Row>
                             <Row>
-                                <h5><strong>{turnoData?.abierto_por}</strong></h5>
+                                <h5><strong>{turnoData?.abierto_por_nombre}</strong></h5>
                             </Row>
                         </Badge>
                     </Col>
                 </Row>
+                {turnoData?.comentarios && 
+                    <Row>
+                        <Badge bg='light' >
+                            {turnoData.comentarios}
+                        </Badge>
+                    </Row>
+                }
                 <Row>
                     <Col>
                         <InfoCard 
@@ -113,9 +120,28 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
                         <InfoCard title="Clientes Totales" count={turnoData?.cantidad_de_ordenes || 0} />
                     </Col>
                 </Row>        
-                <Row>
-                    <Col>
-                        <InfoCard title="Monto Cobrado" count={turnoData?.suma_ordenes_cobradas || 0} />
+                <Row className='d-flex'>
+                    <Col md={4}>
+                        {turnoData?.cerrado_por && 
+                            <InfoCard 
+                                title={'Monto en Caja Cerrada'}
+                                count={`$${turnoData.monto_en_caja}`}
+                            />
+                        }
+                    </Col>
+                    <Col md={4}>
+                        <InfoCard 
+                            title="Monto Cobrado" 
+                            count={turnoData?.suma_ordenes_cobradas || 0} 
+                        />
+                    </Col>
+                    <Col md={4}>
+                        {turnoData?.cerrado_por && 
+                            <InfoCard 
+                                title={'Diferencia'}
+                                count={`$${-(turnoData.suma_ordenes_cobradas || 0 - turnoData.monto_en_caja)}`}
+                            />
+                        }
                     </Col>
                 </Row>
                 <Row>
@@ -136,16 +162,6 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
                 </Row>
             </Card.Body>
         </Card>
-            // <Card.Footer>
-            //     {/* <Button variant="secondary" onClick={onHide}> */}
-            //     <Button variant="secondary">
-            //         Cancelar
-            //     </Button>
-            //     {/* <Button variant="primary" onClick={handleConfirm}> */}
-            //     <Button variant="primary">
-            //         Confirmar Cierre
-            //     </Button>
-            // </Card.Footer> 
     );
 };
 

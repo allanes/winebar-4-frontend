@@ -25,22 +25,20 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
     
     return (
         <Modal show={show} onHide={onHide} centered size='lg'>
-        <Modal.Header closeButton />
-        <Modal.Body>
-            <TurnoDetalle
-                turnoData={turnoData}
-                // handleCerrarTurno={handleConfirm}
-                // handleGetTurnoInfo={handleGetTurnoInfo}
-            />
-        </Modal.Body>
-        <Modal.Footer>
-            <Button variant="secondary" onClick={onHide}>
-            Cancelar
-            </Button>
-            <Button variant="primary" onClick={handleConfirm}>
-            Confirmar Cierre
-            </Button>
-        </Modal.Footer>
+            <Modal.Header closeButton />
+            <Modal.Body>
+                <TurnoDetalle
+                    turnoData={turnoData}                    
+                />
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={onHide}>
+                Cancelar
+                </Button>
+                <Button variant="primary" onClick={handleConfirm}>
+                Confirmar Cierre
+                </Button>
+            </Modal.Footer>
         </Modal>
     );
 };
