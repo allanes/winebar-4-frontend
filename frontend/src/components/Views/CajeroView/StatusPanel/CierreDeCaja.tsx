@@ -29,8 +29,8 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
         <Modal.Body>
             <TurnoDetalle
                 turnoData={turnoData}
-                handleCerrarTurno={handleConfirm}
-                handleGetTurnoInfo={handleGetTurnoInfo}
+                // handleCerrarTurno={handleConfirm}
+                // handleGetTurnoInfo={handleGetTurnoInfo}
             />
         </Modal.Body>
         <Modal.Footer>

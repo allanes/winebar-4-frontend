@@ -74,5 +74,21 @@ export const $Turno = {
                 type: 'null',
             }],
         },
+        abierto_por_nombre: {
+            type: 'any-of',
+            contains: [{
+                type: 'string',
+            }, {
+                type: 'null',
+            }],
+        },
+        cerrado_por_nombre: {
+            type: 'any-of',
+            contains: [{
+                type: 'string',
+            }, {
+                type: 'null',
+            }],
+        },
     },
 } as const;

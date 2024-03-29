@@ -1,7 +1,11 @@
-import React from 'react'
-import { Turno } from '../../codegen_output'
+import React, {useState} from 'react'
+import { Turno, TurnosService } from '../../codegen_output'
 import deleteIcon from '../../assets/icons/outline_delete_white_24dp.png'
 import Swal from 'sweetalert2'
+import { Badge, Modal } from 'react-bootstrap'
+import { handleApiError } from '../ClientsContainer/ClientsContainer'
+import TurnoDetalle from './TurnoDetail'
+import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge'
 
 interface Props {
   turnosList: Array<Turno>
@@ -22,6 +26,8 @@ const keysTabTurno = [
 ]
 
 export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: Props) => {
+  const [selectedTurno, setSelectedTurno] = useState<Turno | null>(null);
+  const [showTurnoView, setShowTurnoView] = useState(false);
 
   const handleDelete = (turno: Turno) => {
     Swal.fire({
@@ -39,6 +45,21 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
       }
     })
   }
+
+  const handleTurnoClick = async (turnoId: number) => {
+    TurnosService.handleReadTurnoByIdBackendApiV1TurnosIdGet(
+      turnoId
+    ).then((setTurnoResponse) => {
+      setSelectedTurno(setTurnoResponse);
+      setShowTurnoView(true);
+    })
+    .catch(handleApiError)
+  };
+
+  const handleCloseTurnoView = () => {
+    setSelectedTurno(null);
+    setShowTurnoView(false);
+  };
 
   return (
     <>
@@ -59,16 +80,21 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
         <tbody className='table-group-divider' >
           {turnosList.map((turno, index) => {
             return (
-              <tr key={index} >
+              <tr key={index} onClick={() => handleTurnoClick(turno.id)}>
                 <th scope='row'>{turno.id}</th>
                 <td>{turno.cantidad_de_ordenes}</td>
                 <td>{turno.cantidad_tapas}</td>
                 <td>{turno.cantidad_usuarios_vip}</td>
                 <td>{turno.monto_en_caja}</td>
-                <td>{turno.abierto_por}</td>
-                <td>{turno.cerrado_por}</td>
-                <td>{turno.timestamp_apertura}</td>
-                <td>{turno.timestamp_cierre}</td>
+                <td>{turno.abierto_por_nombre}</td>
+                <td>{turno.cerrado_por_nombre || ''}</td>
+                <td><TimestampFormateadoBadge timestamp={turno.timestamp_apertura}/></td>
+                <td>{turno.timestamp_cierre ? 
+                    <TimestampFormateadoBadge timestamp={turno.timestamp_cierre}/>
+                  :
+                    <Badge bg='warning'>Abierta</Badge>
+                  }
+                </td>
                                 
                 <td>
                   <button className='icons-border icon--size icon--delete'
@@ -82,6 +108,20 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
           })}
         </tbody>
       </table>
+
+      <Modal show={showTurnoView} onHide={handleCloseTurnoView} centered size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Detalle de Orden</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedTurno && (
+            <TurnoDetalle
+              turnoData={selectedTurno} 
+              
+            />
+          )}
+        </Modal.Body>
+      </Modal>
       </div>
     </>
   )

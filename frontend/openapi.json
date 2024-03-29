@@ -3812,6 +3812,30 @@
             ],
             "title": "Suma Ordenes Cobradas",
             "default": 0
+          },
+          "abierto_por_nombre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Abierto Por Nombre",
+            "default": ""
+          },
+          "cerrado_por_nombre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cerrado Por Nombre",
+            "default": ""
           }
         },
         "type": "object",

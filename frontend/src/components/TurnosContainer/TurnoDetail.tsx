@@ -8,8 +8,8 @@ import { Card, Badge, Row, Col, Accordion, Button } from 'react-bootstrap';
 
 interface TurnoProps {
   turnoData: Turno | null;
-  handleGetTurnoInfo: () => void;
-  handleCerrarTurno: () => void;
+//   handleGetTurnoInfo: () => void;
+//   handleCerrarTurno: () => void;
 }
 
 const parseOrdenCompraDetallada = (ordenCerrada: OrdenCompraDetallada): OrdenCompra => {
@@ -29,7 +29,8 @@ const parseOrdenCompraDetallada = (ordenCerrada: OrdenCompraDetallada): OrdenCom
     };
 };
 
-const TurnoDetalle = ({ turnoData, handleGetTurnoInfo, handleCerrarTurno }: TurnoProps) => {
+const TurnoDetalle = ({ turnoData }: TurnoProps) => {
+// const TurnoDetalle = ({ turnoData, handleGetTurnoInfo, handleCerrarTurno }: TurnoProps) => {
     const [activeKey, setActiveKey] = useState<string | null>(null);
     const [ordenesDelTurno, setOrdenesDelTurno] = useState<OrdenCompra[]>([]);
 
