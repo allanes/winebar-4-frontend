@@ -37,7 +37,12 @@ const StatusPanel = () => {
 
   const handleCerrarTurno = async () => {
     try {
-      const updatedTurnoData = await TurnosService.handleGetTurnoAbiertoBackendApiV1TurnosTurnoEnCursoGet();
+      const updatedTurnoData = await TurnosService.handleCerrarTurnoBackendApiV1TurnosCerrarPost(
+        {
+          'monto_en_caja': 100, 
+          'comentarios': ''
+        }
+      );
       setTurnoData(updatedTurnoData);      
     } catch (error: unknown) {
       // setTurnoData(null);
@@ -51,7 +56,7 @@ const StatusPanel = () => {
   }
 
   const handleCloseCierreDeCajaDetalle = () => {
-    setTurnoData(null)
+    // setTurnoData(null)
     setShowCierreDeCajaDetalle(false);
   };
 

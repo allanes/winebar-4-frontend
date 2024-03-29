@@ -13,7 +13,7 @@ const keysTabTurno = [
   "# de Ordenes",
   "# de Tapas",
   "# Usuarios VIP",
-  "Ingresos Totales",
+  "En Caja",
   "Abierto por",
   "Cerrado por",
   "Abierta",
@@ -64,7 +64,7 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
                 <td>{turno.cantidad_de_ordenes}</td>
                 <td>{turno.cantidad_tapas}</td>
                 <td>{turno.cantidad_usuarios_vip}</td>
-                <td>{turno.ingresos_totales}</td>
+                <td>{turno.monto_en_caja}</td>
                 <td>{turno.abierto_por}</td>
                 <td>{turno.cerrado_por}</td>
                 <td>{turno.timestamp_apertura}</td>

@@ -122,7 +122,7 @@ export const OrdenesList = ({
                           <CheckCircleFill color='green' className='ms-1'/>
                         </Col>                        
                     :
-                      <Badge bg='danger'>ABIERTA</Badge>
+                      <Badge bg='danger'>ORDEN ABIERTA</Badge>
                     }
                   </td>
                   {!columnasReducidas && <td>{orden.cerrada_por_nombre}</td>}
