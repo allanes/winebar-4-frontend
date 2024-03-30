@@ -40,7 +40,7 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Turno eliminada!', '', 'error')
+        Swal.fire('Turno eliminado!', '', 'error')
         onDeleteTurno_propin(turno.id)
       }
     })

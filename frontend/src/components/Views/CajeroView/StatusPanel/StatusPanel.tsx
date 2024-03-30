@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import InfoCard from './InfoCard';
-import { Turno, TurnosService } from '../../../../codegen_output';
+import { InfoDeCierre, Turno, TurnosService } from '../../../../codegen_output';
 import { handleApiError } from '../../../ClientsContainer/ClientsContainer';
 import CierreDeCaja from './CierreDeCaja';
 import Swal from 'sweetalert2';
@@ -36,13 +36,10 @@ const StatusPanel = () => {
       });
   };
 
-  const handleCerrarTurno = async () => {
+  const handleCerrarTurno = async (infoDeCierre: InfoDeCierre) => {
     try {
       const updatedTurnoData = await TurnosService.handleCerrarTurnoBackendApiV1TurnosCerrarPost(
-        {
-          'monto_en_caja': 100, 
-          'comentarios': ''
-        }
+        infoDeCierre
       );
       setTurnoData(updatedTurnoData);    
       Swal.fire('Turno Cerrado', '', 'success')

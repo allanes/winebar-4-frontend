@@ -100,13 +100,6 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
                         </Badge>
                     </Col>
                 </Row>
-                {turnoData?.comentarios && 
-                    <Row>
-                        <Badge bg='light' >
-                            {turnoData.comentarios}
-                        </Badge>
-                    </Row>
-                }
                 <Row>
                     <Col>
                         <InfoCard 
@@ -132,18 +125,28 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
                     <Col md={4}>
                         <InfoCard 
                             title="Monto Cobrado" 
-                            count={turnoData?.suma_ordenes_cobradas || 0} 
+                            count={`$${turnoData?.suma_ordenes_cobradas || 0}`} 
                         />
                     </Col>
                     <Col md={4}>
                         {turnoData?.cerrado_por && 
                             <InfoCard 
                                 title={'Diferencia'}
-                                count={`$${-(turnoData.suma_ordenes_cobradas || 0 - turnoData.monto_en_caja)}`}
+                                count={`$${(turnoData.diferencia || 0)}`}
                             />
                         }
                     </Col>
                 </Row>
+                {turnoData?.comentarios && 
+                    <Row className='mb-2'>
+                        <Col md={3}>
+                            <Badge bg='light' text='dark'>
+                                Comentarios
+                            </Badge>
+                        </Col>
+                        <Col className='text-start'>{turnoData.comentarios}</Col>
+                    </Row>
+                }
                 <Row>
                     <Accordion activeKey={activeKey} onSelect={handleClientesActivosClick}>
                         <Accordion.Item eventKey="0">

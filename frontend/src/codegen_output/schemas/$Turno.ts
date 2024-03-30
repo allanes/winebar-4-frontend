@@ -74,6 +74,14 @@ export const $Turno = {
                 type: 'null',
             }],
         },
+        diferencia: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
         abierto_por_nombre: {
             type: 'any-of',
             contains: [{
