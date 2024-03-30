@@ -14,14 +14,14 @@ interface Props {
 
 const keysTabTurno = [
   "ID",
-  "# de Ordenes",
-  "# de Tapas",
-  "# Usuarios VIP",
+  "Ordenes",
+  // "# de Tapas",
+  // "# Usuarios VIP",
   "En Caja",
   "Abierto por",
   "Cerrado por",
-  "Abierta",
-  "Cerrada",
+  "Abierto",
+  "Cerrado",
   ""
 ]
 
@@ -83,16 +83,16 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
               <tr key={index} onClick={() => handleTurnoClick(turno.id)}>
                 <th scope='row'>{turno.id}</th>
                 <td>{turno.cantidad_de_ordenes}</td>
-                <td>{turno.cantidad_tapas}</td>
-                <td>{turno.cantidad_usuarios_vip}</td>
-                <td>{turno.monto_en_caja}</td>
+                {/* <td>{turno.cantidad_tapas}</td> */}
+                {/* <td>{turno.cantidad_usuarios_vip}</td> */}
+                <td>${turno.monto_en_caja}</td>
                 <td>{turno.abierto_por_nombre}</td>
                 <td>{turno.cerrado_por_nombre || ''}</td>
                 <td><TimestampFormateadoBadge timestamp={turno.timestamp_apertura}/></td>
                 <td>{turno.timestamp_cierre ? 
                     <TimestampFormateadoBadge timestamp={turno.timestamp_cierre}/>
                   :
-                    <Badge bg='warning'>Abierta</Badge>
+                    <Badge bg='warning'>EN CURSO</Badge>
                   }
                 </td>
                                 

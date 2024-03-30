@@ -66,7 +66,7 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
                         {turnoData && turnoData.cerrado_por ?
                             <Badge bg='success'>Cerrada</Badge>
                         : 
-                            <Badge bg='warning'>Abierta</Badge>
+                            <Badge bg='warning'>EN CURSO</Badge>
                         }
                     </Col>                    
                 </Card.Title>
@@ -101,14 +101,15 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <InfoCard 
-                            title="Clientes Activos" 
-                            count={turnoData?.clientes_activos || '0'} 
-                            onClick={handleClientesActivosClick}
-                            clickable
-                        />
-                    </Col>
+                    {!turnoData?.cerrado_por &&
+                        <Col>
+                            <InfoCard 
+                                title="Clientes Activos" 
+                                count={turnoData?.clientes_activos || '0'} 
+                                onClick={handleClientesActivosClick}
+                                clickable
+                            />
+                        </Col>}
                     <Col>
                         <InfoCard title="Clientes Totales" count={turnoData?.cantidad_de_ordenes || 0} />
                     </Col>

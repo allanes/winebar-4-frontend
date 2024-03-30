@@ -21,6 +21,7 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
 
     const handleInfoCierreSubmit = (infoDeCierre: InfoDeCierre) => {
         handleCerrarTurno(infoDeCierre);
+        setShowInfoCierreForm(false);
     };
 
     const handleContinuar = () => {
