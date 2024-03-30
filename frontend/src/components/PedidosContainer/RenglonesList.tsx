@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, ListGroup, Col, Row } from 'react-bootstrap';
-import { Renglon } from '../../../../codegen_output';
+import { Renglon } from '../../codegen_output';
 import RenglonItem from './RenglonItem';
 
 interface RenglonListProps {

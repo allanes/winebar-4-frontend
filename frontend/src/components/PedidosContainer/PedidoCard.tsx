@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card, Badge, Row, Col } from 'react-bootstrap';
-import { Pedido } from '../../../../codegen_output';
+import { Pedido } from '../../codegen_output';
 import RenglonList from './RenglonesList';
-import TimestampFormateadoBadge from '../../../Common/TimestampFormateadoBadge';
+import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge';
 import { CheckCircleFill, ExclamationCircle, CurrencyDollar } from 'react-bootstrap-icons';
 
 interface PedidoCardProps {

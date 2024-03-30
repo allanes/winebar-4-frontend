@@ -1433,6 +1433,52 @@
         ],
         "summary": "Handle Cerrar Turno",
         "operationId": "handle_cerrar_turno_backend_api_v1_turnos_cerrar_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InfoDeCierre"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Turno"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/backend/api/v1/turnos/turno-en-curso": {
+      "get": {
+        "tags": [
+          "Turnos"
+        ],
+        "summary": "Handle Get Turno Abierto",
+        "operationId": "handle_get_turno_abierto_backend_api_v1_turnos_turno_en_curso_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -1625,7 +1671,53 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrdenCompraCerrada"
+                  "$ref": "#/components/schemas/OrdenCompraDetallada"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/backend/api/v1/ordenes/by-turno/{turno_id}": {
+      "get": {
+        "tags": [
+          "Ordenes"
+        ],
+        "summary": "Handle Read Orden By Turno Id",
+        "operationId": "handle_read_orden_by_turno_id_backend_api_v1_ordenes_by_turno__turno_id__get",
+        "parameters": [
+          {
+            "name": "turno_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Turno Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrdenCompraDetallada"
+                  },
+                  "title": "Response Handle Read Orden By Turno Id Backend Api V1 Ordenes By Turno  Turno Id  Get"
                 }
               }
             }
@@ -1811,7 +1903,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrdenCompra"
+                  "$ref": "#/components/schemas/OrdenCompraDetallada"
                 }
               }
             }
@@ -2390,6 +2482,17 @@
           "activa": {
             "type": "boolean",
             "title": "Activa"
+          },
+          "rol_usado_nombre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rol Usado Nombre"
           }
         },
         "type": "object",
@@ -2513,6 +2616,17 @@
           "activa": {
             "type": "boolean",
             "title": "Activa"
+          },
+          "rol_usado_nombre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rol Usado Nombre"
           },
           "detalle": {
             "anyOf": [
@@ -2690,6 +2804,24 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
+      "InfoDeCierre": {
+        "properties": {
+          "comentarios": {
+            "type": "string",
+            "title": "Comentarios"
+          },
+          "monto_en_caja": {
+            "type": "number",
+            "title": "Monto En Caja"
+          }
+        },
+        "type": "object",
+        "required": [
+          "comentarios",
+          "monto_en_caja"
+        ],
+        "title": "InfoDeCierre"
+      },
       "OrdenCompra": {
         "properties": {
           "precarga_usada": {
@@ -2751,6 +2883,17 @@
               }
             ],
             "title": "Cerrada Por"
+          },
+          "cerrada_por_nombre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cerrada Por Nombre"
           }
         },
         "type": "object",
@@ -2767,7 +2910,7 @@
         ],
         "title": "OrdenCompra"
       },
-      "OrdenCompraCerrada": {
+      "OrdenCompraDetallada": {
         "properties": {
           "precarga_usada": {
             "type": "number",
@@ -2829,6 +2972,17 @@
             ],
             "title": "Cerrada Por"
           },
+          "cerrada_por_nombre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cerrada Por Nombre"
+          },
           "pedidos": {
             "items": {
               "$ref": "#/components/schemas/Pedido"
@@ -2860,7 +3014,7 @@
           "nombre_cliente",
           "rol"
         ],
-        "title": "OrdenCompraCerrada"
+        "title": "OrdenCompraDetallada"
       },
       "OrdenCompraUpdate": {
         "properties": {
@@ -3618,9 +3772,21 @@
             "type": "integer",
             "title": "Cantidad Usuarios Vip"
           },
-          "ingresos_totales": {
+          "monto_en_caja": {
             "type": "number",
-            "title": "Ingresos Totales"
+            "title": "Monto En Caja"
+          },
+          "comentarios": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comentarios",
+            "default": ""
           },
           "cerrado_por": {
             "anyOf": [
@@ -3644,6 +3810,54 @@
               }
             ],
             "title": "Timestamp Cierre"
+          },
+          "clientes_activos": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clientes Activos",
+            "default": 0
+          },
+          "suma_ordenes_cobradas": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suma Ordenes Cobradas",
+            "default": 0
+          },
+          "abierto_por_nombre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Abierto Por Nombre",
+            "default": ""
+          },
+          "cerrado_por_nombre": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cerrado Por Nombre",
+            "default": ""
           }
         },
         "type": "object",
@@ -3654,7 +3868,7 @@
           "cantidad_de_ordenes",
           "cantidad_tapas",
           "cantidad_usuarios_vip",
-          "ingresos_totales"
+          "monto_en_caja"
         ],
         "title": "Turno"
       },

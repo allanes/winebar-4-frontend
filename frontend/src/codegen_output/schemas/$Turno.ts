@@ -29,9 +29,17 @@ export const $Turno = {
             type: 'number',
             isRequired: true,
         },
-        ingresos_totales: {
+        monto_en_caja: {
             type: 'number',
             isRequired: true,
+        },
+        comentarios: {
+            type: 'any-of',
+            contains: [{
+                type: 'string',
+            }, {
+                type: 'null',
+            }],
         },
         cerrado_por: {
             type: 'any-of',
@@ -46,6 +54,46 @@ export const $Turno = {
             contains: [{
                 type: 'string',
                 format: 'date-time',
+            }, {
+                type: 'null',
+            }],
+        },
+        clientes_activos: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
+        suma_ordenes_cobradas: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
+        diferencia: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
+        abierto_por_nombre: {
+            type: 'any-of',
+            contains: [{
+                type: 'string',
+            }, {
+                type: 'null',
+            }],
+        },
+        cerrado_por_nombre: {
+            type: 'any-of',
+            contains: [{
+                type: 'string',
             }, {
                 type: 'null',
             }],

@@ -5,15 +5,17 @@ import { Card } from 'react-bootstrap';
 
 interface InfoCardProps {
   title: string;
-  count: number | string;
+  count: number | string | null;
+  onClick?: () => void;
+  clickable?: boolean;
 }
 
-const InfoCard = ({ title, count }: InfoCardProps) => {
+const InfoCard = ({ title, count, onClick, clickable }: InfoCardProps) => {
     return (
-        <Card className="info-card">
+        <Card className={`info-card ${clickable ? 'clickable' : ''}`} onClick={onClick}>
           <Card.Body className="info-card-body">
             <div className="info-card-count">
-              {count}
+              {count ? count : 0}
             </div>
             <div className="info-card-title">
               {title}

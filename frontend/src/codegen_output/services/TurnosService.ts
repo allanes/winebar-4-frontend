@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { InfoDeCierre } from '../models/InfoDeCierre';
 import type { Turno } from '../models/Turno';
 import type { TurnoUpdate } from '../models/TurnoUpdate';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -21,13 +22,32 @@ export class TurnosService {
     }
     /**
      * Handle Cerrar Turno
+     * @param requestBody
      * @returns Turno Successful Response
      * @throws ApiError
      */
-    public static handleCerrarTurnoBackendApiV1TurnosCerrarPost(): CancelablePromise<Turno> {
+    public static handleCerrarTurnoBackendApiV1TurnosCerrarPost(
+        requestBody: InfoDeCierre,
+    ): CancelablePromise<Turno> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/backend/api/v1/turnos/cerrar',
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Handle Get Turno Abierto
+     * @returns Turno Successful Response
+     * @throws ApiError
+     */
+    public static handleGetTurnoAbiertoBackendApiV1TurnosTurnoEnCursoGet(): CancelablePromise<Turno> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/turnos/turno-en-curso',
         });
     }
     /**

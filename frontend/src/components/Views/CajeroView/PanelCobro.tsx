@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
-import { OrdenesService, OrdenCompraCerrada } from '../../../codegen_output';
+import { OrdenCompra, OrdenesService, OrdenCompraDetallada } from '../../../codegen_output';
 import CardReaderInput from '../../ClientsContainer/CardReaderInput';
-import OrdenView from './OrdenDetallada/OrdenView';
+import OrdenView from '../../OrdenesContainer/OrdenView';
 import { handleApiError } from '../../ClientsContainer/ClientsContainer';
 
 interface PanelCobroProps {
@@ -12,7 +12,8 @@ interface PanelCobroProps {
 
 const PanelCobro: React.FC<PanelCobroProps> = ({ show, onHide }) => {
   const [tarjetaIdCliente, setTarjetaIdCliente] = useState('');
-  const [ordenData, setOrdenData] = useState<OrdenCompraCerrada | null>(null);
+  const [ordenData, setOrdenData] = useState<OrdenCompraDetallada | null>(null);
+  const [ordenCobrada, setOrdenCobrada] = useState<OrdenCompra | null>(null);
 
   const handleCardReadWrapper = async (tarjetaId: string) => {
     try {
@@ -30,7 +31,7 @@ const PanelCobro: React.FC<PanelCobroProps> = ({ show, onHide }) => {
     setTarjetaIdCliente('');
     onHide();
   };
-
+  
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
       <Modal.Header closeButton>
@@ -39,7 +40,9 @@ const PanelCobro: React.FC<PanelCobroProps> = ({ show, onHide }) => {
       <Modal.Body>
         {tarjetaIdCliente && ordenData ? (
           <div style={{ position: 'relative', zIndex: 1050 }}>
-            <OrdenView ordenData={ordenData} />
+            <OrdenView 
+              ordenData={ordenData}
+            />
           </div>
         ) : (
           <CardReaderInput onCardRead={handleCardReadWrapper} />

@@ -2,10 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type Cliente = {
-    nombre: string;
-    id: number;
-    activa: boolean;
-    rol_usado_nombre?: (string | null);
+export type InfoDeCierre = {
+    comentarios: string;
+    monto_en_caja: number;
 };
 
