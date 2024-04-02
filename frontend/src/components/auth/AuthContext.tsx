@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { OpenAPI, Token, LoginService, PersonalInterno, Body_login_backend_api_v1_login_access_token_post, ApiError } from '../../codegen_output';
 import Swal from 'sweetalert2';
+import { handleApiErrorCustom } from '../Common/ApiErros';
 
 interface AuthContextType {
   isLoggedIn: boolean;
@@ -27,6 +28,13 @@ export const AuthProvider: React.FC<AuthProvidertProps> = ({ children }) => {
     return data.api_key;
   };
 
+  const onLoginFail = () => {
+    setIsLoggedIn(false);
+    setToken(null);
+    OpenAPI.TOKEN = '';
+    localStorage.removeItem('token');
+  }
+
   const fetchUserDetails = async () => {
     try {
       const userDetails = await LoginService.readUsersMeBackendApiV1LoginUsersMeGet();
@@ -34,10 +42,7 @@ export const AuthProvider: React.FC<AuthProvidertProps> = ({ children }) => {
       setIsLoggedIn(true);
     } catch (error) {
       console.error('Failed to fetch user details', error);
-      setIsLoggedIn(false);
-      setToken(null);
-      OpenAPI.TOKEN = '';
-      localStorage.removeItem('token');
+      handleApiErrorCustom(error, onLoginFail)      
     }
   };
 
@@ -56,13 +61,7 @@ export const AuthProvider: React.FC<AuthProvidertProps> = ({ children }) => {
         await fetchUserDetails();
       }
     } catch (error) {
-      console.error('Login failed', error);
-      const err = error as ApiError;
-      let errorMessage = 'No se pudo validar las credenciales.';
-      if (err.body && err.body.detail) {
-        errorMessage = err.body.detail;
-      }
-      Swal.fire('Error', errorMessage, 'error');
+      handleApiErrorCustom(error, onLoginFail)
     }
   };
 

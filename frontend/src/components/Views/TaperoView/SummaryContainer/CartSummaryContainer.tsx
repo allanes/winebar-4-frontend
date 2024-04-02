@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Badge, ListGroup, ListGroupItem, Modal } from 'react-bootstrap';
 import { useCart } from '../CartContext';
-import { PedidosService, ApiError } from '../../../../codegen_output';
-import Swal from 'sweetalert2';
 import { displayLcdInfoCliente, clearLcd } from '../LcdService';
+import { OrdenCompraDetallada, OrdenesService } from '../../../../codegen_output';
+import { handleApiError } from '../../../ClientsContainer/ClientsContainer';
+import OrdenViewForTapero from './OrdenViewForTapero';
 
 const CartSummaryContainer = () => {    
   const { cartItems, tarjetaCliente, clienteSiendoAtendido, ordenCliente, pedidoEnCurso, confirmOrder } = useCart()!;
   const [showHistory, setShowHistory] = useState(false);
+  const [ordenData, setOrdenData] = useState<OrdenCompraDetallada | null>(null);
+
+  const handleGetOrdenDetalladaData = async () => {
+    if (tarjetaCliente) {
+      try {
+        const response = await OrdenesService.handleReadOrdenByClientRfidBackendApiV1OrdenesByRfidTarjetaIdGet(tarjetaCliente);
+        setOrdenData(response);
+      } catch (error) {
+        console.error('Error reading card:', error);
+        handleApiError(error);
+      }
+    }
+  };
 
   useEffect(() => {
     if (clienteSiendoAtendido && pedidoEnCurso) {
@@ -17,6 +31,7 @@ const CartSummaryContainer = () => {
         carrito: subtotal,
         consumos: ordenCliente?.monto_cargado || 0,
       });
+      handleGetOrdenDetalladaData()
     }
 
     return () => {
@@ -76,13 +91,14 @@ const CartSummaryContainer = () => {
         </div>
       </Card.Body>
 
-      <Modal show={showHistory} onHide={handleCloseHistory}>
+      <Modal show={showHistory} onHide={handleCloseHistory} size='xl'>
         <Modal.Header closeButton>
           <Modal.Title>Historial de consumos</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {/* Add the consumption history content here */}
-          <p>Aquí se mostrará el historial de consumos del cliente.</p>
+          {/* <p>Aquí se mostrará el historial de consumos del cliente.</p> */}
+          {ordenData && <OrdenViewForTapero ordenData={ordenData} />}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseHistory}>Cerrar</Button>
