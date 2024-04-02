@@ -8,7 +8,7 @@ import { CartProvider, useCart } from './CartContext';
 import CardReaderModal from '../../ClientsContainer/CardReaderModal';
 import { Pedido, ApiError } from '../../../codegen_output';
 import { useAuth } from '../../auth/AuthContext';
-import Swal from 'sweetalert2';
+import { handleApiErrorCustom } from '../../Common/ApiErros';
 
 const TaperoViewContent = () => {
   const [showCardReaderModal, setShowCardReaderModal] = useState(true);
@@ -30,31 +30,15 @@ const TaperoViewContent = () => {
     return null; // Or handle this case as you see fit
   }
 
-  const handleApiErrorCustom = (error: unknown) => {
-    const err = error as ApiError;
-    let errorMessage = 'Ocurrió un error.';
-    if (err.body && err.body.detail) {
-      errorMessage = err.body.detail;
-    }
-
-    Swal.fire({
-      title: 'Error',
-      text: errorMessage,
-      icon: 'error',
-      allowOutsideClick: false,
-      allowEnterKey: false,
-      showConfirmButton: false,
-      timer: 2300, // Auto close after 5 seconds
-    }).then(() => {
-      setShowCardReaderModal(true); // Re-show the card reader modal after the alert closes
-    });
-  };
+  const handleContinueAfterError = () => {
+    setShowCardReaderModal(true); // Re-show the card reader modal after the alert closes
+  }
 
   const handleCardReadWrapper = async (tarjetaId: string) => {
     try {
       await handleCardRead(tarjetaId);
     } catch (error) {
-      handleApiErrorCustom(error);
+      handleApiErrorCustom(error, handleContinueAfterError);
     }
   };
 

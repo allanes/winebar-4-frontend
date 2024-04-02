@@ -17,7 +17,7 @@ const LoginPanel: React.FC<LoginPanelProps> = () => {
   return (
     <CardReaderModal 
         show={showCardReader} 
-        onHide={() => setShowCardReader(false)} 
+        onHide={() => setShowCardReader(true)} 
         onCardRead={handleCardRead} 
         title="Login RFID" 
     />
