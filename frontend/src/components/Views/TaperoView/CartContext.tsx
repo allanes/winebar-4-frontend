@@ -13,6 +13,7 @@ import { handleApiError } from '../../ClientsContainer/ClientsContainer';
 import Swal from 'sweetalert2';
 import ResumenPedidoCerrado from './SummaryContainer/ResumenPedidoCerrado';
 import { ApiError } from '../../../codegen_output';
+import { displayLcdInfoCliente, clearLcd } from './LcdService';
 
 interface CartContextType {
   cartItems: Renglon[];
@@ -89,6 +90,12 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
       .then((response) => {
         setOrderClosed(response.cerrado);
         setShowResumen(true);
+        
+        displayLcdInfoCliente({
+          nombre: clienteSiendoAtendido.nombre || '',
+          carrito: response.monto_cargado || 0,
+          consumos: ordenCliente.monto_cargado + (response.monto_cargado || 0)
+        })
       })
       .catch((error) => {
         handleApiError(error);
@@ -97,7 +104,7 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
 
   const closeResumen = () => {
     setShowResumen(false);
-    clearClientData(); // Clear the client data after closing the resumen
+    window.location.reload()
   };
 
   const handleCardRead = (tarjetaId: string) => {
@@ -111,7 +118,7 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
                   // Update the context state
                   setClienteData(clienteResponse, ordenResponse, pedidosResponse);
                   setPedidoEnCurso(pedidosResponse);
-                  setCartItems(pedidosResponse.renglones)
+                  setCartItems(pedidosResponse.renglones)          
                   resolve();
                 })
                 .catch(reject);
@@ -131,7 +138,7 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
       setClienteSiendoAtendido(clienteIn.cliente)
       if (clienteIn.tarjeta_id) {
         setTarjetaCliente(clienteIn.tarjeta_id)
-        }
+      }
     }
 
     if (ordenIn) {
