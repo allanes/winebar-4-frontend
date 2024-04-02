@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Card, Badge, ListGroup, ListGroupItem, Modal } from 'react-bootstrap';
 import { useCart } from '../CartContext';
 import { PedidosService, ApiError } from '../../../../codegen_output';
 import Swal from 'sweetalert2';
+import { displayLcdInfoCliente, clearLcd } from '../LcdService';
 
 const CartSummaryContainer = () => {    
   const { cartItems, tarjetaCliente, clienteSiendoAtendido, ordenCliente, pedidoEnCurso, confirmOrder } = useCart()!;
   const [showHistory, setShowHistory] = useState(false);
+
+  useEffect(() => {
+    if (clienteSiendoAtendido && pedidoEnCurso) {
+      const subtotal = cartItems.reduce((total, item) => total + item.cantidad * item.monto, 0);
+      displayLcdInfoCliente({
+        nombre: clienteSiendoAtendido.nombre,
+        carrito: subtotal,
+        consumos: ordenCliente?.monto_cargado || 0,
+      });
+    }
+
+    return () => {
+      clearLcd();
+    };
+  }, [cartItems, clienteSiendoAtendido, pedidoEnCurso]);
 
   if (!tarjetaCliente || !clienteSiendoAtendido || !ordenCliente) {
     return null;
