@@ -7,21 +7,9 @@ import { handleApiError } from '../../../ClientsContainer/ClientsContainer';
 import OrdenViewForTapero from './OrdenViewForTapero';
 
 const CartSummaryContainer = () => {    
-  const { cartItems, tarjetaCliente, clienteSiendoAtendido, ordenCliente, pedidoEnCurso, confirmOrder } = useCart()!;
+  const { cartItems, tarjetaCliente, clienteSiendoAtendido, ordenCliente, pedidoEnCurso, confirmOrder, addToCartByPhysPort } = useCart()!;
   const [showHistory, setShowHistory] = useState(false);
   const [ordenData, setOrdenData] = useState<OrdenCompraDetallada | null>(null);
-
-  const handleGetOrdenDetalladaData = async () => {
-    if (tarjetaCliente) {
-      try {
-        const response = await OrdenesService.handleReadOrdenByClientRfidBackendApiV1OrdenesByRfidTarjetaIdGet(tarjetaCliente);
-        setOrdenData(response);
-      } catch (error) {
-        console.error('Error reading card:', error);
-        handleApiError(error);
-      }
-    }
-  };
 
   useEffect(() => {
     if (clienteSiendoAtendido && pedidoEnCurso) {
@@ -31,13 +19,36 @@ const CartSummaryContainer = () => {
         carrito: subtotal,
         consumos: ordenCliente?.monto_cargado || 0,
       });
-      handleGetOrdenDetalladaData()
     }
 
     return () => {
       clearLcd();
     };
-  }, [cartItems, clienteSiendoAtendido, pedidoEnCurso]);
+  }, [cartItems, clienteSiendoAtendido, pedidoEnCurso, ordenCliente]);
+
+  useEffect(() => {
+    handleGetOrdenDetalladaData();
+  }, [tarjetaCliente]);
+
+  const handleGetOrdenDetalladaData = async () => {
+    if (tarjetaCliente) {
+      try {
+        const response = await OrdenesService.handleReadOrdenByClientRfidBackendApiV1OrdenesByRfidTarjetaIdGet(tarjetaCliente);
+        setOrdenData(response);
+
+        const physPortResponse = await fetch(`http://localhost:3001/lectores-rfid/get_phys_port?card_number=${tarjetaCliente}`);
+        const physPort = await physPortResponse.json();
+        if (physPort) {
+          addToCartByPhysPort(physPort);
+        }
+        
+        console.log('Phys Port:', physPort.phys_port);
+      } catch (error) {
+        console.error('Error reading card:', error);
+        handleApiError(error);
+      }
+    }
+  };
 
   if (!tarjetaCliente || !clienteSiendoAtendido || !ordenCliente) {
     return null;

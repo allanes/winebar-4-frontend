@@ -12,7 +12,6 @@ import {
 import { handleApiError } from '../../ClientsContainer/ClientsContainer';
 import Swal from 'sweetalert2';
 import ResumenPedidoCerrado from './SummaryContainer/ResumenPedidoCerrado';
-import { ApiError } from '../../../codegen_output';
 import { displayLcdInfoCliente, clearLcd } from './LcdService';
 
 interface CartContextType {
@@ -23,6 +22,7 @@ interface CartContextType {
   tarjetaCliente: number | null;
   setClienteData: (clienteIn: ClienteOperaConTarjeta | null, ordenIn: OrdenCompra | null, pedidoIn: Pedido | null) => void;  // Add this line
   addToCart: (productoId: number, qtty?: number) => void;
+  addToCartByPhysPort: (physPort: string) => void;
   removeFromCart: (productId: number) => void;  
   confirmOrder: () => void;
   emptyCart: () => void;
@@ -50,6 +50,28 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
     };
   
     PedidosService.handleAgregarProductoBackendApiV1PedidosAgregarProductoPost(tarjetaCliente, renglonCreate)
+      .then((renglon) => {
+        const existingItem = cartItems.find(item => item.id === renglon.id);
+        if (existingItem) {
+          setCartItems(
+            cartItems.map(item => item.id === renglon.id ? 
+              { ...item, cantidad: renglon.cantidad } : 
+              item
+            )
+          );
+        } else {
+          setCartItems([...cartItems, renglon]);
+        }
+      })
+      .catch((error) => console.error('Error al agregar producto al carrito:', error));
+  };
+
+  const addToCartByPhysPort = (physPort: string) => {
+    if (!tarjetaCliente) {
+      return;
+    }
+  
+    PedidosService.handleAgregarProductoByPhysBackendApiV1PedidosAgregarProductoByPhysPost(tarjetaCliente, physPort)
       .then((renglon) => {
         const existingItem = cartItems.find(item => item.id === renglon.id);
         if (existingItem) {
@@ -168,6 +190,7 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
       tarjetaCliente,
       setClienteData, 
       addToCart, 
+      addToCartByPhysPort,
       removeFromCart, 
       confirmOrder,
       emptyCart,
