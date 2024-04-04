@@ -75,6 +75,29 @@ export class PedidosService {
         });
     }
     /**
+     * Handle Agregar Producto By Phys
+     * @param tarjetaCliente
+     * @param physPort
+     * @returns Renglon Successful Response
+     * @throws ApiError
+     */
+    public static handleAgregarProductoByPhysBackendApiV1PedidosAgregarProductoByPhysPost(
+        tarjetaCliente: number,
+        physPort: string,
+    ): CancelablePromise<Renglon> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/backend/api/v1/pedidos/agregar-producto-by-phys',
+            query: {
+                'tarjeta_cliente': tarjetaCliente,
+                'phys_port': physPort,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Handle Quitar Renglon
      * @param tarjetaCliente
      * @param productoId

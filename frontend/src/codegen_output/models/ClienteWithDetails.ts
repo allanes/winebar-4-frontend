@@ -8,6 +8,7 @@ export type ClienteWithDetails = {
     nombre: string;
     id: number;
     activa: boolean;
+    rol_usado_nombre?: (string | null);
     detalle?: (DetallesAdicionales | null);
     tarjeta?: (Tarjeta | null);
 };

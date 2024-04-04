@@ -2124,6 +2124,62 @@
         }
       }
     },
+    "/backend/api/v1/pedidos/agregar-producto-by-phys": {
+      "post": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "Handle Agregar Producto By Phys",
+        "operationId": "handle_agregar_producto_by_phys_backend_api_v1_pedidos_agregar_producto_by_phys_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "tarjeta_cliente",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Tarjeta Cliente"
+            }
+          },
+          {
+            "name": "phys_port",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Phys Port"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Renglon"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/backend/api/v1/pedidos/quitar-producto": {
       "post": {
         "tags": [
@@ -3823,18 +3879,6 @@
             "title": "Clientes Activos",
             "default": 0
           },
-          "suma_ordenes_cobradas": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Suma Ordenes Cobradas",
-            "default": 0
-          },
           "abierto_por_nombre": {
             "anyOf": [
               {
@@ -3858,6 +3902,29 @@
             ],
             "title": "Cerrado Por Nombre",
             "default": ""
+          },
+          "suma_ordenes_cobradas": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suma Ordenes Cobradas",
+            "default": 0
+          },
+          "diferencia": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Diferencia"
           }
         },
         "type": "object",
