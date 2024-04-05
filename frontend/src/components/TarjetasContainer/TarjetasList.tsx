@@ -4,6 +4,7 @@ import { RolBadge } from '../RolesContainer/RolBadge'
 import { BooleanBadge } from '../BooleanBadge'
 import deleteIcon from '../../assets/icons/outline_delete_white_24dp.png'
 import Swal from 'sweetalert2'
+import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge'
 
 interface Props {
   tarjetasList: Array<Tarjeta>
@@ -59,7 +60,9 @@ export const TarjetasList = ({ tarjetasList, onDeleteTarjeta: onDeleteTarjeta_pr
           {tarjetasList.map((tarjeta, index) => {
             return (
               <tr key={index} >
-                <th scope='row'>{tarjeta.id}</th>                
+                <th scope='row'>{tarjeta.id}</th>
+                <td><TimestampFormateadoBadge timestamp={tarjeta.fecha_alta || ''}/></td>
+                <td><TimestampFormateadoBadge timestamp={tarjeta.fecha_ultimo_uso || ''}/></td>                
                 <td>{tarjeta.fecha_alta}</td>
                 <td>{tarjeta.fecha_ultimo_uso}</td>
                 <td>
