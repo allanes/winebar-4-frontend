@@ -9,6 +9,7 @@ import CardReaderModal from '../../ClientsContainer/CardReaderModal';
 import { Pedido, ApiError } from '../../../codegen_output';
 import { useAuth } from '../../auth/AuthContext';
 import { handleApiErrorCustom } from '../../Common/ApiErros';
+import TarjetaConsecutivaListener from './TarjetaConsecutivaListener';
 
 const TaperoViewContent = () => {
   const [showCardReaderModal, setShowCardReaderModal] = useState(true);
@@ -61,6 +62,7 @@ const TaperoViewContent = () => {
         </Col>
         {/* <FooterBanner /> */}
       </Container>
+      <TarjetaConsecutivaListener />
     </>
   );
 };

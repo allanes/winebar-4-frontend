@@ -1,22 +1,53 @@
-import React, { useContext } from 'react';
-import { Button, Navbar, Nav } from 'react-bootstrap';
-import { useCart } from './CartContext';
+import React, {useState, useEffect} from 'react';
+import { Button } from 'react-bootstrap';
+import logoBar from '../../../assets/icons/logo.png';
+import { useAuth } from '../../auth/AuthContext';
+import LoginPanel from '../../auth/LoginPanel';
 
-function TaperoHeader() {    
-  const {clienteSiendoAtendido, ordenCliente} = useCart()!;
-
-  return (
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">Nuevo Pedido</Navbar.Brand>
-      {clienteSiendoAtendido && <Navbar.Brand href="#home">Cliente: {clienteSiendoAtendido.nombre}</Navbar.Brand>}
-      {ordenCliente && <Navbar.Brand href="#home">Máximo: ${ordenCliente.monto_maximo_orden}</Navbar.Brand>}
-      <Nav className="ml-auto">
-        <Nav.Link href="#cart">
-          {/* 🛒 <span className="header__icon--total">{cartItems.length}</span> */}
-        </Nav.Link>
-      </Nav>
-    </Navbar>
-  );
+interface TaperoHeaderProps {
+    title: string;
 }
+
+const TaperoHeader: React.FC<TaperoHeaderProps> = ({ title }) => {
+    const [showLoginModal, setShowLoginModal] = useState(true);
+    const { isLoggedIn, user, login, logout } = useAuth();
+
+    useEffect(() => {
+        // Automatically show login modal if not logged in
+        // setShowLoginModal(!isLoggedIn);
+
+        if (!isLoggedIn && showLoginModal) {
+            setShowLoginModal(true);            
+        }
+
+    }, [isLoggedIn]);
+
+    return (
+        <div className="container-fluid container-header text-white py-4">
+            <div className="row align-items-center">
+                <div className="col d-flex align-items-center">
+                    <img src={logoBar} className="float-start mx-4 logobar" alt="Logo del bar" />
+                    <h1 className='h5 text-center'>Altacava <br/>Winebar</h1>
+                </div>
+                <div className="col text-center">
+                    <h2>{title}</h2>
+                </div>
+                <div className="col text-end">
+                    {isLoggedIn && user ? (
+                        <>
+                            <p>{`${user.nombre} ${user.apellido ? user.apellido : ''}`}</p>
+                            <Button variant="success" onClick={logout}>Cerrar sesión</Button>
+                        </>
+                    ) : (
+                        <Button variant="success" onClick={() => setShowLoginModal(true)}>Iniciar sesión</Button>
+                    )}
+                </div>		
+            </div>
+            {showLoginModal && !isLoggedIn && (
+                <LoginPanel />
+            )}
+        </div>
+    );
+};
 
 export default TaperoHeader;

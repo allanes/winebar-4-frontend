@@ -44,8 +44,8 @@ const CartSummaryContainer = () => {
         
         console.log('Phys Port:', physPort.phys_port);
       } catch (error) {
-        console.error('Error reading card:', error);
-        handleApiError(error);
+        console.error('Phys Port no detectado. Asumiendo que el cliente está queriendo reloguearse:', error);
+        // handleApiError(error);
       }
     }
   };
