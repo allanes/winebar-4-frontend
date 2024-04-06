@@ -2106,7 +2106,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Renglon"
+                  "$ref": "#/components/schemas/Pedido"
                 }
               }
             }
@@ -2162,7 +2162,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Renglon"
+                  "$ref": "#/components/schemas/Pedido"
                 }
               }
             }
@@ -2218,7 +2218,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Renglon"
+                  "$ref": "#/components/schemas/Pedido"
                 }
               }
             }
