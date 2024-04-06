@@ -10,7 +10,7 @@ interface PanelCobroProps {
   onHide: () => void;
 }
 
-const PanelCobro: React.FC<PanelCobroProps> = ({ show, onHide }) => {
+const PanelCobroOrden: React.FC<PanelCobroProps> = ({ show, onHide }) => {
   const [tarjetaIdCliente, setTarjetaIdCliente] = useState('');
   const [ordenData, setOrdenData] = useState<OrdenCompraDetallada | null>(null);
   const [ordenCobrada, setOrdenCobrada] = useState<OrdenCompra | null>(null);
@@ -52,4 +52,4 @@ const PanelCobro: React.FC<PanelCobroProps> = ({ show, onHide }) => {
   );
 };
 
-export default PanelCobro;
+export default PanelCobroOrden;

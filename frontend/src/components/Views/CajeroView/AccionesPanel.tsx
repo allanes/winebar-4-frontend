@@ -5,7 +5,7 @@ import { handleApiError } from '../../ClientsContainer/ClientsContainer';
 import ClientsCreate from '../../ClientsContainer/ClientsCreate';
 import { ClienteCreate, ClientesService } from '../../../codegen_output';
 import { PersonBadge, People, CashCoin } from 'react-bootstrap-icons';
-import PanelCobro from './PanelCobro';
+import PanelCobroOrden from './PanelCobroOrdenOverview';
 import Swal from 'sweetalert2';
 
 const AccionesPanel = () => {
@@ -100,7 +100,7 @@ const AccionesPanel = () => {
             </Modal>
         </div>
 
-        <PanelCobro
+        <PanelCobroOrden
             show={showPanelCobro}
             onHide={handleClosePanelCobro}
         />
