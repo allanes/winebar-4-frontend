@@ -12,7 +12,6 @@ import {
 import { handleApiError } from '../../ClientsContainer/ClientsContainer';
 import Swal from 'sweetalert2';
 import ResumenPedidoCerrado from './SummaryContainer/ResumenPedidoCerrado';
-import { ApiError } from '../../../codegen_output';
 import { displayLcdInfoCliente, clearLcd } from './LcdService';
 
 interface CartContextType {
@@ -21,8 +20,9 @@ interface CartContextType {
   pedidoEnCurso: Pedido | null;
   clienteSiendoAtendido: Cliente | null;
   tarjetaCliente: number | null;
-  setClienteData: (clienteIn: ClienteOperaConTarjeta | null, ordenIn: OrdenCompra | null, pedidoIn: Pedido | null) => void;  // Add this line
+  setClienteData: (clienteIn: ClienteOperaConTarjeta | null, ordenIn: OrdenCompra | null, pedidoIn: Pedido | null) => void;
   addToCart: (productoId: number, qtty?: number) => void;
+  addToCartByPhysPort: (physPort: string) => void;
   removeFromCart: (productId: number) => void;  
   confirmOrder: () => void;
   emptyCart: () => void;
@@ -50,18 +50,22 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
     };
   
     PedidosService.handleAgregarProductoBackendApiV1PedidosAgregarProductoPost(tarjetaCliente, renglonCreate)
-      .then((renglon) => {
-        const existingItem = cartItems.find(item => item.id === renglon.id);
-        if (existingItem) {
-          setCartItems(
-            cartItems.map(item => item.id === renglon.id ? 
-              { ...item, cantidad: renglon.cantidad } : 
-              item
-            )
-          );
-        } else {
-          setCartItems([...cartItems, renglon]);
-        }
+      .then((pedido) => {
+        setPedidoEnCurso(pedido);
+        setCartItems(pedido.renglones);
+      })
+      .catch((error) => console.error('Error al agregar producto al carrito:', error));
+  };
+
+  const addToCartByPhysPort = (physPort: string) => {
+    if (!tarjetaCliente) {
+      return;
+    }
+  
+    PedidosService.handleAgregarProductoByPhysBackendApiV1PedidosAgregarProductoByPhysPost(tarjetaCliente, physPort)
+      .then((pedido) => {
+        setPedidoEnCurso(pedido);
+        setCartItems(pedido.renglones);
       })
       .catch((error) => console.error('Error al agregar producto al carrito:', error));
   };
@@ -72,8 +76,9 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
     }
 
     PedidosService.handleQuitarRenglonBackendApiV1PedidosQuitarProductoPost(tarjetaCliente, productId)
-      .then((renglon) => {
-        setCartItems(cartItems.filter(item => item.id !== renglon.id));
+      .then((pedido) => {
+        setPedidoEnCurso(pedido);
+        setCartItems(pedido.renglones);
       })
       .catch((error) => console.error('Error al quitar producto del carrito:', error));
   };
@@ -95,7 +100,7 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
           nombre: clienteSiendoAtendido.nombre || '',
           carrito: response.monto_cargado || 0,
           consumos: ordenCliente.monto_cargado + (response.monto_cargado || 0)
-        })
+        });
       })
       .catch((error) => {
         handleApiError(error);
@@ -104,7 +109,7 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
 
   const closeResumen = () => {
     setShowResumen(false);
-    window.location.reload()
+    window.location.reload();
   };
 
   const handleCardRead = (tarjetaId: string) => {
@@ -118,7 +123,7 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
                   // Update the context state
                   setClienteData(clienteResponse, ordenResponse, pedidosResponse);
                   setPedidoEnCurso(pedidosResponse);
-                  setCartItems(pedidosResponse.renglones)          
+                  setCartItems(pedidosResponse.renglones);          
                   resolve();
                 })
                 .catch(reject);
@@ -131,33 +136,32 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
 
   const emptyCart = () => {
     setCartItems([]);
-  }
+  };
 
   const setClienteData = (clienteIn: ClienteOperaConTarjeta | null, ordenIn: OrdenCompra | null, pedidoIn: Pedido | null) => {
     if (clienteIn && clienteIn.cliente) {
-      setClienteSiendoAtendido(clienteIn.cliente)
+      setClienteSiendoAtendido(clienteIn.cliente);
       if (clienteIn.tarjeta_id) {
-        setTarjetaCliente(clienteIn.tarjeta_id)
+        setTarjetaCliente(clienteIn.tarjeta_id);
       }
     }
 
     if (ordenIn) {
-      setOrdenCliente(ordenIn)
+      setOrdenCliente(ordenIn);
     }
 
     if (pedidoIn) {
-      setPedidoEnCurso(pedidoIn)
+      setPedidoEnCurso(pedidoIn);
     }
-
-  }
+  };
 
   const clearClientData = () => {
-    setCartItems([])
-    setOrdenCliente(null)
-    setPedidoEnCurso(null)
-    setClienteSiendoAtendido(null)
-    setTarjetaCliente(null)
-  }
+    setCartItems([]);
+    setOrdenCliente(null);
+    setPedidoEnCurso(null);
+    setClienteSiendoAtendido(null);
+    setTarjetaCliente(null);
+  };
 
   return (
     <CartContext.Provider value={{ 
@@ -168,6 +172,7 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
       tarjetaCliente,
       setClienteData, 
       addToCart, 
+      addToCartByPhysPort,
       removeFromCart, 
       confirmOrder,
       emptyCart,

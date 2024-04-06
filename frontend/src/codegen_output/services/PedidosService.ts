@@ -4,7 +4,6 @@
 /* eslint-disable */
 import type { Pedido } from '../models/Pedido';
 import type { PedidoUpdate } from '../models/PedidoUpdate';
-import type { Renglon } from '../models/Renglon';
 import type { RenglonCreate } from '../models/RenglonCreate';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -54,13 +53,13 @@ export class PedidosService {
      * Handle Agregar Producto
      * @param tarjetaCliente
      * @param requestBody
-     * @returns Renglon Successful Response
+     * @returns Pedido Successful Response
      * @throws ApiError
      */
     public static handleAgregarProductoBackendApiV1PedidosAgregarProductoPost(
         tarjetaCliente: number,
         requestBody: RenglonCreate,
-    ): CancelablePromise<Renglon> {
+    ): CancelablePromise<Pedido> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/backend/api/v1/pedidos/agregar-producto',
@@ -75,16 +74,39 @@ export class PedidosService {
         });
     }
     /**
+     * Handle Agregar Producto By Phys
+     * @param tarjetaCliente
+     * @param physPort
+     * @returns Pedido Successful Response
+     * @throws ApiError
+     */
+    public static handleAgregarProductoByPhysBackendApiV1PedidosAgregarProductoByPhysPost(
+        tarjetaCliente: number,
+        physPort: string,
+    ): CancelablePromise<Pedido> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/backend/api/v1/pedidos/agregar-producto-by-phys',
+            query: {
+                'tarjeta_cliente': tarjetaCliente,
+                'phys_port': physPort,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Handle Quitar Renglon
      * @param tarjetaCliente
      * @param productoId
-     * @returns Renglon Successful Response
+     * @returns Pedido Successful Response
      * @throws ApiError
      */
     public static handleQuitarRenglonBackendApiV1PedidosQuitarProductoPost(
         tarjetaCliente: number,
         productoId: number,
-    ): CancelablePromise<Renglon> {
+    ): CancelablePromise<Pedido> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/backend/api/v1/pedidos/quitar-producto',
