@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import HeaderWithUser from '../../Header/HeaderWithUser';
 import TaperoHeader from './TaperoHeader';
 import MenuList from './MenuContainer/MenuList';
 import Cart from './CarritoContainer/Cart';
@@ -51,7 +50,6 @@ const TaperoViewContent = () => {
         onCardRead={handleCardReadWrapper}
       />
       <Container fluid className='main'>
-        {/* <TaperoHeader /> */}
         <Col>
           <Row xs={12} md={8} className='menu-col'>
             <MenuList />
@@ -72,7 +70,7 @@ const TaperoView = () => {
 
   return (
     <CartProvider>
-      <HeaderWithUser title='Atención de Clientes'/>
+      <TaperoHeader title='Atención de Clientes'/>
       {isLoggedIn && <TaperoViewContent />}
     </CartProvider>
   );
