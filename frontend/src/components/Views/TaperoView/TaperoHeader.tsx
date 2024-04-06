@@ -3,6 +3,7 @@ import { Button, Row, Col, Badge } from 'react-bootstrap';
 import logoBar from '../../../assets/icons/logo.png';
 import { useAuth } from '../../auth/AuthContext';
 import LoginPanel from '../../auth/LoginPanel';
+import { PatchCheckFill, XCircleFill, CheckLg } from 'react-bootstrap-icons';
 
 interface TaperoHeaderProps {
     title: string;
@@ -33,8 +34,13 @@ const TaperoHeader: React.FC<TaperoHeaderProps> = ({ title }) => {
 
         const fetchLcdStatus = async () => {
             try {
-                // const lcdHealthResponse = await fetch('http://localhost:3001/lcd/health');
-                setLcdStatus(true);
+                const lcdHealthResponse = await fetch('http://localhost:3001/lcd/health');
+                if (lcdHealthResponse.status == 200) {
+                  setLcdStatus(true);
+                }
+                else {
+                  setLcdStatus(false);
+                }
             } catch (error) {
                 console.error('Error fetching LCD status:', error);
                 setLcdStatus(false);
@@ -60,21 +66,23 @@ const TaperoHeader: React.FC<TaperoHeaderProps> = ({ title }) => {
                   <Row >
                     <Col md={4}>
                       <Badge bg='info'>
-                        Lectores {' '}
                         {keyboardCount > 0 ? (
-                            <span className="text-success">● ({keyboardCount})</span>
+                          <CheckLg className='text-success' />
                         ) : (
-                            <span className="text-danger">●</span>
+                          <XCircleFill className='text-danger' />
                         )}                          
+                         {' Lectores '}
+                         {keyboardCount > 0 && `(${keyboardCount})`}
                       </Badge>
                     </Col>
                     <Col>
                       <Badge bg='info'>
-                          Pantalla cliente {lcdStatus ? (
-                              <span className="text-success">●</span>
+                          {lcdStatus ? (
+                              <CheckLg className='text-success' />
                           ) : (
-                              <span className="text-danger">●</span>
+                              <XCircleFill className='text-danger' />
                           )}
+                          {' Pantalla cliente'}
                       </Badge>
                     </Col>
                   </Row>
