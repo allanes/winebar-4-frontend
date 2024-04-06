@@ -36,6 +36,18 @@ export const $OrdenCompra = {
             type: 'number',
             isRequired: true,
         },
+        monto_cobrado_efectivo: {
+            type: 'number',
+            isRequired: true,
+        },
+        monto_cobrado_tarjeta: {
+            type: 'number',
+            isRequired: true,
+        },
+        monto_cobrado_transferencia: {
+            type: 'number',
+            isRequired: true,
+        },
         timestamp_apertura_orden: {
             type: 'string',
             isRequired: true,
@@ -54,6 +66,14 @@ export const $OrdenCompra = {
             type: 'any-of',
             contains: [{
                 type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
+        comentarios: {
+            type: 'any-of',
+            contains: [{
+                type: 'string',
             }, {
                 type: 'null',
             }],

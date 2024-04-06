@@ -11,9 +11,13 @@ export type OrdenCompra = {
     id: number;
     monto_cargado: number;
     monto_cobrado: number;
+    monto_cobrado_efectivo: number;
+    monto_cobrado_tarjeta: number;
+    monto_cobrado_transferencia: number;
     timestamp_apertura_orden: string;
     timestamp_cierre_orden?: (string | null);
     cerrada_por?: (number | null);
+    comentarios?: (string | null);
     cerrada_por_nombre?: (string | null);
 };
 

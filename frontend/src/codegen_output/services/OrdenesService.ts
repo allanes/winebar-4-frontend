@@ -4,6 +4,7 @@
 /* eslint-disable */
 import type { OrdenCompra } from '../models/OrdenCompra';
 import type { OrdenCompraDetallada } from '../models/OrdenCompraDetallada';
+import type { OrdenCompraInfoPago } from '../models/OrdenCompraInfoPago';
 import type { OrdenCompraUpdate } from '../models/OrdenCompraUpdate';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -72,11 +73,13 @@ export class OrdenesService {
     /**
      * Handle Cerrar Orden
      * @param id
+     * @param requestBody
      * @returns OrdenCompra Successful Response
      * @throws ApiError
      */
     public static handleCerrarOrdenBackendApiV1OrdenesCerrarPost(
         id: number,
+        requestBody: OrdenCompraInfoPago,
     ): CancelablePromise<OrdenCompra> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -84,6 +87,8 @@ export class OrdenesService {
             query: {
                 'id': id,
             },
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 422: `Validation Error`,
             },
