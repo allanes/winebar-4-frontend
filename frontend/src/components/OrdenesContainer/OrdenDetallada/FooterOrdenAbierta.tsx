@@ -1,16 +1,17 @@
 // FooterOrdenAbierta.tsx
 import React, { useState } from 'react';
 import { Col, Row, Button } from 'react-bootstrap';
-import { OrdenCompraInfoPago } from '../../../codegen_output';
+import { OrdenCompraInfoPago, OrdenCompraDetallada } from '../../../codegen_output';
 import PanelInfoPagoOrden from '../../Views/CajeroView/PanelInfoPagoOrden';
 
 interface FooterOrdenAbiertaProps {
+  ordenData: OrdenCompraDetallada;
   openedPedidos: number;
   onCobrar: (ordenId: number, infoPago: OrdenCompraInfoPago) => void;
   ordenId: number;
 }
 
-const FooterOrdenAbierta: React.FC<FooterOrdenAbiertaProps> = ({ openedPedidos, onCobrar, ordenId }) => {
+const FooterOrdenAbierta: React.FC<FooterOrdenAbiertaProps> = ({ ordenData, openedPedidos, onCobrar, ordenId }) => {
   const [showPanelInfoPago, setShowPanelInfoPago] = useState(false);
 
   const handleCobrar = () => {
@@ -41,6 +42,7 @@ const FooterOrdenAbierta: React.FC<FooterOrdenAbiertaProps> = ({ openedPedidos, 
         show={showPanelInfoPago}
         onHide={() => setShowPanelInfoPago(false)}
         onSubmit={handleInfoPagoSubmit}
+        ordenData={ordenData}
       />
     </>
   );

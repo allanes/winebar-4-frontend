@@ -1,16 +1,18 @@
 // PanelInfoPagoOrden.tsx
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { OrdenCompraInfoPago } from '../../../codegen_output';
+import { OrdenCompraInfoPago, OrdenCompraDetallada } from '../../../codegen_output';
 import useOrdenCompraInfoPagoForm from '../../../hooks/useOrdenCompraInfoPagoForm';
+import InfoCard from './StatusPanel/InfoCard';
 
 interface PanelInfoPagoOrdenProps {
     show: boolean;
     onHide: () => void;
     onSubmit: (infoPago: OrdenCompraInfoPago) => void;
+    ordenData: OrdenCompraDetallada;
 }
 
-const PanelInfoPagoOrden = ({ show, onHide, onSubmit }: PanelInfoPagoOrdenProps) => {
+const PanelInfoPagoOrden = ({ show, onHide, onSubmit, ordenData }: PanelInfoPagoOrdenProps) => {
     const { form, handleChange, handleSubmit } = useOrdenCompraInfoPagoForm(onSubmit);
 
     return (
@@ -19,9 +21,10 @@ const PanelInfoPagoOrden = ({ show, onHide, onSubmit }: PanelInfoPagoOrdenProps)
                 <Modal.Title>Información de Pago</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                <InfoCard title='A Cobrar' count={`$${ordenData.monto_cargado}`} />
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="cobradoEfectivo">
-                        <Form.Label>Cobrado en Efectivo</Form.Label>
+                        <Form.Label>Recibido en Efectivo</Form.Label>
                         <Form.Control
                             type="number"
                             name="cobrado_efectivo"
@@ -31,7 +34,7 @@ const PanelInfoPagoOrden = ({ show, onHide, onSubmit }: PanelInfoPagoOrdenProps)
                     </Form.Group>
 
                     <Form.Group controlId="cobradoTarjeta">
-                        <Form.Label>Cobrado con Tarjeta</Form.Label>
+                        <Form.Label>Recibido con Tarjeta</Form.Label>
                         <Form.Control
                             type="number"
                             name="cobrado_tarjeta"
@@ -41,7 +44,7 @@ const PanelInfoPagoOrden = ({ show, onHide, onSubmit }: PanelInfoPagoOrdenProps)
                     </Form.Group>
 
                     <Form.Group controlId="cobradoTransferencia">
-                        <Form.Label>Cobrado por Transferencia</Form.Label>
+                        <Form.Label>Recibido por Transferencia</Form.Label>
                         <Form.Control
                             type="number"
                             name="cobrado_transferencia"

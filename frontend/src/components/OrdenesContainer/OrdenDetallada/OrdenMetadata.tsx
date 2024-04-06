@@ -70,6 +70,7 @@ const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) =>
                   />
                 ) : (
                   <FooterOrdenAbierta 
+                    ordenData={ordenData}
                     openedPedidos={openedPedidos} 
                     onCobrar={onCobrar!} 
                     ordenId={ordenData.id}
