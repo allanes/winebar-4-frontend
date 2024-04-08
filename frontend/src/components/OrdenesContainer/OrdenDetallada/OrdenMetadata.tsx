@@ -66,7 +66,7 @@ const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) =>
               <Row className='boton-cobro-advertencia justify-content-start'> */}
                 {ordenData.cerrada_por ? (
                   <FooterOrdenCerrada
-                    timestamp_cierre_orden={ordenData.timestamp_cierre_orden || ''} 
+                    ordenData={ordenData}
                   />
                 ) : (
                   <FooterOrdenAbierta 

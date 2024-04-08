@@ -2,24 +2,39 @@ import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { CheckCircleFill } from 'react-bootstrap-icons';
 import TimestampFormateadoBadge from '../../Common/TimestampFormateadoBadge';
+import { OrdenCompraDetallada } from '../../../codegen_output';
 
 interface FooterOrdenCerradaProps {
-  timestamp_cierre_orden: string;
+  ordenData: OrdenCompraDetallada;
 }
 
-const FooterOrdenCerrada: React.FC<FooterOrdenCerradaProps> = ({ timestamp_cierre_orden }) => {
+const FooterOrdenCerrada: React.FC<FooterOrdenCerradaProps> = ({ ordenData }) => {
+
   return (
-    <Row>
-      <Col>
-        <TimestampFormateadoBadge timestamp={timestamp_cierre_orden} />
-      </Col>
-      <Col>
-        {'Cobrada'}
-      </Col>
-      <Col>
-        <CheckCircleFill color='green' size={30} />
-      </Col>      
-    </Row>
+    <div>
+      <Row className="mb-2">
+        <Col>
+          <TimestampFormateadoBadge timestamp={ordenData.timestamp_cierre_orden || ''} />
+        </Col>
+        <Col>
+          {'Cobrada'}
+        </Col>
+        <Col className="text-end">
+          <CheckCircleFill color='green' size={30} />
+        </Col>      
+      </Row>
+      <Row className="mb-1">
+        <Col>
+          <strong>Efectivo:</strong> ${ordenData.monto_cobrado_efectivo?.toFixed(2) || '0.00'}
+        </Col>
+        <Col>
+          <strong>Tarjeta:</strong> ${ordenData.monto_cobrado_tarjeta?.toFixed(2) || '0.00'}
+        </Col>
+        <Col>
+          <strong>Transferencia:</strong> ${ordenData.monto_cobrado_transferencia?.toFixed(2) || '0.00'}
+        </Col>
+      </Row>
+    </div>
   );
 };
 
