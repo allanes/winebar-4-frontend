@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Row, Accordion, Col, Card, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Placement } from 'react-bootstrap/esm/types';
 import { CartFill, CartX } from 'react-bootstrap-icons';
-import { OrdenCompra, OrdenCompraDetallada, OrdenesService } from '../../codegen_output';
+import { OrdenCompra, OrdenCompraDetallada, OrdenCompraInfoPago, OrdenesService } from '../../codegen_output';
 import PedidosList from '../PedidosContainer/PedidosList';
 import OrdenMetadata from './OrdenDetallada/OrdenMetadata';
 import { handleApiError } from '../ClientsContainer/ClientsContainer';
@@ -23,7 +23,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
   const totalPedidos = ordenData.pedidos.length;
   const openedPedidos = ordenData.pedidos.filter(pedido => pedido.cerrado===false).length;
   const [ordenCobrada, setOrdenCobrada] = useState<OrdenCompra | null>(null)
-
+  
   const renderTooltip = (props: TooltipProps) => (
     <Tooltip id="button-tooltip" {...props}>
       Total de pedidos para esta orden
@@ -36,7 +36,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
     </Tooltip>
   );
 
-  const handleCobrar = () => {
+  const handleInfoPagoSubmit = (ordenId: number, infoPago: OrdenCompraInfoPago) => {
     if (showPanelCobro) {
       console.log('Cobrando desde ordenView')
     }
@@ -45,7 +45,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
     }
     
     OrdenesService.handleCerrarOrdenBackendApiV1OrdenesCerrarPost(
-      ordenData.id
+      ordenData.id, infoPago
     ).then((ordenResponse) => {
       setOrdenCobrada(ordenResponse)
       Swal.fire('Orden Cobrada', `Monto $ ${ordenResponse.monto_cobrado}`, 'success')
@@ -53,22 +53,12 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
     .catch(handleApiError)    
   };
 
-  // const handleCobrar = async () => {
-  //   OrdenesService.handleCerrarOrdenBackendApiV1OrdenesCerrarPost(
-  //     ordenData.id
-  //   ).then((ordenResponse) => {
-  //     setOrdenCobrada(ordenResponse)
-  //     Swal.fire('Orden Cobrada', `Monto $ ${ordenResponse.monto_cobrado}`, 'success')
-  //   })
-  //   .catch(handleApiError)
-  // }
-
   return (
     <div className="orden-view">
       <Row className="sticky-top">
         <OrdenMetadata 
             ordenData={ordenData} 
-            onCobrar={handleCobrar}/>
+            onCobrar={handleInfoPagoSubmit}/>
       </Row>
       <Row>
         <Accordion defaultActiveKey="" className="pedidos-accordion">

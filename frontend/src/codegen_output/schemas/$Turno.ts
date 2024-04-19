@@ -66,22 +66,6 @@ export const $Turno = {
                 type: 'null',
             }],
         },
-        suma_ordenes_cobradas: {
-            type: 'any-of',
-            contains: [{
-                type: 'number',
-            }, {
-                type: 'null',
-            }],
-        },
-        diferencia: {
-            type: 'any-of',
-            contains: [{
-                type: 'number',
-            }, {
-                type: 'null',
-            }],
-        },
         abierto_por_nombre: {
             type: 'any-of',
             contains: [{
@@ -94,6 +78,22 @@ export const $Turno = {
             type: 'any-of',
             contains: [{
                 type: 'string',
+            }, {
+                type: 'null',
+            }],
+        },
+        suma_ordenes_cobradas: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
+        diferencia: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
             }, {
                 type: 'null',
             }],

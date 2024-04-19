@@ -1805,6 +1805,16 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrdenCompraInfoPago"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -2912,6 +2922,18 @@
             "type": "number",
             "title": "Monto Cobrado"
           },
+          "monto_cobrado_efectivo": {
+            "type": "number",
+            "title": "Monto Cobrado Efectivo"
+          },
+          "monto_cobrado_tarjeta": {
+            "type": "number",
+            "title": "Monto Cobrado Tarjeta"
+          },
+          "monto_cobrado_transferencia": {
+            "type": "number",
+            "title": "Monto Cobrado Transferencia"
+          },
           "timestamp_apertura_orden": {
             "type": "string",
             "format": "date-time",
@@ -2940,6 +2962,18 @@
             ],
             "title": "Cerrada Por"
           },
+          "comentarios": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comentarios",
+            "default": ""
+          },
           "cerrada_por_nombre": {
             "anyOf": [
               {
@@ -2962,6 +2996,9 @@
           "id",
           "monto_cargado",
           "monto_cobrado",
+          "monto_cobrado_efectivo",
+          "monto_cobrado_tarjeta",
+          "monto_cobrado_transferencia",
           "timestamp_apertura_orden"
         ],
         "title": "OrdenCompra"
@@ -3000,6 +3037,18 @@
             "type": "number",
             "title": "Monto Cobrado"
           },
+          "monto_cobrado_efectivo": {
+            "type": "number",
+            "title": "Monto Cobrado Efectivo"
+          },
+          "monto_cobrado_tarjeta": {
+            "type": "number",
+            "title": "Monto Cobrado Tarjeta"
+          },
+          "monto_cobrado_transferencia": {
+            "type": "number",
+            "title": "Monto Cobrado Transferencia"
+          },
           "timestamp_apertura_orden": {
             "type": "string",
             "format": "date-time",
@@ -3027,6 +3076,18 @@
               }
             ],
             "title": "Cerrada Por"
+          },
+          "comentarios": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comentarios",
+            "default": ""
           },
           "cerrada_por_nombre": {
             "anyOf": [
@@ -3065,12 +3126,69 @@
           "id",
           "monto_cargado",
           "monto_cobrado",
+          "monto_cobrado_efectivo",
+          "monto_cobrado_tarjeta",
+          "monto_cobrado_transferencia",
           "timestamp_apertura_orden",
           "pedidos",
           "nombre_cliente",
           "rol"
         ],
         "title": "OrdenCompraDetallada"
+      },
+      "OrdenCompraInfoPago": {
+        "properties": {
+          "cobrado_efectivo": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cobrado Efectivo",
+            "default": 0
+          },
+          "cobrado_tarjeta": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cobrado Tarjeta",
+            "default": 0
+          },
+          "cobrado_transferencia": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cobrado Transferencia",
+            "default": 0
+          },
+          "comentarios": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comentarios",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "title": "OrdenCompraInfoPago"
       },
       "OrdenCompraUpdate": {
         "properties": {

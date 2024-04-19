@@ -3,8 +3,6 @@ import { Col, Card, Container, Row, Badge, Button } from 'react-bootstrap';
 import { OrdenCompraDetallada } from '../../../../../codegen_output';
 import { RolBadge } from '../../../../RolesContainer/RolBadge';
 import TimestampFormateadoBadge from '../../../../Common/TimestampFormateadoBadge';
-// import FooterOrdenAbierta from '../../../../OrdenesContainer/OrdenDetallada/FooterOrdenAbierta';
-// import FooterOrdenCerrada from '../../../../OrdenesContainer/OrdenDetallada/FooterOrdenCerrada';
 
 interface OrdenMetadataProps {
   ordenData: OrdenCompraDetallada;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Card, Container, Row, Badge, Button } from 'react-bootstrap';
-import { OrdenCompraDetallada } from '../../../codegen_output';
+import { OrdenCompraDetallada, OrdenCompraInfoPago } from '../../../codegen_output';
 import { RolBadge } from '../../RolesContainer/RolBadge';
 import TimestampFormateadoBadge from '../../Common/TimestampFormateadoBadge';
 import FooterOrdenAbierta from './FooterOrdenAbierta';
@@ -8,7 +8,7 @@ import FooterOrdenCerrada from './FooterOrdenCerrada';
 
 interface OrdenMetadataProps {
   ordenData: OrdenCompraDetallada;
-  onCobrar?: (ordenId: number) => void;
+  onCobrar?: (ordenId: number, infoPago: OrdenCompraInfoPago) => void;
 }
 
 const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) => {
@@ -66,10 +66,11 @@ const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) =>
               <Row className='boton-cobro-advertencia justify-content-start'> */}
                 {ordenData.cerrada_por ? (
                   <FooterOrdenCerrada
-                    timestamp_cierre_orden={ordenData.timestamp_cierre_orden || ''} 
+                    ordenData={ordenData}
                   />
                 ) : (
                   <FooterOrdenAbierta 
+                    ordenData={ordenData}
                     openedPedidos={openedPedidos} 
                     onCobrar={onCobrar!} 
                     ordenId={ordenData.id}
