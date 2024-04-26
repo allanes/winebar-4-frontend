@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Pedido } from './Pedido';
+import type { TransaccionVino } from './TransaccionVino';
 export type OrdenCompraDetallada = {
     precarga_usada: number;
     monto_maximo_orden: number;
@@ -23,5 +24,6 @@ export type OrdenCompraDetallada = {
     pedidos: Array<Pedido>;
     nombre_cliente: string;
     rol: string;
+    consumos_vino: Array<TransaccionVino>;
 };
 

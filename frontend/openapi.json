@@ -3114,6 +3114,13 @@
           "rol": {
             "type": "string",
             "title": "Rol"
+          },
+          "consumos_vino": {
+            "items": {
+              "$ref": "#/components/schemas/TransaccionVino"
+            },
+            "type": "array",
+            "title": "Consumos Vino"
           }
         },
         "type": "object",
@@ -3132,7 +3139,8 @@
           "timestamp_apertura_orden",
           "pedidos",
           "nombre_cliente",
-          "rol"
+          "rol",
+          "consumos_vino"
         ],
         "title": "OrdenCompraDetallada"
       },
@@ -3918,6 +3926,59 @@
           "token_type"
         ],
         "title": "Token"
+      },
+      "TransaccionVino": {
+        "properties": {
+          "consumoId": {
+            "type": "integer",
+            "title": "Consumoid"
+          },
+          "bodega": {
+            "type": "string",
+            "title": "Bodega"
+          },
+          "cliente": {
+            "type": "string",
+            "title": "Cliente"
+          },
+          "variedad": {
+            "type": "string",
+            "title": "Variedad"
+          },
+          "vino": {
+            "type": "string",
+            "title": "Vino"
+          },
+          "medida": {
+            "type": "string",
+            "title": "Medida"
+          },
+          "volumen": {
+            "type": "number",
+            "title": "Volumen"
+          },
+          "precio": {
+            "type": "number",
+            "title": "Precio"
+          },
+          "fecha": {
+            "type": "string",
+            "title": "Fecha"
+          }
+        },
+        "type": "object",
+        "required": [
+          "consumoId",
+          "bodega",
+          "cliente",
+          "variedad",
+          "vino",
+          "medida",
+          "volumen",
+          "precio",
+          "fecha"
+        ],
+        "title": "TransaccionVino"
       },
       "Turno": {
         "properties": {

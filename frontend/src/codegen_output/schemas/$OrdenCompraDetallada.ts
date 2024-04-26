@@ -101,5 +101,12 @@ export const $OrdenCompraDetallada = {
             type: 'string',
             isRequired: true,
         },
+        consumos_vino: {
+            type: 'array',
+            contains: {
+                type: 'TransaccionVino',
+            },
+            isRequired: true,
+        },
     },
 } as const;
