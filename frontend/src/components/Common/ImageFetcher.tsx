@@ -1,4 +1,5 @@
 import { Tapa, TapasService } from '../../codegen_output';
+import { TransaccionVino, VinosService } from '../../codegen_output';
 
 export const fetchTapaImageByProductId = async (productId: number): Promise<string | null> => {
     try {
@@ -33,3 +34,20 @@ export const fetchTapaImage = async (tapa: Tapa): Promise<string | null> => {
     return null;
   }
 };
+
+export const fetchVinoImageByNombre = async (nombre: string): Promise<string | null> => {
+  try {
+    const response = await VinosService.handleGetFotoBackendApiV1VinosFotoNombreGet(nombre);
+    if (response instanceof Blob) {
+      return URL.createObjectURL(response);
+    } else {
+      console.error('Response is not a Blob:', response);
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching image:', error);
+    return null;
+  }
+};
+
+

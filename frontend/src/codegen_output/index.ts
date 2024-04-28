@@ -92,3 +92,4 @@ export { RolesService } from './services/RolesService';
 export { TapasService } from './services/TapasService';
 export { TarjetasService } from './services/TarjetasService';
 export { TurnosService } from './services/TurnosService';
+export { VinosService } from './services/VinosService';

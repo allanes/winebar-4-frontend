@@ -2441,6 +2441,41 @@
           }
         }
       }
+    },
+    "/backend/api/v1/vinos/foto/{nombre}": {
+      "get": {
+        "tags": [
+          "Vinos"
+        ],
+        "summary": "Handle Get Foto",
+        "operationId": "handle_get_foto_backend_api_v1_vinos_foto__nombre__get",
+        "parameters": [
+          {
+            "name": "nombre",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Nombre"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
