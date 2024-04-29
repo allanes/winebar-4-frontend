@@ -2545,6 +2545,48 @@
           }
         }
       }
+    },
+    "/backend/api/v1/vinos/{product_id}": {
+      "get": {
+        "tags": [
+          "Vinos"
+        ],
+        "summary": "Handle Read Vino By Product Id",
+        "operationId": "handle_read_vino_by_product_id_backend_api_v1_vinos__product_id__get",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Product Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vino"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -4244,6 +4286,47 @@
           "type"
         ],
         "title": "ValidationError"
+      },
+      "Vino": {
+        "properties": {
+          "id_vitte": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id Vitte"
+          },
+          "volumen": {
+            "type": "integer",
+            "title": "Volumen"
+          },
+          "id_producto": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id Producto"
+          },
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "volumen",
+          "id_producto",
+          "id"
+        ],
+        "title": "Vino"
       }
     },
     "securitySchemes": {

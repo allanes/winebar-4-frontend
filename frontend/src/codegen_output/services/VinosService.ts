@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Vino } from '../models/Vino';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -52,6 +53,26 @@ export class VinosService {
             url: '/backend/api/v1/vinos/sync-consumos-vinos-por-tarjeta',
             query: {
                 'raw_rfid': rawRfid,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Handle Read Vino By Product Id
+     * @param productId
+     * @returns Vino Successful Response
+     * @throws ApiError
+     */
+    public static handleReadVinoByProductIdBackendApiV1VinosProductIdGet(
+        productId: number,
+    ): CancelablePromise<Vino> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/vinos/{product_id}',
+            path: {
+                'product_id': productId,
             },
             errors: {
                 422: `Validation Error`,
