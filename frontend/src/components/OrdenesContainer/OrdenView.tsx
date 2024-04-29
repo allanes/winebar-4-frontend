@@ -4,7 +4,6 @@ import { Placement } from 'react-bootstrap/esm/types';
 import { CartFill, CartX } from 'react-bootstrap-icons';
 import { OrdenCompra, OrdenCompraDetallada, OrdenCompraInfoPago, OrdenesService } from '../../codegen_output';
 import PedidosList from '../PedidosContainer/PedidosList';
-// import PedidosDeVinosList from '../PedidosDeVinoContainer/PedidosDeVinosList';
 import OrdenMetadata from './OrdenDetallada/OrdenMetadata';
 import { handleApiError } from '../ClientsContainer/ClientsContainer';
 import Swal from 'sweetalert2';
@@ -91,26 +90,6 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
               <PedidosList pedidos={ordenData.pedidos} />
             </Accordion.Body>
           </Accordion.Item>
-
-          {/* <Accordion.Item eventKey="1">
-            <Accordion.Header className='d-flex justify-content-between'>
-              <Col md={5}>
-                <h5>Consumos de Vinos</h5>
-              </Col>
-              <Col md={3}>
-                <OverlayTrigger
-                  placement="top"
-                  delay={{ show: 50, hide: 200 }}
-                  overlay={renderTooltip}
-                >
-                    <Badge bg='light' className='text-dark'><CartFill size={24} color='green' /> {0}</Badge>
-                </OverlayTrigger>
-              </Col>              
-            </Accordion.Header>
-            <Accordion.Body>
-              <PedidosDeVinosList pedidosDeVinos={ordenData.pedidos} />
-            </Accordion.Body>
-          </Accordion.Item> */}
         </Accordion>
       </Row>
     </div>

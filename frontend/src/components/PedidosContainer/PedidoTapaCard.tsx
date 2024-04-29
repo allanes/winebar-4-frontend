@@ -1,16 +1,16 @@
 import React from 'react';
 import { Card, Badge, Row, Col } from 'react-bootstrap';
 import { Pedido } from '../../codegen_output';
-import RenglonList from './RenglonesList';
+import RenglonesTapaList from './RenglonesTapaList';
 import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge';
 import { CheckCircleFill, ExclamationCircle, CurrencyDollar } from 'react-bootstrap-icons';
 
-interface PedidoCardProps {
+interface PedidoTapaCardProps {
     pedido: Pedido;
     pedidoNumberedNumber: number;
 }
 
-const PedidoCard: React.FC<PedidoCardProps> = ({ pedido, pedidoNumberedNumber }) => {
+const PedidoTapaCard: React.FC<PedidoTapaCardProps> = ({ pedido, pedidoNumberedNumber }) => {
     // Calculate the total cantidad of all renglones
     const totalCantidad = pedido.renglones.reduce((total, renglon) => total + renglon.cantidad, 0);
 
@@ -72,7 +72,7 @@ const PedidoCard: React.FC<PedidoCardProps> = ({ pedido, pedidoNumberedNumber })
                                 </Col>
                             </Row>
                         </div>
-                        <RenglonList renglones={pedido.renglones} />
+                        <RenglonesTapaList renglones={pedido.renglones} />
                     </Card.Body>
                 </Card>
             </Row>
@@ -80,4 +80,4 @@ const PedidoCard: React.FC<PedidoCardProps> = ({ pedido, pedidoNumberedNumber })
     );
 };
 
-export default PedidoCard;
+export default PedidoTapaCard;
