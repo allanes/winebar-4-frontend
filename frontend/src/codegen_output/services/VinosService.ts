@@ -27,4 +27,35 @@ export class VinosService {
             },
         });
     }
+    /**
+     * Handle Sync Menu Vinos
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static handleSyncMenuVinosBackendApiV1VinosSyncMenuVinosGet(): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/vinos/sync-menu-vinos',
+        });
+    }
+    /**
+     * Handle Sync Menu Vinos
+     * @param rawRfid
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static handleSyncMenuVinosBackendApiV1VinosSyncConsumosVinosPorTarjetaGet(
+        rawRfid: string = '',
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/vinos/sync-consumos-vinos-por-tarjeta',
+            query: {
+                'raw_rfid': rawRfid,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
 }

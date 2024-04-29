@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import { TransaccionVino } from '../../codegen_output';
+import { Pedido } from '../../codegen_output';
 import PedidoDeVino from './PedidoDeVinoCard';
 
 interface PedidosDeVinosListProps {
-  pedidosDeVinos: TransaccionVino[];
+  pedidosDeVinos: Pedido[];
 }
 
 const PedidosDeVinosList: React.FC<PedidosDeVinosListProps> = ({ pedidosDeVinos }) => {
@@ -11,7 +11,7 @@ const PedidosDeVinosList: React.FC<PedidosDeVinosListProps> = ({ pedidosDeVinos 
         <div className="pedidos-list">
         {pedidosDeVinos.map((pedido, index) => (
             <PedidoDeVino 
-                key={pedido.consumoId} 
+                key={pedido.id} 
                 pedidoDeVino={pedido} 
                 pedidoNumberedNumber={pedidosDeVinos.length-index}
             />

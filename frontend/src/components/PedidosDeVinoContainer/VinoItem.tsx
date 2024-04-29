@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { ListGroup, Button, Card, Row, Col, Badge } from 'react-bootstrap';
-import { TransaccionVino } from '../../codegen_output';
+import { Renglon, VinosService } from '../../codegen_output';
 import { fetchVinoImageByNombre } from '../Common/ImageFetcher';
 import tapaNotAvailableImage from '../../assets/icons/generic_tapa_not_available.webp'
 
 interface RenglonVinoItemProps {
-    renglonVino: TransaccionVino;
+    renglonVino: Renglon;
 }
 
 const RenglonVinoItem: React.FC<RenglonVinoItemProps> = ({ renglonVino }) => {
@@ -13,12 +13,12 @@ const RenglonVinoItem: React.FC<RenglonVinoItemProps> = ({ renglonVino }) => {
 
     useEffect(() => {
         const fetchImage = async () => {
-        const imageUrl = await fetchVinoImageByNombre(renglonVino.vino); // Use the fetchTapaImage function
+        const imageUrl = await fetchVinoImageByNombre(renglonVino.producto.titulo); // Use the fetchTapaImage function
             setLoadedImage(imageUrl);
         };
 
         fetchImage();
-    }, [renglonVino.consumoId]);
+    }, [renglonVino.id]);
 
     return (
         <div className="renglon-list">
@@ -32,12 +32,12 @@ const RenglonVinoItem: React.FC<RenglonVinoItemProps> = ({ renglonVino }) => {
                                         <Row>
                                             <h6>
                                                 {/* <Badge pill bg={'secondary'} className=''> */}
-                                                    {renglonVino.medida}
+                                                    {renglonVino.producto.titulo}
                                                 {/* </Badge> */}
                                             </h6>
                                         </Row>
                                         <Row><p className=' '>
-                                            {`${renglonVino.volumen} cc`}
+                                            {renglonVino.producto.descripcion}
                                         </p></Row>
                                     </Badge>
                                 </Col>
@@ -50,7 +50,7 @@ const RenglonVinoItem: React.FC<RenglonVinoItemProps> = ({ renglonVino }) => {
                                 </Col>                
                                 <Col md={3}>
                                     <Row>
-                                        <h4><Badge bg='secondary' className='p-1'>$ {renglonVino.precio}</Badge></h4>
+                                        <h4><Badge bg='secondary' className='p-1'>$ {renglonVino.producto.precio}</Badge></h4>
                                     </Row>
                                     <Row className='justify-content-end'>
                                         {/* {renglonVino.promocion_aplicada && 
@@ -60,7 +60,7 @@ const RenglonVinoItem: React.FC<RenglonVinoItemProps> = ({ renglonVino }) => {
                                 </Col>
                                 <Col md={4} className="cart-item-details">
                                     <Row className='text-center'>
-                                        <h5>{renglonVino.vino}</h5>
+                                        <h5>{renglonVino.producto.titulo}</h5>
                                     </Row>
                                     
                                 </Col>

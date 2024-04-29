@@ -12,6 +12,14 @@ export const $Renglon = {
             type: 'number',
             isRequired: true,
         },
+        vitte_consumo_id: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
         id: {
             type: 'number',
             isRequired: true,

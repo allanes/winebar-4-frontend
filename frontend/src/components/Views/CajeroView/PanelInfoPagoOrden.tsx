@@ -111,7 +111,7 @@ const PanelInfoPagoOrden = ({ show, onHide, onSubmit, ordenData }: PanelInfoPago
                     <Row>
                         <Col>
                             <div className="d-grid">
-                                <Button variant="primary" type="submit" size="lg" disabled={remainingAmount !== 0}>
+                                <Button variant="primary" type="submit" size="lg" disabled={remainingAmount > 0}>
                                     Confirmar Pago
                                 </Button>
                             </div>

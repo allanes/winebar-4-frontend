@@ -5,5 +5,6 @@
 export type RenglonCreate = {
     cantidad: number;
     producto_id: number;
+    vitte_consumo_id?: (number | null);
 };
 

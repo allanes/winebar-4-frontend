@@ -4,7 +4,7 @@ import { Placement } from 'react-bootstrap/esm/types';
 import { CartFill, CartX } from 'react-bootstrap-icons';
 import { OrdenCompra, OrdenCompraDetallada, OrdenCompraInfoPago, OrdenesService } from '../../codegen_output';
 import PedidosList from '../PedidosContainer/PedidosList';
-import PedidosDeVinosList from '../PedidosDeVinoContainer/PedidosDeVinosList';
+// import PedidosDeVinosList from '../PedidosDeVinoContainer/PedidosDeVinosList';
 import OrdenMetadata from './OrdenDetallada/OrdenMetadata';
 import { handleApiError } from '../ClientsContainer/ClientsContainer';
 import Swal from 'sweetalert2';
@@ -92,7 +92,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
             </Accordion.Body>
           </Accordion.Item>
 
-          <Accordion.Item eventKey="1">
+          {/* <Accordion.Item eventKey="1">
             <Accordion.Header className='d-flex justify-content-between'>
               <Col md={5}>
                 <h5>Consumos de Vinos</h5>
@@ -108,9 +108,9 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
               </Col>              
             </Accordion.Header>
             <Accordion.Body>
-              <PedidosDeVinosList pedidosDeVinos={ordenData.consumos_vino} />
+              <PedidosDeVinosList pedidosDeVinos={ordenData.pedidos} />
             </Accordion.Body>
-          </Accordion.Item>
+          </Accordion.Item> */}
         </Accordion>
       </Row>
     </div>

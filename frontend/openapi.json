@@ -2476,6 +2476,75 @@
           }
         }
       }
+    },
+    "/backend/api/v1/vinos/sync-menu-vinos": {
+      "get": {
+        "tags": [
+          "Vinos"
+        ],
+        "summary": "Handle Sync Menu Vinos",
+        "operationId": "handle_sync_menu_vinos_backend_api_v1_vinos_sync_menu_vinos_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/backend/api/v1/vinos/sync-consumos-vinos-por-tarjeta": {
+      "get": {
+        "tags": [
+          "Vinos"
+        ],
+        "summary": "Handle Sync Menu Vinos",
+        "operationId": "handle_sync_menu_vinos_backend_api_v1_vinos_sync_consumos_vinos_por_tarjeta_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "raw_rfid",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Raw Rfid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -3149,13 +3218,6 @@
           "rol": {
             "type": "string",
             "title": "Rol"
-          },
-          "consumos_vino": {
-            "items": {
-              "$ref": "#/components/schemas/TransaccionVino"
-            },
-            "type": "array",
-            "title": "Consumos Vino"
           }
         },
         "type": "object",
@@ -3174,8 +3236,7 @@
           "timestamp_apertura_orden",
           "pedidos",
           "nombre_cliente",
-          "rol",
-          "consumos_vino"
+          "rol"
         ],
         "title": "OrdenCompraDetallada"
       },
@@ -3571,6 +3632,17 @@
             "type": "integer",
             "title": "Producto Id"
           },
+          "vitte_consumo_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vitte Consumo Id"
+          },
           "id": {
             "type": "integer",
             "title": "Id"
@@ -3612,6 +3684,17 @@
           "producto_id": {
             "type": "integer",
             "title": "Producto Id"
+          },
+          "vitte_consumo_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vitte Consumo Id"
           }
         },
         "type": "object",
@@ -3961,59 +4044,6 @@
           "token_type"
         ],
         "title": "Token"
-      },
-      "TransaccionVino": {
-        "properties": {
-          "consumoId": {
-            "type": "integer",
-            "title": "Consumoid"
-          },
-          "bodega": {
-            "type": "string",
-            "title": "Bodega"
-          },
-          "cliente": {
-            "type": "string",
-            "title": "Cliente"
-          },
-          "variedad": {
-            "type": "string",
-            "title": "Variedad"
-          },
-          "vino": {
-            "type": "string",
-            "title": "Vino"
-          },
-          "medida": {
-            "type": "string",
-            "title": "Medida"
-          },
-          "volumen": {
-            "type": "number",
-            "title": "Volumen"
-          },
-          "precio": {
-            "type": "number",
-            "title": "Precio"
-          },
-          "fecha": {
-            "type": "string",
-            "title": "Fecha"
-          }
-        },
-        "type": "object",
-        "required": [
-          "consumoId",
-          "bodega",
-          "cliente",
-          "variedad",
-          "vino",
-          "medida",
-          "volumen",
-          "precio",
-          "fecha"
-        ],
-        "title": "TransaccionVino"
       },
       "Turno": {
         "properties": {

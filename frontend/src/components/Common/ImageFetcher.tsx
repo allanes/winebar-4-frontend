@@ -1,5 +1,5 @@
 import { Tapa, TapasService } from '../../codegen_output';
-import { TransaccionVino, VinosService } from '../../codegen_output';
+import { VinosService } from '../../codegen_output';
 
 export const fetchTapaImageByProductId = async (productId: number): Promise<string | null> => {
     try {

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Card, Badge, Row, Col } from 'react-bootstrap';
-import { TransaccionVino } from '../../codegen_output';
+import { Pedido } from '../../codegen_output';
 import RenglonVinoItem from './VinoItem';
 import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge';
 import { CheckCircleFill, ExclamationCircle, CurrencyDollar } from 'react-bootstrap-icons';
 
 interface PedidoDeVinoCardProps {
-    pedidoDeVino: TransaccionVino;
+    pedidoDeVino: Pedido;
     pedidoNumberedNumber: number;
 }
 
@@ -24,8 +24,8 @@ const PedidoDeVinoCard: React.FC<PedidoDeVinoCardProps> = ({ pedidoDeVino, pedid
                                 <h6><strong>Pedido {pedidoNumberedNumber}</strong></h6>
                             </Col>
                             <Col md={4}>
-                                {pedidoDeVino.fecha && 
-                                    <h6><TimestampFormateadoBadge timestamp={pedidoDeVino.fecha} /></h6>
+                                {pedidoDeVino.timestamp_pedido && 
+                                    <h6><TimestampFormateadoBadge timestamp={pedidoDeVino.timestamp_pedido} /></h6>
                                 }
                             </Col>                    
                             <Col md={4}>
@@ -37,7 +37,7 @@ const PedidoDeVinoCard: React.FC<PedidoDeVinoCardProps> = ({ pedidoDeVino, pedid
                     </Card.Header>
                     <Card.Body>
                         
-                        <RenglonVinoItem renglonVino={pedidoDeVino} />
+                        <RenglonVinoItem renglonVino={pedidoDeVino.renglones[0]} />
                     </Card.Body>
                 </Card>
             </Row>
