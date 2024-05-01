@@ -104,7 +104,7 @@ export class ClientesService {
      */
     public static handleReadClientesBackendApiV1ClientesGet(
         skip?: number,
-        limit: number = 100,
+        limit: number = 1000,
     ): CancelablePromise<Array<ClienteWithDetails>> {
         return __request(OpenAPI, {
             method: 'GET',

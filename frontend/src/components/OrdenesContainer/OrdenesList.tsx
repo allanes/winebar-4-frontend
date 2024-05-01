@@ -9,7 +9,7 @@ import OrdenView from './OrdenView';
 import { handleApiError } from '../ClientsContainer/ClientsContainer';
 
 interface Props {
-  ordenesList: Array<OrdenCompra>;
+  ordenesList: Array<OrdenCompraDetallada>;
   onDeleteOrden: (id: number) => void;
   columnasReducidas?: boolean;
 }
@@ -19,7 +19,7 @@ const keysTabOrden = [
   // 'Precarga',
   'Monto maximo',
   'turno_id',
-  'cliente_id',
+  'Cliente',
   'Cargado',
   'Cobrado',
   'Apertura',
@@ -33,7 +33,7 @@ const keysTabOrdenReducido = [
   // 'Precarga',
   // 'Monto maximo',
   // 'turno_id',
-  'cliente_id',
+  'Cliente',
   'Cargado',
   'Cobrado',
   'Apertura',
@@ -94,7 +94,7 @@ export const OrdenesList = ({
         </Row>
         <Row>
           <table className={`table table-striped table-hover table-container-${columnasReducidas ? 'm' : 'xl'}`}>
-            <thead className="table-success">
+            <thead className="table-success sticky-top pt-3">
             <tr>
                 {selectedKeys.map((item, index) => (
                   <th key={index}>{item}</th>
@@ -108,7 +108,7 @@ export const OrdenesList = ({
                   {/* {!columnasReducidas && <td>{orden.precarga_usada}</td>} */}
                   {!columnasReducidas && <td>{orden.monto_maximo_orden}</td>}
                   {!columnasReducidas && <td>{orden.turno_id}</td>}
-                  <td>{orden.cliente_id}</td>
+                  <td>{orden.nombre_cliente}</td>
                   <td>${orden.monto_cargado}</td>
                   <td><strong>${orden.monto_cobrado}</strong></td>
                   <td><TimestampFormateadoBadge timestamp={orden.timestamp_apertura_orden} /></td>

@@ -989,7 +989,7 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "default": 100,
+              "default": 1000,
               "title": "Limit"
             }
           }
@@ -1654,6 +1654,11 @@
         ],
         "summary": "Handle Read Orden By Client Rfid",
         "operationId": "handle_read_orden_by_client_rfid_backend_api_v1_ordenes_by_rfid__tarjeta_id__get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "tarjeta_id",
@@ -1896,6 +1901,11 @@
         ],
         "summary": "Handle Read Orden By Id",
         "operationId": "handle_read_orden_by_id_backend_api_v1_ordenes__id__get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1968,7 +1978,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/OrdenCompra"
+                    "$ref": "#/components/schemas/OrdenCompraDetallada"
                   },
                   "title": "Response Handle Read Ordens Backend Api V1 Ordenes  Get"
                 }
@@ -2463,75 +2473,6 @@
         "responses": {
           "200": {
             "description": "Successful Response"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/backend/api/v1/vinos/sync-menu-vinos": {
-      "get": {
-        "tags": [
-          "Vinos"
-        ],
-        "summary": "Handle Sync Menu Vinos",
-        "operationId": "handle_sync_menu_vinos_backend_api_v1_vinos_sync_menu_vinos_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/backend/api/v1/vinos/sync-consumos-vinos-por-tarjeta": {
-      "get": {
-        "tags": [
-          "Vinos"
-        ],
-        "summary": "Handle Sync Menu Vinos",
-        "operationId": "handle_sync_menu_vinos_backend_api_v1_vinos_sync_consumos_vinos_por_tarjeta_get",
-        "security": [
-          {
-            "OAuth2PasswordBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "raw_rfid",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "default": "",
-              "title": "Raw Rfid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-
-                }
-              }
-            }
           },
           "422": {
             "description": "Validation Error",

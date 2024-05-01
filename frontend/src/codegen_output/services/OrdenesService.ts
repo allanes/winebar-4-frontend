@@ -142,13 +142,13 @@ export class OrdenesService {
      * Handle Read Ordens
      * @param skip
      * @param limit
-     * @returns OrdenCompra Successful Response
+     * @returns OrdenCompraDetallada Successful Response
      * @throws ApiError
      */
     public static handleReadOrdensBackendApiV1OrdenesGet(
         skip?: number,
         limit: number = 100,
-    ): CancelablePromise<Array<OrdenCompra>> {
+    ): CancelablePromise<Array<OrdenCompraDetallada>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/backend/api/v1/ordenes/',

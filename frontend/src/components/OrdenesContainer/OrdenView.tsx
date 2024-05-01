@@ -45,7 +45,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
     }
     
     OrdenesService.handleCerrarOrdenBackendApiV1OrdenesCerrarPost(
-      ordenData.id, infoPago
+      ordenId, infoPago
     ).then((ordenResponse) => {
       setOrdenCobrada(ordenResponse)
       Swal.fire('Orden Cobrada', `Monto $ ${ordenResponse.monto_cobrado}`, 'success')
