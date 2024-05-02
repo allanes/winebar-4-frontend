@@ -51,7 +51,7 @@ export const ClientsList = ({ clientsList: clientsList, onDeleteClient: onDelete
         <p className='h3'>Lista de clientes</p>
       </div>
       <table className='table table-striped table-hover table-container-l'>
-        <thead className='table-success'>
+        <thead className='table-success sticky-top'>
           <tr>
             {keysTabClients.map((item, index) => {
               return (

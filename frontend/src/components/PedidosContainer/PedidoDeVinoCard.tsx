@@ -16,10 +16,10 @@ const PedidoDeVinoCard: React.FC<PedidoDeVinoCardProps> = ({ pedidoDeVino, pedid
 
     return (
         <Col>
-            <Row className=''>
-                <Card className="pedido-card">
-                    <Card.Header >
-                        <Row md={12}>
+            <Row>
+                <Card bg={'light'} className="pedido-card">  {/* Updated class here */}
+                    <Card.Header>
+                        <Row>
                             <Col md={4}>
                                 <h6><strong>Pedido {pedidoNumberedNumber}</strong></h6>
                             </Col>
@@ -27,16 +27,15 @@ const PedidoDeVinoCard: React.FC<PedidoDeVinoCardProps> = ({ pedidoDeVino, pedid
                                 {pedidoDeVino.timestamp_pedido && 
                                     <h6><TimestampFormateadoBadge timestamp={pedidoDeVino.timestamp_pedido} /></h6>
                                 }
-                            </Col>                    
+                            </Col>
                             <Col md={4}>
                                 <span className="text-success">
                                     <CheckCircleFill /> Cargado
-                                </span>                                
+                                </span>
                             </Col>
                         </Row>
                     </Card.Header>
                     <Card.Body>
-                        
                         <RenglonVinoItem renglonVino={pedidoDeVino.renglones[0]} />
                     </Card.Body>
                 </Card>

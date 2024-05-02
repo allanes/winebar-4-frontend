@@ -17,7 +17,7 @@ const PedidoTapaCard: React.FC<PedidoTapaCardProps> = ({ pedido, pedidoNumberedN
     return (
         <Col>
             <Row className=''>
-                <Card className="pedido-card">
+                <Card bg={'light'}  className="pedido-card">
                     <Card.Header >
                         <Row md={12}>
                             <Col md={4}>

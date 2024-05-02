@@ -143,7 +143,7 @@ export const OrdenesList = ({
           </table>
         </Row>
       </Col>
-      <Modal show={showOrdenView} onHide={handleCloseOrdenView} centered size="lg">
+      <Modal show={showOrdenView} onHide={handleCloseOrdenView} centered size="xl">
         <Modal.Header closeButton>
           <Modal.Title>Detalle de Orden</Modal.Title>
         </Modal.Header>

@@ -47,7 +47,7 @@ const RenglonVinoItem: React.FC<RenglonVinoItemProps> = ({ renglonVino }) => {
     };
 
     const getTamañoVino = (volumen: string): string => {
-        return mapa_tamaños[volumen as VolumenKey] || `Tamaño desconocido (${volumen} cc)`;
+        return mapa_tamaños[volumen as VolumenKey] || `(${volumen} cc)`;
     };
 
     return (
@@ -80,7 +80,7 @@ const RenglonVinoItem: React.FC<RenglonVinoItemProps> = ({ renglonVino }) => {
                                 </Col>                
                                 <Col md={6}>
                                     <Row>
-                                        <h4><Badge bg='secondary' className='p-1'>$ {renglonVino.producto.precio}</Badge></h4>
+                                        <h4><Badge bg='success' className='p-1'>$ {renglonVino.producto.precio}</Badge></h4>
                                     </Row>
                                     {/* <Row className='justify-content-end'>
                                         {renglonVino.promocion_aplicada && 
