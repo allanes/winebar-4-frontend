@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pedido } from '../../../../../codegen_output';
-import { Card, ListGroup } from 'react-bootstrap';
+import { Card, ListGroup, Badge } from 'react-bootstrap';
 import { CheckCircleFill, ExclamationCircle } from 'react-bootstrap-icons';
 import TimestampFormateadoBadge from '../../../../Common/TimestampFormateadoBadge';
 
@@ -28,6 +28,13 @@ const PedidosListComprimido: React.FC<PedidosListProps> = ({ pedidos }) => {
                   {pedido.timestamp_pedido &&
                     <TimestampFormateadoBadge timestamp={pedido.timestamp_pedido} />
                   }
+                </div>
+                <div>
+                  {pedido.renglones.length === 1 && pedido.renglones[0].vitte_consumo_id ? (
+                    <Badge>Vino</Badge>
+                  ) : (
+                    <Badge>Tapa </Badge>
+                  )}
                 </div>
                 <div>
                   {pedido.cerrado ? (
