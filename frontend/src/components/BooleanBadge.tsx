@@ -19,7 +19,7 @@ const booleanColors: { [key: number]: string } = {
 export const BooleanBadge = ({ value }: BooleanBadgeProps) => {
   const badgeColor = value ? 'success' : 'secondary';
   const texto = value ? 'Si' : 'No';
-    console.log(`color: ${badgeColor}`)
+    // console.log(`color: ${badgeColor}`)
   return (
     <h5>
         <Badge bg={badgeColor}>
