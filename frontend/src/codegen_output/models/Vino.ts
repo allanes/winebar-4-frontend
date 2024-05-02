@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type RenglonCreate = {
-    cantidad: number;
-    producto_id: number;
-    vitte_consumo_id?: (number | null);
+export type Vino = {
+    id_vitte?: (number | null);
+    volumen: number;
+    id_producto: (number | null);
+    id: number;
 };
 

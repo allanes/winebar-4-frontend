@@ -6,6 +6,7 @@ import type { Producto } from './Producto';
 export type Renglon = {
     cantidad: number;
     producto_id: number;
+    vitte_consumo_id?: (number | null);
     id: number;
     monto: number;
     promocion_aplicada: boolean;

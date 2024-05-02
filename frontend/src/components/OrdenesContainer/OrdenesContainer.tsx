@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { OrdenCompra, OrdenesService, ApiError } from '../../codegen_output';
+import { OrdenCompra, OrdenesService, ApiError, OrdenCompraDetallada } from '../../codegen_output';
 import { OrdenesList } from './OrdenesList';
 import Swal from 'sweetalert2';
 
 export const OrdenesContainer = () => {
-  const [ordenesList, setOrdenesList] = useState<OrdenCompra[]>([]);
+  const [ordenesList, setOrdenesList] = useState<OrdenCompraDetallada[]>([]);
 
   useEffect(() => {
     fetchOrden();

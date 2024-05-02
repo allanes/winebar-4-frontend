@@ -63,8 +63,8 @@ export const TarjetasList = ({ tarjetasList, onDeleteTarjeta: onDeleteTarjeta_pr
                 <th scope='row'>{tarjeta.id}</th>
                 <td><TimestampFormateadoBadge timestamp={tarjeta.fecha_alta || ''}/></td>
                 <td><TimestampFormateadoBadge timestamp={tarjeta.fecha_ultimo_uso || ''}/></td>                
-                <td>{tarjeta.fecha_alta}</td>
-                <td>{tarjeta.fecha_ultimo_uso}</td>
+                {/* <td>{tarjeta.fecha_alta}</td>
+                <td>{tarjeta.fecha_ultimo_uso}</td> */}
                 <td>
                   <BooleanBadge value={tarjeta.entregada} />
                 </td>

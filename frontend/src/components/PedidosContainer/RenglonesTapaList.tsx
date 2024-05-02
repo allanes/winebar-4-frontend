@@ -1,19 +1,19 @@
 import React from 'react';
 import { Card, ListGroup, Col, Row } from 'react-bootstrap';
 import { Renglon } from '../../codegen_output';
-import RenglonItem from './RenglonItem';
+import RenglonTapaItem from './RenglonTapaItem';
 
-interface RenglonListProps {
+interface RenglonTapaListProps {
   renglones: Renglon[];
 }
 
-const RenglonList: React.FC<RenglonListProps> = ({ renglones }) => {
+const RenglonesTapaList: React.FC<RenglonTapaListProps> = ({ renglones }) => {
   return (
     <div className="renglon-list">
       <Col>
       {renglones.map((renglon) => (
         <Row md={7}>
-          <RenglonItem key={renglon.id} renglon={renglon} />
+          <RenglonTapaItem key={renglon.id} renglon={renglon} />
         </Row>
       ))}
       </Col>
@@ -21,4 +21,4 @@ const RenglonList: React.FC<RenglonListProps> = ({ renglones }) => {
   );
 };
 
-export default RenglonList;
+export default RenglonesTapaList;

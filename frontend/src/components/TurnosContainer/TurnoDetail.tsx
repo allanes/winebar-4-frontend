@@ -35,7 +35,7 @@ const parseOrdenCompraDetallada = (ordenCerrada: OrdenCompraDetallada): OrdenCom
 const TurnoDetalle = ({ turnoData }: TurnoProps) => {
 // const TurnoDetalle = ({ turnoData, handleGetTurnoInfo, handleCerrarTurno }: TurnoProps) => {
     const [activeKey, setActiveKey] = useState<string | null>(null);
-    const [ordenesDelTurno, setOrdenesDelTurno] = useState<OrdenCompra[]>([]);
+    const [ordenesDelTurno, setOrdenesDelTurno] = useState<OrdenCompraDetallada[]>([]);
 
     useEffect(() => {
         handleRecuperarOrdenesDelTurno();
@@ -45,7 +45,8 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
         if (turnoData) {
         try {
             const ordenesResponse = await OrdenesService.handleReadOrdenByTurnoIdBackendApiV1OrdenesByTurnoTurnoIdGet(turnoData.id);
-            const parsedOrdenes = ordenesResponse.map(parseOrdenCompraDetallada);
+            // const parsedOrdenes = ordenesResponse.map(parseOrdenCompraDetallada);
+            const parsedOrdenes = ordenesResponse
             setOrdenesDelTurno(parsedOrdenes);
         } catch (error: unknown) {
             setOrdenesDelTurno([]);

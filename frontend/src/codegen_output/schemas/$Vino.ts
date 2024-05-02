@@ -2,23 +2,32 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $RenglonCreate = {
+export const $Vino = {
     properties: {
-        cantidad: {
-            type: 'number',
-            isRequired: true,
-        },
-        producto_id: {
-            type: 'number',
-            isRequired: true,
-        },
-        vitte_consumo_id: {
+        id_vitte: {
             type: 'any-of',
             contains: [{
                 type: 'number',
             }, {
                 type: 'null',
             }],
+        },
+        volumen: {
+            type: 'number',
+            isRequired: true,
+        },
+        id_producto: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+            isRequired: true,
+        },
+        id: {
+            type: 'number',
+            isRequired: true,
         },
     },
 } as const;

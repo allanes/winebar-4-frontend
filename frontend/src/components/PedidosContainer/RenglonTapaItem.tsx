@@ -4,11 +4,11 @@ import { Renglon, Tapa } from '../../codegen_output';
 import { fetchTapaImageByProductId } from '../Common/ImageFetcher';
 import tapaNotAvailableImage from '../../assets/icons/generic_tapa_not_available.webp'
 
-interface RenglonItemProps {
+interface RenglonTapaItemProps {
     renglon: Renglon;
 }
 
-const RenglonItem: React.FC<RenglonItemProps> = ({ renglon }) => {
+const RenglonTapaItem: React.FC<RenglonTapaItemProps> = ({ renglon }) => {
     const [loadedImage, setLoadedImage] = useState<string | null>(null);
 
     useEffect(() => {
@@ -65,4 +65,4 @@ const RenglonItem: React.FC<RenglonItemProps> = ({ renglon }) => {
     );
 };
 
-export default RenglonItem;
+export default RenglonTapaItem;

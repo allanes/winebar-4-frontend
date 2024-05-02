@@ -36,9 +36,9 @@ const FormGroupMontoCobrado = ({
                                     <Form.Control
                                         type="number"
                                         name={name}
-                                        step="100"
+                                        step="0.1"
                                         min="0"
-                                        max={max}
+                                        max={max + 1000}
                                         value={value}
                                         onChange={onChange}
                                     />

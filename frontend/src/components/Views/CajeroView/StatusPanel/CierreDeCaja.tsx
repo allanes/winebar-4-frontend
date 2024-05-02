@@ -1,10 +1,10 @@
 // CierreDeCaja.tsx
 import React, {useState, useEffect} from 'react';
 import { Modal, Button, Row, Col, Badge, Accordion } from 'react-bootstrap';
-import InfoCard from './InfoCard';
-import { Turno, OrdenesService, OrdenCompra, OrdenCompraDetallada,InfoDeCierre } from '../../../../codegen_output';
-import TimestampFormateadoBadge from '../../../Common/TimestampFormateadoBadge';
-import { OrdenesList } from '../../../OrdenesContainer/OrdenesList';
+// import InfoCard from './InfoCard';
+// import TimestampFormateadoBadge from '../../../Common/TimestampFormateadoBadge';
+// import { OrdenesList } from '../../../OrdenesContainer/OrdenesList';
+import { Turno, InfoDeCierre } from '../../../../codegen_output';
 import TurnoDetalle from '../../../TurnosContainer/TurnoDetail';
 import InfoCierreForm from '../../../../hooks/useNewCierreCajaInfoCierreForm';
 

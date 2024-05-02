@@ -33,7 +33,7 @@ const PanelCobroOrden: React.FC<PanelCobroProps> = ({ show, onHide }) => {
   };
   
   return (
-    <Modal show={show} onHide={handleClose} centered size="lg">
+    <Modal show={show} onHide={handleClose} centered size="xl">
       <Modal.Header closeButton>
         <Modal.Title>Panel de Cobro</Modal.Title>
       </Modal.Header>
