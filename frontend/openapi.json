@@ -1844,6 +1844,83 @@
         }
       }
     },
+    "/backend/api/v1/ordenes/export/order/html": {
+      "get": {
+        "tags": [
+          "Ordenes"
+        ],
+        "summary": "Export Order To Html",
+        "operationId": "export_order_to_html_backend_api_v1_ordenes_export_order_html_get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/backend/api/v1/ordenes/export/order/pdf": {
+      "get": {
+        "tags": [
+          "Ordenes"
+        ],
+        "summary": "Export Order To Pdf",
+        "operationId": "export_order_to_pdf_backend_api_v1_ordenes_export_order_pdf_get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/backend/api/v1/ordenes/{id}": {
       "put": {
         "tags": [
