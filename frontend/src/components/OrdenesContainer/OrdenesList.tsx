@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { CheckCircleFill } from 'react-bootstrap-icons';
 import OrdenView from './OrdenView';
 import { handleApiError } from '../ClientsContainer/ClientsContainer';
+import { FiletypePdf } from 'react-bootstrap-icons';
 
 interface Props {
   ordenesList: Array<OrdenCompraDetallada>;
@@ -26,6 +27,7 @@ const keysTabOrden = [
   'Cierre',
   'Cerrada Por',
   '',
+  ''
 ];
 
 const keysTabOrdenReducido = [
@@ -40,6 +42,7 @@ const keysTabOrdenReducido = [
   'Cierre',
   // 'Cerrada Por',
   '',
+  ''
 ];
 
 export const OrdenesList = ({
@@ -49,6 +52,37 @@ export const OrdenesList = ({
 }: Props) => {
   const [selectedOrden, setSelectedOrden] = useState<OrdenCompraDetallada | null>(null);
   const [showOrdenView, setShowOrdenView] = useState(false);
+
+  const downloadPDF = async (id: number) => {
+    try {
+        const response = await fetch(`/backend/api/v1/ordenes/export/order/pdf?id=${id}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/pdf',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch PDF: ${response.statusText}`);
+        }
+
+        const blob = await response.blob();
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.setAttribute('download', `orden_${id}.pdf`);
+        document.body.appendChild(link);
+        link.click();
+        window.URL.revokeObjectURL(downloadUrl); // Clean up the URL object
+        link.remove(); // Ensure the link is removed after use
+    } catch (error) {
+        console.error('Error downloading the PDF:', error);
+        Swal.fire('Error', 'al descargar PDF. Por favor reintentar.', 'error')
+        // alert('Error PDF. Please try again.'); // User feedback
+    }
+};
+
+  
 
   const handleDelete = (orden: OrdenCompra) => {
     Swal.fire({
@@ -136,6 +170,18 @@ export const OrdenesList = ({
                         <img className="icon-img--size" src={deleteIcon} alt="" />
                       </button>
                     }
+                  </td>
+                  <td>
+                    {/* {!columnasReducidas &&  */}
+                      <button
+                        onClick={() => downloadPDF(orden.id)}
+                        disabled={!orden.cerrada_por}
+                        title={!orden.cerrada_por ? "Order must be closed to download PDF" : "Download PDF"}
+                        className="btn btn-primary"
+                      >
+                        <FiletypePdf/>
+                      </button>
+                    {/* } */}
                   </td>
                 </tr>
               ))}

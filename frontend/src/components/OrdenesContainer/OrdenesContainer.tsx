@@ -7,10 +7,10 @@ export const OrdenesContainer = () => {
   const [ordenesList, setOrdenesList] = useState<OrdenCompraDetallada[]>([]);
 
   useEffect(() => {
-    fetchOrden();
+    fetchOrdenes();
   }, []);
 
-  const fetchOrden = () => {
+  const fetchOrdenes = () => {
     OrdenesService.handleReadOrdensBackendApiV1OrdenesGet()
       .then((ordenes) => {
         setOrdenesList(ordenes);        

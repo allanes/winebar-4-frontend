@@ -95,6 +95,46 @@ export class OrdenesService {
         });
     }
     /**
+     * Export Order To Html
+     * @param id
+     * @returns string Successful Response
+     * @throws ApiError
+     */
+    public static exportOrderToHtmlBackendApiV1OrdenesExportOrderHtmlGet(
+        id: number,
+    ): CancelablePromise<string> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/ordenes/export/order/html',
+            query: {
+                'id': id,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Export Order To Pdf
+     * @param id
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static exportOrderToPdfBackendApiV1OrdenesExportOrderPdfGet(
+        id: number,
+    ): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/ordenes/export/order/pdf',
+            query: {
+                'id': id,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Handle Update Orden
      * @param id
      * @param requestBody
