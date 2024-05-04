@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Tapa, TapasService, ApiError, TapaConProductoCreate } from '../../codegen_output';
 import { Body_handle_upload_foto_backend_api_v1_tapas_foto__id__post } from '../../codegen_output';
 import { LectorTapasContainer } from '../LectorTapasContainer/LectorTapasContainer';
+import ConfiguracionMontosCard from './ConfiguracionMontosCard';
 import { Modal, Row, Col } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
@@ -110,9 +111,14 @@ export const ConfiguracionContainer = () => {
 
   return (
     <div>
-      <Row className="mb-3">
+      <Row className="mb-3 d-flex">
         <Col>
           <LectorTapasContainer />       
+        </Col>
+      </Row>
+      <Row className='justify-content-center'>
+        <Col md={7}>
+          <ConfiguracionMontosCard />
         </Col>
       </Row>
     </div>

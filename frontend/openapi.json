@@ -2796,6 +2796,165 @@
           }
         }
       }
+    },
+    "/backend/api/v1/configuraciones/{id}": {
+      "get": {
+        "tags": [
+          "Configuracion"
+        ],
+        "summary": "Handle Read Configuracion By Id",
+        "operationId": "handle_read_configuracion_by_id_backend_api_v1_configuraciones__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Configuracion"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/backend/api/v1/configuraciones/last": {
+      "get": {
+        "tags": [
+          "Configuracion"
+        ],
+        "summary": "Handle Get Last Configuracion",
+        "operationId": "handle_get_last_configuracion_backend_api_v1_configuraciones_last_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Configuracion"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/backend/api/v1/configuraciones/": {
+      "get": {
+        "tags": [
+          "Configuracion"
+        ],
+        "summary": "Handle Read Configuracions",
+        "operationId": "handle_read_configuracions_backend_api_v1_configuraciones__get",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Skip"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Configuracion"
+                  },
+                  "title": "Response Handle Read Configuracions Backend Api V1 Configuraciones  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Configuracion"
+        ],
+        "summary": "Handle Create Configuracion",
+        "operationId": "handle_create_configuracion_backend_api_v1_configuraciones__post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfiguracionCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Configuracion"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -3077,6 +3236,88 @@
           "activa"
         ],
         "title": "ClienteWithDetails"
+      },
+      "Configuracion": {
+        "properties": {
+          "monto_maximo_orden_def": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monto Maximo Orden Def"
+          },
+          "monto_maximo_pedido_def": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monto Maximo Pedido Def"
+          },
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "fecha_ultima_actualizacion": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fecha Ultima Actualizacion"
+          }
+        },
+        "type": "object",
+        "required": [
+          "monto_maximo_orden_def",
+          "monto_maximo_pedido_def",
+          "id",
+          "fecha_ultima_actualizacion"
+        ],
+        "title": "Configuracion"
+      },
+      "ConfiguracionCreate": {
+        "properties": {
+          "monto_maximo_orden_def": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monto Maximo Orden Def"
+          },
+          "monto_maximo_pedido_def": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monto Maximo Pedido Def"
+          }
+        },
+        "type": "object",
+        "required": [
+          "monto_maximo_orden_def",
+          "monto_maximo_pedido_def"
+        ],
+        "title": "ConfiguracionCreate"
       },
       "DetallesAdicionales": {
         "properties": {
