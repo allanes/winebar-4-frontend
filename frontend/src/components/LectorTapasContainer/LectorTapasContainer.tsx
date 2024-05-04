@@ -1,47 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import { Tapa, TapasService, ApiError, TapaConProductoCreate } from '../../codegen_output';
-import { LectoresDeTapasService, LectorTapa } from '../../codegen_output';
-import { Body_handle_upload_foto_backend_api_v1_tapas_foto__id__post } from '../../codegen_output';
+import { LectorTapa } from '../../codegen_output';
 import { LectorTapasList } from './LectorTapasList';
-import { Modal, Row, Col } from 'react-bootstrap';
-import Swal from 'sweetalert2';
-import { TapasList } from '../TapasContainer/TapasList';
+import { LectoresDeTapasService } from '../../codegen_output';
+import { handleApiError } from '../ClientsContainer/ClientsContainer';
+import { Row, Col } from 'react-bootstrap';
 
 export const LectorTapasContainer = () => {
   const [lectoresTapasList, setLectoresTapasList] = useState<LectorTapa[]>([]);
+  const [refreshCounter, setRefreshCounter] = useState(0);
 
   useEffect(() => {
+    const fetchLectoresTapas = async () => {
+      try {
+        const lectoresResponse = await LectoresDeTapasService.handleReadLectorsTapasPorTerminalBackendApiV1LectoresTapasPorTerminalGet();
+        setLectoresTapasList(lectoresResponse);
+      } catch (error) {
+        handleApiError(error);
+      }
+    };
+
     fetchLectoresTapas();
-  }, []);
+  }, [refreshCounter]); // Depend on refreshCounter to trigger re-fetch
 
-  const fetchLectoresTapas = () => {
-    LectoresDeTapasService.handleReadLectorsTapasPorTerminalBackendApiV1LectoresTapasPorTerminalGet()
-      .then((lectoresResponse) => {
-        setLectoresTapasList(lectoresResponse);        
-      })
-      .catch(handleApiError);
-  };
-
-  const handleApiError = (error: unknown) => {
-    const err = error as ApiError;
-    let errorMessage = 'Ocurrió un error.';
-    if (err.body && err.body.detail) {
-      errorMessage = err.body.detail;
-    }
-    Swal.fire('Error', errorMessage, 'error');
+  const refreshList = () => {
+    setRefreshCounter((prev) => prev + 1); // Increment to trigger re-fetch
   };
 
   return (
     <div>
-      <Row className="mb-3">
-        <Col>
-          <LectorTapasList 
-            lectoresTapasList={lectoresTapasList}            
-          />          
-        </Col>
+        <Row className='mb-3'>
+          <Col>          
+            <LectorTapasList 
+              lectoresTapasList={lectoresTapasList}
+              handleUpdateListado={refreshList}
+            />
+          </Col>
       </Row>
-
-      
     </div>
   );
 };

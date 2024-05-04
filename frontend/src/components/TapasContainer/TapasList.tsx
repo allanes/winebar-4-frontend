@@ -88,15 +88,15 @@ export const TapasList = ({
 
   return (
     <>
-    <div className='table-container-xl'>
-      <div className='table-container-l text-center mb-1'>
+    <div className={`table-container-${tablaReducida ? "s" : "xl"}`}>
+      <div className={`text-center mb-1`}>
         <p className='h3'>Lista de Tapas</p>
       </div>
-      <table className='table table-striped table-hover table-container-l'>
+      <table className='table table-striped table-hover '>
         <thead className='table-success'>
           <tr>
             {keysTabTapa.map((item, index) => {
-              if (tablaReducida && (item === "")) return null;  // Skip rendering icon headers
+              if (tablaReducida && (item === "" || item === "Descripcion")) return null;  // Skip rendering icon headers
               return <th key={index}>{item}</th>;
             })}
           </tr>
@@ -112,28 +112,30 @@ export const TapasList = ({
                   }
                 </td>
                 <td>{tapa.producto.titulo}</td>
-                <td>{tapa.producto.descripcion}</td>
+                {!tablaReducida && (
+                  <td>{tapa.producto.descripcion}</td>
+                )}
                 <td>{tapa.producto.precio}</td>
                 <td>{tapa.producto.stock}</td>
                 {!tablaReducida && (
-                  <>
-                    <td>
-                      <button className='icons-border icon--size icon--edit' type='button' onClick={(e) => {
-                        e.stopPropagation();  // Prevent triggering row's onClick
-                        handleEdit(tapa);
-                      }}>
-                        <img className='icon-img--size' src={editIcon} alt="" />
-                      </button>
-                    </td>
-                    <td>
-                      <button className='icons-border icon--size icon--delete' type='button' onClick={(e) => {
-                        e.stopPropagation();  // Prevent triggering row's onClick
-                        handleDelete(tapa);
-                      }}>
-                        <img className='icon-img--size' src={deleteIcon} alt="" />
-                      </button>
-                    </td>
-                  </>
+                  <td>
+                    <button className='icons-border icon--size icon--edit' type='button' onClick={(e) => {
+                      e.stopPropagation();  // Prevent triggering row's onClick
+                      handleEdit(tapa);
+                    }}>
+                      <img className='icon-img--size' src={editIcon} alt="" />
+                    </button>
+                  </td>
+                )}
+                {!tablaReducida && (
+                  <td>
+                    <button className='icons-border icon--size icon--delete' type='button' onClick={(e) => {
+                      e.stopPropagation();  // Prevent triggering row's onClick
+                      handleDelete(tapa);
+                    }}>
+                      <img className='icon-img--size' src={deleteIcon} alt="" />
+                    </button>
+                  </td>
                 )}
               </tr>
             )
