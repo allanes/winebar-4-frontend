@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Tapa, TapasService, ApiError, TapaConProductoCreate } from '../../codegen_output';
 import { Body_handle_upload_foto_backend_api_v1_tapas_foto__id__post } from '../../codegen_output';
-import { TapasList } from './TapasList';
-import Swal from 'sweetalert2';
-import { TapasCreate } from './TapasCreate';
-import { TapasUpdate } from './TapasUpdate';
+import { LectorTapasContainer } from '../LectorTapasContainer/LectorTapasContainer';
 import { Modal, Row, Col } from 'react-bootstrap';
-import { AddPersonalButton } from '../PersonalContainer/AddPersonalButton';
+import Swal from 'sweetalert2';
 
-export const TapasContainer = () => {
+export const ConfiguracionContainer = () => {
   const [tapasList, setTapasList] = useState<Tapa[]>([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -16,10 +13,10 @@ export const TapasContainer = () => {
   const [tapaImageUrl, setTapaImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchTapasList();
+    fetchTapa();
   }, []);
 
-  const fetchTapasList = () => {
+  const fetchTapa = () => {
     TapasService.handleReadTapasBackendApiV1TapasGet()
       .then((tapas) => {
         setTapasList(tapas);        
@@ -48,7 +45,7 @@ export const TapasContainer = () => {
       }
   
       Swal.fire(`${response.producto.titulo}`, `tapa ID ${response.id} guardada.`, 'success');
-      fetchTapasList();
+      fetchTapa();
       setShowCreateModal(false);
     } catch (error) {
       handleApiError(error);
@@ -77,7 +74,7 @@ export const TapasContainer = () => {
         }
 
         Swal.fire(`${updatedTapa.titulo}`, `tapa ID ${selectedTapa.id} actualizada.`, 'success');
-        fetchTapasList();
+        fetchTapa();
         setShowUpdateModal(false);
       }
     } catch (error) {
@@ -115,40 +112,9 @@ export const TapasContainer = () => {
     <div>
       <Row className="mb-3">
         <Col>
-          <TapasList 
-            tapasList={tapasList} 
-            onDeleteTapa={handleDelete} 
-            onUpdateTapa={handleOpenUpdateModal}
-          />          
-        </Col>
-        <Col xs="auto" className='mt-3'>
-          <AddPersonalButton onClick={handleOpenCreateModal} />
+          <LectorTapasContainer />       
         </Col>
       </Row>
-      
-
-      <Modal show={showCreateModal} onHide={handleCloseCreateModal} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Agregar Tapa</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <TapasCreate onNewTapa={handleNewTapa} />
-        </Modal.Body>
-      </Modal>
-
-      <Modal show={showUpdateModal} onHide={handleCloseUpdateModal} size="xl">
-        <Modal.Header closeButton>
-          <Modal.Title>Actualizar Tapa</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {selectedTapa && 
-            <TapasUpdate 
-              tapa={selectedTapa} 
-              onUpdateTapa={handleUpdate} 
-              tapaImageUrl={tapaImageUrl} 
-            />}
-        </Modal.Body>
-      </Modal>
     </div>
   );
 };

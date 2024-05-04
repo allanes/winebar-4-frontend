@@ -12,6 +12,7 @@ import { TarjetasContainer } from '../TarjetasContainer/TarjetasContainer';
 import { OrdenesContainer } from '../OrdenesContainer/OrdenesContainer';
 import { TurnosContainer } from '../TurnosContainer/TurnosContainer';
 import { TapasContainer } from '../TapasContainer/TapasContainer';
+import { ConfiguracionContainer } from '../ConfiguracionContainer/ConfiguracionContainer';
 import { categoriesList_sidebar } from '../../types/categoriesList_sidebar';
 import { useAuth } from '../auth/AuthContext';
 import Error404 from './Error404';
@@ -38,6 +39,7 @@ export const AdminView: React.FC = () => {
                   <Route path={categoriesList_sidebar[3].link} element={<OrdenesContainer />} />
                   <Route path={categoriesList_sidebar[4].link} element={<TurnosContainer />} />
                   <Route path={categoriesList_sidebar[5].link} element={<TapasContainer />} />
+                  <Route path={categoriesList_sidebar[6].link} element={<ConfiguracionContainer />} />
                   <Route path='*' element={<Error404 />} />
                 </Routes>
               </div>
