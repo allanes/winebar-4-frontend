@@ -13,7 +13,7 @@ const CartSummaryContainer = () => {
 
   useEffect(() => {
     if (clienteSiendoAtendido && pedidoEnCurso) {
-      const subtotal = cartItems.reduce((total, item) => total + item.cantidad * item.monto, 0);
+      const subtotal = cartItems.reduce((total, item) => total + item.monto, 0);
       displayLcdInfoCliente({
         nombre: clienteSiendoAtendido.nombre,
         carrito: subtotal,
@@ -39,10 +39,12 @@ const CartSummaryContainer = () => {
         const physPortResponse = await fetch(`http://localhost:3001/lectores-rfid/get_phys_port?card_number=${tarjetaCliente}`);
         const physPort = await physPortResponse.json();
         if (physPort) {
+          console.log('Phys Port encontrado:', physPort);
           addToCartByPhysPort(physPort);
+          
         }
         
-        console.log('Phys Port:', physPort.phys_port);
+        // console.log('Phys Port:', physPort.phys_port);
       } catch (error) {
         console.error('Phys Port no detectado. Asumiendo que el cliente está queriendo reloguearse:', error);
         // handleApiError(error);
@@ -55,7 +57,7 @@ const CartSummaryContainer = () => {
   }
 
   const itemCount = cartItems.reduce((count, item) => count + item.cantidad, 0);
-  const subtotal = cartItems.reduce((total, item) => total + item.cantidad * item.monto, 0);
+  const subtotal = cartItems.reduce((total, item) => total + item.monto, 0);
   const maxAmount = pedidoEnCurso!.monto_maximo_pedido;
 
   const handleShowHistory = () => setShowHistory(true);

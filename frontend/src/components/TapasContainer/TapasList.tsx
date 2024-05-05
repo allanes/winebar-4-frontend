@@ -8,6 +8,8 @@ interface Props {
   tapasList: Array<Tapa>
   onDeleteTapa: (id: number) => void
   onUpdateTapa: (tapa: Tapa) => void
+  onSelect?: (productId: number) => void
+  tablaReducida?: boolean
 }
 
 const keysTabTapa = [
@@ -21,7 +23,13 @@ const keysTabTapa = [
   ""
 ]
 
-export const TapasList = ({ tapasList, onDeleteTapa, onUpdateTapa }: Props) => {
+export const TapasList = ({ 
+  tapasList, 
+  onDeleteTapa, 
+  onUpdateTapa, 
+  onSelect, 
+  tablaReducida = false 
+}: Props) => {
   const [loadedImages, setLoadedImages] = useState<{ [key: number]: string }>({});
 
   useEffect(() => {
@@ -80,24 +88,23 @@ export const TapasList = ({ tapasList, onDeleteTapa, onUpdateTapa }: Props) => {
 
   return (
     <>
-    <div className='table-container-xl'>
-      <div className='table-container-l text-center mb-1'>
+    <div className={`table-container-${tablaReducida ? "s" : "xl"}`}>
+      <div className={`text-center mb-1`}>
         <p className='h3'>Lista de Tapas</p>
       </div>
-      <table className='table table-striped table-hover table-container-l'>
+      <table className='table table-striped table-hover '>
         <thead className='table-success'>
           <tr>
             {keysTabTapa.map((item, index) => {
-              return (
-                <th key={index}>{item}</th>
-              )
+              if (tablaReducida && (item === "" || item === "Descripcion")) return null;  // Skip rendering icon headers
+              return <th key={index}>{item}</th>;
             })}
           </tr>
         </thead>
         <tbody className='table-group-divider' >
           {tapasList.map((tapa, index) => {
             return (
-              <tr key={index} >
+              <tr key={index} onClick={() => onSelect?.(tapa.producto.id)}>
                 <th scope='row'>{tapa.id}</th>
                 <td>
                   {tapa.foto &&
@@ -105,23 +112,31 @@ export const TapasList = ({ tapasList, onDeleteTapa, onUpdateTapa }: Props) => {
                   }
                 </td>
                 <td>{tapa.producto.titulo}</td>
-                <td>{tapa.producto.descripcion}</td>
+                {!tablaReducida && (
+                  <td>{tapa.producto.descripcion}</td>
+                )}
                 <td>{tapa.producto.precio}</td>
                 <td>{tapa.producto.stock}</td>
-                <td>
-                  <button className='icons-border icon--size icon--edit'
-                    type='button'
-                    onClick={() => { handleEdit(tapa) }} >
-                    <img className='icon-img--size' src={editIcon} alt="" />
-                  </button>
-                </td>
-                <td>
-                  <button className='icons-border icon--size icon--delete'
-                    type='button'
-                    onClick={() => { handleDelete(tapa) }} >
-                    <img className='icon-img--size' src={deleteIcon} alt="" />
-                  </button>
-                </td>
+                {!tablaReducida && (
+                  <td>
+                    <button className='icons-border icon--size icon--edit' type='button' onClick={(e) => {
+                      e.stopPropagation();  // Prevent triggering row's onClick
+                      handleEdit(tapa);
+                    }}>
+                      <img className='icon-img--size' src={editIcon} alt="" />
+                    </button>
+                  </td>
+                )}
+                {!tablaReducida && (
+                  <td>
+                    <button className='icons-border icon--size icon--delete' type='button' onClick={(e) => {
+                      e.stopPropagation();  // Prevent triggering row's onClick
+                      handleDelete(tapa);
+                    }}>
+                      <img className='icon-img--size' src={deleteIcon} alt="" />
+                    </button>
+                  </td>
+                )}
               </tr>
             )
           })}
