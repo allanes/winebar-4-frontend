@@ -10,6 +10,7 @@ import {
   ClientesService,
   OrdenesService } from '../../../codegen_output';
 import { handleApiError } from '../../ClientsContainer/ClientsContainer';
+import { handleApiErrorCustom } from '../../Common/ApiErros';
 import Swal from 'sweetalert2';
 import ResumenPedidoCerrado from './SummaryContainer/ResumenPedidoCerrado';
 import { displayLcdInfoCliente, clearLcd } from './LcdService';
@@ -54,7 +55,10 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
         setPedidoEnCurso(pedido);
         setCartItems(pedido.renglones);
       })
-      .catch((error) => console.error('Error al agregar producto al carrito:', error));
+      .catch((error) => {
+        console.error('Error al agregar producto al carrito:', error);
+        handleApiErrorCustom(error, () => {})
+      })
   };
 
   const addToCartByPhysPort = (physPort: string) => {
@@ -67,7 +71,10 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
         setPedidoEnCurso(pedido);
         setCartItems(pedido.renglones);
       })
-      .catch((error) => console.error('Error al agregar producto al carrito:', error));
+      .catch((error) => {
+        console.error('Error al agregar producto al carrito desde phys:', error);
+        handleApiErrorCustom(error, () => {})
+      })
   };
 
   const removeFromCart = (productId: number) => {

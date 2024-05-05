@@ -15,7 +15,7 @@ const ResumenPedidoCerrado: React.FC<ResumenPedidoCerradoProps> = ({ orderClosed
     return null;
   }
 
-  const subtotal = cartItems.reduce((total, item) => total + item.cantidad * item.monto, 0);
+  const subtotal = cartItems.reduce((total, item) => total + item.monto, 0);
   const itemCount = cartItems.reduce((count, item) => count + item.cantidad, 0);
 
   return (
