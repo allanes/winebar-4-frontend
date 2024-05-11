@@ -57,7 +57,7 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
 
   return (
     <div className="table-container-s mb-4">
-      <Form ref={formRef} onSubmit={handleContinue}>
+      <Form ref={formRef} onSubmit={handleContinue} className='transparent-card'>
         <CustomFormField
           id="nombre"
           label="Nombre"
@@ -117,7 +117,7 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
         </Accordion>
 
         <div className="d-flex justify-content-center">
-          <Button type="submit" className="m-4" size='lg'>
+          <Button type="submit" className="m-4" size='lg' variant='outline-dark'>
             Dar de alta
           </Button>
         </div>

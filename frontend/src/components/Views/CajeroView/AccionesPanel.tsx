@@ -83,20 +83,29 @@ const AccionesPanel = () => {
         </Card.Body>
     
         <div>
-            <Modal show={showModal} onHide={handleClose} size="lg">
-                <Modal.Header closeButton>
-                    <Modal.Title>Nuevo Cliente Estandar</Modal.Title>
+            <Modal
+                show={showModal}
+                onHide={handleClose}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                className="new-client-modal-content"  // Changed to apply modal content styles
+            >
+                <Modal.Header closeButton className="new-client-modal-header">
+                    <Modal.Title id="contained-modal-title-vcenter" className="new-client-modal-title">
+                        Nuevo Cliente Estandar
+                    </Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="new-client-modal-body">
                     <ClientsCreate onNewClient={handleNewClient} expanded={true}/>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
+                <Modal.Footer className="new-client-modal-footer">
+                    <Button variant="secondary" onClick={handleClose}>Cerrar</Button>
+                    <Button className="new-client-modal-footer-btn" onClick={handleClose}>Dar de alta</Button> {/* Corrected to apply button styles */}
                 </Modal.Footer>
             </Modal>
         </div>
+
 
         <PanelCobroOrden
             show={showPanelCobro}

@@ -151,3 +151,37 @@
 .info-card.clickable:hover {
   background-color: #f5f5f5;
 }
+
+.new-client-modal-content {
+  background-color: rgba(51, 0, 0, 0.9); /* Dark, semi-transparent background */
+  color: white; /* Light text for contrast */
+  border-radius: 10px; /* Softened edges */
+  border: 1px solid #a52a2a; /* Subtle border to fit the theme */
+}
+
+.new-client-modal-header, .new-client-modal-footer {
+  border-bottom: 1px solid #a52a2a; /* Cohesive border style */
+  border-top: 1px solid #a52a2a; /* For the footer */
+  background: linear-gradient(to right, #460000, #300000); /* Dark gradient background */
+}
+
+.new-client-modal-body {
+  // border-bottom: 1px solid #a52a2a; /* Cohesive border style */
+  // border-top: 1px solid #a52a2a; /* For the footer */
+  // background: linear-gradient(to right, #460000, #300000); /* Dark gradient background */
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.new-client-modal-title {
+  color: #ffd700; /* Gold color for a bit of luxury */
+}
+
+.new-client-modal-footer .btn {
+  background-color: #8B0000; /* Rich wine color for buttons */
+  border: none; /* Clean look without borders */
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+}
+
+.new-client-modal-footer .btn:hover {
+  background-color: #a52a2a; /* Lighter shade on hover */
+}
