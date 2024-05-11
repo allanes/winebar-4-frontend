@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import LoginPanel from '../auth/LoginPanel';
 import { PersonalInterno, LoginService, Token, OpenAPI } from '../../codegen_output';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Header } from '../Header/Header';
 import HeaderWithUser from '../Header/HeaderWithUser';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { SideBar } from '../SideBar/SideBar';

@@ -70,9 +70,6 @@
                       <Col md={3}>
                         <img src={logoBar} className="float-start logobar" alt="Logo del bar" />
                       </Col>
-                      <Col className='text-start'>
-                        <h5>Altacava <br/>Winebar</h5>
-                      </Col>
                     </Row>
                     <Row >
                       <Col md={4}>
