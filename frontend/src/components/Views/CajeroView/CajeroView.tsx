@@ -14,10 +14,10 @@ const CajeroView = () => {
       <HeaderWithUser 
         title='Cajero'
       />
-      <Container fluid>
+      <Container fluid className="cajero-background">
         {isLoggedIn && (
           <>
-            <Row className="mb-4">
+            <Row className="mb-4 pb-5">
               <Col>
                 <AccionesPanel />
               </Col>

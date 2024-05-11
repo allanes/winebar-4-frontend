@@ -1,3 +1,68 @@
+.cajero-background {
+  /* Base color */
+  background-color: #a52a2a; /* Deep wine red */
+    
+  /* Noise effect with multiple shadows for depth */
+  background-image: 
+      radial-gradient(circle, 
+          rgba(255, 255, 255, 0.2) 70%, 
+          transparent 30%
+      ),
+      radial-gradient(circle, 
+          rgba(0, 0, 0, 0.2) 30%, 
+          transparent 30%
+      );
+  background-size: 20px 20px, 60px 60px;
+  background-position: 5 5, 60px 60px;
+
+  /* Linear gradient for subtle fade effect */
+  background-image: 
+      linear-gradient(to right, 
+          rgba(165, 42, 42, 0.65), 
+          rgba(165, 42, 42, 0.85) 50%, 
+          rgba(165, 42, 42, 1)
+      ),
+      radial-gradient(circle, 
+          rgba(255, 255, 255, 0.15) 2px, 
+          transparent 2px
+      ),
+      radial-gradient(circle, 
+          rgba(0, 0, 0, 0.15) 2px, 
+          transparent 2px
+      );
+
+  background-blend-mode: multiply, screen, multiply;
+  background-repeat: repeat;
+}
+
+
+.transparent-card {
+  background-color: rgba(255, 255, 255, 0.3); /* Change the alpha value for more or less transparency */
+  border: none; /* Optionally remove the border for a cleaner look */
+  margin-top: 10px;
+}
+
+
+.accionable-button {
+  background-image: linear-gradient(to right, #8B0000, #550000); /* Wine-colored gradient */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif; /* Consistent typography */
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between icon and text */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.accionable-button:hover {
+  background-image: linear-gradient(to right, #A00000, #700000);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adds depth on hover */
+}
+
 .accionable--contenido {
     display: flex;
     align-items: center;    
@@ -5,14 +70,21 @@
 
 .accionable {
     margin-left: 50px;
-    margin-top: 30px;
-    margin-bottom: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 50px;
+    // width: 300px;
+}
+
+.acciones-width {
+  width: 600px;
 }
 
 .icon {
     font-size: 80px;
     margin-right: 20px;
 }
+
 
 // Assuming these are the colors from your palette
 

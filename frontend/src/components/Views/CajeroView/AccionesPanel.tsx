@@ -33,15 +33,14 @@ const AccionesPanel = () => {
   }
 
   return (
-    <Card>
+    <Card className='transparent-card acciones-width'>
         <Card.Header>Acciones</Card.Header>
         <Card.Body>
             <div className="accionable" >
-                <Button 
-                    variant="primary" 
-                    className="me-2"
-                    onClick={handleShow}
-                >
+            <Button 
+                className="accionable-button" // Apply the custom class
+                onClick={handleShow}
+            >
                     <div className="accionable--contenido">
                         <PersonBadge className="icon"/>
                         <h3>Cliente Estandar</h3>
@@ -50,8 +49,8 @@ const AccionesPanel = () => {
             </div>
             <div className="accionable" >
                 <Button 
-                    variant="primary" 
-                    className="me-2"
+                    className="accionable-button" // Apply the custom class
+                    disabled={true}
                 >
                     <div className="accionable--contenido">
                         <PersonBadge className="icon"/>
@@ -61,8 +60,8 @@ const AccionesPanel = () => {
             </div>
             <div className="accionable" >
                 <Button 
-                    variant="primary" 
-                    className="me-2"
+                    className="accionable-button" // Apply the custom class
+                    disabled={true}
                 >
                     <div className="accionable--contenido">
                         <People className="icon"/>
@@ -72,8 +71,7 @@ const AccionesPanel = () => {
             </div>
             <div className="accionable" >
                 <Button 
-                    variant="success"
-                    className='me-2'
+                    className="accionable-button" // Apply the custom class
                     onClick={handleAbrirPanelCobro}
                 >
                     <div className="accionable--contenido">

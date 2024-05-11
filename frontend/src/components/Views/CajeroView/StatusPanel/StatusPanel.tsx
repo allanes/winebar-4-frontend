@@ -61,7 +61,7 @@ const StatusPanel = () => {
   };
 
   return (
-    <Card>
+    <Card className="transparent-card">
       <Card.Header>Estado</Card.Header>
       <Card.Body>
         {turnoData === null && (

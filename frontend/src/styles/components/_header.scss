@@ -1,38 +1,32 @@
 .container-header{
-    /* Base color */
-    background-color: #a52a2a; /* Deep wine red */
+      /* Deep maroon base color from cajero-background for coherence */
+  background-color: #140000;
+  /* Integrating both the cajero and container-header gradients and effects */
+  background-image:
+      linear-gradient(to bottom, #460000, #140000), /* Primary gradient from cajero-background */
+      radial-gradient(circle at top, rgba(255,255,255,0.15), transparent), /* Light radial from cajero-background */
+      radial-gradient(circle at bottom, rgba(0,0,0,0.4), transparent 70%), /* Dark radial from cajero-background */
+      linear-gradient(to right, rgba(165, 42, 42, 0.65), rgba(165, 42, 42, 0.85) 50%, rgba(165, 42, 42, 1)), /* Subtle fade from container-header */
+      radial-gradient(circle, rgba(255, 255, 255, 0.15) 2px, transparent 2px), /* Additional texture from container-header */
+      radial-gradient(circle, rgba(0, 0, 0, 0.15) 2px, transparent 2px); /* Additional texture from container-header */
+
+  /* Adjusting background sizes for fine control over appearance */
+  background-size: cover, cover, cover, cover, 20px 20px, 60px 60px;
+
+  /* Positioning for radial gradients to align properly */
+  background-position: 0 0, 0 0, 0 0, 0 0, 5px 5px, 60px 60px;
+
+  /* Setting blend modes to ensure proper integration of all layers */
+  background-blend-mode: normal, multiply, screen, multiply, screen, multiply;
+
+  /* Ensure the gradients do not repeat */
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat, repeat;
+
+  /* Retaining other stylistic choices */
+  color: white;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
     
-    /* Noise effect with multiple shadows for depth */
-    background-image: 
-        radial-gradient(circle, 
-            rgba(255, 255, 255, 0.2) 70%, 
-            transparent 30%
-        ),
-        radial-gradient(circle, 
-            rgba(0, 0, 0, 0.2) 30%, 
-            transparent 30%
-        );
-    background-size: 20px 20px, 60px 60px;
-    background-position: 5 5, 60px 60px;
-
-    /* Linear gradient for subtle fade effect */
-    background-image: 
-        linear-gradient(to right, 
-            rgba(165, 42, 42, 0.65), 
-            rgba(165, 42, 42, 0.85) 50%, 
-            rgba(165, 42, 42, 1)
-        ),
-        radial-gradient(circle, 
-            rgba(255, 255, 255, 0.15) 2px, 
-            transparent 2px
-        ),
-        radial-gradient(circle, 
-            rgba(0, 0, 0, 0.15) 2px, 
-            transparent 2px
-        );
-
-    background-blend-mode: multiply, screen, multiply;
-    background-repeat: repeat;
 
     /* Maintaining other properties */
     // color: white;
@@ -49,11 +43,14 @@
     border-radius: 5px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adds shadow for depth */
+    text-shadow: 1px 1px 2px black; /* Adds shadow to text */
 }
 
 .header-button:hover {
     background-image: linear-gradient(to bottom, #A00000, #000000);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7); /* Larger shadow on hover */
+    transform: translateY(-2px); /* Subtle lift effect */
+    border: 2px solid #FFD700; /* Brighter gold on hover */
 }
 
 
