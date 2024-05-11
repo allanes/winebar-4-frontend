@@ -39,3 +39,21 @@
     // padding-top: 0.25rem;
     // padding-bottom: 0.25rem;
 }
+
+.header-button {
+    background-image: linear-gradient(to bottom, #8B0000, #000000);
+    border: 2px solid #DAA520;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adds shadow for depth */
+}
+
+.header-button:hover {
+    background-image: linear-gradient(to bottom, #A00000, #000000);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7); /* Larger shadow on hover */
+}
+
+

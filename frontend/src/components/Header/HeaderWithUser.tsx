@@ -35,10 +35,10 @@ const HeaderWithUser: React.FC<HeaderWithUserProps> = ({ title }) => {
                     {isLoggedIn && user ? (
                         <>
                             <p>{`${user.nombre} ${user.apellido ? user.apellido : ''}`}</p>
-                            <Button variant="success" onClick={logout}>Cerrar sesión</Button>
+                            <Button  className="header-button" onClick={logout}>Cerrar sesión</Button>
                         </>
                     ) : (
-                        <Button variant="success" onClick={() => setShowLoginModal(true)}>Iniciar sesión</Button>
+                        <Button  className="header-button" onClick={() => setShowLoginModal(true)}>Iniciar sesión</Button>
                     )}
                 </div>		
             </div>
