@@ -18,7 +18,7 @@ const CajeroView = () => {
         {isLoggedIn && (
           <>
             <Row className="mb-4 pb-5">
-              <Col>
+              <Col className='d-flex justify-content-center'>
                 <AccionesPanel />
               </Col>
               <Col>

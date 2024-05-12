@@ -4,9 +4,10 @@ import { Button, Modal, Card } from 'react-bootstrap';
 import { handleApiError } from '../../ClientsContainer/ClientsContainer';
 import ClientsCreate from '../../ClientsContainer/ClientsCreate';
 import { ClienteCreate, ClientesService } from '../../../codegen_output';
-import { PersonBadge, People, CashCoin } from 'react-bootstrap-icons';
+import { CurrencyDollar } from 'react-bootstrap-icons';
 import PanelCobroOrden from './PanelCobroOrdenOverview';
 import Swal from 'sweetalert2';
+import copaImage from '../../../assets/icons/copa.png'
 
 const AccionesPanel = () => {
   const [showModal, setShowModal] = useState(false);
@@ -42,7 +43,7 @@ const AccionesPanel = () => {
                 onClick={handleShow}
             >
                     <div className="accionable--contenido">
-                        <PersonBadge className="icon"/>
+                        <img src={copaImage} alt="Copa Icon" className="icon" />
                         <h3>Cliente Estandar</h3>
                     </div>
                 </Button>
@@ -53,7 +54,7 @@ const AccionesPanel = () => {
                     disabled={true}
                 >
                     <div className="accionable--contenido">
-                        <PersonBadge className="icon"/>
+                        <img src={copaImage} alt="Copa Icon" className="icon" />
                         <h3>Cliente VIP</h3>
                     </div>
                 </Button>
@@ -64,7 +65,7 @@ const AccionesPanel = () => {
                     disabled={true}
                 >
                     <div className="accionable--contenido">
-                        <People className="icon"/>
+                        <img src={copaImage} alt="Copa Icon" className="icon" />
                         <h3>Cliente Grupal</h3>
                     </div>
                 </Button>
@@ -75,7 +76,7 @@ const AccionesPanel = () => {
                     onClick={handleAbrirPanelCobro}
                 >
                     <div className="accionable--contenido">
-                        <CashCoin className="icon"/>
+                        <CurrencyDollar className="icon"/>
                         <h3>Cobrar Tarjeta</h3>
                     </div>
                 </Button>
@@ -101,7 +102,7 @@ const AccionesPanel = () => {
                 </Modal.Body>
                 <Modal.Footer className="new-client-modal-footer">
                     <Button variant="secondary" onClick={handleClose}>Cerrar</Button>
-                    <Button className="new-client-modal-footer-btn" onClick={handleClose}>Dar de alta</Button> {/* Corrected to apply button styles */}
+                    {/* <Button className="new-client-modal-footer-btn" onClick={handleClose}>Dar de alta</Button> Corrected to apply button styles */}
                 </Modal.Footer>
             </Modal>
         </div>

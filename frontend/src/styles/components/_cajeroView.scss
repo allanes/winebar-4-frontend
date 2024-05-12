@@ -42,9 +42,15 @@
   margin-top: 10px;
 }
 
+.fully-transparent-card {
+  background-color: rgba(255, 255, 255, 0.0); /* Change the alpha value for more or less transparency */
+  border: none; /* Optionally remove the border for a cleaner look */
+  // margin-top: 10px;
+}
+
 
 .accionable-button {
-  background-image: linear-gradient(to right, #8B0000, #550000); /* Wine-colored gradient */
+  background-image: linear-gradient(to right, #9e7a2d, #ebb644); /* Wine-colored gradient */
   border: none;
   color: white;
   padding: 10px 20px;
@@ -77,7 +83,7 @@
 }
 
 .acciones-width {
-  width: 600px;
+  width: 500px;
 }
 
 .icon {
@@ -85,6 +91,12 @@
     margin-right: 20px;
 }
 
+.accionable-button .icon {
+  max-height: 100px;  // Desired width of the icon
+  // height: 80px; // Desired height of the icon
+  margin-right: 20px; // Maintain the same right margin for alignment
+  vertical-align: middle; // Align the icon vertically with the text
+}
 
 // Assuming these are the colors from your palette
 
@@ -154,7 +166,7 @@
 
 .new-client-modal-content {
   background-color: rgba(51, 0, 0, 0.9); /* Dark, semi-transparent background */
-  color: white; /* Light text for contrast */
+  // color: $mi-white; /* Light text for contrast */
   border-radius: 10px; /* Softened edges */
   border: 1px solid #a52a2a; /* Subtle border to fit the theme */
 }
@@ -166,10 +178,12 @@
 }
 
 .new-client-modal-body {
-  // border-bottom: 1px solid #a52a2a; /* Cohesive border style */
-  // border-top: 1px solid #a52a2a; /* For the footer */
-  // background: linear-gradient(to right, #460000, #300000); /* Dark gradient background */
+  border-bottom: 1px solid #ffd700; /* Cohesive border style */
+  border-top: 1px solid #ffd700; /* For the footer */
+  background: linear-gradient(to right, #460000, #300000); /* Dark gradient background */
   background-color: rgba(255, 255, 255, 0.3);
+  justify-content: center;
+  display: flex;
 }
 
 .new-client-modal-title {
@@ -184,4 +198,18 @@
 
 .new-client-modal-footer .btn:hover {
   background-color: #a52a2a; /* Lighter shade on hover */
+}
+
+.form-background {
+  background-color: #beb375;
+}
+
+.new-client-modal-accordion {
+  background-color: #460000;
+  // color: $mi-white;
+}
+
+.new-client-modal-accordion *{
+  // background-color: #8B0000;
+  color: $mi-white;
 }

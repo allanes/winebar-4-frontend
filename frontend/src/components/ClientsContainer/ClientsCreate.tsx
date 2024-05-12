@@ -56,8 +56,8 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
   const defaultActiveKey = expanded ? undefined : '0';
 
   return (
-    <div className="table-container-s mb-4">
-      <Form ref={formRef} onSubmit={handleContinue} className='transparent-card'>
+    <div className="table-container-xs mb-4 form-background">
+      <Form ref={formRef} onSubmit={handleContinue} className='fully-transparent-card'>
         <CustomFormField
           id="nombre"
           label="Nombre"
@@ -69,7 +69,7 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
         />
 
         <Accordion defaultActiveKey={defaultActiveKey}>
-          <Accordion.Item eventKey="0">
+          <Accordion.Item eventKey="0" className='fully-transparent-card'>
             <Accordion.Header>Detalles Adicionales</Accordion.Header>
             <Accordion.Body>
               <CustomFormField
@@ -117,7 +117,7 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
         </Accordion>
 
         <div className="d-flex justify-content-center">
-          <Button type="submit" className="m-4" size='lg' variant='outline-dark'>
+          <Button type="submit" className="m-4" size='lg' variant='warning'>
             Dar de alta
           </Button>
         </div>
