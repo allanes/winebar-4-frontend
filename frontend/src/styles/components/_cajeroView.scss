@@ -1,56 +1,5 @@
-.cajero-background {
-  /* Base color */
-  background-color: #a52a2a; /* Deep wine red */
-    
-  /* Noise effect with multiple shadows for depth */
-  background-image: 
-      radial-gradient(circle, 
-          rgba(255, 255, 255, 0.2) 70%, 
-          transparent 30%
-      ),
-      radial-gradient(circle, 
-          rgba(0, 0, 0, 0.2) 30%, 
-          transparent 30%
-      );
-  background-size: 20px 20px, 60px 60px;
-  background-position: 5 5, 60px 60px;
-
-  /* Linear gradient for subtle fade effect */
-  background-image: 
-      linear-gradient(to right, 
-          rgba(165, 42, 42, 0.65), 
-          rgba(165, 42, 42, 0.85) 50%, 
-          rgba(165, 42, 42, 1)
-      ),
-      radial-gradient(circle, 
-          rgba(255, 255, 255, 0.15) 2px, 
-          transparent 2px
-      ),
-      radial-gradient(circle, 
-          rgba(0, 0, 0, 0.15) 2px, 
-          transparent 2px
-      );
-
-  background-blend-mode: multiply, screen, multiply;
-  background-repeat: repeat;
-}
-
-
-.transparent-card {
-  background-color: rgba(255, 255, 255, 0.3); /* Change the alpha value for more or less transparency */
-  border: none; /* Optionally remove the border for a cleaner look */
-  margin-top: 10px;
-}
-
-.fully-transparent-card {
-  background-color: rgba(255, 255, 255, 0.0); /* Change the alpha value for more or less transparency */
-  border: none; /* Optionally remove the border for a cleaner look */
-  // margin-top: 10px;
-}
-
-
 .accionable-button {
-  background-image: linear-gradient(to right, #9e7a2d, #ebb644); /* Wine-colored gradient */
+  background-image: linear-gradient(to right, $mi-gold-dark, $mi-gold-2); /* Wine-colored gradient */
   border: none;
   color: white;
   padding: 10px 20px;
@@ -98,47 +47,6 @@
   vertical-align: middle; // Align the icon vertically with the text
 }
 
-// Assuming these are the colors from your palette
-
-.info-card {
-  background-color: $mi-yellow-light;
-  border-radius: 15px;
-  width: 230px; // Adjust as needed
-  margin: 10px auto; // Center the card with automatic horizontal margins
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Optional shadow for depth
-  border: none; // Remove the default card border
-}
-
-.info-card-body {
-  padding: 3px 3px 3px 3px; // Adjust padding as needed
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.info-card-count {
-  background-color: $mi-dark-red;
-  color: $mi-yellow;
-  font-size: 70px; // Adjust font size as needed
-  border-radius: 13px;
-  width: 100%; // Adjust as needed
-  height: 100px; // Adjust as needed
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 5px; // Space between the count and title
-  font-weight: bold;
-//   margin-top: 1px;
-}
-
-.info-card-title {
-  color: $mi-dark-red;
-  font-size: 20px; // Adjust font size as needed
-  margin: 0; // Remove any default margins
-  font-weight: bold;
-}
-
 .sin-turno-abierto-overlay {
   position: absolute;
   top: 1;
@@ -156,60 +64,4 @@
   // align-items: center;
 }
 
-.info-card.clickable {
-  cursor: pointer;
-}
 
-.info-card.clickable:hover {
-  background-color: #f5f5f5;
-}
-
-.new-client-modal-content {
-  background-color: rgba(51, 0, 0, 0.9); /* Dark, semi-transparent background */
-  // color: $mi-white; /* Light text for contrast */
-  border-radius: 10px; /* Softened edges */
-  border: 1px solid #a52a2a; /* Subtle border to fit the theme */
-}
-
-.new-client-modal-header, .new-client-modal-footer {
-  border-bottom: 1px solid #a52a2a; /* Cohesive border style */
-  border-top: 1px solid #a52a2a; /* For the footer */
-  background: linear-gradient(to right, #460000, #300000); /* Dark gradient background */
-}
-
-.new-client-modal-body {
-  border-bottom: 1px solid #ffd700; /* Cohesive border style */
-  border-top: 1px solid #ffd700; /* For the footer */
-  background: linear-gradient(to right, #460000, #300000); /* Dark gradient background */
-  background-color: rgba(255, 255, 255, 0.3);
-  justify-content: center;
-  display: flex;
-}
-
-.new-client-modal-title {
-  color: #ffd700; /* Gold color for a bit of luxury */
-}
-
-.new-client-modal-footer .btn {
-  background-color: #8B0000; /* Rich wine color for buttons */
-  border: none; /* Clean look without borders */
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
-}
-
-.new-client-modal-footer .btn:hover {
-  background-color: #a52a2a; /* Lighter shade on hover */
-}
-
-.form-background {
-  background-color: #beb375;
-}
-
-.new-client-modal-accordion {
-  background-color: #460000;
-  // color: $mi-white;
-}
-
-.new-client-modal-accordion *{
-  // background-color: #8B0000;
-  color: $mi-white;
-}

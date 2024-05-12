@@ -6,14 +6,14 @@
 @import './base/icons';
 @import './base/typography';
 
-// Components styles
+// Old styles
 
 @import './components/logoMeta';
 @import './components/doctorView';
 @import './components/mainApp';
 @import './components/sidebar';
 @import './components/pagesContainer';
-@import './components/header';
+// @import './components/header';
 @import './components/roomDescription';
 @import './components/toastConfig';
 @import './components/patientsList';
@@ -21,5 +21,13 @@
 @import './components/taperoView';
 @import './components/adminView';
 @import './components/cajeroDetalleOrden';
+
+// Refactoring styles
+
+@import './baseComponents/header';
+@import './baseComponents/backgroundMain';
+@import './baseComponents/clientContainer';
+@import './baseComponents/formCommon';
+@import './baseComponents/infoCard';
 
 // Default configurations and variables

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button, Modal, Card } from 'react-bootstrap';
 import { handleApiError } from '../../ClientsContainer/ClientsContainer';
-import ClientsCreate from '../../ClientsContainer/ClientsCreate';
+import ClientsCreateModal from '../../ClientsContainer/ClientsCreateModal';
 import { ClienteCreate, ClientesService } from '../../../codegen_output';
 import { CurrencyDollar } from 'react-bootstrap-icons';
 import PanelCobroOrden from './PanelCobroOrdenOverview';
@@ -84,27 +84,12 @@ const AccionesPanel = () => {
         </Card.Body>
     
         <div>
-            <Modal
+            <ClientsCreateModal
                 show={showModal}
                 onHide={handleClose}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-                className="new-client-modal-content"  // Changed to apply modal content styles
-            >
-                <Modal.Header closeButton className="new-client-modal-header">
-                    <Modal.Title id="contained-modal-title-vcenter" className="new-client-modal-title">
-                        Nuevo Cliente Estandar
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body className="new-client-modal-body">
-                    <ClientsCreate onNewClient={handleNewClient} expanded={true}/>
-                </Modal.Body>
-                <Modal.Footer className="new-client-modal-footer">
-                    <Button variant="secondary" onClick={handleClose}>Cerrar</Button>
-                    {/* <Button className="new-client-modal-footer-btn" onClick={handleClose}>Dar de alta</Button> Corrected to apply button styles */}
-                </Modal.Footer>
-            </Modal>
+                onNewClient={handleNewClient}
+                expanded={true}
+            />            
         </div>
 
 
