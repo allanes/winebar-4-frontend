@@ -24,7 +24,7 @@ export const AdminView: React.FC = () => {
       <HeaderWithUser 
         title='Panel de Administración'
       />
-        <div className='mi-app back-grey'>
+        <div className='mi-app back-grey  cajero-background'>
           <Router>
             <div className='sidebar-container'>
               <SideBar />              

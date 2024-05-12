@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Turno, TurnosService } from '../../codegen_output'
 import deleteIcon from '../../assets/icons/outline_delete_white_24dp.png'
 import Swal from 'sweetalert2'
-import { Badge, Modal } from 'react-bootstrap'
+import { Badge, Modal, Table } from 'react-bootstrap'
 import { handleApiError } from '../ClientsContainer/ClientsContainer'
 import TurnoDetalle from './TurnoDetail'
 import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge'
@@ -67,7 +67,7 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
       <div className='table-container-l text-center mb-1'>
         <p className='h3'>Lista de Turnos</p>
       </div>
-      <table className='table table-striped table-hover table-container-l'>
+      <Table striped hover className='table-container-l'>
         <thead className='table-success'>
           <tr>
             {keysTabTurno.map((item, index) => {
@@ -107,7 +107,7 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
             )
           })}
         </tbody>
-      </table>
+      </Table>
 
       <Modal show={showTurnoView} onHide={handleCloseTurnoView} centered size="lg">
         <Modal.Header closeButton>

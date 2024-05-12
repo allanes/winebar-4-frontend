@@ -3,6 +3,7 @@ import { Tapa, TapasService, Producto, TapaConProductoCreate } from '../../codeg
 import deleteIcon from '../../assets/icons/outline_delete_white_24dp.png'
 import editIcon from '../../assets/icons/outline_edit_white_24dp.png'
 import Swal from 'sweetalert2'
+import { Table } from 'react-bootstrap'
 
 interface Props {
   tapasList: Array<Tapa>
@@ -92,7 +93,7 @@ export const TapasList = ({
       <div className={`text-center mb-1`}>
         <p className='h3'>Lista de Tapas</p>
       </div>
-      <table className='table table-striped table-hover '>
+      <Table striped hover className=''>
         <thead className='table-success'>
           <tr>
             {keysTabTapa.map((item, index) => {
@@ -141,7 +142,7 @@ export const TapasList = ({
             )
           })}
         </tbody>
-      </table>
+      </Table>
       </div>
     </>
   )

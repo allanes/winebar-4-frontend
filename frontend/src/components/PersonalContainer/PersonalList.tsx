@@ -5,7 +5,7 @@ import editIcon from '../../assets/icons/outline_edit_white_24dp.png';
 import addIcon from '../../assets/icons/outline_add_white_24dp.png';
 import { RolBadge } from '../RolesContainer/RolBadge';
 import Swal from 'sweetalert2';
-import { Modal, Button, Row, Col } from 'react-bootstrap';
+import { Modal, Button, Row, Col, Table } from 'react-bootstrap';
 import TarjetaInputField from './TarjetaInputField';
 
 interface Props {
@@ -100,7 +100,7 @@ export const PersonalList = ({ personalList, onDeletePersonal, onAssignTarjeta, 
       <div className='table-container-l text-center mb-1'>
         <p className='h3'>Lista de Personal Interno</p>
       </div>
-      <table className='table table-striped table-hover table-container-l'>
+      <Table striped hover className='table-container-l'>
         <thead className='table-success'>
           <tr>
             {keysTabPersonal.map((item, index) => {
@@ -159,7 +159,7 @@ export const PersonalList = ({ personalList, onDeletePersonal, onAssignTarjeta, 
             </tr>
           ))}
         </tbody>
-        </table>
+        </Table>
       </div>
 
       <Modal show={selectedPersonal !== null} onHide={handleModalClose}>
