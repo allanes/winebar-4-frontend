@@ -5,7 +5,7 @@ import { BooleanBadge } from '../BooleanBadge'
 import deleteIcon from '../../assets/icons/outline_delete_white_24dp.png'
 import Swal from 'sweetalert2'
 import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge'
-import { Table } from 'react-bootstrap'
+import { Table, Card } from 'react-bootstrap'
 
 interface Props {
   tarjetasList: Array<Tarjeta>
@@ -42,13 +42,13 @@ export const TarjetasList = ({ tarjetasList, onDeleteTarjeta: onDeleteTarjeta_pr
   }
 
   return (
-    <>
-    <div className='table-container-xl'>
-      <div className='table-container-l text-center mb-1'>
-        <p className='h3'>Lista de Tarjetas</p>
-      </div>
-      <Table striped hover className='table-container-l' >
-        <thead className='table-success'>
+    <Card className="mb-4 transparent-card">
+      <Card.Header as="h3" className='text-center table-container-title'>
+        Lista de Tarjetas
+      </Card.Header>
+      <Card.Body>
+      <Table striped hover variant='dark'>
+        <thead>
           <tr>
             {keysTabTarjeta.map((item, index) => {
               return (
@@ -92,7 +92,7 @@ export const TarjetasList = ({ tarjetasList, onDeleteTarjeta: onDeleteTarjeta_pr
           })}
         </tbody>
       </Table>
-      </div>
-    </>
+    </Card.Body>
+  </Card>
   )
 }

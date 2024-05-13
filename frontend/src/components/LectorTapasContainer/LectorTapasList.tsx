@@ -65,7 +65,7 @@ export const LectorTapasList = ({ lectoresTapasList, handleUpdateListado }: Prop
         <p className='h3'>Lista de Lectores de Tapas</p>
       </div>
       <Table striped hover className='table-container-m'>
-        <thead className='table-success'>
+        <thead>
           <tr>
             {keysTabTapa.map((item, index) => (
               <th key={index}>{item}</th>

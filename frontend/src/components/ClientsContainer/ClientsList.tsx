@@ -44,7 +44,9 @@ export const ClientsList = ({ clientsList, onDeleteClient }: Props) => {
 
   return (
     <Card className="mb-4 transparent-card">
-      <Card.Header as="h3" className='text-center table-container-title'>Lista de clientes</Card.Header>
+      <Card.Header as="h3" className='text-center table-container-title'>
+        Lista de clientes
+      </Card.Header>
       <Card.Body>
         <Table striped hover variant="dark">
           <thead>
@@ -54,7 +56,7 @@ export const ClientsList = ({ clientsList, onDeleteClient }: Props) => {
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody className='table-group-divider'>
             {clientsList.map((client, index) => (
               <tr key={index}>
                 {/* Atributos de Cliente */}
@@ -76,7 +78,7 @@ export const ClientsList = ({ clientsList, onDeleteClient }: Props) => {
                 <td><BooleanBadge value={!!client.tarjeta?.presente_en_salon} /></td>
                 <td>
                   <button className="btn btn-danger p-0" onClick={() => handleDelete(client)}>
-                    <img src={deleteIcon} alt="Delete" style={{ width: '24px', height: '24px' }} />
+                    <img src={deleteIcon} alt="Delete" className='icon-img--size' />
                   </button>
                 </td>
               </tr>

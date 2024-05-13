@@ -5,7 +5,7 @@ import editIcon from '../../assets/icons/outline_edit_white_24dp.png';
 import addIcon from '../../assets/icons/outline_add_white_24dp.png';
 import { RolBadge } from '../RolesContainer/RolBadge';
 import Swal from 'sweetalert2';
-import { Modal, Button, Row, Col, Table } from 'react-bootstrap';
+import { Modal, Button, Row, Col, Table, Card } from 'react-bootstrap';
 import TarjetaInputField from './TarjetaInputField';
 
 interface Props {
@@ -95,72 +95,73 @@ export const PersonalList = ({ personalList, onDeletePersonal, onAssignTarjeta, 
   };
 
   return (
-    <>
-      <div className='table-container-xl'>
-      <div className='table-container-l text-center mb-1'>
-        <p className='h3'>Lista de Personal Interno</p>
-      </div>
-      <Table striped hover className='table-container-l'>
-        <thead className='table-success'>
-          <tr>
-            {keysTabPersonal.map((item, index) => {
-              return (
-                <th key={index} className='text-center'>{item}</th>
-              )
-            })}
-          </tr>
-        </thead>
-        <tbody className='table-group-divider'>
-          {personalList.map((personal, index) => (
-            <tr key={index}>
-              <th scope='row'>{personal.id}</th>
-                <td>{personal.nombre} {personal.apellido}</td>                
-                <td>{personal.telefono}</td>                
-                <td className='text-center align-items-center'>
-                  {personal.tarjeta ? (
-                    <Row>
-                      <Col className='text-end'>
-                        <RolBadge 
-                          key={personal.tarjeta.rol.id} 
-                          roleName={personal.tarjeta.rol.nombre_corto} 
-                        />
-                        </Col>
-                        <Col className='text-start'>
-                          {`(${personal.tarjeta.id})`}
-                          <button
-                            className='icons-border icon--size icon--delete ms-2'
-                            onClick={() => handleUnassignTarjeta(personal.tarjeta?.id || 0)}
-                          >
-                            <img className='icon-img--size' src={deleteIcon} alt="" />
-                          </button>
-                          <button 
-                            className='icons-border icon--size icon--edit' 
-                            onClick={() => handleChangeTarjeta(personal)}>
-                            <img className='icon-img--size' src={editIcon} alt="" />
-                          </button>                        
-                        </Col>
-                      </Row>                    
-                ) : (
-                  <button
-                    className='icons-border icon--size icon--add'
-                    onClick={() => handleAssignTarjeta(personal)}
-                  >
-                    <img className='icon-img--size' src={addIcon} alt="" />
-                  </button>
-                )}
-              </td>              
-              <td>
-              <button className='icons-border icon--size icon--delete'
-                    type='button'
-                    onClick={() => { handleDelete(personal) }} >
-                    <img className='icon-img--size' src={deleteIcon} alt="" />
-                  </button>
-              </td>
+    <Card className="mb-4 transparent-card">
+      <Card.Header as="h3" className='text-center table-container-title'>
+        Lista de Personal Interno
+      </Card.Header>
+      <Card.Body>
+        <Table striped hover variant='dark'>
+          <thead>
+            <tr>
+              {keysTabPersonal.map((item, index) => {
+                return (
+                  <th key={index} className='text-center'>{item}</th>
+                )
+              })}
             </tr>
-          ))}
-        </tbody>
+          </thead>
+          <tbody className='table-group-divider'>
+            {personalList.map((personal, index) => (
+              <tr key={index}>
+                <th scope='row'>{personal.id}</th>
+                  <td>{personal.nombre} {personal.apellido}</td>                
+                  <td>{personal.telefono}</td>                
+                  <td className='text-center align-items-center'>
+                    {personal.tarjeta ? (
+                      <Row>
+                        <Col className='text-end'>
+                          <RolBadge 
+                            key={personal.tarjeta.rol.id} 
+                            roleName={personal.tarjeta.rol.nombre_corto} 
+                          />
+                          </Col>
+                          <Col className='text-start'>
+                            {`(${personal.tarjeta.id})`}
+                            <button
+                              className='icons-border icon--size icon--delete ms-2'
+                              onClick={() => handleUnassignTarjeta(personal.tarjeta?.id || 0)}
+                            >
+                              <img src={deleteIcon} alt="Delete" className='icon-img--size' />
+                              
+                            </button>
+                            <button 
+                              className='icons-border icon--size icon--edit' 
+                              onClick={() => handleChangeTarjeta(personal)}>
+                              <img className='icon-img--size' src={editIcon} alt="" />
+                            </button>                        
+                          </Col>
+                        </Row>                    
+                  ) : (
+                    <button
+                      className='icons-border icon--size icon--add'
+                      onClick={() => handleAssignTarjeta(personal)}
+                    >
+                      <img className='icon-img--size' src={addIcon} alt="" />
+                    </button>
+                  )}
+                </td>              
+                <td>
+                <button className='icons-border icon--size icon--delete'
+                      type='button'
+                      onClick={() => { handleDelete(personal) }} >
+                       <img src={deleteIcon} alt="Delete" className='icon-img--size' />
+                    </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </Table>
-      </div>
+      </Card.Body>
 
       <Modal show={selectedPersonal !== null} onHide={handleModalClose}>
         <Modal.Header closeButton>
@@ -188,6 +189,6 @@ export const PersonalList = ({ personalList, onDeletePersonal, onAssignTarjeta, 
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </Card>
   );
 };
