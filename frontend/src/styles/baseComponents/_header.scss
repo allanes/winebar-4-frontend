@@ -1,31 +1,31 @@
 .container-header{
     /* Deep maroon base color from cajero-background for coherence */
-background-color: #140000;
-/* Integrating both the cajero and container-header gradients and effects */
-background-image:
-    linear-gradient(to bottom, #460000, #140000), /* Primary gradient from cajero-background */
-    radial-gradient(circle at top, rgba(255,255,255,0.15), transparent), /* Light radial from cajero-background */
-    radial-gradient(circle at bottom, rgba(0,0,0,0.4), transparent 70%), /* Dark radial from cajero-background */
-    linear-gradient(to right, rgba(165, 42, 42, 0.65), rgba(165, 42, 42, 0.85) 50%, rgba(165, 42, 42, 1)), /* Subtle fade from container-header */
-    radial-gradient(circle, rgba(255, 255, 255, 0.15) 2px, transparent 2px), /* Additional texture from container-header */
-    radial-gradient(circle, rgba(0, 0, 0, 0.15) 2px, transparent 2px); /* Additional texture from container-header */
+  background-color: #140000;
+  /* Integrating both the cajero and container-header gradients and effects */
+  background-image:
+      linear-gradient(to bottom, #460000, #140000), /* Primary gradient from cajero-background */
+      radial-gradient(circle at top, rgba(255,255,255,0.15), transparent), /* Light radial from cajero-background */
+      radial-gradient(circle at bottom, rgba(0,0,0,0.4), transparent 70%), /* Dark radial from cajero-background */
+      linear-gradient(to right, rgba(165, 42, 42, 0.65), rgba(165, 42, 42, 0.85) 50%, rgba(165, 42, 42, 1)), /* Subtle fade from container-header */
+      radial-gradient(circle, rgba(255, 255, 255, 0.15) 2px, transparent 2px), /* Additional texture from container-header */
+      radial-gradient(circle, rgba(0, 0, 0, 0.15) 2px, transparent 2px); /* Additional texture from container-header */
 
-/* Adjusting background sizes for fine control over appearance */
-background-size: cover, cover, cover, cover, 20px 20px, 60px 60px;
+  /* Adjusting background sizes for fine control over appearance */
+  background-size: cover, cover, cover, cover, 20px 20px, 60px 60px;
 
-/* Positioning for radial gradients to align properly */
-background-position: 0 0, 0 0, 0 0, 0 0, 5px 5px, 60px 60px;
+  /* Positioning for radial gradients to align properly */
+  background-position: 0 0, 0 0, 0 0, 0 0, 5px 5px, 60px 60px;
 
-/* Setting blend modes to ensure proper integration of all layers */
-background-blend-mode: normal, multiply, screen, multiply, screen, multiply;
+  /* Setting blend modes to ensure proper integration of all layers */
+  background-blend-mode: normal, multiply, screen, multiply, screen, multiply;
 
-/* Ensure the gradients do not repeat */
-background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat, repeat;
+  /* Ensure the gradients do not repeat */
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat, repeat;
 
-/* Retaining other stylistic choices */
-color: white;
-padding-top: 0.25rem;
-padding-bottom: 0.25rem;
+  /* Retaining other stylistic choices */
+  color: $mi-gold-2;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
   
 
   /* Maintaining other properties */
@@ -36,8 +36,8 @@ padding-bottom: 0.25rem;
 
 .header-button {
   background-image: linear-gradient(to bottom, #8B0000, #000000);
-  border: 2px solid #DAA520;
-  color: white;
+  border: 2px solid $mi-gold-2;
+  color: $mi-gold-2;
   font-weight: bold;
   padding: 10px 20px;
   border-radius: 5px;

@@ -23,7 +23,7 @@ const HeaderWithUser: React.FC<HeaderWithUserProps> = ({ title }) => {
     }, [isLoggedIn]);
 
     return (
-        <div className="container-fluid container-header text-white py-1">
+        <div className="container-fluid container-header py-1">
             <div className="row align-items-center">
                 <div className="col d-flex align-items-center">
                     <img src={logoBar} className="logobar" alt="Logo del bar" />                    

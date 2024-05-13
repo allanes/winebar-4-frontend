@@ -1,49 +1,49 @@
-.sidebar-container{
+.sidebar-container {
     padding: 10px;
     margin: 10px;
     border-radius: 10px;
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
-    background: $mi-white;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.15); // Enhanced shadow for depth
+    background: linear-gradient(to bottom, #ffffff, $mi-gold-dark); // Light gradient for subtle effect
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000; // Ensure it stays on top
 }
 
-.sideBar-content{
+.sideBar-content {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.link-container{
+.link-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin: 2px;
-    padding: 2px 8px;
+    padding: 8px; // Increased padding for better touch
     border-radius: 15px;
+    transition: background-color .3s ease, box-shadow .3s ease; // Smooth transition for hover effects
 }
 
-.link-text{
+.link-text {
     text-decoration: none;
 }
 
-.link-p{
+.link-p {
     margin: 0px;
-    color: $mi-black;
+    color: $mi-dark-grey; // Adjusted for better readability
+    font-weight: 500; // Semi-bold for better visibility
 }
 
-.icon-link--size{
+.icon-link--size {
     width: 32px;
     height: 32px;
-    margin-bottom: 2px;
-    margin-right: 10px;
+    margin-right: 10px; // Consistent spacing
 }
 
-.link-underline{
-    
+.link-underline {
     text-decoration: none;
-    background-image: linear-gradient($mi-cyan, $mi-cyan);
+    background-image: linear-gradient($mi-dark-red-1, $mi-dark-red-2);
     background-position: 0% 100%;
     background-repeat: no-repeat;
     background-size: 0% 2px;
@@ -51,14 +51,16 @@
 
     &:hover {
         background-size: 100% 2px;
+        background-color: rgba($mi-dark-red-1, 0.1); // Soft highlight on hover
+        // border-bottom: 1px solid $mi-dark-red-1;
     }
 }
 
-.link-container-isActive{
-    background-color: $mi-cyan;
-    color: $mi-white;
+.link-container-isActive {
+    background-color: $mi-gold-2; // Lighter shade for active state
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow for active items
 }
 
-.link-text-isActive{
+.link-text-isActive {
     color: $mi-white;
 }
