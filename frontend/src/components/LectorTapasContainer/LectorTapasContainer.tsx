@@ -12,7 +12,7 @@ export const LectorTapasContainer = () => {
   useEffect(() => {
     const fetchLectoresTapas = async () => {
       try {
-        const lectoresResponse = await LectoresDeTapasService.handleReadLectorsTapasPorTerminalBackendApiV1LectoresTapasPorTerminalGet();
+        const lectoresResponse = await LectoresDeTapasService.handleReadLectorsTapasBackendApiV1LectoresTapasGet();
         setLectoresTapasList(lectoresResponse);
       } catch (error) {
         handleApiError(error);

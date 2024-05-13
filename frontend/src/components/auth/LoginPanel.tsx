@@ -31,7 +31,7 @@ const LoginPanel = () => {
           Login RFID
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body className="text-center login-logo-body">
+      <Modal.Body className="text-center">
         <p>Acerque la tarjeta al lector</p>
         <Spinner animation="border" variant="light" />
         <p>Número: {cardNumber}</p>
