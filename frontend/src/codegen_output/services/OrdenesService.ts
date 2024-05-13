@@ -180,21 +180,18 @@ export class OrdenesService {
     }
     /**
      * Handle Read Ordens
-     * @param skip
-     * @param limit
+     * @param paraTurnoAbierto
      * @returns OrdenCompraDetallada Successful Response
      * @throws ApiError
      */
     public static handleReadOrdensBackendApiV1OrdenesGet(
-        skip?: number,
-        limit: number = 100,
+        paraTurnoAbierto?: (boolean | null),
     ): CancelablePromise<Array<OrdenCompraDetallada>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/backend/api/v1/ordenes/',
             query: {
-                'skip': skip,
-                'limit': limit,
+                'para_turno_abierto': paraTurnoAbierto,
             },
             errors: {
                 422: `Validation Error`,

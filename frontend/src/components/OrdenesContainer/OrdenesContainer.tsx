@@ -11,7 +11,7 @@ export const OrdenesContainer = () => {
   }, []);
 
   const fetchOrdenes = () => {
-    OrdenesService.handleReadOrdensBackendApiV1OrdenesGet()
+    OrdenesService.handleReadOrdensBackendApiV1OrdenesGet(true)
       .then((ordenes) => {
         setOrdenesList(ordenes);        
       })
