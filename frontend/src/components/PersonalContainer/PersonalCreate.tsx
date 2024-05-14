@@ -50,8 +50,8 @@ export const PersonalesCreate = ({ onNewPersonal, expanded = false }: Props) => 
     //   <Accordion.Item eventKey="0" className='table-container-s text-center mb-3'>
     //     <Accordion.Header><h3>Agregar Cliente</h3></Accordion.Header>
     //     <Accordion.Body>
-    <div className="table-container-s mb-4">
-          <Form ref={formRef} onSubmit={handleSubmit}>
+    <div className="">
+          <Form ref={formRef} onSubmit={handleSubmit} className='table-container-s mb-4 form-background text-white'>
             <TarjetaInputField
               id="tarjetaId"
               label="Tarjeta"
@@ -97,7 +97,7 @@ export const PersonalesCreate = ({ onNewPersonal, expanded = false }: Props) => 
             />            
             
             <div className="d-flex justify-content-center">
-             <Button type="submit" className="m-4" size='lg'>
+             <Button type="submit" className="m-4" size='lg' variant='dark'>
                 Dar de alta
               </Button>
             </div>

@@ -20,7 +20,7 @@ const ClientsCreateModal: React.FC<ClientsCreateModalProps> = ({ show, onHide, o
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
-            className="new-client-modal-content"  // Changed to apply modal content styles
+            // className="new-client-modal-content"  // Changed to apply modal content styles
         >
             <Modal.Header closeButton className="new-client-modal-header">
                 <Modal.Title id="contained-modal-title-vcenter" className="new-client-modal-title">

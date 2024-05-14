@@ -3,7 +3,7 @@
     margin: 10px;
     border-radius: 10px;
     box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.15); // Enhanced shadow for depth
-    background: linear-gradient(to bottom, #ffffff, $mi-gold-dark); // Light gradient for subtle effect
+    background: rgba($mi-light-grey, 0.7);
     position: sticky;
     top: 0;
     z-index: 1000; // Ensure it stays on top
@@ -31,7 +31,7 @@
 
 .link-p {
     margin: 0px;
-    color: $mi-dark-grey; // Adjusted for better readability
+    color: $mi-white; // Adjusted for better readability
     font-weight: 500; // Semi-bold for better visibility
 }
 
