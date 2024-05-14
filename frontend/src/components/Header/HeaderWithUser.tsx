@@ -34,7 +34,7 @@ const HeaderWithUser: React.FC<HeaderWithUserProps> = ({ title }) => {
                 <Col  className='d-flex justify-content-end'>
                     {isLoggedIn && user ? (
                         <Col md={3} className='pe-1'>
-                            <Row >{`${user.nombre} ${user.apellido ? user.apellido : ''}`}</Row>
+                            <Row className='justify-content-center pb-1'>{`${user.nombre} ${user.apellido ? user.apellido : ''}`}</Row>
                             <Row><Button  className="header-button" onClick={logout}>Cerrar sesión</Button></Row>
                         </Col>
                     ) : (

@@ -1,6 +1,6 @@
   import React, { useState, useEffect } from 'react';
   import { Button, Row, Col, Badge } from 'react-bootstrap';
-  import logoBar from '../../../assets/icons/logo.png';
+  import logoBar from '../../../assets/icons/logo_bn.png';
   import { useAuth } from '../../auth/AuthContext';
   import LoginPanel from '../../auth/LoginPanel';
   import { PatchCheckFill, XCircleFill, CheckLg } from 'react-bootstrap-icons';
@@ -63,16 +63,16 @@
       }, []);
 
       return (
-          <div className="container-fluid container-header text-white pt-1 pb-1">
+          <Col className="container-fluid container-header text-white pt-1 pb-1">
               <Row className="align-items-center">
                   <Col md={4}>
-                    <Row className='align-items-center'>
+                    {/* <Row className='align-items-center'>
                       <Col md={3}>
                         <img src={logoBar} className="float-start logobar" alt="Logo del bar" />
                       </Col>
                     </Row>
-                    <Row >
-                      <Col md={4}>
+                    <Row > */}
+                      <Row md={4}>
                         <Badge bg='info'>
                           {keyboardCount > 0 ? (
                             <CheckLg className='text-success' />
@@ -82,8 +82,19 @@
                           {' Lectores '}
                           {keyboardCount > 0 && `(${keyboardCount})`}
                         </Badge>
-                      </Col>
-                      <Col>
+                      </Row>
+                      <Row md={4}>
+                        <Badge bg='info'>
+                          {keyboardCount > 0 ? (
+                            <CheckLg className='text-success' />
+                          ) : (
+                            <XCircleFill className='text-danger' />
+                          )}                          
+                          {' Lectores '}
+                          {keyboardCount > 0 && `(${keyboardCount})`}
+                        </Badge>
+                      </Row>
+                      <Row md={4}>
                         <Badge bg='info'>
                             {lcdStatus ? (
                                 <CheckLg className='text-success' />
@@ -92,31 +103,31 @@
                             )}
                             {' Pantalla cliente'}
                         </Badge>
-                      </Col>
-                    </Row>
+                      </Row>
+                    {/* </Row> */}
                   </Col>
-                  <Col xs={4} className="text-center">
-                      <h2>{title}</h2>
+                  <Col className="d-flex align-items-center">
+                    <img src={logoBar} className="logobar-small" alt="Logo del bar" />                    
                   </Col>
                   <Col xs={4} className="text-end">
                     <Row>
-                      <Col>
+                      <Col  className='d-flex justify-content-end'>
                         {isLoggedIn && user ? (
-                          <>
-                              <p>{`${user.nombre} ${user.apellido ? user.apellido : ''}`}</p>
-                              <Button variant="success" onClick={logout}>Cerrar sesión</Button>
-                          </>
+                            <Col md={2} className='pe-2'>
+                                <Row className='justify-content-center pb-1'>{`${user.nombre}`}</Row>
+                                <Row><Button  className="header-button" onClick={logout}>Cerrar</Button></Row>
+                            </Col>
                         ) : (
-                          <Button variant="success" onClick={() => setShowLoginModal(true)}>Iniciar sesión</Button>
+                            <Row><Button  className="header-button" onClick={() => setShowLoginModal(true)}>Iniciar sesión</Button></Row>
                         )}
-                      </Col>
+                    </Col>	
                     </Row>
                   </Col>		                
               </Row>
               {showLoginModal && !isLoggedIn && (
                   <LoginPanel />
               )}
-          </div>
+          </Col>
       );
   };
 

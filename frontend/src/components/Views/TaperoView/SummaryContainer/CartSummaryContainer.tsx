@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, Badge, ListGroup, ListGroupItem, Modal } from 'react-bootstrap';
+import { Button, Card, Badge, ListGroup, ListGroupItem, Modal, Row, Col } from 'react-bootstrap';
 import { useCart } from '../CartContext';
 import { displayLcdInfoCliente, clearLcd } from '../LcdService';
 import { OrdenCompraDetallada, OrdenesService } from '../../../../codegen_output';
@@ -64,44 +64,53 @@ const CartSummaryContainer = () => {
   const handleCloseHistory = () => setShowHistory(false);
 
   return (
-    <Card className="mt-3">
-      <Card.Header className="bg-primary text-white">
-        <div className="d-flex justify-content-between align-items-center">
-          <h4 className="mb-0">Resumen del carrito</h4>
-            <Badge bg="warning" text="dark">
-              ${maxAmount.toFixed(2)} MAX              
-            </Badge>                      
-        </div>
+    <Card className="mt-3 separador-principal">
+      <Card.Header className="bg-dark text-white">
+        <h4 className="mb-0">Resumen del carrito</h4>
       </Card.Header>
-      <Card.Body>
+      <Card.Body className='cart-summary-body'>
         <Card.Title className="mb-4 text-center">
-          <Button variant="light" size="lg" onClick={handleShowHistory}>
-            <h2 >
-              {clienteSiendoAtendido.nombre}
-            </h2>
-          </Button>
+          <Row className='align-items-center'>
+            <Col>
+              <h5>
+                <Badge pill className='items-pill' >
+                  {itemCount} {itemCount === 1 ? 'item' : 'items'}
+                </Badge>
+              </h5>
+            </Col>
+            <Col>
+              <Button className='items-pill' size="lg" onClick={handleShowHistory}>
+                <h2 >
+                  {clienteSiendoAtendido.nombre}
+                </h2>
+              </Button>
+            </Col>
+            <Col>
+              <Badge pill bg="warning" text="dark" className='text-white'>
+                <Row className='px-3 pb-1'>$ {maxAmount.toFixed(0)}</Row>
+                <Row className='justify-content-center'>MAX</Row>
+              </Badge>
+            </Col>
+          </Row>
         </Card.Title>
         <ListGroup className="mb-4">
           <ListGroupItem className='d-flex justify-content-between'>
             <div>Orden <strong> #{ordenCliente.id} </strong></div>
             <div>Pedido <strong> #{pedidoEnCurso?.id} </strong></div>            
-            <h5><Badge bg="info" pill>
-              {itemCount} {itemCount === 1 ? 'item' : 'items'}
-            </Badge></h5>
+            
           </ListGroupItem>
           <ListGroupItem className="d-flex justify-content-between align-items-center">
             <strong>Subtotal:</strong>
             <h4 className="mb-0">${subtotal.toFixed(2)}</h4>
           </ListGroupItem>
         </ListGroup>
-        <div className="d-grid gap-3">
-          <Button variant="primary" size="lg" onClick={confirmOrder}>
-            Confirmar
-          </Button>
-          {/* <Button variant="secondary" size="lg" onClick={handleShowHistory}>
-            Ver historial
-          </Button> */}
-        </div>
+        <Row className='d-flex justify-content-center'>
+          <Col md={4}>
+            <Button variant='success' size="lg" onClick={confirmOrder}>
+              Confirmar
+            </Button>
+          </Col>
+        </Row>
       </Card.Body>
 
       <Modal show={showHistory} onHide={handleCloseHistory} size='xl'>
