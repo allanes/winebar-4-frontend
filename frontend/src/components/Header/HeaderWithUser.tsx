@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { Button } from 'react-bootstrap';
-import logoBar from '../../assets/icons/logo.png';
+import { Button, Row, Col } from 'react-bootstrap';
+import logoBar from '../../assets/icons/logo_bn.png';
 import { useAuth } from '../auth/AuthContext';
 import LoginPanel from '../auth/LoginPanel';
 
@@ -23,29 +23,29 @@ const HeaderWithUser: React.FC<HeaderWithUserProps> = ({ title }) => {
     }, [isLoggedIn]);
 
     return (
-        <div className="container-fluid container-header py-1">
-            <div className="row align-items-center">
-                <div className="col d-flex align-items-center">
-                    <img src={logoBar} className="logobar" alt="Logo del bar" />                    
-                </div>
-                <div className="col text-center">
+        <Col className="container-fluid container-header py-1">
+            <Row className="align-items-center">
+                <Col className="ms-2">
                     <h2>{title}</h2>
-                </div>
-                <div className="col text-end">
+                </Col>
+                <Col className="d-flex align-items-center">
+                    <img src={logoBar} className="logobar" alt="Logo del bar" />                    
+                </Col>
+                <Col  className='d-flex justify-content-end'>
                     {isLoggedIn && user ? (
-                        <>
-                            <p>{`${user.nombre} ${user.apellido ? user.apellido : ''}`}</p>
-                            <Button  className="header-button" onClick={logout}>Cerrar sesión</Button>
-                        </>
+                        <Col md={3} className='pe-1'>
+                            <Row >{`${user.nombre} ${user.apellido ? user.apellido : ''}`}</Row>
+                            <Row><Button  className="header-button" onClick={logout}>Cerrar sesión</Button></Row>
+                        </Col>
                     ) : (
-                        <Button  className="header-button" onClick={() => setShowLoginModal(true)}>Iniciar sesión</Button>
+                        <Row><Button  className="header-button" onClick={() => setShowLoginModal(true)}>Iniciar sesión</Button></Row>
                     )}
-                </div>		
-            </div>
+                </Col>		
+            </Row>
             {showLoginModal && !isLoggedIn && (
                 <LoginPanel />
             )}
-        </div>
+        </Col>
     );
 };
 

@@ -26,21 +26,14 @@
 
 .new-client-modal-footer .btn {
     // background-color: #8B0000; /* Rich wine color for buttons */
-    background-color: $mi-red-1;
+    background-color: $mi-dark-grey;
     border: none; /* Clean look without borders */
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
 }
 
 .new-client-modal-footer .btn:hover {
-    background-color: $mi-red-1; /* Lighter shade on hover */
+    background-color: $mi-dark-grey; /* Lighter shade on hover */
 }
 
 
 
-.new-client-modal-accordion {
-    background-color: $mi-dark-red-1;
-}
-
-.new-client-modal-accordion *{
-    color: $mi-white;
-}
