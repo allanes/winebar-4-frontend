@@ -17,7 +17,7 @@ const CajeroView = () => {
       <Container fluid className="cajero-background">
         {isLoggedIn && (
           <>
-            <Row className="mb-4 pb-5">
+            <Row className="mb-5 pb-5">
               <Col className='d-flex justify-content-center'>
                 <AccionesPanel />
               </Col>
