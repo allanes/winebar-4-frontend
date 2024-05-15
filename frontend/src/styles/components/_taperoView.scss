@@ -1,6 +1,6 @@
 .main {
-  max-width: 1024px;
-  height: 600px;
+  max-width: 1000px;
+  max-height: 570px;
   margin: 0 auto;
   padding: 0;
   display: flex;
@@ -36,7 +36,7 @@
 }
 
 .cart {
-  background-color: $mi-light-grey;
+  background-color: $mi-light-grey-2;
   padding: 10px;
   display: flex;
   // border: 5px solid gray;
@@ -51,7 +51,7 @@
 }
 
 .cart-items {
-  background-color: $mi-light-grey;
+  background-color: $mi-light-grey-2;
   text-align: center;
   flex: 1;
   overflow-y: auto;
@@ -59,12 +59,12 @@
 
 .cart-summary {
   flex: 1;
-  background-color: $mi-light-grey;
+  background-color: $mi-light-grey-2;
   padding: 10px;
 }
 
 .cart-summary-body {
-  background-color: $mi-light-grey;
+  background-color: $mi-white;
   // padding: 10px;
 }
 
@@ -129,6 +129,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
     overflow: hidden;
+    background-color: $mi-white;
   
     .card-content {
       padding: 10px;
@@ -163,17 +164,40 @@
   
     .cart-item-button {
       font-size: 1.7rem;
-      padding: 5px;
+      padding: 5px 8px;
+      background-color: $mi-white;
+      border-color: $mi-white;
     }
   
     .cart-item-remove {
       font-size: 1.8rem;
-      padding: 5px;
+      padding: 5px 8px;
       margin-left: 10px;
+      background-color: $mi-white;
+      border-color: $mi-white;
     }
   }
 
 .items-pill{
-  background-color: $mi-dark-grey !important;
-  border-color: $mi-dark-grey !important;
+  background-color: $mi-dark-grey-2 !important;
+  border-color: $mi-dark-grey-2 !important;
+}
+
+.light-background{
+  background-color: $mi-white;
+}
+
+.change-qty-button{
+  background-color: $mi-light-grey-2;
+  border-radius: 50%;
+  // color: $mi-white;
+}
+
+.see-el{
+  background-color: red !important;
+  border-radius: 50%;
+}
+
+.see-elle{
+  background-color: blue !important;
 }

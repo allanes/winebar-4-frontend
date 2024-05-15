@@ -65,49 +65,49 @@ const CartSummaryContainer = () => {
 
   return (
     <Card className="mt-3 separador-principal">
-      <Card.Header className="bg-dark text-white">
+      <Card.Header className="items-pill text-white">
         <h4 className="mb-0">Resumen del carrito</h4>
       </Card.Header>
       <Card.Body className='cart-summary-body'>
         <Card.Title className="mb-4 text-center">
           <Row className='align-items-center'>
             <Col>
-              <h5>
+              <h4>
                 <Badge pill className='items-pill' >
                   {itemCount} {itemCount === 1 ? 'item' : 'items'}
                 </Badge>
-              </h5>
+              </h4>
             </Col>
             <Col>
               <Button className='items-pill' size="lg" onClick={handleShowHistory}>
-                <h2 >
+                <h2>
                   {clienteSiendoAtendido.nombre}
                 </h2>
               </Button>
             </Col>
             <Col>
-              <Badge pill bg="warning" text="dark" className='text-white'>
+              <h4><Badge pill bg="warning" text="dark" className='text-white'>
                 <Row className='px-3 pb-1'>$ {maxAmount.toFixed(0)}</Row>
                 <Row className='justify-content-center'>MAX</Row>
-              </Badge>
+              </Badge></h4>
             </Col>
           </Row>
         </Card.Title>
         <ListGroup className="mb-4">
-          <ListGroupItem className='d-flex justify-content-between'>
+          <ListGroupItem className='d-flex justify-content-between light-background'>
             <div>Orden <strong> #{ordenCliente.id} </strong></div>
             <div>Pedido <strong> #{pedidoEnCurso?.id} </strong></div>            
             
           </ListGroupItem>
-          <ListGroupItem className="d-flex justify-content-between align-items-center">
+          <ListGroupItem className="d-flex justify-content-between align-items-center light-background">
             <strong>Subtotal:</strong>
             <h4 className="mb-0">${subtotal.toFixed(2)}</h4>
           </ListGroupItem>
         </ListGroup>
-        <Row className='d-flex justify-content-center'>
-          <Col md={4}>
+        <Row>
+          <Col className='d-flex justify-content-center'>
             <Button variant='success' size="lg" onClick={confirmOrder}>
-              Confirmar
+              <h2>Confirmar</h2>
             </Button>
           </Col>
         </Row>
