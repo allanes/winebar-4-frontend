@@ -1,5 +1,5 @@
 .form-background {
-  background-color: #beb375;
+  background-color: $mi-grey;
 }
 
 .transparent-card {
@@ -12,4 +12,8 @@
   background-color: rgba(255, 255, 255, 0.0); /* Change the alpha value for more or less transparency */
   border: none; /* Optionally remove the border for a cleaner look */
   // margin-top: 10px;
+}
+
+.text-white {
+  color: $mi-white;
 }

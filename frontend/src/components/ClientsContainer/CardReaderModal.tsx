@@ -18,7 +18,7 @@ const CardReaderModal: React.FC<CardReaderModalProps> = ({ show, onHide, title, 
   return (
     <Modal show={show} onHide={onHide} centered >
       <Modal.Header closeButton className='card-reader-modal'>
-        <Modal.Title>{title || 'Lectura de Tarjeta'}</Modal.Title>
+        <Modal.Title>{title || 'Esperando tarjeta'}</Modal.Title>
       </Modal.Header>
       <Modal.Body className='card-reader-modal'>
         <CardReaderInput onCardRead={handleCardRead} />

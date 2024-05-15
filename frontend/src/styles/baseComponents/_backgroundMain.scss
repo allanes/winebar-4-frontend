@@ -1,36 +1,41 @@
 .cajero-background {
     /* Base color */
-    background-color: #a52a2a; /* Deep wine red */
+    // background-color: #a52a2a; /* Deep wine red */
+    background-color: $mi-grey;
       
-    /* Noise effect with multiple shadows for depth */
-    background-image: 
-        radial-gradient(circle, 
-            rgba(255, 255, 255, 0.2) 70%, 
-            transparent 30%
-        ),
-        radial-gradient(circle, 
-            rgba(0, 0, 0, 0.2) 30%, 
-            transparent 30%
-        );
-    background-size: 20px 20px, 60px 60px;
-    background-position: 5 5, 60px 60px;
+    // /* Noise effect with multiple shadows for depth */
+    // background-image: 
+    //     radial-gradient(circle, 
+    //         rgba(255, 255, 255, 0.2) 70%, 
+    //         transparent 30%
+    //     ),
+    //     radial-gradient(circle, 
+    //         rgba(0, 0, 0, 0.2) 30%, 
+    //         transparent 30%
+    //     );
+    // background-size: 20px 20px, 60px 60px;
+    // background-position: 5 5, 60px 60px;
   
-    /* Linear gradient for subtle fade effect */
-    background-image: 
-        linear-gradient(to right, 
-            rgba(165, 42, 42, 0.65), 
-            rgba(165, 42, 42, 0.85) 50%, 
-            rgba(165, 42, 42, 1)
-        ),
-        radial-gradient(circle, 
-            rgba(255, 255, 255, 0.15) 2px, 
-            transparent 2px
-        ),
-        radial-gradient(circle, 
-            rgba(0, 0, 0, 0.15) 2px, 
-            transparent 2px
-        );
+    // /* Linear gradient for subtle fade effect */
+    // background-image: 
+    //     linear-gradient(to right, 
+    //         // rgba(165, 42, 42, 0.65), 
+    //         // rgba(165, 42, 42, 0.85) 50%, 
+    //         // rgba(165, 42, 42, 1)
+    //         rgba(92, 84, 84, 0.65), 
+    //         rgba(126, 116, 116, 0.65) 50%, 
+    //         rgba(170, 156, 156, 0.65)
+    //     ),
+    //     radial-gradient(circle, 
+    //         rgba(255, 255, 255, 0.15) 2px, 
+    //         transparent 2px
+    //     ),
+    //     radial-gradient(circle, 
+    //         rgba(0, 0, 0, 0.15) 2px, 
+    //         transparent 2px
+    //     );
   
-    background-blend-mode: multiply, screen, multiply;
-    background-repeat: repeat;
+    // background-blend-mode: multiply, screen, multiply;
+    // background-repeat: repeat;
+    
 }

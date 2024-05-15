@@ -1,7 +1,7 @@
 .main {
-  max-width: 1024px;
-  height: 600px;
-  margin: 0 auto;
+  max-width: 1000px;
+  max-height: 570px;
+  margin: 0 0;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -18,7 +18,7 @@
 .menu-container {
   overflow-x: auto;
   padding: 10px;
-  background-color: #f8f9fa;
+  background-color: $mi-grey;
   // border: 5px solid lightblue;
   flex: 1;
 }
@@ -28,13 +28,15 @@
 }
 
 .separador-principal {
-  border: 5px solid lightblue;
-  padding: 10px;
+  border: 3px solid $mi-white;
+  // padding: 10px;
+  margin: 2px;
+  margin-left: 20px;
   border-radius: 10px;
 }
 
 .cart {
-  background-color: #e9ecef;
+  background-color: $mi-light-grey-2;
   padding: 10px;
   display: flex;
   // border: 5px solid gray;
@@ -49,7 +51,7 @@
 }
 
 .cart-items {
-  background-color: #f8f9fa;
+  background-color: $mi-light-grey-2;
   text-align: center;
   flex: 1;
   overflow-y: auto;
@@ -57,11 +59,14 @@
 
 .cart-summary {
   flex: 1;
-  background-color: #e9ecef;
+  background-color: $mi-light-grey-2;
   padding: 10px;
 }
 
-
+.cart-summary-body {
+  background-color: $mi-white;
+  // padding: 10px;
+}
 
 // .cart-item-buttons {
 //     display: flex;
@@ -124,6 +129,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
     overflow: hidden;
+    background-color: $mi-white;
   
     .card-content {
       padding: 10px;
@@ -158,12 +164,40 @@
   
     .cart-item-button {
       font-size: 1.7rem;
-      padding: 5px;
+      padding: 5px 8px;
+      background-color: $mi-white;
+      border-color: $mi-white;
     }
   
     .cart-item-remove {
       font-size: 1.8rem;
-      padding: 5px;
+      padding: 5px 8px;
       margin-left: 10px;
+      background-color: $mi-white;
+      border-color: $mi-white;
     }
   }
+
+.items-pill{
+  background-color: $mi-dark-grey-2 !important;
+  border-color: $mi-dark-grey-2 !important;
+}
+
+.light-background{
+  background-color: $mi-white;
+}
+
+.change-qty-button{
+  background-color: $mi-light-grey-2;
+  border-radius: 50%;
+  // color: $mi-white;
+}
+
+.see-el{
+  background-color: red !important;
+  border-radius: 50%;
+}
+
+.see-elle{
+  background-color: blue !important;
+}

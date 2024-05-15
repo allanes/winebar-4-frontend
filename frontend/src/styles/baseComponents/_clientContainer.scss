@@ -1,27 +1,28 @@
-.new-client-modal-content {
-    background-color: rgba(51, 0, 0, 0.9); /* Dark, semi-transparent background */
-    // color: $mi-white; /* Light text for contrast */
-    border-radius: 10px; /* Softened edges */
-    border: 1px solid $mi-red-1; /* Subtle border to fit the theme */
-}
+// .new-client-modal-content {
+    // background-color: $mi-dark-grey-2, 80%; /* Dark, semi-transparent background */
+    // // color: $mi-white; /* Light text for contrast */
+    // border-radius: 10px; /* Softened edges */
+    // border: 1px solid $mi-red-1; /* Subtle border to fit the theme */
+// }
 
 .new-client-modal-header, .new-client-modal-footer {
-    border-bottom: 1px solid $mi-red-1; /* Cohesive border style */
-    border-top: 1px solid $mi-red-1; /* For the footer */
-    background: linear-gradient(to right, $mi-dark-red-1, $mi-dark-red-2); /* Dark gradient background */
+    // border-bottom: 1px solid $mi-red-1; /* Cohesive border style */
+    // border-top: 1px solid $mi-red-1; /* For the footer */
+    // background: linear-gradient(to right, $mi-dark-red-1, $mi-dark-red-2); /* Dark gradient background */
+    background-color: $mi-light-grey
 }
 
 .new-client-modal-body {
-    border-bottom: 1px solid $mi-gold; /* Cohesive border style */
-    border-top: 1px solid $mi-gold; /* For the footer */
-    background: linear-gradient(to right, $mi-dark-red-1, $mi-dark-red-2); /* Dark gradient background */
-    background-color: rgba(255, 255, 255, 0.3);
+    // border-bottom: 1px solid $mi-gold; /* Cohesive border style */
+    // border-top: 1px solid $mi-gold; /* For the footer */
+    // background: linear-gradient(to right, $mi-dark-red-1, $mi-dark-red-2); /* Dark gradient background */
+    // background-color: rgba(255, 255, 255, 0.3);
     justify-content: center;
     display: flex;
 }
 
 .new-client-modal-title {
-    color: $mi-gold; /* Gold color for a bit of luxury */
+    color: $mi-white /* Gold color for a bit of luxury */
 }
 
 .new-client-modal-footer .btn {
