@@ -25,4 +25,20 @@
   border: 2px solid #FFD700; /* Brighter gold on hover */
 }
 
+.status-badge-tapero {
+  font-size: 1.0rem; // Adjust the font size as needed
+  .badge-label-tapero {
+    margin-left: 3px;
+  }
+}
+
+.status-badge {
+  font-size: 0.8rem; // Adjust the font size as needed
+  width: 150px;
+  background-color: $mi-light-grey !important;
+  color: $mi-white !important;
+  .badge-label {
+    margin-left: 3px;
+  }
+}
 

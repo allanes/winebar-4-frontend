@@ -3,8 +3,8 @@
   import logoBar from '../../../assets/icons/logo_bn.png';
   import { useAuth } from '../../auth/AuthContext';
   import LoginPanel from '../../auth/LoginPanel';
-  import { PatchCheckFill, XCircleFill, CheckLg } from 'react-bootstrap-icons';
-  import { LectoresDeTapasService, LectorTapaReceive } from '../../../codegen_output';
+  import { HeaderStatusBadgeTapero } from '../../Header/HeaderStatusBadge';
+  import { LectoresDeTapasService, LectorTapaReceive, VinosService } from '../../../codegen_output';
 
   interface TaperoHeaderProps {
       title: string;
@@ -15,6 +15,7 @@
       const { isLoggedIn, user, login, logout } = useAuth();
       const [keyboardCount, setKeyboardCount] = useState(0);
       const [lcdStatus, setLcdStatus] = useState(false);
+      const [vitteIsOnline, setVitteIsOnline] = useState(false);
 
       useEffect(() => {
           if (!isLoggedIn && showLoginModal) {
@@ -58,53 +59,47 @@
               }
           };
 
+          const fetchVitteStatus = async () => {
+            try {
+                const response = await VinosService.handleCheckHealthBackendApiV1VinosCheckHealthGet();
+                setVitteIsOnline(true); // Assuming the API just returns a successful response if healthy
+            } catch (error) {
+                console.error('Failed to check Vitte health:', error);
+                setVitteIsOnline(false);
+            }
+          }
+
           fetchKeyboardCount();
           fetchLcdStatus();
+          fetchVitteStatus();
       }, []);
 
       return (
           <Col className="container-fluid container-header text-white pt-1 pb-1">
               <Row className="align-items-center">
-                  <Col md={4}>
-                    {/* <Row className='align-items-center'>
-                      <Col md={3}>
-                        <img src={logoBar} className="float-start logobar" alt="Logo del bar" />
+                  <Col >
+                    <Row className='mb-1'>
+                      <Col>
+                        <HeaderStatusBadgeTapero 
+                          status={vitteIsOnline} 
+                          label={`Vitte`} 
+                        />
+                      </Col>
+                      <Col>
+                        <HeaderStatusBadgeTapero 
+                          status={keyboardCount > 0} 
+                          label={`Lectores (${keyboardCount})`} 
+                        />
                       </Col>
                     </Row>
-                    <Row > */}
-                      <Row md={4}>
-                        <Badge bg='info'>
-                          {keyboardCount > 0 ? (
-                            <CheckLg className='text-success' />
-                          ) : (
-                            <XCircleFill className='text-danger' />
-                          )}                          
-                          {' Lectores '}
-                          {keyboardCount > 0 && `(${keyboardCount})`}
-                        </Badge>
-                      </Row>
-                      <Row md={4}>
-                        <Badge bg='info'>
-                          {keyboardCount > 0 ? (
-                            <CheckLg className='text-success' />
-                          ) : (
-                            <XCircleFill className='text-danger' />
-                          )}                          
-                          {' Lectores '}
-                          {keyboardCount > 0 && `(${keyboardCount})`}
-                        </Badge>
-                      </Row>
-                      <Row md={4}>
-                        <Badge bg='info'>
-                            {lcdStatus ? (
-                                <CheckLg className='text-success' />
-                            ) : (
-                                <XCircleFill className='text-danger' />
-                            )}
-                            {' Pantalla cliente'}
-                        </Badge>
-                      </Row>
-                    {/* </Row> */}
+                    <Row>
+                      <Col>
+                        <HeaderStatusBadgeTapero 
+                          status={lcdStatus} 
+                          label={'Pantalla cliente'}
+                        />
+                      </Col>
+                    </Row>
                   </Col>
                   <Col className="d-flex align-items-center">
                     <img src={logoBar} className="logobar-small" alt="Logo del bar" />                    
@@ -113,10 +108,7 @@
                     <Row>
                       <Col  className='d-flex justify-content-end'>
                         {isLoggedIn && user ? (
-                            <Col md={2} className='pe-2'>
-                                <Row className='justify-content-center pb-1'>{`${user.nombre}`}</Row>
-                                <Row><Button  className="header-button" onClick={logout}>Cerrar</Button></Row>
-                            </Col>
+                            <Row className='pe-3 '><Button  className="header-button" onClick={logout}>{`Cerrar Sesion (${user.nombre})`}</Button></Row>
                         ) : (
                             <Row><Button  className="header-button" onClick={() => setShowLoginModal(true)}>Iniciar sesión</Button></Row>
                         )}
