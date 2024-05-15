@@ -1,0 +1,44 @@
+.container-header{
+  background-color: $mi-black;
+  color: $mi-white;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.header-button {
+  // background-image: linear-gradient(to bottom, #8B0000, #000000);
+  background-color: $mi-dark-grey;
+  border: 2px solid $mi-white;
+  color: $mi-white;
+  font-weight: bold;
+  // padding: 10px 20px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adds shadow for depth */
+  text-shadow: 1px 1px 2px black; /* Adds shadow to text */
+}
+
+.header-button:hover {
+  background-image: linear-gradient(to bottom, #A00000, #000000);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7); /* Larger shadow on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
+  border: 2px solid #FFD700; /* Brighter gold on hover */
+}
+
+.status-badge-tapero {
+  font-size: 1.0rem; // Adjust the font size as needed
+  .badge-label-tapero {
+    margin-left: 3px;
+  }
+}
+
+.status-badge {
+  font-size: 0.8rem; // Adjust the font size as needed
+  width: 150px;
+  background-color: $mi-light-grey !important;
+  color: $mi-white !important;
+  .badge-label {
+    margin-left: 3px;
+  }
+}
+

@@ -29,6 +29,19 @@ export class VinosService {
         });
     }
     /**
+     * Handle Check Health
+     * Endpoint to check the health of the Vitte API.
+     * Returns the status of the API.
+     * @returns string Successful Response
+     * @throws ApiError
+     */
+    public static handleCheckHealthBackendApiV1VinosCheckHealthGet(): CancelablePromise<string> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/vinos/check-health',
+        });
+    }
+    /**
      * Handle Read Vino By Product Id
      * @param productId
      * @returns Vino Successful Response

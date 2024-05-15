@@ -14,11 +14,11 @@ const CajeroView = () => {
       <HeaderWithUser 
         title='Cajero'
       />
-      <Container fluid>
+      <Container fluid className="cajero-background">
         {isLoggedIn && (
           <>
-            <Row className="mb-4">
-              <Col>
+            <Row className="mb-5 pb-5">
+              <Col className='d-flex justify-content-center'>
                 <AccionesPanel />
               </Col>
               <Col>

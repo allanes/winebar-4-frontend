@@ -1,0 +1,27 @@
+.login-modal {
+    .modal-content {
+    background-color: rgba(0, 0, 0, 0.85); // Dark semi-transparent background
+    color: white; // Ensuring text is readable
+    border-radius: 10px; // Rounded corners for modal
+    border: 1px solid $mi-orange-2; // Subtle border color
+    }
+
+    .modal-header, .modal-body {
+    border-color: $mi-orange-2; // Ensuring cohesive design
+    background: linear-gradient(to right, $mi-dark-grey, $mi-dark-grey-2); // Dark gradient for visual depth
+    }
+
+    .modal-title {
+    color: $mi-orange-2; // Highlight the title to make it pop
+    }
+
+    .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    margin: 20px;
+    }
+}
+
+
+
+  

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Cliente, ClientesService, ClienteCreate, ClienteWithDetails, ApiError, DetallesAdicionalesForUI } from '../../codegen_output';
-import { ClientsCreate } from './ClientsCreate';
+import { ClientesService, ClienteCreate, ClienteWithDetails, ApiError, DetallesAdicionalesForUI } from '../../codegen_output';
+import ClientsCreateModal from './ClientsCreateModal';
 import { ClientsList } from './ClientsList';
-import { Modal, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { AddPersonalButton } from '../PersonalContainer/AddPersonalButton';
 import Swal from 'sweetalert2';
 
@@ -78,14 +78,11 @@ export const ClientsContainer = () => {
         </Col>
       </Row>
       
-      <Modal show={showCreateModal} onHide={handleCloseCreateModal} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Agregar Cliente</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <ClientsCreate onNewClient={handleNewClient} />
-        </Modal.Body>
-      </Modal>
+      <ClientsCreateModal
+        show={showCreateModal}
+        onHide={handleCloseCreateModal}
+        onNewClient={handleNewClient}
+      />
       
     </div>
   );

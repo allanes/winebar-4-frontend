@@ -9,6 +9,17 @@ import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
 export class ConfiguracionService {
     /**
+     * Handle Get Last Configuracion
+     * @returns Configuracion Successful Response
+     * @throws ApiError
+     */
+    public static handleGetLastConfiguracionBackendApiV1ConfiguracionesLastGet(): CancelablePromise<Configuracion> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/configuraciones/last',
+        });
+    }
+    /**
      * Handle Read Configuracion By Id
      * @param id
      * @returns Configuracion Successful Response
@@ -26,17 +37,6 @@ export class ConfiguracionService {
             errors: {
                 422: `Validation Error`,
             },
-        });
-    }
-    /**
-     * Handle Get Last Configuracion
-     * @returns Configuracion Successful Response
-     * @throws ApiError
-     */
-    public static handleGetLastConfiguracionBackendApiV1ConfiguracionesLastGet(): CancelablePromise<Configuracion> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/backend/api/v1/configuraciones/last',
         });
     }
     /**

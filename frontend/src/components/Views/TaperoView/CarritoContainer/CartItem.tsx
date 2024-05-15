@@ -57,11 +57,11 @@ function CartItem({ item }: Props) {
           {/* Quantity Buttons */}
           <div className="cart-item-quantity">
             <Button variant="light" onClick={handleDecreaseQuantity} className="cart-item-button">
-              <DashCircle />
+              <DashCircle className="change-qty-button"/>
             </Button>
             <span>{item.cantidad}</span>
             <Button variant="light" onClick={handleIncreaseQuantity} className="cart-item-button">
-              <PlusCircle />
+              <PlusCircle className="change-qty-button"/>
             </Button>
           </div>
           {/* Product Details */}
@@ -71,7 +71,7 @@ function CartItem({ item }: Props) {
           </div>
           {/* Remove Button */}
           <Button variant="danger" onClick={handleRemoveFromCart} className="cart-item-remove">
-            <XCircle />
+            <XCircle className="see-el"/>
           </Button>
         </div>
       </div>

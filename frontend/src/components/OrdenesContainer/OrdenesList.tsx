@@ -2,12 +2,11 @@ import React, {useState} from 'react';
 import { OrdenCompra, OrdenesService, OrdenCompraDetallada } from '../../codegen_output';
 import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge';
 import deleteIcon from '../../assets/icons/outline_delete_white_24dp.png';
-import { Badge, Col, Row, Button, Modal } from 'react-bootstrap';
+import { Badge, Col, Row, Button, Modal, Card, Table } from 'react-bootstrap';
 import Swal from 'sweetalert2';
-import { CheckCircleFill } from 'react-bootstrap-icons';
+import { CheckCircleFill, FiletypePdf } from 'react-bootstrap-icons';
 import OrdenView from './OrdenView';
 import { handleApiError } from '../ClientsContainer/ClientsContainer';
-import { FiletypePdf } from 'react-bootstrap-icons';
 
 interface Props {
   ordenesList: Array<OrdenCompraDetallada>;
@@ -119,17 +118,14 @@ export const OrdenesList = ({
   const selectedKeys = columnasReducidas ? keysTabOrdenReducido : keysTabOrden;
 
   return (
-    <>
-      <Col className={`justify-content-center`}>
-        <Row>
-          {!columnasReducidas &&
-            <h3 className="text-center mb-1 table-container-xl">Lista de Ordenes</h3>            
-          }
-        </Row>
-        <Row>
-          <table className={`table table-striped table-hover table-container-${columnasReducidas ? 'm' : 'xl'}`}>
-            <thead className="table-success sticky-top pt-3">
-            <tr>
+    <Card className="mb-4 transparent-card">
+      <Card.Header as="h3" className='text-center table-container-title'>
+        Lista de Ordenes
+      </Card.Header>
+      <Card.Body>
+        <Table striped hover variant='dark'>
+            <thead>
+              <tr>
                 {selectedKeys.map((item, index) => (
                   <th key={index}>{item}</th>
                 ))}
@@ -186,21 +182,21 @@ export const OrdenesList = ({
                 </tr>
               ))}
             </tbody>
-          </table>
-        </Row>
-      </Col>
-      <Modal show={showOrdenView} onHide={handleCloseOrdenView} centered size="xl">
-        <Modal.Header closeButton>
-          <Modal.Title>Detalle de Orden</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {selectedOrden && (
-            <OrdenView 
-              ordenData={selectedOrden} 
-            />
-          )}
-        </Modal.Body>
-      </Modal>
-    </>
+          </Table>
+        </Card.Body>
+        
+        <Modal show={showOrdenView} onHide={handleCloseOrdenView} centered size="xl">
+          <Modal.Header closeButton>
+            <Modal.Title>Detalle de Orden</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {selectedOrden && (
+              <OrdenView 
+                ordenData={selectedOrden} 
+              />
+            )}
+          </Modal.Body>
+        </Modal>
+    </Card>
   );
 };

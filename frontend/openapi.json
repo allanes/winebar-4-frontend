@@ -2027,23 +2027,19 @@
         "operationId": "handle_read_ordens_backend_api_v1_ordenes__get",
         "parameters": [
           {
-            "name": "skip",
+            "name": "para_turno_abierto",
             "in": "query",
             "required": false,
             "schema": {
-              "type": "integer",
-              "default": 0,
-              "title": "Skip"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "default": 100,
-              "title": "Limit"
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Para Turno Abierto"
             }
           }
         ],
@@ -2564,6 +2560,29 @@
         }
       }
     },
+    "/backend/api/v1/vinos/check-health": {
+      "get": {
+        "tags": [
+          "Vinos"
+        ],
+        "summary": "Handle Check Health",
+        "description": "Endpoint to check the health of the Vitte API.\nReturns the status of the API.",
+        "operationId": "handle_check_health_backend_api_v1_vinos_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "title": "Response Handle Check Health Backend Api V1 Vinos Check Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/backend/api/v1/vinos/{product_id}": {
       "get": {
         "tags": [
@@ -2797,6 +2816,27 @@
         }
       }
     },
+    "/backend/api/v1/configuraciones/last": {
+      "get": {
+        "tags": [
+          "Configuracion"
+        ],
+        "summary": "Handle Get Last Configuracion",
+        "operationId": "handle_get_last_configuracion_backend_api_v1_configuraciones_last_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Configuracion"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/backend/api/v1/configuraciones/{id}": {
       "get": {
         "tags": [
@@ -2832,27 +2872,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/backend/api/v1/configuraciones/last": {
-      "get": {
-        "tags": [
-          "Configuracion"
-        ],
-        "summary": "Handle Get Last Configuracion",
-        "operationId": "handle_get_last_configuracion_backend_api_v1_configuraciones_last_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Configuracion"
                 }
               }
             }

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { OrdenCompra, OrdenesService, OrdenCompraDetallada } from '../../../codegen_output';
-import CardReaderInput from '../../ClientsContainer/CardReaderInput';
 import OrdenView from '../../OrdenesContainer/OrdenView';
 import { handleApiError } from '../../ClientsContainer/ClientsContainer';
+import CardReaderModal from '../../ClientsContainer/CardReaderModal';
 
 interface PanelCobroProps {
   show: boolean;
@@ -19,7 +19,7 @@ const PanelCobroOrden: React.FC<PanelCobroProps> = ({ show, onHide }) => {
     try {
       const response = await OrdenesService.handleReadOrdenByClientRfidBackendApiV1OrdenesByRfidTarjetaIdGet(Number(tarjetaId));
       setOrdenData(response);
-      setTarjetaIdCliente(tarjetaId);
+      setTarjetaIdCliente(tarjetaId); // Setting the tarjetaId to trigger the order view
     } catch (error) {
       console.error('Error reading card:', error);
       handleApiError(error);
@@ -33,22 +33,29 @@ const PanelCobroOrden: React.FC<PanelCobroProps> = ({ show, onHide }) => {
   };
   
   return (
-    <Modal show={show} onHide={handleClose} centered size="xl">
-      <Modal.Header closeButton>
-        <Modal.Title>Panel de Cobro</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        {tarjetaIdCliente && ordenData ? (
-          <div style={{ position: 'relative', zIndex: 1050 }}>
-            <OrdenView 
-              ordenData={ordenData}
-            />
-          </div>
+    <>
+      {show && (
+        ordenData ? (
+          <Modal show={true} onHide={handleClose} centered size="xl">
+            <Modal.Header closeButton className='panel-cobro-modal'>
+              <Modal.Title className='text-white'>Panel de Cobro</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className='panel-cobro-modal'>
+              <OrdenView 
+                ordenData={ordenData}
+              />
+            </Modal.Body>
+          </Modal>
         ) : (
-          <CardReaderInput onCardRead={handleCardReadWrapper} />
-        )}
-      </Modal.Body>
-    </Modal>
+          <CardReaderModal
+            show={true}
+            onCardRead={handleCardReadWrapper}
+            onHide={handleClose}
+            title='Panel de Cobro' 
+          />
+        )
+      )}
+    </>
   );
 };
 

@@ -30,10 +30,9 @@ const CardReaderInput: React.FC<CardReaderInputProps> = ({ onCardRead }) => {
 
   return (
     <div className="text-center">
+      <p>{cardNumber}</p>
+      <Spinner animation="border" className='mb-4 mt-3'/>
       <p>Acerque la tarjeta al lector</p>
-      <Spinner animation="border" />
-      {/* Display card number for debugging */}
-      <p>Numero: {cardNumber}</p>
     </div>
   );
 };

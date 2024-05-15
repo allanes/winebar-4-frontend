@@ -3,7 +3,7 @@ import { Tapa, TapasService, Producto, TapaConProductoCreate, LectorTapa, Lector
 import deleteIcon from '../../assets/icons/outline_delete_white_24dp.png';
 import editIcon from '../../assets/icons/outline_edit_white_24dp.png';
 import { handleApiError } from '../ClientsContainer/ClientsContainer';
-import { Modal } from 'react-bootstrap';
+import { Modal, Table } from 'react-bootstrap';
 import { TapasList } from '../TapasContainer/TapasList';
 import Swal from 'sweetalert2';
 
@@ -64,8 +64,8 @@ export const LectorTapasList = ({ lectoresTapasList, handleUpdateListado }: Prop
       <div className='table-container-m text-center mb-1'>
         <p className='h3'>Lista de Lectores de Tapas</p>
       </div>
-      <table className='table table-striped table-hover table-container-m'>
-        <thead className='table-success'>
+      <Table striped hover className='table-container-m'>
+        <thead>
           <tr>
             {keysTabTapa.map((item, index) => (
               <th key={index}>{item}</th>
@@ -97,7 +97,7 @@ export const LectorTapasList = ({ lectoresTapasList, handleUpdateListado }: Prop
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
 
       <Modal show={showUpdateModal} onHide={handleCloseUpdateModal} size="lg">
         <Modal.Header closeButton>

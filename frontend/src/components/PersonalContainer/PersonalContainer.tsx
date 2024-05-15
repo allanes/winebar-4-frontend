@@ -114,11 +114,11 @@ export const PersonalInternoContainer = () => {
         </Col>
       </Row>
 
-      <Modal show={showModal} onHide={handleCloseModal} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Agregar Personal</Modal.Title>
+      <Modal show={showModal} onHide={handleCloseModal} size="lg" centered>
+        <Modal.Header closeButton className="new-client-modal-header">
+          <Modal.Title className="new-client-modal-title">Agregar Personal</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="new-client-modal-body">
           <PersonalesCreate onNewPersonal={handleNewPersonal} />
         </Modal.Body>
       </Modal>
