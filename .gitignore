@@ -1,2 +1,4 @@
 .aider*
 .venv
+.env
+borrar.yml
