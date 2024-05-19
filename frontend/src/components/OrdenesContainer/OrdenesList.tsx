@@ -12,6 +12,7 @@ interface Props {
   ordenesList: Array<OrdenCompraDetallada>;
   onDeleteOrden: (id: number) => void;
   columnasReducidas?: boolean;
+  onChangeOrdenesGetToggle?: (checked: boolean) => void;
 }
 
 const keysTabOrden = [
@@ -121,6 +122,15 @@ export const OrdenesList = ({
     <Card className="mb-4 transparent-card">
       <Card.Header as="h3" className='text-center table-container-title'>
         Lista de Ordenes
+        {props.onChangeOrdenesGetToggle && (
+          <Form.Check 
+            type="switch"
+            id="ordenes-get-toggle"
+            label="Solo del turno abierto"
+            defaultChecked
+            onChange={(e) => props.onChangeOrdenesGetToggle!(e.target.checked)}
+          />
+        )}
       </Card.Header>
       <Card.Body>
         <Table striped hover variant='dark'>

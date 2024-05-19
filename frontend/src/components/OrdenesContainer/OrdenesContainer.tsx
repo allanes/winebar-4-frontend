@@ -5,17 +5,22 @@ import Swal from 'sweetalert2';
 
 export const OrdenesContainer = () => {
   const [ordenesList, setOrdenesList] = useState<OrdenCompraDetallada[]>([]);
+  const [paraTurnoAbierto, setParaTurnoAbierto] = useState(true);
 
   useEffect(() => {
     fetchOrdenes();
-  }, []);
+  }, [paraTurnoAbierto]);
 
   const fetchOrdenes = () => {
-    OrdenesService.handleReadOrdensBackendApiV1OrdenesGet(true)
+    OrdenesService.handleReadOrdensBackendApiV1OrdenesGet(paraTurnoAbierto)
       .then((ordenes) => {
         setOrdenesList(ordenes);        
       })
       .catch(handleApiError);
+  };
+
+  const handleOrdenesGetToggle = (checked: boolean) => {
+    setParaTurnoAbierto(checked);
   };
 
   const handleApiError = (error: unknown) => {
@@ -39,7 +44,11 @@ export const OrdenesContainer = () => {
 
   return (
     <div>
-      <OrdenesList ordenesList={ordenesList} onDeleteOrden={handleDelete} />
+      <OrdenesList 
+        ordenesList={ordenesList} 
+        onDeleteOrden={handleDelete}
+        onChangeOrdenesGetToggle={handleOrdenesGetToggle}
+      />
     </div>
   );
 };
