@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { OrdenCompra, OrdenesService, OrdenCompraDetallada } from '../../codegen_output';
 import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge';
 import deleteIcon from '../../assets/icons/outline_delete_white_24dp.png';
-import { Badge, Col, Row, Button, Modal, Card, Table } from 'react-bootstrap';
+import { Badge, Col, Row, Button, Modal, Card, Table, Form } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { CheckCircleFill, FiletypePdf } from 'react-bootstrap-icons';
 import OrdenView from './OrdenView';
@@ -47,8 +47,9 @@ const keysTabOrdenReducido = [
 
 export const OrdenesList = ({
   ordenesList,
-  onDeleteOrden: onDeleteOrden_propin,
+  onDeleteOrden,
   columnasReducidas = false,
+  onChangeOrdenesGetToggle,
 }: Props) => {
   const [selectedOrden, setSelectedOrden] = useState<OrdenCompraDetallada | null>(null);
   const [showOrdenView, setShowOrdenView] = useState(false);
@@ -96,7 +97,7 @@ export const OrdenesList = ({
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         Swal.fire('Orden eliminada!', '', 'error');
-        onDeleteOrden_propin(orden.id);
+        onDeleteOrden(orden.id);
       }
     });
   };
@@ -120,17 +121,26 @@ export const OrdenesList = ({
 
   return (
     <Card className="mb-4 transparent-card">
-      <Card.Header as="h3" className='text-center table-container-title'>
-        Lista de Ordenes
-        {props.onChangeOrdenesGetToggle && (
-          <Form.Check 
-            type="switch"
-            id="ordenes-get-toggle"
-            label="Solo del turno abierto"
-            defaultChecked
-            onChange={(e) => props.onChangeOrdenesGetToggle!(e.target.checked)}
-          />
-        )}
+      <Card.Header className='table-container-title'>
+        <Row className='align-items-center'>
+          <Col md={5} >
+            {onChangeOrdenesGetToggle && (
+              <Form.Check 
+                type="switch"
+                id="ordenes-get-toggle"
+                label="Solo del turno abierto"
+                defaultChecked
+                className="form-check-warning"
+                onChange={(e) => onChangeOrdenesGetToggle!(e.target.checked)}
+              />
+            )}
+          </Col>
+          <Col  className='text-start'>
+            <h3>
+              Lista de Ordenes
+            </h3>
+          </Col>
+        </Row>
       </Card.Header>
       <Card.Body>
         <Table striped hover variant='dark'>
