@@ -183,6 +183,8 @@ export class OrdenesService {
      * @param paraTurnoAbierto
      * @param skip
      * @param limit
+     * @param orderBy
+     * @param orderAsc
      * @returns OrdenCompraDetallada Successful Response
      * @throws ApiError
      */
@@ -190,6 +192,8 @@ export class OrdenesService {
         paraTurnoAbierto?: (boolean | null),
         skip?: number,
         limit: number = 100,
+        orderBy: string = '',
+        orderAsc: boolean = true,
     ): CancelablePromise<Array<OrdenCompraDetallada>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -198,6 +202,8 @@ export class OrdenesService {
                 'para_turno_abierto': paraTurnoAbierto,
                 'skip': skip,
                 'limit': limit,
+                'order_by': orderBy,
+                'order_asc': orderAsc,
             },
             errors: {
                 422: `Validation Error`,

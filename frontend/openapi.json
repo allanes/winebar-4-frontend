@@ -2061,6 +2061,26 @@
               "default": 100,
               "title": "Limit"
             }
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Order By"
+            }
+          },
+          {
+            "name": "order_asc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Order Asc"
+            }
           }
         ],
         "responses": {
