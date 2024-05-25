@@ -1,6 +1,6 @@
 // Turno.tsx
 import React, { useState, useEffect } from 'react';
-import { OrdenesList } from '../OrdenesContainer/OrdenesList';
+import { OrdenesList } from '../OrdenesContainer/OrdenesListCard';
 import { OrdenesService, OrdenCompra, OrdenCompraDetallada, Turno } from '../../codegen_output';
 import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge';
 import InfoCard from '../Views/CajeroView/StatusPanel/InfoCard';

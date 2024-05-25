@@ -50,6 +50,7 @@ const AccionesPanel = () => {
             </div>
             <div className="accionable" >
                 <Button 
+                    variant='dark'
                     className="accionable-button" // Apply the custom class
                     disabled={true}
                 >
@@ -61,6 +62,7 @@ const AccionesPanel = () => {
             </div>
             <div className="accionable" >
                 <Button 
+                    variant='dark'
                     className="accionable-button" // Apply the custom class
                     disabled={true}
                 >

@@ -1,5 +1,7 @@
 .accionable-button {
-  background-image: linear-gradient(to right, $mi-gold-dark, $mi-gold-2); /* Wine-colored gradient */
+  // background-image: linear-gradient(to right, $mi-gold-dark, $mi-gold-2); /* Wine-colored gradient */
+  background-color: $mi-dark-grey;
+
   border: none;
   color: white;
   padding: 10px 20px;
