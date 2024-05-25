@@ -31,6 +31,26 @@ export class OrdenesService {
         });
     }
     /**
+     * Handle Read Orden Abierta By Client Name
+     * @param clientName
+     * @returns OrdenCompraDetallada Successful Response
+     * @throws ApiError
+     */
+    public static handleReadOrdenAbiertaByClientNameBackendApiV1OrdenesByNameClientNameGet(
+        clientName: string,
+    ): CancelablePromise<Array<OrdenCompraDetallada>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/ordenes/by-name/{client_name}',
+            path: {
+                'client_name': clientName,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Handle Read Orden By Turno Id
      * @param turnoId
      * @returns OrdenCompraDetallada Successful Response
