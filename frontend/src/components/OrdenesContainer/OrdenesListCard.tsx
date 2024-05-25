@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { OrdenCompraDetallada } from '../../codegen_output';
+import React from 'react';
+import { OrdenCompraDetallada, OrdenesService } from '../../codegen_output';
 import { Card, Col, Row, Form, Modal } from 'react-bootstrap';
-import OrdenView from './OrdenView';
 import { OrdenesListBase } from './OrdenesListBase';
 
 interface Props {
@@ -17,23 +16,6 @@ export const OrdenesList = ({
   columnasReducidas = false,
   onChangeOrdenesGetToggle,
 }: Props) => {
-  const [selectedOrden, setSelectedOrden] = useState<OrdenCompraDetallada | null>(null);
-  const [showOrdenView, setShowOrdenView] = useState(false);
-
-  const handleOrdenClick = async (ordenId: number) => {
-    OrdenesService.handleReadOrdenByIdBackendApiV1OrdenesIdGet(
-      ordenId
-    ).then((ordenDetalladaResponse) => {
-      setSelectedOrden(ordenDetalladaResponse);
-      setShowOrdenView(true);
-    })
-    .catch(handleApiError)
-  };
-
-  const handleCloseOrdenView = () => {
-    setSelectedOrden(null);
-    setShowOrdenView(false);
-  };
 
   return (
     <Card className="mb-4 transparent-card">
@@ -65,18 +47,6 @@ export const OrdenesList = ({
           columnasReducidas={columnasReducidas}
         />
       </Card.Body>
-      <Modal show={showOrdenView} onHide={handleCloseOrdenView} centered size="xl">
-        <Modal.Header closeButton>
-          <Modal.Title>Detalle de Orden</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {selectedOrden && (
-            <OrdenView 
-              ordenData={selectedOrden} 
-            />
-          )}
-        </Modal.Body>
-      </Modal>
     </Card>
   );
 };

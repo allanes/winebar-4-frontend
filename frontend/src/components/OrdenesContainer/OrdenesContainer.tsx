@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { OrdenCompra, OrdenesService, ApiError, OrdenCompraDetallada } from '../../codegen_output';
-import { OrdenesList } from './OrdenesList';
+import { OrdenesList } from './OrdenesListCard';
 import Swal from 'sweetalert2';
 
 export const OrdenesContainer = () => {

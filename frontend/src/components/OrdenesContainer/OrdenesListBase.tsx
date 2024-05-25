@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { OrdenCompra, OrdenCompraDetallada } from '../../codegen_output';
+import { OrdenCompra, OrdenCompraDetallada, OrdenesService } from '../../codegen_output';
 import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge';
 import deleteIcon from '../../assets/icons/outline_delete_white_24dp.png';
-import { Badge, Col, Row, Button, Table } from 'react-bootstrap';
+import { Badge, Col, Row, Button, Table, Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { CheckCircleFill, FiletypePdf } from 'react-bootstrap-icons';
+import { handleApiError } from '../ClientsContainer/ClientsContainer';
+import OrdenView from './OrdenView';
 
 interface Props {
   ordenesList: Array<OrdenCompraDetallada>;
@@ -107,62 +109,77 @@ export const OrdenesListBase = ({
   const selectedKeys = columnasReducidas ? keysTabOrdenReducido : keysTabOrden;
 
   return (
-    <Table striped hover variant='dark'>
-      <thead>
-        <tr>
-          {selectedKeys.map((item, index) => (
-            <th key={index}>{item}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody className="table-group-divider">
-        {ordenesList.map((orden, index) => (
-          <tr key={index} onClick={() => handleOrdenClick(orden.id)}>
-            <th scope="row">{orden.id}</th>
-            {!columnasReducidas && <td>{orden.monto_maximo_orden}</td>}
-            {!columnasReducidas && <td>{orden.turno_id}</td>}
-            <td>{orden.nombre_cliente}</td>
-            <td>${orden.monto_cargado}</td>
-            <td><strong>${orden.monto_cobrado}</strong></td>
-            <td><TimestampFormateadoBadge timestamp={orden.timestamp_apertura_orden} /></td>
-            <td>
-              {orden.timestamp_cierre_orden ?
-                <Col>
-                  <TimestampFormateadoBadge 
-                    timestamp={orden.timestamp_cierre_orden} 
-                    variantToRender='success'
-                  />
-                  <CheckCircleFill color='green' className='ms-1'/>
-                </Col>                        
-              :
-                <Badge bg='danger'>ORDEN ABIERTA</Badge>
-              }
-            </td>
-            {!columnasReducidas && <td>{orden.cerrada_por_nombre}</td>}
-            <td>
-              {!columnasReducidas && 
-                <button
-                  className="icons-border icon--size icon--delete"
-                  type="button"
-                  onClick={() => handleDelete(orden)}
-                >
-                  <img className="icon-img--size" src={deleteIcon} alt="" />
-                </button>
-              }
-            </td>
-            <td>
-              <button
-                onClick={() => downloadPDF(orden.id)}
-                disabled={!orden.cerrada_por}
-                title={!orden.cerrada_por ? "Order must be closed to download PDF" : "Download PDF"}
-                className="btn btn-primary"
-              >
-                <FiletypePdf/>
-              </button>
-            </td>
+    <>
+      <Table striped hover variant='dark'>
+        <thead>
+          <tr>
+            {selectedKeys.map((item, index) => (
+              <th key={index}>{item}</th>
+            ))}
           </tr>
-        ))}
-      </tbody>
-    </Table>
+        </thead>
+        <tbody className="table-group-divider">
+          {ordenesList.map((orden, index) => (
+            <tr key={index} onClick={() => handleOrdenClick(orden.id)}>
+              <th scope="row">{orden.id}</th>
+              {!columnasReducidas && <td>{orden.monto_maximo_orden}</td>}
+              {!columnasReducidas && <td>{orden.turno_id}</td>}
+              <td>{orden.nombre_cliente}</td>
+              <td>${orden.monto_cargado}</td>
+              <td><strong>${orden.monto_cobrado}</strong></td>
+              <td><TimestampFormateadoBadge timestamp={orden.timestamp_apertura_orden} /></td>
+              <td>
+                {orden.timestamp_cierre_orden ?
+                  <Col>
+                    <TimestampFormateadoBadge 
+                      timestamp={orden.timestamp_cierre_orden} 
+                      variantToRender='success'
+                    />
+                    <CheckCircleFill color='green' className='ms-1'/>
+                  </Col>                        
+                :
+                  <Badge bg='danger'>ORDEN ABIERTA</Badge>
+                }
+              </td>
+              {!columnasReducidas && <td>{orden.cerrada_por_nombre}</td>}
+              <td>
+                {!columnasReducidas && 
+                  <button
+                    className="icons-border icon--size icon--delete"
+                    type="button"
+                    onClick={() => handleDelete(orden)}
+                  >
+                    <img className="icon-img--size" src={deleteIcon} alt="" />
+                  </button>
+                }
+              </td>
+              <td>
+                <button
+                  onClick={() => downloadPDF(orden.id)}
+                  disabled={!orden.cerrada_por}
+                  title={!orden.cerrada_por ? "Order must be closed to download PDF" : "Download PDF"}
+                  className="btn btn-primary"
+                >
+                  <FiletypePdf/>
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+
+      <Modal show={showOrdenView} onHide={handleCloseOrdenView} centered size="xl">
+        <Modal.Header closeButton>
+          <Modal.Title>Detalle de Orden</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedOrden && (
+            <OrdenView 
+              ordenData={selectedOrden} 
+            />
+          )}
+        </Modal.Body>
+      </Modal>
+    </>
   );
 };
