@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import HeaderWithUser from '../../Header/HeaderWithUser';
 import AccionesPanel from './AccionesPanel';
 import StatusPanel from './StatusPanel/StatusPanel';
+import BusquedaPanel from './BusquedaPanel/BusquedaPanel';
 import { useAuth } from '../../auth/AuthContext';
 
 
@@ -22,7 +23,12 @@ const CajeroView = () => {
                 <AccionesPanel />
               </Col>
               <Col>
-                <StatusPanel />
+                <Row>
+                  <StatusPanel />
+                </Row>
+                <Row className='mt-3 justify-content-center'>
+                  <BusquedaPanel />
+                </Row>
               </Col>
             </Row>
             
