@@ -28,8 +28,13 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
         setShowInfoCierreForm(true);
     };
 
+    const handleOnHide = () => {
+        onHide();
+        setShowInfoCierreForm(false);
+    }
+
     return (
-        <Modal show={show} onHide={onHide} centered size='lg'>
+        <Modal show={show} onHide={handleOnHide} centered size='lg'>
             <Modal.Header closeButton />
             <Modal.Body>
                 {showInfoCierreForm ? (
@@ -42,11 +47,11 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
                 )}
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={onHide}>
+                <Button variant="secondary" onClick={handleOnHide}>
                     Cancelar
                 </Button>
                 {!showInfoCierreForm && (
-                    <Button variant="primary" onClick={handleContinuar} size='lg'>
+                    <Button className='boton-cop' onClick={handleContinuar} size='lg'>
                         Continuar
                     </Button>
                 )}

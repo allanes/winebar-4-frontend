@@ -88,7 +88,7 @@ const StatusPanel = () => {
           </Row>
       </Card.Body>
       <Card.Footer className='d-flex justify-content-center'>
-        <Button variant='warning' onClick={handleShowCierreDeCajaDetalle}>Cerrar Caja</Button>
+        <Button className='boton-cop' onClick={handleShowCierreDeCajaDetalle}>Cerrar Caja</Button>
       </Card.Footer>
 
       <CierreDeCaja

@@ -4,9 +4,12 @@ import Badge from 'react-bootstrap/Badge';
 interface FormattedTimestampProps {
   timestamp: string;
   variantToRender?: string;
+  className?: string;
 }
 
-const TimestampFormateadoBadge: React.FC<FormattedTimestampProps> = ({ timestamp, variantToRender = 'secondary' }) => {
+const TimestampFormateadoBadge: React.FC<FormattedTimestampProps> = ({ 
+  timestamp, variantToRender = 'secondary', className = ''
+}) => {
   const date = new Date(timestamp);
   const now = new Date();
 
@@ -18,11 +21,19 @@ const TimestampFormateadoBadge: React.FC<FormattedTimestampProps> = ({ timestamp
     ? formattedTime
     : `${formattedTime} (${date.toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })})`;
 
-  return (
-    <Badge pill bg={variantToRender}>
-      {formattedTimestamp}
-    </Badge>
-  );
+  if (className === '') {
+    return (
+      <Badge pill bg={variantToRender}>
+        {formattedTimestamp}
+      </Badge>
+    );
+  } else {
+    return (
+      <>
+        {formattedTimestamp}
+      </>
+    );
+  }
 };
 
 export default TimestampFormateadoBadge;

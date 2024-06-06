@@ -1,49 +1,100 @@
-.info-card {
-    background-color: $mi-yellow-light;
-    border-radius: 15px;
-    width: 230px; // Adjust as needed
-    margin: 10px auto; // Center the card with automatic horizontal margins
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Optional shadow for depth
-    border: none; // Remove the default card border
-}
+// Base color variables for easier adjustments and consistency
+$primary-color: #888; // Example primary color (adjust accordingly)
+$secondary-color: #EEE; // Light grey for backgrounds
+$accent-color: #FFC107; // Accent color for buttons and highlights
 
-.info-card-body {
-    padding: 3px 3px 3px 3px; // Adjust padding as needed
+// Card styling
+.info-card {
+    // background-color: rgba(255, 255, 255, 0.3);
+    // background-color: $secondary-color;
+    background-color: $mi-dark-grey-2;
+    border-radius: 15px;
+    width: 250px;
+    max-height: 150px;
+    margin: 10px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
+.info-card-body {
+    padding: 10px;
+    // width: 70%;
+}
+
 .info-card-count {
-    background-color: $mi-dark-red-1;
-    color: $mi-yellow;
-    font-size: 70px; // Adjust font size as needed
-    border-radius: 13px;
-    width: 100%; // Adjust as needed
-    height: 100px; // Adjust as needed
+    // background-color: $mi-light-grey;
+    color: $mi-white;
+    border-radius: 10px;
+    font-size: 50px;
+    font-weight: bold;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 5px; // Space between the count and title
-    font-weight: bold;
-//   margin-top: 1px;
+    padding-left: 1px;
+    padding-right: 1px;
+    // margin-bottom: 10px;
 }
 
 .info-card-title {
-    color: $mi-dark-red-1;
-    font-size: 20px; // Adjust font size as needed
-    margin: 0; // Remove any default margins
+    // border: 1px solid red;
+    color: $accent-color;
+    font-size: 22px;
     font-weight: bold;
+    padding-bottom: 2px;
+    margin-bottom: 0px;
+    // margin-top: 10px;
 }
 
+.info-pill {
+    color: $mi-white;
+    background-color: $mi-dark-grey !important;
+}
 
-
-.info-card.clickable {
+// Button styling for consistency
+.boton-cop {
+    background-color: $accent-color;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: normal;
     cursor: pointer;
+
+    &:hover {
+        background-color: darken($accent-color, 10%);
+    }
 }
 
-.info-card.clickable:hover {
-    background-color: #f5f5f5;
+// Modal customization for a unified look
+.modal-content {
+    background-color: $mi-light-grey-2;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
-  
+
+.modal-header, .modal-footer {
+    border-bottom: none;
+    border-top: none;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.card-in-modal-colored {
+    background-color: $mi-light-grey-2;
+    // border-radius: 15px;
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card-in-modal-content {
+    background-color: $mi-light-grey;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}

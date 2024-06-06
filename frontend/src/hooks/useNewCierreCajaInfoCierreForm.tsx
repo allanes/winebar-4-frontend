@@ -1,6 +1,6 @@
 // InfoCierreForm.tsx
 import React, { useState } from 'react';
-import { Form, Card, Button } from 'react-bootstrap';
+import { Form, Card, Button, Col, Row } from 'react-bootstrap';
 import InfoCard from '../components/Views/CajeroView/StatusPanel/InfoCard';
 import { InfoDeCierre } from '../codegen_output';
 
@@ -19,35 +19,43 @@ const InfoCierreForm = ({ sumaCobradaOrdenes, onSubmit }: InfoCierreFormProps) =
     };
 
     return (
-        <Card>
-            <Card.Body>
+        <Card className='card-in-modal-content'>
+            <Card.Body >
                 <Form onSubmit={handleSubmit}>
-                    <InfoCard
-                        title='Suma Cobrada'
-                        count={sumaCobradaOrdenes}
-                    />
-                    <Form.Group controlId="montoEnCaja">
-                        <Form.Label>Monto en Caja</Form.Label>
-                        <Form.Control
-                            type="number"
-                            value={montoEnCaja}
-                            onChange={(e) => setMontoEnCaja(parseFloat(e.target.value))}
-                        />
-                    </Form.Group>
-
-                    <Form.Group controlId="comentarios">
-                        <Form.Label>Comentarios</Form.Label>
-                        <Form.Control
-                            as="textarea"
-                            rows={3}
-                            value={comentarios}
-                            onChange={(e) => setComentarios(e.target.value)}
-                        />
-                    </Form.Group>
-                    
-                    <Button variant="primary" type="submit" size='lg'>
-                        Confirmar Cierre
-                    </Button>
+                    <Col md={7} className='m-3'>
+                        <Row>
+                            <InfoCard
+                                title='Suma Cobrada'
+                                count={`$${sumaCobradaOrdenes}`}
+                            />
+                        </Row>
+                        <Row className='mt-4'>
+                            <Form.Group controlId="montoEnCaja">
+                                <Form.Label>Monto en Caja</Form.Label>
+                                <Form.Control
+                                    type="number"
+                                    value={montoEnCaja}
+                                    onChange={(e) => setMontoEnCaja(parseFloat(e.target.value))}  
+                                />
+                            </Form.Group>
+                        </Row>
+                        <Row className='mt-4'>
+                            <Form.Group controlId="comentarios">
+                                <Form.Label>Comentarios</Form.Label>
+                                <Form.Control
+                                    as="textarea"
+                                    rows={3}
+                                    value={comentarios}
+                                    onChange={(e) => setComentarios(e.target.value)}
+                                />
+                            </Form.Group>
+                        </Row>
+                        <Row className='mt-4'>
+                            <Button type="submit" className='boton-cop' >
+                                Confirmar Cierre
+                            </Button>
+                        </Row>
+                    </Col>
                 </Form>
             </Card.Body>
         </Card>

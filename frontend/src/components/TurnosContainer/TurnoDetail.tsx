@@ -12,59 +12,39 @@ interface TurnoProps {
 //   handleCerrarTurno: () => void;
 }
 
-const parseOrdenCompraDetallada = (ordenCerrada: OrdenCompraDetallada): OrdenCompra => {
-    return {
-      precarga_usada: ordenCerrada.precarga_usada,
-      monto_maximo_orden: ordenCerrada.monto_maximo_orden,
-      turno_id: ordenCerrada.turno_id,
-      cliente_id: ordenCerrada.cliente_id,
-      abierta_por: ordenCerrada.abierta_por,
-      id: ordenCerrada.id,
-      monto_cargado: ordenCerrada.monto_cargado,
-      monto_cobrado: ordenCerrada.monto_cobrado,
-      monto_cobrado_efectivo: ordenCerrada.monto_cobrado_efectivo,
-      monto_cobrado_tarjeta: ordenCerrada.monto_cobrado_tarjeta,
-      monto_cobrado_transferencia: ordenCerrada.monto_cobrado_transferencia,
-      timestamp_apertura_orden: ordenCerrada.timestamp_apertura_orden,
-      timestamp_cierre_orden: ordenCerrada.timestamp_cierre_orden,
-      cerrada_por: ordenCerrada.cerrada_por,
-      cerrada_por_nombre: ordenCerrada.cerrada_por_nombre,
-    };
-};
-
 const TurnoDetalle = ({ turnoData }: TurnoProps) => {
 // const TurnoDetalle = ({ turnoData, handleGetTurnoInfo, handleCerrarTurno }: TurnoProps) => {
     const [activeKey, setActiveKey] = useState<string | null>(null);
     const [ordenesDelTurno, setOrdenesDelTurno] = useState<OrdenCompraDetallada[]>([]);
 
     useEffect(() => {
+        const handleRecuperarOrdenesDelTurno = async () => {
+            if (turnoData) {
+            try {
+                const ordenesResponse = await OrdenesService.handleReadOrdenByTurnoIdBackendApiV1OrdenesByTurnoTurnoIdGet(turnoData.id);
+                // const parsedOrdenes = ordenesResponse.map(parseOrdenCompraDetallada);
+                const parsedOrdenes = ordenesResponse
+                setOrdenesDelTurno(parsedOrdenes);
+            } catch (error: unknown) {
+                setOrdenesDelTurno([]);
+                // handleApiError(error); // You can remove this line
+            }
+            }
+        };
+
         handleRecuperarOrdenesDelTurno();
     }, [turnoData]);
-
-    const handleRecuperarOrdenesDelTurno = async () => {
-        if (turnoData) {
-        try {
-            const ordenesResponse = await OrdenesService.handleReadOrdenByTurnoIdBackendApiV1OrdenesByTurnoTurnoIdGet(turnoData.id);
-            // const parsedOrdenes = ordenesResponse.map(parseOrdenCompraDetallada);
-            const parsedOrdenes = ordenesResponse
-            setOrdenesDelTurno(parsedOrdenes);
-        } catch (error: unknown) {
-            setOrdenesDelTurno([]);
-            // handleApiError(error); // You can remove this line
-        }
-        }
-    };
 
     const handleClientesActivosClick = () => {
         setActiveKey(activeKey === '0' ? null : '0');
     };
 
     return (
-        <Card >
+        <Card className='card-in-modal-content'>
             <Card.Header >
                 <Card.Title className='d-flex justify-content-between align-items-center'>
                     <Col md={8}>
-                        Cierre de Caja
+                        <h3>Cierre de Caja</h3>
                     </Col>
                     <Col className='justify-content-end'>
                         {turnoData && turnoData.cerrado_por ?
@@ -75,12 +55,12 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
                     </Col>                    
                 </Card.Title>
             </Card.Header>
-            <Card.Body>
+            <Card.Body >
                 <Row className='mb-2 align-items-center'>
                     <Col>
-                        <h5><Badge bg='secondary' className='ps-4 pe-4'>
+                        <h5><Badge pill className='ps-5 pe-5 info-pill'>
                             <Row className='mb-1'>
-                                Turno id 
+                                Turno 
                             </Row>
                             <Row>
                                 <h4><strong>{turnoData?.id}</strong></h4>
@@ -88,13 +68,16 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
                         </Badge></h5>
                     </Col>
                     <Col>
-                        <Badge bg='secondary'>
+                        <Badge pill bg='secondary' className='info-pill'>
                             <h6>Hr. de apertura</h6>
-                            <h4><TimestampFormateadoBadge timestamp={turnoData?.timestamp_apertura || '0'} /></h4>
+                            <h5><TimestampFormateadoBadge 
+                                timestamp={turnoData?.timestamp_apertura || '0'} 
+                                className='info-pill'
+                            /></h5>
                         </Badge>
                     </Col>
                     <Col>
-                        <Badge bg='secondary' className='ps-4 pe-4'>
+                        <Badge bg='secondary' pill className='ps-4 pe-4 info-pill'>
                             <Row className='text-center'>
                                 <h6>Abierto por</h6>
                             </Row>
@@ -114,12 +97,10 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
                                 clickable
                             />
                         </Col>}
-                    <Col>
+                    <Col  md={6}>
                         <InfoCard title="Clientes Totales" count={turnoData?.cantidad_de_ordenes || 0} />
                     </Col>
-                </Row>        
-                <Row className='d-flex'>
-                    <Col md={4}>
+                    <Col md={6}>
                         {turnoData?.cerrado_por && 
                             <InfoCard 
                                 title={'Monto en Caja Cerrada'}
@@ -127,13 +108,15 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
                             />
                         }
                     </Col>
-                    <Col md={4}>
+                </Row>        
+                <Row className='d-flex'>
+                    <Col md={6}>
                         <InfoCard 
                             title="Monto Cobrado" 
                             count={`$${turnoData?.suma_ordenes_cobradas || 0}`} 
                         />
                     </Col>
-                    <Col md={4}>
+                    <Col md={6}>
                         {turnoData?.cerrado_por && 
                             <InfoCard 
                                 title={'Diferencia'}
@@ -142,29 +125,29 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
                         }
                     </Col>
                 </Row>
-                {turnoData?.comentarios && 
+                {/* {turnoData?.comentarios &&  */}
                     <Row className='mb-2'>
                         <Col md={3}>
                             <Badge bg='light' text='dark'>
                                 Comentarios
                             </Badge>
                         </Col>
-                        <Col className='text-start'>{turnoData.comentarios}</Col>
+                        <Col className='text-start'>{turnoData?.comentarios || 'No se guardaron comentarios'}</Col>
                     </Row>
-                }
+                {/* } */}
                 <Row>
                     <Accordion activeKey={activeKey} onSelect={handleClientesActivosClick}>
-                        <Accordion.Item eventKey="0">
-                        <Accordion.Header>Lista de Ordenes</Accordion.Header>
-                        <Accordion.Body className='ms-4'>
-                            {turnoData && (
-                                <OrdenesList
-                                    ordenesList={ordenesDelTurno || []}
-                                    onDeleteOrden={() => {}}
-                                    columnasReducidas={true}
-                                />
-                            )}
-                        </Accordion.Body>
+                        <Accordion.Item eventKey="0" className='card-in-modal-colored'>
+                            <Accordion.Header>Lista de Ordenes</Accordion.Header>
+                            <Accordion.Body className='ms-4'>
+                                {turnoData && (
+                                    <OrdenesList
+                                        ordenesList={ordenesDelTurno || []}
+                                        onDeleteOrden={() => {}}
+                                        columnasReducidas={true}
+                                    />
+                                )}
+                            </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>
                 </Row>
