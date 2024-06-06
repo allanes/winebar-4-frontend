@@ -58,6 +58,6 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
             </Modal.Footer>
         </Modal>
     );
-};
+}; 
 
 export default CierreDeCaja;
