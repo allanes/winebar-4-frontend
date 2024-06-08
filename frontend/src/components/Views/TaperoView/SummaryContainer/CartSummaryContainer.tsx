@@ -3,7 +3,7 @@ import { Button, Card, Badge, ListGroup, ListGroupItem, Modal, Row, Col } from '
 import { useCart } from '../CartContext';
 import { displayLcdInfoCliente, clearLcd } from '../LcdService';
 import { OrdenCompraDetallada, OrdenesService } from '../../../../codegen_output';
-import { handleApiError } from '../../../ClientsContainer/ClientsContainer';
+import servidorClavesConfig from '../../../../config';
 import OrdenViewForTapero from './OrdenViewForTapero';
 
 const CartSummaryContainer = () => {    
@@ -36,7 +36,7 @@ const CartSummaryContainer = () => {
         const response = await OrdenesService.handleReadOrdenByClientRfidBackendApiV1OrdenesByRfidTarjetaIdGet(tarjetaCliente);
         setOrdenData(response);
 
-        const physPortResponse = await fetch(`http://localhost:3001/lectores-rfid/get_phys_port?card_number=${tarjetaCliente}`);
+        const physPortResponse = await fetch(`http://localhost:${servidorClavesConfig.servidorClavesPort}/lectores-rfid/get_phys_port?card_number=${tarjetaCliente}`);
         const physPort = await physPortResponse.json();
         if (physPort) {
           console.log('Phys Port encontrado:', physPort);

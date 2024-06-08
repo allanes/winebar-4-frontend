@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { useCart } from './CartContext';
+import servidorClavesConfig from '../../../config';
 
 const TarjetaConsecutivaListener: React.FC = () => {
   const { tarjetaCliente, addToCartByPhysPort } = useCart()!;
+  
 
   const handleSSEEvent = (event: MessageEvent) => {
     const cardData = JSON.parse(event.data);
@@ -15,7 +17,7 @@ const TarjetaConsecutivaListener: React.FC = () => {
   };
 
   useEffect(() => {
-    const eventSource = new EventSource('http://localhost:3001/lectores-rfid/card-read-stream');
+    const eventSource = new EventSource(`http://localhost:${servidorClavesConfig.servidorClavesPort}/lectores-rfid/card-read-stream`);
     eventSource.onmessage = handleSSEEvent;
 
     return () => {

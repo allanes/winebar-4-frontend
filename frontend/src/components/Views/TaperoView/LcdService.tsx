@@ -1,4 +1,7 @@
 // lcd.service.tsx
+import React from 'react';
+import servidorClavesConfig from '../../../config';
+
 // https://pimylifeup.com/raspberry-pi-lcd-16x2/
 interface InfoCliente {
     nombre: string;
@@ -6,7 +9,7 @@ interface InfoCliente {
     carrito: number;
 }
   
-const BASE_URL = 'http://localhost:3001/lcd';
+const BASE_URL = `http://localhost:${servidorClavesConfig.servidorClavesPort}/lcd`;
   
 export const displayLcdInfoCliente = async (infoCliente: InfoCliente) => {
     try {
