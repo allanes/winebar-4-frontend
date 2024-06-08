@@ -4,7 +4,13 @@ import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge';
 import { Button, Form, Card, Row, Col, InputGroup } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
-const ConfiguracionMontosCard = () => {
+interface ConfiguracionMontosCardProps {
+  onChange?: (name: string, value: number) => void;
+  showSubmitButton?: boolean;
+  onSubmit?: (inputs: { monto_maximo_orden_def: number, monto_maximo_pedido_def: number }) => Promise<void>;
+}
+
+const ConfiguracionMontosCard: React.FC<ConfiguracionMontosCardProps> = ({ onChange, showSubmitButton = true, onSubmit }) => {
   const [config, setConfig] = useState({
     monto_maximo_orden_def: 0,
     monto_maximo_pedido_def: 0,
@@ -38,26 +44,33 @@ const ConfiguracionMontosCard = () => {
     }
   };
 
+  const formatNumber = (value: number) => {
+    return value.toLocaleString('es-ES');
+  };
+
+  const parseNumber = (value: string) => {
+    return parseFloat(value.replace(/[^0-9]/g, ''));
+  };
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    const numericalValue = parseNumber(value);
+
     setInputs(prev => ({
       ...prev,
-      [name]: Number(value)
+      [name]: numericalValue
     }));
+
+    if (onChange) {
+      onChange(name, numericalValue);
+    }
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
-      await ConfiguracionService.handleCreateConfiguracionBackendApiV1ConfiguracionesPost({
-        monto_maximo_orden_def: inputs.monto_maximo_orden_def,
-        monto_maximo_pedido_def: inputs.monto_maximo_pedido_def
-      });
-      Swal.fire('Actualizado', 'Configuración de montos actualizada correctamente.', 'success');
+    if (onSubmit) {
+      await onSubmit(inputs);
       fetchConfig();
-    } catch (error) {
-      console.error('Failed to update configuration:', error);
-      Swal.fire('Error', 'No se pudo actualizar la configuración de montos.', 'error');
     }
   };
 
@@ -70,14 +83,14 @@ const ConfiguracionMontosCard = () => {
         <Card.Title><h3>Configuración de Montos</h3></Card.Title>
         <Form onSubmit={handleSubmit}>
           <Form.Group as={Row} className="mb-3">
-            <Form.Label column md={4}>Máximo por Orden</Form.Label>
-            <Col md={4}>  {/* Shorter input fields */}
+            <Form.Label column md={4}>Máximo General</Form.Label>
+            <Col md={6}>
               <InputGroup>
                 <InputGroup.Text>$</InputGroup.Text>
                 <Form.Control
-                  type="number"
+                  type="text"
                   name="monto_maximo_orden_def"
-                  value={inputs.monto_maximo_orden_def}
+                  value={formatNumber(inputs.monto_maximo_orden_def)}
                   onChange={handleChange}
                 />
               </InputGroup>
@@ -85,29 +98,34 @@ const ConfiguracionMontosCard = () => {
           </Form.Group>
           
           <Form.Group as={Row} className="mb-3">
-            <Form.Label column md={4}>Máximo por Pedido</Form.Label>
-            <Col md={4}>  {/* Shorter input fields */}
+            <Form.Label column md={4}>Cada Pedido</Form.Label>
+            <Col md={6}>
               <InputGroup>
                 <InputGroup.Text>$</InputGroup.Text>
                 <Form.Control
-                  type="number"
+                  type="text"
                   name="monto_maximo_pedido_def"
-                  value={inputs.monto_maximo_pedido_def}
+                  value={formatNumber(inputs.monto_maximo_pedido_def)}
                   onChange={handleChange}
                 />
               </InputGroup>
             </Col>
           </Form.Group>
 
-          <Form.Group as={Row} className="mb-3">
-            <Form.Label column sm={4}>Última Actualización</Form.Label>
-            <Col sm={8}>
-              <TimestampFormateadoBadge 
-                timestamp={config.fecha_ultima_actualizacion}
-              />
-            </Col>
-          </Form.Group>
-          <Button variant="primary" type="submit" disabled={isUnchanged}>Actualizar</Button>
+          {showSubmitButton && (
+            <>
+              <Form.Group as={Row} className="mb-3">
+                <Form.Label column sm={4}>Última Actualización</Form.Label>
+                <Col sm={8}>
+                  <TimestampFormateadoBadge 
+                    timestamp={config.fecha_ultima_actualizacion}
+                  />
+                </Col>
+              </Form.Group>
+            
+              <Button variant="primary" type="submit" disabled={isUnchanged}>Actualizar</Button>
+            </>
+          )}
         </Form>
       </Card.Body>
     </Card>

@@ -1,15 +1,22 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ClienteCreate, DetallesAdicionalesForUI } from '../../codegen_output';
 import CardReaderModal from './CardReaderModal';
 import useNewClientForm from '../../hooks/useNewClientsForm';
-import { Row, Col, Button, Form, Accordion } from 'react-bootstrap';
+import { Button, Form, Accordion } from 'react-bootstrap';
 import CustomFormField from '../PersonalContainer/CustomFormField';
-import Swal from 'sweetalert2';
+import ConfiguracionMontosCard from '../ConfiguracionContainer/ConfiguracionMontosCard';
 
 interface Props {
   onNewClient: (newClient: ClienteCreate, tarjetaId: number, additionalDetails?: DetallesAdicionalesForUI) => void;
   expanded?: boolean;
 }
+
+const fetchMaxAmounts = async () => {
+  return {
+    maxCadaPedido: 1000,
+    maxGeneral: 5000
+  };
+};
 
 export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
   const [inputValues, dispatch] = useNewClientForm();
@@ -17,6 +24,18 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
   const [showCardReader, setShowCardReader] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const [clientData, setClientData] = useState<ClienteCreate | null>(null);
+  const [maxAmounts, setMaxAmounts] = useState({ maxCadaPedido: '', maxGeneral: '' });
+
+  useEffect(() => {
+    const fetchAndSetMaxAmounts = async () => {
+      const amounts = await fetchMaxAmounts();
+      setMaxAmounts({
+        maxCadaPedido: amounts.maxCadaPedido.toString(),
+        maxGeneral: amounts.maxGeneral.toString()
+      });
+    };
+    fetchAndSetMaxAmounts();
+  }, []);
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = evt.target;
@@ -37,22 +56,27 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
     }));
   };
 
+  const handleMaxAmountsChange = (name: string, value: number) => {
+    setMaxAmounts((prevAmounts) => ({
+      ...prevAmounts,
+      [name]: value.toString(),
+    }));
+  };
+
   const handleContinue = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    setClientData(inputValues); // Temporarily store the client data
-    setShowCardReader(true); // Show card reader modal
+    setClientData(inputValues);
+    setShowCardReader(true);
   };
 
   const handleCardRead = (tarjetaId: string) => {
-    setShowCardReader(false); // Hide card reader modal
+    setShowCardReader(false);
     if (clientData) {
-      // Parse the string to a number and continue with the client creation process
       onNewClient(clientData, parseInt(tarjetaId, 10), additionalDetails);
     }
     formRef.current?.reset();
   };
 
-  // Use the expanded prop to set the defaultActiveKey of the Accordion
   const defaultActiveKey = expanded ? undefined : '0';
 
   return (
@@ -112,6 +136,13 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
                 onChange={handleAdditionalDetailsChange}
                 value={additionalDetails.domicilio || ''}
               />
+            </Accordion.Body>
+          </Accordion.Item>
+
+          <Accordion.Item eventKey="1" className='fully-transparent-card'>
+            <Accordion.Header>Montos Máximos</Accordion.Header>
+            <Accordion.Body className='text-white'>
+              <ConfiguracionMontosCard showSubmitButton={false} onChange={handleMaxAmountsChange} />
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>

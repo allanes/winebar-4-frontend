@@ -1,6 +1,6 @@
 // AccionesPanel.tsx
 import React, { useState } from 'react';
-import { Button, Modal, Card } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { handleApiError } from '../../ClientsContainer/ClientsContainer';
 import ClientsCreateModal from '../../ClientsContainer/ClientsCreateModal';
 import { ClienteCreate, ClientesService } from '../../../codegen_output';
