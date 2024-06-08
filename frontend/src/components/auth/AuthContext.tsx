@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { OpenAPI, Token, LoginService, PersonalInterno, Body_login_backend_api_v1_login_access_token_post, ApiError } from '../../codegen_output';
 import Swal from 'sweetalert2';
 import { handleApiErrorCustom } from '../Common/ApiErros';
+import servidorClavesConfig from '../../config';
 
 interface AuthContextType {
   isLoggedIn: boolean;
@@ -23,7 +24,7 @@ export const AuthProvider: React.FC<AuthProvidertProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const fetchPassword = async (): Promise<string> => {
-    const response = await fetch(`http://localhost:3001/getPassword`);
+    const response = await fetch(`http://localhost:${servidorClavesConfig.servidorClavesPort}/getPassword`);
     const data = await response.json();
     return data.api_key;
   };

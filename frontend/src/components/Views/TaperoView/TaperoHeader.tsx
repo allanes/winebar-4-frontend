@@ -5,6 +5,7 @@
   import LoginPanel from '../../auth/LoginPanel';
   import { HeaderStatusBadgeTapero } from '../../Header/HeaderStatusBadge';
   import { LectoresDeTapasService, LectorTapaReceive, VinosService } from '../../../codegen_output';
+  import servidorClavesConfig from '../../../config';
 
   interface TaperoHeaderProps {
       title: string;
@@ -26,7 +27,7 @@
       useEffect(() => {
           const fetchKeyboardCount = async () => {
               try {
-                  const response = await fetch('http://localhost:3001/lectores-rfid/keyboard_ports');
+                  const response = await fetch(`http://localhost:${servidorClavesConfig.servidorClavesPort}/lectores-rfid/keyboard_ports`);
                   const kbCountResp = await response.json()
                   
                   // Assuming kbCountResp is an array of keyboard identifiers
@@ -46,7 +47,7 @@
 
           const fetchLcdStatus = async () => {
               try {
-                  const lcdHealthResponse = await fetch('http://localhost:3001/lcd/health');
+                  const lcdHealthResponse = await fetch(`http://localhost:${servidorClavesConfig.servidorClavesPort}/lcd/health`);
                   if (lcdHealthResponse.status == 200) {
                     setLcdStatus(true);
                   }
