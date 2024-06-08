@@ -14,5 +14,11 @@ export const $Body_handle_create_cliente_with_tarjeta_backend_api_v1_clientes__p
                 type: 'DetallesAdicionalesForUI',
             }],
         },
+        montos_config_in: {
+            type: 'all-of',
+            contains: [{
+                type: 'ConfiguracionCreate',
+            }],
+        },
     },
 } as const;

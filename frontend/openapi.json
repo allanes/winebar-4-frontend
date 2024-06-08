@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "altacava",
+    "title": "winebar-app",
     "version": "0.1.0"
   },
   "paths": {
@@ -3078,6 +3078,13 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/DetallesAdicionalesForUI"
+              }
+            ]
+          },
+          "montos_config_in": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ConfiguracionCreate"
               }
             ]
           }

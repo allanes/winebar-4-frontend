@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ClienteCreate, DetallesAdicionalesForUI } from '../../codegen_output';
+import { ClienteCreate, ConfiguracionCreate, DetallesAdicionalesForUI } from '../../codegen_output';
 import CardReaderModal from './CardReaderModal';
 import useNewClientForm from '../../hooks/useNewClientsForm';
 import { Button, Form, Accordion } from 'react-bootstrap';
@@ -7,14 +7,18 @@ import CustomFormField from '../PersonalContainer/CustomFormField';
 import ConfiguracionMontosCard from '../ConfiguracionContainer/ConfiguracionMontosCard';
 
 interface Props {
-  onNewClient: (newClient: ClienteCreate, tarjetaId: number, additionalDetails?: DetallesAdicionalesForUI) => void;
+  onNewClient: (
+    newClient: ClienteCreate, 
+    tarjetaId: number, 
+    additionalDetails?: DetallesAdicionalesForUI
+  ) => void;
   expanded?: boolean;
 }
 
 const fetchMaxAmounts = async () => {
   return {
-    maxCadaPedido: 1000,
-    maxGeneral: 5000
+    maxCadaPedido: 11,
+    maxGeneral: 55
   };
 };
 
@@ -142,7 +146,9 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
           <Accordion.Item eventKey="1" className='fully-transparent-card'>
             <Accordion.Header>Montos Máximos</Accordion.Header>
             <Accordion.Body className='text-white'>
-              <ConfiguracionMontosCard showSubmitButton={false} onChange={handleMaxAmountsChange} />
+              <ConfiguracionMontosCard 
+                showSubmitButton={false} 
+                onChange={handleMaxAmountsChange} />
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>

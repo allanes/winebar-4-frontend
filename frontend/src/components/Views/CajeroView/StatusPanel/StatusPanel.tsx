@@ -2,61 +2,57 @@ import React, { useState, useEffect } from 'react';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import InfoCard from './InfoCard';
 import { InfoDeCierre, Turno, TurnosService } from '../../../../codegen_output';
-import { handleApiError } from '../../../ClientsContainer/ClientsContainer';
 import CierreDeCaja from './CierreDeCaja';
 import Swal from 'sweetalert2';
 
-const StatusPanel = () => {
+interface StatusPanelProps {
+  reloadStatus: boolean;
+}
+
+const StatusPanel: React.FC<StatusPanelProps> = ({ reloadStatus }) => {
   const [turnoData, setTurnoData] = useState<Turno | null>(null);
   const [showCierreDeCajaDetalle, setShowCierreDeCajaDetalle] = useState(false);
 
   useEffect(() => {
     handleGetTurnoInfo();
-  }, []);
+  }, [reloadStatus]);
 
   const handleGetTurnoInfo = async () => {
-    TurnosService.handleGetTurnoAbiertoBackendApiV1TurnosTurnoEnCursoGet()
-      .then((turnoResponse) => {
-        setTurnoData(turnoResponse);
-      })
-      .catch((error: unknown) => {
-        setTurnoData(null);
-        // handleApiError(error); // You can remove this line
-      });
+    try {
+      const turnoResponse = await TurnosService.handleGetTurnoAbiertoBackendApiV1TurnosTurnoEnCursoGet();
+      setTurnoData(turnoResponse);
+    } catch (error) {
+      setTurnoData(null);
+    }
   };
 
   const handleAbrirTurno = async () => {
-    TurnosService.handleAbrirTurnoBackendApiV1TurnosAbrirPost()
-      .then((turnoResponse) => {
-        setTurnoData(turnoResponse);
-      })
-      .catch((error: unknown) => {
-        setTurnoData(null);
-        handleApiError(error);
-      });
+    try {
+      const turnoResponse = await TurnosService.handleAbrirTurnoBackendApiV1TurnosAbrirPost();
+      setTurnoData(turnoResponse);
+    } catch (error) {
+      setTurnoData(null);
+      Swal.fire('Error', 'No se pudo abrir el turno.', 'error');
+    }
   };
 
   const handleCerrarTurno = async (infoDeCierre: InfoDeCierre) => {
     try {
-      const updatedTurnoData = await TurnosService.handleCerrarTurnoBackendApiV1TurnosCerrarPost(
-        infoDeCierre
-      );
-      setTurnoData(updatedTurnoData);    
-      Swal.fire('Turno Cerrado', '', 'success')
-      .then(() => window.location.reload())
-    } catch (error: unknown) {
-      // setTurnoData(null);
-      handleApiError(error); // You can remove this line
+      const updatedTurnoData = await TurnosService.handleCerrarTurnoBackendApiV1TurnosCerrarPost(infoDeCierre);
+      setTurnoData(updatedTurnoData);
+      Swal.fire('Turno Cerrado', '', 'success').then(() => window.location.reload());
+    } catch (error) {
+      setTurnoData(null);
+      Swal.fire('Error', 'No se pudo cerrar el turno.', 'error');
     }
   };
 
   const handleShowCierreDeCajaDetalle = () => {
-    handleGetTurnoInfo()
+    handleGetTurnoInfo();
     setShowCierreDeCajaDetalle(true);
-  }
+  };
 
   const handleCloseCierreDeCajaDetalle = () => {
-    // setTurnoData(null)
     setShowCierreDeCajaDetalle(false);
   };
 
@@ -72,20 +68,14 @@ const StatusPanel = () => {
             </Col>
           </Row>
         )}
-          <Row>
-            <Col>
-              <InfoCard
-                title="Clientes Activos"
-                count={(turnoData && turnoData.clientes_activos) ? turnoData.clientes_activos : '0'}
-              />
-            </Col>
-            <Col>
-              <InfoCard
-                title="Clientes Totales"
-                count={turnoData ? turnoData.cantidad_de_ordenes : 0}
-              />
-            </Col>
-          </Row>
+        <Row>
+          <Col>
+            <InfoCard title="Clientes Activos" count={turnoData ? turnoData.clientes_activos : '0'} />
+          </Col>
+          <Col>
+            <InfoCard title="Clientes Totales" count={turnoData ? turnoData.cantidad_de_ordenes : 0} />
+          </Col>
+        </Row>
       </Card.Body>
       <Card.Footer className='d-flex justify-content-center'>
         <Button className='boton-cop' onClick={handleShowCierreDeCajaDetalle}>Cerrar Caja</Button>
