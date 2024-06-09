@@ -1791,53 +1791,6 @@
         }
       }
     },
-    "/backend/api/v1/ordenes/abrir": {
-      "post": {
-        "tags": [
-          "Ordenes"
-        ],
-        "summary": "Handle Abrir Orden",
-        "operationId": "handle_abrir_orden_backend_api_v1_ordenes_abrir_post",
-        "security": [
-          {
-            "OAuth2PasswordBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "tarjeta_cliente",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Tarjeta Cliente"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrdenCompra"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/backend/api/v1/ordenes/cerrar": {
       "post": {
         "tags": [
@@ -3983,6 +3936,28 @@
               }
             ],
             "title": "Cerrada Por"
+          },
+          "monto_maximo_orden": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monto Maximo Orden"
+          },
+          "monto_maximo_pedido": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monto Maximo Pedido"
           }
         },
         "type": "object",

@@ -122,3 +122,31 @@
     margin-right: 0px;
     text-wrap: nowrap;
 }
+
+/* Add this to your CSS/SCSS file */
+.monto-maximo-badge-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.monto-maximo-badge {
+  display: inline-block;
+  padding: 0.5em;
+}
+
+input.dot-thousand-formatted {
+  text-align: right;
+}
+
+.monto-maximo-badge-container .input-group {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10; /* Ensure it's on top */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 0.25em;
+  width: 100%;
+}
+

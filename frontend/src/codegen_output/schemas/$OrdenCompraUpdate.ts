@@ -21,5 +21,21 @@ export const $OrdenCompraUpdate = {
                 type: 'null',
             }],
         },
+        monto_maximo_orden: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
+        monto_maximo_pedido: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
     },
 } as const;

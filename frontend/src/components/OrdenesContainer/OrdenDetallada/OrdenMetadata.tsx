@@ -1,10 +1,11 @@
 import React from 'react';
-import { Col, Card, Container, Row, Badge, Button } from 'react-bootstrap';
+import { Col, Card, Container, Row, Badge } from 'react-bootstrap';
 import { OrdenCompraDetallada, OrdenCompraInfoPago } from '../../../codegen_output';
 import { RolBadge } from '../../RolesContainer/RolBadge';
 import TimestampFormateadoBadge from '../../Common/TimestampFormateadoBadge';
 import FooterOrdenAbierta from './FooterOrdenAbierta';
 import FooterOrdenCerrada from './FooterOrdenCerrada';
+import MontoMaximoBadge from './MontoMaximoBadge'; // Import the new component
 
 interface OrdenMetadataProps {
   ordenData: OrdenCompraDetallada;
@@ -12,7 +13,7 @@ interface OrdenMetadataProps {
 }
 
 const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) => {
-  const openedPedidos = ordenData.pedidos.filter(pedido => pedido.cerrado===false).length;
+  const openedPedidos = ordenData.pedidos.filter(pedido => pedido.cerrado === false).length;
 
   return (
     <Container>
@@ -26,7 +27,18 @@ const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) =>
               <h5><TimestampFormateadoBadge timestamp={ordenData.timestamp_apertura_orden} /></h5>
             </Col>
             <Col md={4}>
-              <h5><Badge bg="secondary">Monto Máx: ${ordenData.monto_maximo_orden}</Badge></h5>
+              <MontoMaximoBadge
+                id={ordenData.id}
+                label="Máx General"
+                field="monto_maximo_orden"
+                initialValue={ordenData.monto_maximo_orden}
+              />
+              {/* Add another badge for the new field if necessary */}
+              {/* <MontoMaximoBadge
+                label="Máx Pedido"
+                field="monto_maximo_pedido"
+                initialValue={ordenData.monto_maximo_pedido}
+              /> */}
             </Col>
           </Row>
           <Row className='mt-4'>
@@ -36,9 +48,7 @@ const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) =>
               </Row>
               <Row>
                 <h4>
-                  <RolBadge 
-                    roleName={ordenData.rol}
-                  />                            
+                  <RolBadge roleName={ordenData.rol} />
                 </h4>
               </Row>
             </Col>
@@ -52,33 +62,19 @@ const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) =>
                 </Row>
               </Badge>
             </Col>
-          </Row>        
+          </Row>
         </Card.Body>
         <Card.Footer>
-          {/* <Row >
-            <Col md={4} />
-            <Col md={4} className='justify-content-center'>
-              <Button variant="success" size="lg"  onClick={onCobrar}>
-                {ordenData.cerrada_por ? 'CERRADA' : 'Cobrar'}
-              </Button>
-            </Col>
-            <Col md={4}>
-              <Row className='boton-cobro-advertencia justify-content-start'> */}
-                {ordenData.cerrada_por ? (
-                  <FooterOrdenCerrada
-                    ordenData={ordenData}
-                  />
-                ) : (
-                  <FooterOrdenAbierta 
-                    ordenData={ordenData}
-                    openedPedidos={openedPedidos} 
-                    onCobrar={onCobrar!} 
-                    ordenId={ordenData.id}
-                  />
-                )}
-              {/* </Row>
-            </Col>
-          </Row> */}
+          {ordenData.cerrada_por ? (
+            <FooterOrdenCerrada ordenData={ordenData} />
+          ) : (
+            <FooterOrdenAbierta
+              ordenData={ordenData}
+              openedPedidos={openedPedidos}
+              onCobrar={onCobrar!}
+              ordenId={ordenData.id}
+            />
+          )}
         </Card.Footer>
       </Card>
     </Container>
