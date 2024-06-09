@@ -48,6 +48,7 @@ export const OrdenesContainer = () => {
         ordenesList={ordenesList} 
         onDeleteOrden={handleDelete}
         onChangeOrdenesGetToggle={handleOrdenesGetToggle}
+        ordenCobradaTrigger={fetchOrdenes}
       />
     </div>
   );

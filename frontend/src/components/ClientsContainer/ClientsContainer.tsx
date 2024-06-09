@@ -38,6 +38,7 @@ export const ClientsContainer = () => {
         detalle_adicional_in: additionalDetails,
       });
       Swal.fire(`${newClient.nombre}`, 'ha sido guardado con éxito', 'success');
+      handleCloseCreateModal();
       fetchClients(); // Re-fetch the client list after a successful addition
     } catch (error) {
       handleApiError(error);

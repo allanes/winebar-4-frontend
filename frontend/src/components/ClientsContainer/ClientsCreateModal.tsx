@@ -2,12 +2,17 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
 import { ClientsCreate } from './ClientsCreate';
-import { ClienteCreate, DetallesAdicionalesForUI } from '../../codegen_output';
+import { ClienteCreate, ConfiguracionCreate, DetallesAdicionalesForUI } from '../../codegen_output';
 
 interface ClientsCreateModalProps {
   show: boolean;
   onHide: () => void;
-  onNewClient: (newClient: ClienteCreate, tarjetaId: number, additionalDetails?: DetallesAdicionalesForUI) => Promise<void>;
+  onNewClient: (
+    newClient: ClienteCreate, 
+    tarjetaId: number, 
+    additionalDetails?: DetallesAdicionalesForUI,
+    maxAmounts?: ConfiguracionCreate
+    ) => Promise<void>;
   expanded?: boolean;
 }
 

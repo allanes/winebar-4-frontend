@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { ClienteCreate, ConfiguracionCreate, DetallesAdicionalesForUI } from '../../codegen_output';
+import React, { useState, useRef } from 'react';
+import { ClienteCreate, DetallesAdicionalesForUI, ConfiguracionCreate } from '../../codegen_output';
 import CardReaderModal from './CardReaderModal';
 import useNewClientForm from '../../hooks/useNewClientsForm';
 import { Button, Form, Accordion } from 'react-bootstrap';
@@ -10,17 +10,11 @@ interface Props {
   onNewClient: (
     newClient: ClienteCreate, 
     tarjetaId: number, 
-    additionalDetails?: DetallesAdicionalesForUI
+    additionalDetails?: DetallesAdicionalesForUI,
+    maxAmounts?: ConfiguracionCreate
   ) => void;
   expanded?: boolean;
 }
-
-const fetchMaxAmounts = async () => {
-  return {
-    maxCadaPedido: 11,
-    maxGeneral: 55
-  };
-};
 
 export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
   const [inputValues, dispatch] = useNewClientForm();
@@ -28,18 +22,10 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
   const [showCardReader, setShowCardReader] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const [clientData, setClientData] = useState<ClienteCreate | null>(null);
-  const [maxAmounts, setMaxAmounts] = useState({ maxCadaPedido: '', maxGeneral: '' });
-
-  useEffect(() => {
-    const fetchAndSetMaxAmounts = async () => {
-      const amounts = await fetchMaxAmounts();
-      setMaxAmounts({
-        maxCadaPedido: amounts.maxCadaPedido.toString(),
-        maxGeneral: amounts.maxGeneral.toString()
-      });
-    };
-    fetchAndSetMaxAmounts();
-  }, []);
+  const [maxAmounts, setMaxAmounts] = useState<ConfiguracionCreate>({
+    monto_maximo_orden_def: 0,
+    monto_maximo_pedido_def: 0
+  });
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = evt.target;
@@ -76,7 +62,7 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
   const handleCardRead = (tarjetaId: string) => {
     setShowCardReader(false);
     if (clientData) {
-      onNewClient(clientData, parseInt(tarjetaId, 10), additionalDetails);
+      onNewClient(clientData, parseInt(tarjetaId, 10), additionalDetails, maxAmounts);
     }
     formRef.current?.reset();
   };
@@ -144,7 +130,7 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
           </Accordion.Item>
 
           <Accordion.Item eventKey="1" className='fully-transparent-card'>
-            <Accordion.Header>Montos Máximos</Accordion.Header>
+            <Accordion.Header>Montos máximos para este cliente</Accordion.Header>
             <Accordion.Body className='text-white'>
               <ConfiguracionMontosCard 
                 showSubmitButton={false} 

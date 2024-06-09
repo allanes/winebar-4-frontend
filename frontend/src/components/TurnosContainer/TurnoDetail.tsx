@@ -18,22 +18,22 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
     const [ordenesDelTurno, setOrdenesDelTurno] = useState<OrdenCompraDetallada[]>([]);
 
     useEffect(() => {
-        const handleRecuperarOrdenesDelTurno = async () => {
-            if (turnoData) {
-            try {
-                const ordenesResponse = await OrdenesService.handleReadOrdenByTurnoIdBackendApiV1OrdenesByTurnoTurnoIdGet(turnoData.id);
-                // const parsedOrdenes = ordenesResponse.map(parseOrdenCompraDetallada);
-                const parsedOrdenes = ordenesResponse
-                setOrdenesDelTurno(parsedOrdenes);
-            } catch (error: unknown) {
-                setOrdenesDelTurno([]);
-                // handleApiError(error); // You can remove this line
-            }
-            }
-        };
-
-        handleRecuperarOrdenesDelTurno();
+       handleRecuperarOrdenesDelTurno();
     }, [turnoData]);
+
+    const handleRecuperarOrdenesDelTurno = async () => {
+        if (turnoData) {
+        try {
+            const ordenesResponse = await OrdenesService.handleReadOrdenByTurnoIdBackendApiV1OrdenesByTurnoTurnoIdGet(turnoData.id);
+            // const parsedOrdenes = ordenesResponse.map(parseOrdenCompraDetallada);
+            const parsedOrdenes = ordenesResponse
+            setOrdenesDelTurno(parsedOrdenes);
+        } catch (error: unknown) {
+            setOrdenesDelTurno([]);
+            // handleApiError(error); // You can remove this line
+        }
+        }
+    };
 
     const handleClientesActivosClick = () => {
         setActiveKey(activeKey === '0' ? null : '0');
@@ -145,6 +145,7 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
                                         ordenesList={ordenesDelTurno || []}
                                         onDeleteOrden={() => {}}
                                         columnasReducidas={true}
+                                        ordenCobradaTrigger={handleRecuperarOrdenesDelTurno}
                                     />
                                 )}
                             </Accordion.Body>

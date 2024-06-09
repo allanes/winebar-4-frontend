@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 interface OrdenViewProps {
   ordenData: OrdenCompraDetallada;
   showPanelCobro?: boolean;
+  ordenCobradaTrigger?: () => void
 }
 
 interface TooltipProps {
@@ -19,10 +20,10 @@ interface TooltipProps {
   delay?: { show: number; hide: number; } | undefined;
 }
 
-const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false }) => {
+const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false, ordenCobradaTrigger }) => {
   const totalPedidos = ordenData.pedidos.length;
   const openedPedidos = ordenData.pedidos.filter(pedido => pedido.cerrado===false).length;
-  const [ordenCobrada, setOrdenCobrada] = useState<OrdenCompra | null>(null)
+  // const [ordenCobrada, setOrdenCobrada] = useState<OrdenCompra | null>(null)
   
   const renderTooltip = (props: TooltipProps) => (
     <Tooltip id="button-tooltip" {...props}>
@@ -47,8 +48,9 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
     OrdenesService.handleCerrarOrdenBackendApiV1OrdenesCerrarPost(
       ordenId, infoPago
     ).then((ordenResponse) => {
-      setOrdenCobrada(ordenResponse)
+      // setOrdenCobrada(ordenResponse)
       Swal.fire('Orden Cobrada', `Monto $ ${ordenResponse.monto_cobrado}`, 'success')
+      if (ordenCobradaTrigger) {ordenCobradaTrigger()};
     })
     .catch(handleApiError)    
   };

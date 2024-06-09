@@ -8,6 +8,7 @@ interface Props {
   onDeleteOrden: (id: number) => void;
   columnasReducidas?: boolean;
   onChangeOrdenesGetToggle?: (checked: boolean) => void;
+  ordenCobradaTrigger?: () => void;
 }
 
 export const OrdenesList = ({
@@ -15,6 +16,7 @@ export const OrdenesList = ({
   onDeleteOrden,
   columnasReducidas = false,
   onChangeOrdenesGetToggle,
+  ordenCobradaTrigger
 }: Props) => {
 
   return (
@@ -45,6 +47,7 @@ export const OrdenesList = ({
           ordenesList={ordenesList} 
           onDeleteOrden={onDeleteOrden}
           columnasReducidas={columnasReducidas}
+          ordenCobradaTrigger={ordenCobradaTrigger}
         />
       </Card.Body>
     </Card>
