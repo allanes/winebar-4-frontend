@@ -3656,6 +3656,10 @@
             "type": "number",
             "title": "Monto Cobrado Transferencia"
           },
+          "monto_maximo_pedido": {
+            "type": "number",
+            "title": "Monto Maximo Pedido"
+          },
           "timestamp_apertura_orden": {
             "type": "string",
             "format": "date-time",
@@ -3721,6 +3725,7 @@
           "monto_cobrado_efectivo",
           "monto_cobrado_tarjeta",
           "monto_cobrado_transferencia",
+          "monto_maximo_pedido",
           "timestamp_apertura_orden"
         ],
         "title": "OrdenCompra"
@@ -3770,6 +3775,10 @@
           "monto_cobrado_transferencia": {
             "type": "number",
             "title": "Monto Cobrado Transferencia"
+          },
+          "monto_maximo_pedido": {
+            "type": "number",
+            "title": "Monto Maximo Pedido"
           },
           "timestamp_apertura_orden": {
             "type": "string",
@@ -3851,6 +3860,7 @@
           "monto_cobrado_efectivo",
           "monto_cobrado_tarjeta",
           "monto_cobrado_transferencia",
+          "monto_maximo_pedido",
           "timestamp_apertura_orden",
           "pedidos",
           "nombre_cliente",
