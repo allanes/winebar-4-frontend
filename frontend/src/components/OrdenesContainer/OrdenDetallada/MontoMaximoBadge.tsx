@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Badge, FormControl, Button, InputGroup } from 'react-bootstrap';
+import { Badge, FormControl, Button, InputGroup, Row } from 'react-bootstrap';
 import { OrdenesService } from '../../../codegen_output';
 import Swal from 'sweetalert2';
+import { ArrowClockwise } from 'react-bootstrap-icons'; // Importing the refresh icon
 
 interface MontoMaximoBadgeProps {
   id: number;
@@ -13,6 +14,7 @@ interface MontoMaximoBadgeProps {
 const MontoMaximoBadge: React.FC<MontoMaximoBadgeProps> = ({ id, label, field, initialValue }) => {
   const [value, setValue] = useState<string>(initialValue.toLocaleString('es-ES', { minimumFractionDigits: 0 }));
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formattedValue = e.target.value.replace(/[^0-9]/g, '');
@@ -31,22 +33,33 @@ const MontoMaximoBadge: React.FC<MontoMaximoBadgeProps> = ({ id, label, field, i
   };
 
   return (
-    <Badge bg="secondary" className="p-2" onClick={() => setIsEditing(true)} style={{ cursor: 'pointer' }}>
-      {isEditing ? (
-        <InputGroup>
-          <FormControl
-            type="text"
-            value={value}
-            onChange={handleChange}
-            onBlur={handleSave}
-            autoFocus
-          />
-          <Button variant="outline-secondary" onClick={handleSave}>Guardar</Button>
-        </InputGroup>
-      ) : (
-        <span>{label}: ${value}</span>
-      )}
-    </Badge>
+    <Row md={8}>
+      <Badge
+        bg="secondary"
+        className="p-2 monto-maximo-badge"
+        onClick={() => setIsEditing(true)}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {isEditing ? (
+          <InputGroup>
+            <FormControl
+              type="text"
+              value={value}
+              onChange={handleChange}
+              onBlur={handleSave}
+              autoFocus
+            />
+            <Button variant="outline-secondary" onClick={handleSave}>Guardar</Button>
+          </InputGroup>
+        ) : (
+          <>
+            <>{label}: ${value}</>
+            {isHovered && <ArrowClockwise className="ms-2 boton-refresh-status" />}
+          </>
+        )}
+      </Badge>
+    </Row>
   );
 };
 

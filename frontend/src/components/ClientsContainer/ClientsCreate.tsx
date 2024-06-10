@@ -132,9 +132,7 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
           <Accordion.Item eventKey="1" className='fully-transparent-card'>
             <Accordion.Header>Montos máximos para este cliente</Accordion.Header>
             <Accordion.Body className='text-white'>
-              <ConfiguracionMontosCard 
-                showSubmitButton={false} 
-                onChange={handleMaxAmountsChange} />
+              <ConfiguracionMontosCard onChange={handleMaxAmountsChange} />
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>

@@ -123,30 +123,18 @@
     text-wrap: nowrap;
 }
 
-/* Add this to your CSS/SCSS file */
-.monto-maximo-badge-container {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-}
-
+/* Assuming you have a CSS or SCSS file */
 .monto-maximo-badge {
-  display: inline-block;
-  padding: 0.5em;
+  cursor: pointer;
+  display: flex; 
+  align-items: center;
+  
+  &:hover {
+    background-color: darken($mi-light-grey, 10%);
+  }
 }
 
-input.dot-thousand-formatted {
-  text-align: right;
-}
 
-.monto-maximo-badge-container .input-group {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10; /* Ensure it's on top */
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 0.25em;
-  width: 100%;
-}
+
+
 
