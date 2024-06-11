@@ -17,52 +17,61 @@ const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) =>
 
   return (
     <Container>
-      <Card>
-        <Card.Body>
-          <Row>
-            <Col md={4}>
-              <h5><Badge bg="secondary">Orden #{ordenData.id}</Badge></h5>
-            </Col>
-            <Col md={4}>
-              <h5><TimestampFormateadoBadge timestamp={ordenData.timestamp_apertura_orden} /></h5>
-            </Col>
-            <Col md={4}>
-              <MontoMaximoBadge
-                id={ordenData.id}
-                label="Máx General"
-                field="monto_maximo_orden"
-                initialValue={ordenData.monto_maximo_orden}
-              />
-              {/* Add another badge for the new field if necessary */}
-              {/* <MontoMaximoBadge
-                label="Máx Pedido"
-                field="monto_maximo_pedido"
-                initialValue={ordenData.monto_maximo_pedido}
-              /> */}
-            </Col>
-          </Row>
+      <Card bg='dark'>
+        <Card.Header className='text-center table-container-title'>
+            <Row>
+              <Col md={4}>
+                <h5><Badge bg="secondary">Orden #{ordenData.id}</Badge></h5>
+              </Col>
+              <Col md={4}>
+                <h5><TimestampFormateadoBadge timestamp={ordenData.timestamp_apertura_orden} /></h5>
+              </Col>
+              <Col md={4}>
+                <Row>
+                  <Col>
+                    <MontoMaximoBadge
+                      id={ordenData.id}
+                      label="Máx General"
+                      field="monto_maximo_orden"
+                      initialValue={ordenData.monto_maximo_orden}
+                    />
+                  </Col>
+                  <Col>
+                    {/* Add another badge for the new field if necessary */}
+                    <MontoMaximoBadge
+                      id={ordenData.id}
+                      label="Cada Pedido"
+                      field="monto_maximo_pedido"
+                      initialValue={ordenData.monto_maximo_pedido}
+                    />
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Card.Header> 
+          <Card.Body>
           <Row className='mt-4'>
-            <Col>
-              <Row>
-                <h1>{ordenData.nombre_cliente}</h1>
-              </Row>
-              <Row>
-                <h4>
-                  <RolBadge roleName={ordenData.rol} />
-                </h4>
-              </Row>
-            </Col>
-            <Col>
-              <Badge pill bg='success' className='ps-5 pe-5'>
-                <Row>
-                  <h1>{`$ ${ordenData.monto_cargado}`}</h1>
+              <Col>
+                <Row className='text-white'>
+                  <h1>{ordenData.nombre_cliente}</h1>
                 </Row>
                 <Row>
-                  <h6>Monto Cargado</h6>
+                  <h4>
+                    <RolBadge roleName={ordenData.rol} />
+                  </h4>
                 </Row>
-              </Badge>
-            </Col>
-          </Row>
+              </Col>
+              <Col>
+                <Badge pill bg='success' className='ps-5 pe-5'>
+                  <Row>
+                    <h1>{`$ ${ordenData.monto_cargado}`}</h1>
+                  </Row>
+                  <Row>
+                    <h6>Monto Cargado</h6>
+                  </Row>
+                </Badge>
+              </Col>
+            </Row>
         </Card.Body>
         <Card.Footer>
           {ordenData.cerrada_por ? (

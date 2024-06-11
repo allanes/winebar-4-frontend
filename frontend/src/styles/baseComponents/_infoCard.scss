@@ -78,9 +78,9 @@ $accent-color: #FFC107; // Accent color for buttons and highlights
     // stroke-width: 3;
     cursor: pointer;
 
-    &:hover {
-        background-color: darken($accent-color, 10%);
-    }
+    // &:hover {
+    //     background-color: darken($accent-color, 10%);
+    // }
 }
 
 // Modal customization for a unified look
