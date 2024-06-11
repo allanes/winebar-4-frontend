@@ -71,26 +71,6 @@ export class OrdenesService {
         });
     }
     /**
-     * Handle Abrir Orden
-     * @param tarjetaCliente
-     * @returns OrdenCompra Successful Response
-     * @throws ApiError
-     */
-    public static handleAbrirOrdenBackendApiV1OrdenesAbrirPost(
-        tarjetaCliente: number,
-    ): CancelablePromise<OrdenCompra> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/backend/api/v1/ordenes/abrir',
-            query: {
-                'tarjeta_cliente': tarjetaCliente,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-    /**
      * Handle Cerrar Orden
      * @param id
      * @param requestBody

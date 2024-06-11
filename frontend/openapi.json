@@ -2322,8 +2322,8 @@
         "tags": [
           "Pedidos"
         ],
-        "summary": "Handle Quitar Renglon",
-        "operationId": "handle_quitar_renglon_backend_api_v1_pedidos_quitar_producto_post",
+        "summary": "Handle Quitar Producto",
+        "operationId": "handle_quitar_producto_backend_api_v1_pedidos_quitar_producto_post",
         "security": [
           {
             "OAuth2PasswordBearer": []
@@ -2420,34 +2420,24 @@
         }
       }
     },
-    "/backend/api/v1/pedidos/{id}": {
-      "put": {
+    "/backend/api/v1/pedidos/cancelar-renglon/{renglon_id}": {
+      "post": {
         "tags": [
           "Pedidos"
         ],
-        "summary": "Handle Update Pedido",
-        "operationId": "handle_update_pedido_backend_api_v1_pedidos__id__put",
+        "summary": "Handle Cancelar Renglon",
+        "operationId": "handle_cancelar_renglon_backend_api_v1_pedidos_cancelar_renglon__renglon_id__post",
         "parameters": [
           {
-            "name": "id",
+            "name": "renglon_id",
             "in": "path",
             "required": true,
             "schema": {
               "type": "integer",
-              "title": "Id"
+              "title": "Renglon Id"
             }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PedidoUpdate"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -2470,7 +2460,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/backend/api/v1/pedidos/{id}": {
       "get": {
         "tags": [
           "Pedidos"
@@ -4050,13 +4042,6 @@
           "renglones"
         ],
         "title": "Pedido"
-      },
-      "PedidoUpdate": {
-        "properties": {
-
-        },
-        "type": "object",
-        "title": "PedidoUpdate"
       },
       "PersonalInterno": {
         "properties": {
