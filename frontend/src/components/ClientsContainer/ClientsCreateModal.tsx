@@ -26,7 +26,6 @@ const ClientsCreateModal: React.FC<ClientsCreateModalProps> = ({ show, onHide, o
         montos_config_in: maxAmounts,
       });
       Swal.fire(`${newClient.nombre}`, 'ha sido guardado con éxito', 'success');
-      onHide();  // Close modal after successful client creation
       onClientAdded();  // Notify parent component to refresh data
     } catch (error) {
       Swal.fire('Error', 'No se pudo guardar el cliente.', 'error');

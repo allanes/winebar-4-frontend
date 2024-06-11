@@ -15,15 +15,17 @@ const AccionesPanel: React.FC<AccionesPanelProps> = ({ onReloadStatus }) => {
   const [showPanelCobro, setShowPanelCobro] = useState(false);
 
   const handleShow = () => setShowModal(true);
+  
   const handleClose = () => {
+    setShowPanelCobro(false);
     setShowModal(false);
-    onReloadStatus(); // Reload when modal is closed
+    onReloadStatus();
   };
 
-  const handleClosePanelCobro = () => {
-    setShowPanelCobro(false);
-    onReloadStatus(); // Reload when modal is closed
-  };
+//   const handleClosePanelCobro = () => {
+//     setShowPanelCobro(false);
+//     onReloadStatus(); // Reload when modal is closed
+//   };
 
   const handleAbrirPanelCobro = () => {
     setShowPanelCobro(true);
@@ -92,7 +94,7 @@ const AccionesPanel: React.FC<AccionesPanelProps> = ({ onReloadStatus }) => {
 
         <PanelCobroOrden
             show={showPanelCobro}
-            onHide={handleClosePanelCobro}
+            onHide={handleClose}
         />
     </Card>
   );
