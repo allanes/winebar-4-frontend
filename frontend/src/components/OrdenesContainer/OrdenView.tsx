@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Row, Accordion, Col, Card, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { Placement } from 'react-bootstrap/esm/types';
-import { CartFill, CartX } from 'react-bootstrap-icons';
-import { OrdenCompra, OrdenCompraDetallada, OrdenCompraInfoPago, OrdenesService } from '../../codegen_output';
+import { OrdenCompraDetallada, OrdenCompraInfoPago, OrdenesService } from '../../codegen_output';
 import PedidosList from '../PedidosContainer/PedidosList';
 import OrdenMetadata from './OrdenDetallada/OrdenMetadata';
 import { handleApiError } from '../ClientsContainer/ClientsContainer';
 import Swal from 'sweetalert2';
+import { Placement } from 'react-bootstrap/esm/types';
+import { CartFill, CartX } from 'react-bootstrap-icons';
+import copaImage from '../../assets/icons/copa.png';
+import foodImage from '../../assets/icons/food.png';
 
 interface OrdenViewProps {
   ordenData: OrdenCompraDetallada;
   showPanelCobro?: boolean;
-  ordenCobradaTrigger?: () => void
+  ordenCobradaTrigger?: () => void;
 }
 
 interface TooltipProps {
@@ -22,9 +24,12 @@ interface TooltipProps {
 
 const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false, ordenCobradaTrigger }) => {
   const totalPedidos = ordenData.pedidos.length;
-  const openedPedidos = ordenData.pedidos.filter(pedido => pedido.cerrado===false).length;
-  // const [ordenCobrada, setOrdenCobrada] = useState<OrdenCompra | null>(null)
-  
+  const openedPedidos = ordenData.pedidos.filter(pedido => !pedido.cerrado).length;
+  const vinoAmount = ordenData.pedidos.filter(pedido => pedido.renglones.some(renglon => renglon.vitte_consumo_id))
+                     .reduce((sum, pedido) => sum + pedido.renglones.reduce((sumRenglon, renglon) => sumRenglon + renglon.monto, 0), 0);
+  const tapaAmount = ordenData.pedidos.filter(pedido => !pedido.renglones.some(renglon => renglon.vitte_consumo_id))
+                     .reduce((sum, pedido) => sum + pedido.renglones.reduce((sumRenglon, renglon) => sumRenglon + renglon.monto, 0), 0);
+
   const renderTooltip = (props: TooltipProps) => (
     <Tooltip id="button-tooltip" {...props}>
       Total de pedidos para esta orden
@@ -34,6 +39,18 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
   const renderTooltip2 = (props: TooltipProps) => (
     <Tooltip id="button-tooltip" {...props}>
       Cantidad de Pedidos abiertos. Estos pedidos seran eliminados después de cobrar
+    </Tooltip>
+  );
+
+  const renderTooltip3 = (props: TooltipProps) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Consumos de Vinos
+    </Tooltip>
+  );
+
+  const renderTooltip4 = (props: TooltipProps) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Consumos de Tapas
     </Tooltip>
   );
 
@@ -59,32 +76,52 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
     <div className="orden-view">
       <Row className="sticky-top">
         <OrdenMetadata 
-            ordenData={ordenData} 
-            onCobrar={handleInfoPagoSubmit}/>
+          ordenData={ordenData} 
+          onCobrar={handleInfoPagoSubmit}/>
       </Row>
       <Row>
         <Accordion defaultActiveKey="" className="pedidos-accordion">
           <Accordion.Item eventKey="0">
-            <Accordion.Header className='d-flex justify-content-between'>
-              <Col md={5}>
+            <Accordion.Header>
+              <Col md={6}>
                 <h5>Pedidos</h5>
               </Col>
-              <Col md={3}>
+              <Col md={6} className="d-flex justify-content-around">
+                <OverlayTrigger
+                  placement="top"
+                  delay={{ show: 50, hide: 200 }}
+                  overlay={renderTooltip3}
+                >
+                  <Badge bg='light' className='text-dark'>
+                    <img src={copaImage} alt="Vinos" style={{ width: 24, height: 24 }} /> $ {vinoAmount.toFixed(2)}
+                  </Badge>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement="top"
+                  delay={{ show: 50, hide: 200 }}
+                  overlay={renderTooltip4}
+                >
+                  <Badge bg='light' className='text-dark'>
+                    <img src={foodImage} alt="Tapas" style={{ width: 24, height: 24 }} /> $ {tapaAmount.toFixed(2)}
+                  </Badge>
+                </OverlayTrigger>
                 <OverlayTrigger
                   placement="top"
                   delay={{ show: 50, hide: 200 }}
                   overlay={renderTooltip}
                 >
-                    <Badge bg='light' className='text-dark'><CartFill size={24} color='green' /> {totalPedidos}</Badge>
+                  <Badge bg='light' className='text-dark'>
+                    <CartFill size={24} color='green' /> {totalPedidos}
+                  </Badge>
                 </OverlayTrigger>
-              </Col>
-              <Col md={3} className='text-end pe-5'>
                 <OverlayTrigger
                   placement="top"
                   delay={{ show: 50, hide: 200 }}
                   overlay={renderTooltip2}
                 >
-                    <Badge bg='light' className='text-dark'><CartX size={24} color='red' /> {openedPedidos}</Badge>
+                  <Badge bg='light' className='text-dark'>
+                    <CartX size={24} color='red' /> {openedPedidos}
+                  </Badge>
                 </OverlayTrigger>
               </Col>
             </Accordion.Header>
