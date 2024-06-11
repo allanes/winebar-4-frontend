@@ -93,7 +93,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
                   overlay={renderTooltip3}
                 >
                   <Badge bg='light' className='text-dark'>
-                    <img src={copaImage} alt="Vinos" style={{ width: 24, height: 24 }} /> $ {vinoAmount.toFixed(2)}
+                    <img src={copaImage} alt="Vinos" style={{ width: 24, height: 24 }} /> $ {vinoAmount.toLocaleString('es-ES')}
                   </Badge>
                 </OverlayTrigger>
                 <OverlayTrigger
@@ -102,7 +102,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
                   overlay={renderTooltip4}
                 >
                   <Badge bg='light' className='text-dark'>
-                    <img src={foodImage} alt="Tapas" style={{ width: 24, height: 24 }} /> $ {tapaAmount.toFixed(2)}
+                    <img src={foodImage} alt="Tapas" style={{ width: 24, height: 24 }} /> $ {tapaAmount.toLocaleString('es-ES')}
                   </Badge>
                 </OverlayTrigger>
                 <OverlayTrigger

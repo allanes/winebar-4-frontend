@@ -96,13 +96,13 @@ const PanelInfoPagoOrden = ({ show, onHide, onSubmit, ordenData }: PanelInfoPago
                         <Col>
                             <div className="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <strong>Recibido:</strong> ${totalPaid.toFixed(2)}
+                                    <strong>Recibido:</strong> ${totalPaid.toLocaleString('es-ES')}
                                 </div>
                                 <div>
-                                    <h4><Badge bg='warning'>A Cobrar: <strong>${ordenData.monto_cargado.toFixed(2)}</strong></Badge></h4>
+                                    <h4><Badge bg='warning'>A Cobrar: <strong>${ordenData.monto_cargado.toLocaleString('es-ES')}</strong></Badge></h4>
                                 </div>
                                 <div>
-                                    <strong>Restante:</strong> ${remainingAmount.toFixed(2)}
+                                    <strong>Restante:</strong> ${remainingAmount.toLocaleString('es-ES')}
                                 </div>
                             </div>
                         </Col>

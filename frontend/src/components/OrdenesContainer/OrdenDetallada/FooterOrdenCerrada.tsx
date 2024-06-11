@@ -25,13 +25,13 @@ const FooterOrdenCerrada: React.FC<FooterOrdenCerradaProps> = ({ ordenData }) =>
       </Row>
       <Row className="mb-1">
         <Col>
-          <strong>Efectivo:</strong> ${ordenData.monto_cobrado_efectivo?.toFixed(2) || '0.00'}
+          <strong>Efectivo:</strong> ${ordenData.monto_cobrado_efectivo?.toLocaleString('es-ES') || '0.00'}
         </Col>
         <Col>
-          <strong>Tarjeta:</strong> ${ordenData.monto_cobrado_tarjeta?.toFixed(2) || '0.00'}
+          <strong>Tarjeta:</strong> ${ordenData.monto_cobrado_tarjeta?.toLocaleString('es-ES') || '0.00'}
         </Col>
         <Col>
-          <strong>Transferencia:</strong> ${ordenData.monto_cobrado_transferencia?.toFixed(2) || '0.00'}
+          <strong>Transferencia:</strong> ${ordenData.monto_cobrado_transferencia?.toLocaleString('es-ES') || '0.00'}
         </Col>
       </Row>
     </div>

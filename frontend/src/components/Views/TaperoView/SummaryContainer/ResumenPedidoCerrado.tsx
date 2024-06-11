@@ -55,7 +55,7 @@ const ResumenPedidoCerrado: React.FC<ResumenPedidoCerradoProps> = ({ orderClosed
           <ListGroupItem>
             <div className="d-flex justify-content-between align-items-center">
               <strong>Monto cargado</strong>
-              <span className="text-success h4">${subtotal.toFixed(2)}</span>
+              <span className="text-success h4">${subtotal.toLocaleString('es-ES')}</span>
             </div>
           </ListGroupItem>
         </ListGroup>
