@@ -129,7 +129,7 @@ export const ClientsCreate = ({ onNewClient, expanded = false }: Props) => {
             </Accordion.Body>
           </Accordion.Item>
 
-          <Accordion.Item eventKey="1" className='fully-transparent-card'>
+          <Accordion.Item eventKey="1" className='mt-2 fully-transparent-card'>
             <Accordion.Header>Montos máximos para este cliente</Accordion.Header>
             <Accordion.Body className='text-white'>
               <ConfiguracionMontosCard onChange={handleMaxAmountsChange} />

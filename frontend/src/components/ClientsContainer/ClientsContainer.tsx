@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ClientesService, ClienteCreate, ClienteWithDetails, ApiError, DetallesAdicionalesForUI } from '../../codegen_output';
+import { ConfiguracionCreate, ClientesService, ClienteCreate, ClienteWithDetails, ApiError, DetallesAdicionalesForUI } from '../../codegen_output';
 import ClientsCreateModal from './ClientsCreateModal';
 import { ClientsList } from './ClientsList';
 import { Col, Row } from 'react-bootstrap';
@@ -31,11 +31,17 @@ export const ClientsContainer = () => {
       .catch(handleApiError);
   };
 
-  const handleNewClient = async (newClient: ClienteCreate, tarjetaId: number, additionalDetails?: DetallesAdicionalesForUI): Promise<void> => {
+  const handleNewClient = async (
+    newClient: ClienteCreate, 
+    tarjetaId: number, 
+    additionalDetails?: DetallesAdicionalesForUI,
+    maxAmounts?: ConfiguracionCreate
+  ): Promise<void> => {
     try {
       const response = await ClientesService.handleCreateClienteWithTarjetaBackendApiV1ClientesPost(tarjetaId, {
         cliente_in: newClient,
         detalle_adicional_in: additionalDetails,
+        montos_config_in: maxAmounts,
       });
       Swal.fire(`${newClient.nombre}`, 'ha sido guardado con éxito', 'success');
       handleCloseCreateModal();

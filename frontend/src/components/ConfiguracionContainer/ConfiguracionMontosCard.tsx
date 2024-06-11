@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { Configuracion, ConfiguracionService, ConfiguracionCreate } from '../../codegen_output';
-import { Button, Form, Card, Row, Col, InputGroup } from 'react-bootstrap';
+import { Form, Card, Row, Col, InputGroup } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 
 interface ConfiguracionMontosCardProps {
