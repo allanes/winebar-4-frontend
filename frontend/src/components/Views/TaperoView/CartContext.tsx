@@ -82,7 +82,7 @@ export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }
       return;
     }
 
-    PedidosService.handleQuitarRenglonBackendApiV1PedidosQuitarProductoPost(tarjetaCliente, productId)
+    PedidosService.handleQuitarProductoBackendApiV1PedidosQuitarProductoPost(tarjetaCliente, productId)
       .then((pedido) => {
         setPedidoEnCurso(pedido);
         setCartItems(pedido.renglones);
