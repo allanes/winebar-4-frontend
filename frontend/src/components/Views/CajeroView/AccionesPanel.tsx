@@ -1,13 +1,9 @@
 // AccionesPanel.tsx
 import React, { useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { handleApiError } from '../../ClientsContainer/ClientsContainer';
 import ClientsCreateModal from '../../ClientsContainer/ClientsCreateModal';
-import { DetallesAdicionalesForUI } from '../../../codegen_output';
-import { ClienteCreate, ClientesService, ConfiguracionCreate } from '../../../codegen_output';
 import { CurrencyDollar } from 'react-bootstrap-icons';
 import PanelCobroOrden from './PanelCobroOrdenOverview';
-import Swal from 'sweetalert2';
 import copaImage from '../../../assets/icons/copa.png';
 
 interface AccionesPanelProps {
@@ -22,28 +18,6 @@ const AccionesPanel: React.FC<AccionesPanelProps> = ({ onReloadStatus }) => {
   const handleClose = () => {
     setShowModal(false);
     onReloadStatus(); // Reload when modal is closed
-  };
-
-    const handleNewClient = async (
-        newClient: ClienteCreate, 
-        tarjetaId: number, 
-        additionalDetails?: DetallesAdicionalesForUI,
-        maxAmounts?: ConfiguracionCreate
-    ): Promise<void> => {
-        try {
-        const response = await ClientesService.handleCreateClienteWithTarjetaBackendApiV1ClientesPost(
-            tarjetaId, 
-            { 
-                cliente_in: newClient,
-                detalle_adicional_in: additionalDetails,
-                montos_config_in: maxAmounts,
-            },
-        );
-        Swal.fire(`${newClient.nombre}`, 'ha sido guardado con éxito', 'success');
-        handleClose()        
-        } catch (error) {
-            handleApiError(error);
-        }
   };
 
   const handleClosePanelCobro = () => {
@@ -111,7 +85,7 @@ const AccionesPanel: React.FC<AccionesPanelProps> = ({ onReloadStatus }) => {
             <ClientsCreateModal
                 show={showModal}
                 onHide={handleClose}
-                onNewClient={handleNewClient}
+                onClientAdded={handleClose}
                 expanded={true}
             />            
         </div>
