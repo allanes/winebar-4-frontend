@@ -5,15 +5,20 @@ import RenglonTapaItem from './RenglonTapaItem';
 
 interface RenglonTapaListProps {
   renglones: Renglon[];
+  refreshData: () => void;
 }
 
-const RenglonesTapaList: React.FC<RenglonTapaListProps> = ({ renglones }) => {
+const RenglonesTapaList: React.FC<RenglonTapaListProps> = ({ renglones, refreshData }) => {
   return (
     <div className="renglon-list">
       <Col>
       {renglones.map((renglon) => (
         <Row md={7}>
-          <RenglonTapaItem key={renglon.id} renglon={renglon} />
+          <RenglonTapaItem 
+            key={renglon.id} 
+            renglon={renglon} 
+            refreshData={refreshData}
+          />
         </Row>
       ))}
       </Col>

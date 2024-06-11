@@ -6,9 +6,10 @@ import { Row, Col, Card } from 'react-bootstrap';
 
 interface PedidosListProps {
   pedidos: Pedido[];
+  refreshData: () => void;
 }
 
-const PedidosList: React.FC<PedidosListProps> = ({ pedidos }) => {
+const PedidosList: React.FC<PedidosListProps> = ({ pedidos, refreshData }) => {
     // Splitting pedidos into two lists
     const pedidosVino = pedidos.filter(pedido => pedido.renglones.some(renglon => renglon.vitte_consumo_id));
     const pedidosTapa = pedidos.filter(pedido => !pedido.renglones.some(renglon => renglon.vitte_consumo_id));
@@ -26,6 +27,7 @@ const PedidosList: React.FC<PedidosListProps> = ({ pedidos }) => {
             key={pedido.id} 
             pedido={pedido} 
             pedidoNumberedNumber={pedidosTapa.length - pedidosTapa.indexOf(pedido)}
+            refreshData={refreshData}
         />
     );
 

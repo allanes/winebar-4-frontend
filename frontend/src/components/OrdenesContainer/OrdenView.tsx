@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Row, Accordion, Col, Card, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { OrdenCompraDetallada, OrdenCompraInfoPago, OrdenesService } from '../../codegen_output';
 import PedidosList from '../PedidosContainer/PedidosList';
@@ -23,6 +23,7 @@ interface TooltipProps {
 }
 
 const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false, ordenCobradaTrigger }) => {
+  const [data, setData] = useState(ordenData);
   const totalPedidos = ordenData.pedidos.length;
   const openedPedidos = ordenData.pedidos.filter(pedido => !pedido.cerrado).length;
   const vinoAmount = ordenData.pedidos.filter(pedido => pedido.renglones.some(renglon => renglon.vitte_consumo_id))
@@ -72,12 +73,26 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
     .catch(handleApiError)    
   };
 
+  const refreshData = async () => {
+    try {
+      const updatedData = await OrdenesService.handleReadOrdenByIdBackendApiV1OrdenesIdGet(ordenData.id); // Method to fetch updated data
+      setData(updatedData);
+      // if (ordenCobradaTrigger) {
+      //   ordenCobradaTrigger();
+      // }
+    } catch (error) {
+      console.error("Failed to refresh data", error);
+    }
+  };
+
   return (
     <div className="orden-view">
       <Row className="sticky-top">
         <OrdenMetadata 
           ordenData={ordenData} 
-          onCobrar={handleInfoPagoSubmit}/>
+          onCobrar={handleInfoPagoSubmit}
+          refreshData={refreshData}
+        />
       </Row>
       <Row>
         <Accordion defaultActiveKey="" className="pedidos-accordion">
@@ -126,7 +141,10 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
               </Col>
             </Accordion.Header>
             <Accordion.Body>
-              <PedidosList pedidos={ordenData.pedidos} />
+              <PedidosList 
+                pedidos={ordenData.pedidos} 
+                refreshData={refreshData}
+              />
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
