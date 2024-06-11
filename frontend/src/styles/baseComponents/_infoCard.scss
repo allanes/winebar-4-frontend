@@ -71,6 +71,18 @@ $accent-color: #FFC107; // Accent color for buttons and highlights
     }
 }
 
+.boton-refresh-status {
+    color: $accent-color;
+    font-size: 20px;
+    font-weight: bolder;
+    // stroke-width: 3;
+    cursor: pointer;
+
+    // &:hover {
+    //     background-color: darken($accent-color, 10%);
+    // }
+}
+
 // Modal customization for a unified look
 .modal-content {
     background-color: $mi-light-grey-2;

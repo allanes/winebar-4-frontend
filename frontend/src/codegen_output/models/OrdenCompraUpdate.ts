@@ -5,5 +5,7 @@
 export type OrdenCompraUpdate = {
     timestamp_cierre_orden?: (string | null);
     cerrada_por?: (number | null);
+    monto_maximo_orden?: (number | null);
+    monto_maximo_pedido?: (number | null);
 };
 

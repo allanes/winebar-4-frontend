@@ -8,6 +8,7 @@ interface Props {
   onDeleteOrden: (id: number) => void;
   columnasReducidas?: boolean;
   onChangeOrdenesGetToggle?: (checked: boolean) => void;
+  ordenCobradaTrigger?: () => void;
 }
 
 export const OrdenesList = ({
@@ -15,6 +16,7 @@ export const OrdenesList = ({
   onDeleteOrden,
   columnasReducidas = false,
   onChangeOrdenesGetToggle,
+  ordenCobradaTrigger
 }: Props) => {
 
   return (
@@ -22,16 +24,15 @@ export const OrdenesList = ({
       <Card.Header className='table-container-title'>
         <Row className='align-items-center'>
           <Col md={5} >
-            {onChangeOrdenesGetToggle && (
               <Form.Check 
                 type="switch"
                 id="ordenes-get-toggle"
                 label="Solo del turno abierto"
                 defaultChecked
+                disabled={!onChangeOrdenesGetToggle}
                 className="form-check-warning"
                 onChange={(e) => onChangeOrdenesGetToggle!(e.target.checked)}
               />
-            )}
           </Col>
           <Col  className='text-start'>
             <h3>
@@ -45,6 +46,7 @@ export const OrdenesList = ({
           ordenesList={ordenesList} 
           onDeleteOrden={onDeleteOrden}
           columnasReducidas={columnasReducidas}
+          ordenCobradaTrigger={ordenCobradaTrigger}
         />
       </Card.Body>
     </Card>

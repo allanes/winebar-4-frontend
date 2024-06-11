@@ -1,126 +1,58 @@
-import React, { useEffect, useState } from 'react';
-import { Tapa, TapasService, ApiError, TapaConProductoCreate } from '../../codegen_output';
-import { Body_handle_upload_foto_backend_api_v1_tapas_foto__id__post } from '../../codegen_output';
+import React, { useState, useEffect } from 'react';
+import { ConfiguracionService, ConfiguracionCreate } from '../../codegen_output';
 import { LectorTapasContainer } from '../LectorTapasContainer/LectorTapasContainer';
 import ConfiguracionMontosCard from './ConfiguracionMontosCard';
-import { Modal, Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
+import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge';
 
 export const ConfiguracionContainer = () => {
-  const [tapasList, setTapasList] = useState<Tapa[]>([]);
-  const [showCreateModal, setShowCreateModal] = useState(false);
-  const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const [selectedTapa, setSelectedTapa] = useState<Tapa | null>(null);
-  const [tapaImageUrl, setTapaImageUrl] = useState<string | null>(null);
+  const [configInputs, setConfigInputs] = useState<ConfiguracionCreate>({
+    monto_maximo_orden_def: 0,
+    monto_maximo_pedido_def: 0
+  });
 
+  const handleConfigChange = (name: string, value: number) => {
+    setConfigInputs(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleFormSubmit = async () => {
+    try {
+      await ConfiguracionService.handleCreateConfiguracionBackendApiV1ConfiguracionesPost(configInputs);
+      Swal.fire('Actualizado', 'Configuración de montos actualizada correctamente.', 'success');
+    } catch (error) {
+      console.error('Failed to update configuration:', error);
+      Swal.fire('Error', 'No se pudo actualizar la configuración de montos.', 'error');
+    }
+  };
+
+  const [lastModified, setLastModified] = useState('');
+
+  // Simulate fetching the last modification date
   useEffect(() => {
-    fetchTapa();
+    setLastModified(new Date().toLocaleDateString());
   }, []);
-
-  const fetchTapa = () => {
-    TapasService.handleReadTapasBackendApiV1TapasGet()
-      .then((tapas) => {
-        setTapasList(tapas);        
-      })
-      .catch(handleApiError);
-  };
-
-  const handleApiError = (error: unknown) => {
-    const err = error as ApiError;
-    let errorMessage = 'Ocurrió un error.';
-    if (err.body && err.body.detail) {
-      errorMessage = err.body.detail;
-    }
-    Swal.fire('Error', errorMessage, 'error');
-  };
-
-  const handleNewTapa = async (newTapaIn: TapaConProductoCreate, fotoFile: File | null): Promise<void> => {
-    try {
-      const response = await TapasService.handleCreateTapaWithTarjetaBackendApiV1TapasPost(newTapaIn);
-      
-      if (fotoFile) {
-        const fotoData: Body_handle_upload_foto_backend_api_v1_tapas_foto__id__post = {
-          foto: fotoFile,
-        };
-        await TapasService.handleUploadFotoBackendApiV1TapasFotoIdPost(response.id, fotoData);
-      }
-  
-      Swal.fire(`${response.producto.titulo}`, `tapa ID ${response.id} guardada.`, 'success');
-      fetchTapa();
-      setShowCreateModal(false);
-    } catch (error) {
-      handleApiError(error);
-    }
-  };
-
-  const handleDelete = async (id: number): Promise<void> => {
-    try {
-      await TapasService.handleDeleteTapaBackendApiV1TapasIdDelete(id);
-      setTapasList(clients => clients.filter(client => client.id !== id));
-    } catch (error) {
-      handleApiError(error);
-    }
-  };
-
-  const handleUpdate = async (updatedTapa: TapaConProductoCreate, fotoFile: File | null): Promise<void> => {
-    try {
-      if (selectedTapa) {
-        await TapasService.handleUpdateTapaBackendApiV1TapasIdPut(selectedTapa.id, updatedTapa);
-
-        if (fotoFile) {
-          const fotoData: Body_handle_upload_foto_backend_api_v1_tapas_foto__id__post = {
-            foto: fotoFile,
-          };
-          await TapasService.handleUploadFotoBackendApiV1TapasFotoIdPost(selectedTapa.id, fotoData);
-        }
-
-        Swal.fire(`${updatedTapa.titulo}`, `tapa ID ${selectedTapa.id} actualizada.`, 'success');
-        fetchTapa();
-        setShowUpdateModal(false);
-      }
-    } catch (error) {
-      handleApiError(error);
-    }
-  };
-
-  const handleOpenCreateModal = () => {
-    setShowCreateModal(true);
-  };
-
-  const handleCloseCreateModal = () => {
-    setShowCreateModal(false);
-  };
-
-  const handleOpenUpdateModal = async (tapa: Tapa) => {
-    setSelectedTapa(tapa);
-    try {
-      // Fetch the image using the existing service
-      const imageBlob = await TapasService.handleGetFotoBackendApiV1TapasFotoIdGet(tapa.id);
-      const imageUrl = URL.createObjectURL(imageBlob);
-      setTapaImageUrl(imageUrl);
-    } catch (error) {
-      setTapaImageUrl(null);
-    }
-    setShowUpdateModal(true);
-  };
-
-  const handleCloseUpdateModal = () => {
-    setSelectedTapa(null);
-    setShowUpdateModal(false);
-  };
 
   return (
     <div>
       <Row className="mb-3 d-flex">
         <Col>
-          <LectorTapasContainer />       
+          <LectorTapasContainer />
         </Col>
       </Row>
       <Row className='justify-content-center'>
         <Col md={7}>
-          <ConfiguracionMontosCard />
+          <h3>Configuración de Montos</h3>
+          <ConfiguracionMontosCard onChange={handleConfigChange} />
+          <Button onClick={handleFormSubmit} className="mt-3 boton-cop">Actualizar</Button>
+          <div className="mt-2">Última Actualización: <TimestampFormateadoBadge timestamp={lastModified} /></div>
         </Col>
       </Row>
     </div>
   );
 };
+
+export default ConfiguracionContainer;

@@ -1,37 +1,35 @@
 // AccionesPanel.tsx
 import React, { useState } from 'react';
-import { Button, Modal, Card } from 'react-bootstrap';
-import { handleApiError } from '../../ClientsContainer/ClientsContainer';
+import { Button, Card } from 'react-bootstrap';
 import ClientsCreateModal from '../../ClientsContainer/ClientsCreateModal';
-import { ClienteCreate, ClientesService } from '../../../codegen_output';
 import { CurrencyDollar } from 'react-bootstrap-icons';
 import PanelCobroOrden from './PanelCobroOrdenOverview';
-import Swal from 'sweetalert2';
-import copaImage from '../../../assets/icons/copa.png'
+import copaImage from '../../../assets/icons/copa.png';
 
-const AccionesPanel = () => {
+interface AccionesPanelProps {
+  onReloadStatus: () => void;
+}
+
+const AccionesPanel: React.FC<AccionesPanelProps> = ({ onReloadStatus }) => {
   const [showModal, setShowModal] = useState(false);
-
-  const handleShow = () => setShowModal(true);
-  const handleClose = () => setShowModal(false);
   const [showPanelCobro, setShowPanelCobro] = useState(false);
 
-  const handleNewClient = async (newClient: ClienteCreate, tarjetaId: number): Promise<void> => {
-    try {
-      const response = await ClientesService.handleCreateClienteWithTarjetaBackendApiV1ClientesPost(tarjetaId, { cliente_in: newClient });
-      Swal.fire(`${newClient.nombre}`, 'ha sido guardado con éxito', 'success');      
-    } catch (error) {
-      handleApiError(error);
-    }
+  const handleShow = () => setShowModal(true);
+  
+  const handleClose = () => {
+    setShowPanelCobro(false);
+    setShowModal(false);
+    onReloadStatus();
   };
 
-  const handleClosePanelCobro = () => {
-    setShowPanelCobro(false);
-  };
+//   const handleClosePanelCobro = () => {
+//     setShowPanelCobro(false);
+//     onReloadStatus(); // Reload when modal is closed
+//   };
 
   const handleAbrirPanelCobro = () => {
-    setShowPanelCobro(true)
-  }
+    setShowPanelCobro(true);
+  };
 
   return (
     <Card className='transparent-card acciones-width'>
@@ -89,15 +87,14 @@ const AccionesPanel = () => {
             <ClientsCreateModal
                 show={showModal}
                 onHide={handleClose}
-                onNewClient={handleNewClient}
+                onClientAdded={handleClose}
                 expanded={true}
             />            
         </div>
 
-
         <PanelCobroOrden
             show={showPanelCobro}
-            onHide={handleClosePanelCobro}
+            onHide={handleClose}
         />
     </Card>
   );

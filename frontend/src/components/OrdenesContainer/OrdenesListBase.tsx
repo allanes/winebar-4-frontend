@@ -12,6 +12,7 @@ interface Props {
   ordenesList: Array<OrdenCompraDetallada>;
   onDeleteOrden: (id: number) => void;
   columnasReducidas?: boolean;
+  ordenCobradaTrigger?: () => void;
 }
 
 const keysTabOrden = [
@@ -43,6 +44,7 @@ export const OrdenesListBase = ({
   ordenesList,
   onDeleteOrden,
   columnasReducidas = false,
+  ordenCobradaTrigger
 }: Props) => {
   const [selectedOrden, setSelectedOrden] = useState<OrdenCompraDetallada | null>(null);
   const [showOrdenView, setShowOrdenView] = useState(false);
@@ -105,6 +107,11 @@ export const OrdenesListBase = ({
     setSelectedOrden(null);
     setShowOrdenView(false);
   };
+
+  const handleOrdenCobrada = () => {
+    handleCloseOrdenView();
+    if (ordenCobradaTrigger) {ordenCobradaTrigger()};
+  }
 
   const selectedKeys = columnasReducidas ? keysTabOrdenReducido : keysTabOrden;
 
@@ -176,6 +183,7 @@ export const OrdenesListBase = ({
           {selectedOrden && (
             <OrdenView 
               ordenData={selectedOrden} 
+              ordenCobradaTrigger={handleOrdenCobrada}
             />
           )}
         </Modal.Body>

@@ -2,67 +2,103 @@ import React, { useState, useEffect } from 'react';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import InfoCard from './InfoCard';
 import { InfoDeCierre, Turno, TurnosService } from '../../../../codegen_output';
-import { handleApiError } from '../../../ClientsContainer/ClientsContainer';
 import CierreDeCaja from './CierreDeCaja';
 import Swal from 'sweetalert2';
+import { ArrowClockwise } from 'react-bootstrap-icons'; // Importing the refresh icon
 
-const StatusPanel = () => {
+interface StatusPanelProps {
+  reloadStatus: boolean;
+}
+
+const StatusPanel: React.FC<StatusPanelProps> = ({ reloadStatus }) => {
   const [turnoData, setTurnoData] = useState<Turno | null>(null);
   const [showCierreDeCajaDetalle, setShowCierreDeCajaDetalle] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
   useEffect(() => {
     handleGetTurnoInfo();
-  }, []);
+  }, [reloadStatus]);
+
+  useEffect(() => {
+    if (lastUpdated) {
+      const interval = setInterval(() => {
+        forceUpdate(); // Force a re-render to update the elapsed time
+      }, 1000);
+      return () => clearInterval(interval); // Clear the interval on component unmount
+    }
+  }, [lastUpdated]);
 
   const handleGetTurnoInfo = async () => {
-    TurnosService.handleGetTurnoAbiertoBackendApiV1TurnosTurnoEnCursoGet()
-      .then((turnoResponse) => {
-        setTurnoData(turnoResponse);
-      })
-      .catch((error: unknown) => {
-        setTurnoData(null);
-        // handleApiError(error); // You can remove this line
-      });
+    try {
+      const turnoResponse = await TurnosService.handleGetTurnoAbiertoBackendApiV1TurnosTurnoEnCursoGet();
+      setTurnoData(turnoResponse);
+      setLastUpdated(new Date()); // Update the last updated time
+    } catch (error) {
+      setTurnoData(null);
+    }
   };
 
   const handleAbrirTurno = async () => {
-    TurnosService.handleAbrirTurnoBackendApiV1TurnosAbrirPost()
-      .then((turnoResponse) => {
-        setTurnoData(turnoResponse);
-      })
-      .catch((error: unknown) => {
-        setTurnoData(null);
-        handleApiError(error);
-      });
+    try {
+      const turnoResponse = await TurnosService.handleAbrirTurnoBackendApiV1TurnosAbrirPost();
+      setTurnoData(turnoResponse);
+      setLastUpdated(new Date()); // Update the last updated time
+    } catch (error) {
+      setTurnoData(null);
+      Swal.fire('Error', 'No se pudo abrir el turno.', 'error');
+    }
   };
 
   const handleCerrarTurno = async (infoDeCierre: InfoDeCierre) => {
     try {
-      const updatedTurnoData = await TurnosService.handleCerrarTurnoBackendApiV1TurnosCerrarPost(
-        infoDeCierre
-      );
-      setTurnoData(updatedTurnoData);    
-      Swal.fire('Turno Cerrado', '', 'success')
-      .then(() => window.location.reload())
-    } catch (error: unknown) {
-      // setTurnoData(null);
-      handleApiError(error); // You can remove this line
+      const updatedTurnoData = await TurnosService.handleCerrarTurnoBackendApiV1TurnosCerrarPost(infoDeCierre);
+      setTurnoData(updatedTurnoData);
+      Swal.fire('Turno Cerrado', '', 'success').then(() => window.location.reload());
+      setLastUpdated(new Date()); // Update the last updated time
+    } catch (error) {
+      setTurnoData(null);
+      Swal.fire('Error', 'No se pudo cerrar el turno.', 'error');
     }
   };
 
   const handleShowCierreDeCajaDetalle = () => {
-    handleGetTurnoInfo()
+    handleGetTurnoInfo();
     setShowCierreDeCajaDetalle(true);
-  }
+  };
 
   const handleCloseCierreDeCajaDetalle = () => {
-    // setTurnoData(null)
     setShowCierreDeCajaDetalle(false);
+  };
+
+  const handleRefreshClick = () => {
+    handleGetTurnoInfo(); // Call the function to refresh the data
+  };
+
+  // Helper function to force a component re-render
+  const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
+
+  const getElapsedTime = (date: Date | null): string => {
+    if (!date) return '';
+    const now = new Date();
+    const elapsedSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+    if (elapsedSeconds < 60) return `Actualizado hace ${elapsedSeconds} segundos`;
+    const elapsedMinutes = Math.floor(elapsedSeconds / 60);
+    if (elapsedMinutes < 60) return `Actualizado hace ${elapsedMinutes} minutos`;
+    const elapsedHours = Math.floor(elapsedMinutes / 60);
+    return `Actualizado hace ${elapsedHours} horas`;
   };
 
   return (
     <Card className="transparent-card">
-      <Card.Header>Estado</Card.Header>
+      <Card.Header className="d-flex justify-content-between align-items-center">
+        Estado
+        <span>
+          <Button variant="link" className="text-decoration-none" onClick={handleRefreshClick} aria-label="Refresh">
+            <ArrowClockwise className='boton-refresh-status' />
+          </Button>
+          {getElapsedTime(lastUpdated)}
+        </span>
+      </Card.Header>
       <Card.Body>
         {turnoData === null && (
           <Row className='sin-turno-abierto-overlay ms-1'>
@@ -72,20 +108,14 @@ const StatusPanel = () => {
             </Col>
           </Row>
         )}
-          <Row>
-            <Col>
-              <InfoCard
-                title="Clientes Activos"
-                count={(turnoData && turnoData.clientes_activos) ? turnoData.clientes_activos : '0'}
-              />
-            </Col>
-            <Col>
-              <InfoCard
-                title="Clientes Totales"
-                count={turnoData ? turnoData.cantidad_de_ordenes : 0}
-              />
-            </Col>
-          </Row>
+        <Row>
+          <Col>
+            <InfoCard title="Clientes Activos" count={turnoData && turnoData.clientes_activos !== undefined ? turnoData.clientes_activos : '0'} />
+          </Col>
+          <Col>
+          <InfoCard title="Clientes Totales" count={turnoData && turnoData.cantidad_de_ordenes !== undefined ? turnoData.cantidad_de_ordenes : 0} />
+          </Col>
+        </Row>
       </Card.Body>
       <Card.Footer className='d-flex justify-content-center'>
         <Button className='boton-cop' onClick={handleShowCierreDeCajaDetalle}>Cerrar Caja</Button>

@@ -48,6 +48,10 @@ export const $OrdenCompraDetallada = {
             type: 'number',
             isRequired: true,
         },
+        monto_maximo_pedido: {
+            type: 'number',
+            isRequired: true,
+        },
         timestamp_apertura_orden: {
             type: 'string',
             isRequired: true,

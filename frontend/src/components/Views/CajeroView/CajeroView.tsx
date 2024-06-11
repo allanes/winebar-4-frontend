@@ -6,37 +6,38 @@ import StatusPanel from './StatusPanel/StatusPanel';
 import BusquedaPanel from './BusquedaPanel/BusquedaPanel';
 import { useAuth } from '../../auth/AuthContext';
 
-
 const CajeroView = () => {
-  const {isLoggedIn} = useAuth()
+  const { isLoggedIn } = useAuth();
+  const [reloadStatus, setReloadStatus] = useState(false);
+
+  const handleReloadStatus = () => {
+    setReloadStatus((prev) => !prev); // Toggle reload status
+  };
 
   return (
     <>
-      <HeaderWithUser 
-        title='Cajero'
-      />
+      <HeaderWithUser title='Cajero' />
       <Container fluid className="cajero-background">
         {isLoggedIn && (
           <>
             <Row className="mb-5 pb-5">
               <Col className='d-flex justify-content-center'>
-                <AccionesPanel />
+                <AccionesPanel onReloadStatus={handleReloadStatus} />
               </Col>
               <Col>
                 <Row>
-                  <StatusPanel />
+                  <StatusPanel reloadStatus={reloadStatus} />
                 </Row>
                 <Row className='mt-3 justify-content-center'>
                   <BusquedaPanel />
                 </Row>
               </Col>
             </Row>
-            
           </>
         )}
       </Container>
     </>
   );
-}
+};
 
 export default CajeroView;

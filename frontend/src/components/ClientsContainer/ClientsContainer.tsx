@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ClientesService, ClienteCreate, ClienteWithDetails, ApiError, DetallesAdicionalesForUI } from '../../codegen_output';
+import { ClienteWithDetails, ClientesService, ApiError } from '../../codegen_output';
 import ClientsCreateModal from './ClientsCreateModal';
 import { ClientsList } from './ClientsList';
 import { Col, Row } from 'react-bootstrap';
@@ -23,24 +23,12 @@ export const ClientsContainer = () => {
     fetchClients();
   }, []);
 
-  const fetchClients = () => {
-    ClientesService.handleReadClientesBackendApiV1ClientesGet()
-      .then((clients) => {
-        setClientsList(clients);        
-      })
-      .catch(handleApiError);
-  };
-
-  const handleNewClient = async (newClient: ClienteCreate, tarjetaId: number, additionalDetails?: DetallesAdicionalesForUI): Promise<void> => {
+  const fetchClients = async () => {
     try {
-      const response = await ClientesService.handleCreateClienteWithTarjetaBackendApiV1ClientesPost(tarjetaId, {
-        cliente_in: newClient,
-        detalle_adicional_in: additionalDetails,
-      });
-      Swal.fire(`${newClient.nombre}`, 'ha sido guardado con éxito', 'success');
-      fetchClients(); // Re-fetch the client list after a successful addition
+      const clients = await ClientesService.handleReadClientesBackendApiV1ClientesGet();
+      setClientsList(clients);
     } catch (error) {
-      handleApiError(error);
+      Swal.fire('Error', 'Falló al recuperar clientes.', 'error');
     }
   };
 
@@ -54,12 +42,10 @@ export const ClientsContainer = () => {
     }
   };
 
-  const handleOpenCreateModal = () => {
-    setShowCreateModal(true);
-  };
-
+  const handleOpenCreateModal = () => setShowCreateModal(true);
   const handleCloseCreateModal = () => {
     setShowCreateModal(false);
+    fetchClients();  // Refetch clients after modal closes
   };
 
   return (
@@ -67,11 +53,6 @@ export const ClientsContainer = () => {
       <Row className="mb-3">
         <Col>
           <ClientsList clientsList={clientsList} onDeleteClient={handleDelete} />
-          {/* <TapasList 
-            tapasList={tapasList} 
-            onDeleteTapa={handleDelete} 
-            onUpdateTapa={handleOpenUpdateModal}
-          />           */}
         </Col>
         <Col xs="auto" className='mt-3'>
           <AddPersonalButton onClick={handleOpenCreateModal} />
@@ -81,7 +62,7 @@ export const ClientsContainer = () => {
       <ClientsCreateModal
         show={showCreateModal}
         onHide={handleCloseCreateModal}
-        onNewClient={handleNewClient}
+        onClientAdded={fetchClients} // Trigger fetch on new client addition
       />
       
     </div>

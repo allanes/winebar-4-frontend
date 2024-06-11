@@ -22,7 +22,8 @@
 }
 
 .orden-view .card-header {
-  background-color: #f8f9fa;
+  color: $mi-white;
+  background-color: $mi-dark-grey-2;
   font-weight: bold;
   border-bottom: none;
 }
@@ -122,3 +123,19 @@
     margin-right: 0px;
     text-wrap: nowrap;
 }
+
+/* Assuming you have a CSS or SCSS file */
+.monto-maximo-badge {
+  cursor: pointer;
+  display: flex; 
+  align-items: center;
+  
+  &:hover {
+    background-color: darken($mi-light-grey, 10%);
+  }
+}
+
+
+
+
+

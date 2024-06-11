@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "altacava",
+    "title": "winebar-app",
     "version": "0.1.0"
   },
   "paths": {
@@ -1791,53 +1791,6 @@
         }
       }
     },
-    "/backend/api/v1/ordenes/abrir": {
-      "post": {
-        "tags": [
-          "Ordenes"
-        ],
-        "summary": "Handle Abrir Orden",
-        "operationId": "handle_abrir_orden_backend_api_v1_ordenes_abrir_post",
-        "security": [
-          {
-            "OAuth2PasswordBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "tarjeta_cliente",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Tarjeta Cliente"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrdenCompra"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/backend/api/v1/ordenes/cerrar": {
       "post": {
         "tags": [
@@ -3080,6 +3033,13 @@
                 "$ref": "#/components/schemas/DetallesAdicionalesForUI"
               }
             ]
+          },
+          "montos_config_in": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ConfiguracionCreate"
+              }
+            ]
           }
         },
         "type": "object",
@@ -3696,6 +3656,10 @@
             "type": "number",
             "title": "Monto Cobrado Transferencia"
           },
+          "monto_maximo_pedido": {
+            "type": "number",
+            "title": "Monto Maximo Pedido"
+          },
           "timestamp_apertura_orden": {
             "type": "string",
             "format": "date-time",
@@ -3761,6 +3725,7 @@
           "monto_cobrado_efectivo",
           "monto_cobrado_tarjeta",
           "monto_cobrado_transferencia",
+          "monto_maximo_pedido",
           "timestamp_apertura_orden"
         ],
         "title": "OrdenCompra"
@@ -3810,6 +3775,10 @@
           "monto_cobrado_transferencia": {
             "type": "number",
             "title": "Monto Cobrado Transferencia"
+          },
+          "monto_maximo_pedido": {
+            "type": "number",
+            "title": "Monto Maximo Pedido"
           },
           "timestamp_apertura_orden": {
             "type": "string",
@@ -3891,6 +3860,7 @@
           "monto_cobrado_efectivo",
           "monto_cobrado_tarjeta",
           "monto_cobrado_transferencia",
+          "monto_maximo_pedido",
           "timestamp_apertura_orden",
           "pedidos",
           "nombre_cliente",
@@ -3976,6 +3946,28 @@
               }
             ],
             "title": "Cerrada Por"
+          },
+          "monto_maximo_orden": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monto Maximo Orden"
+          },
+          "monto_maximo_pedido": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monto Maximo Pedido"
           }
         },
         "type": "object",
