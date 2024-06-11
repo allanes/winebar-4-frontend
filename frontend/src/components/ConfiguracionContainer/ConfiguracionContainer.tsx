@@ -45,8 +45,9 @@ export const ConfiguracionContainer = () => {
       </Row>
       <Row className='justify-content-center'>
         <Col md={7}>
+          <h3>Configuración de Montos</h3>
           <ConfiguracionMontosCard onChange={handleConfigChange} />
-          <Button onClick={handleFormSubmit} variant="primary" className="mt-3">Actualizar</Button>
+          <Button onClick={handleFormSubmit} className="mt-3 boton-cop">Actualizar</Button>
           <div className="mt-2">Última Actualización: <TimestampFormateadoBadge timestamp={lastModified} /></div>
         </Col>
       </Row>

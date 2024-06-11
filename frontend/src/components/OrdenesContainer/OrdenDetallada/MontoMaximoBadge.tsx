@@ -33,7 +33,7 @@ const MontoMaximoBadge: React.FC<MontoMaximoBadgeProps> = ({ id, label, field, i
   };
 
   return (
-    <Row md={8}>
+    <Row md={7}>
       <Badge
         bg="secondary"
         className="p-2 monto-maximo-badge"

@@ -51,7 +51,6 @@ const ConfiguracionMontosCard: React.FC<ConfiguracionMontosCardProps> = ({ onCha
   return (
     <Card>
       <Card.Body>
-        <Card.Title><h3>Configuración de Montos</h3></Card.Title>
         <Form>
           <Form.Group as={Row} className="mb-3">
             <Form.Label column md={4}>Máximo General</Form.Label>
