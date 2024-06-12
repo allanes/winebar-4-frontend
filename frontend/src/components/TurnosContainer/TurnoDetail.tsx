@@ -8,11 +8,11 @@ import { Card, Badge, Row, Col, Accordion, Button } from 'react-bootstrap';
 
 interface TurnoProps {
   turnoData: Turno | null;
-//   handleGetTurnoInfo: () => void;
+  onReloadStatus: () => void;
 //   handleCerrarTurno: () => void;
 }
 
-const TurnoDetalle = ({ turnoData }: TurnoProps) => {
+const TurnoDetalle = ({ turnoData, onReloadStatus }: TurnoProps) => {
 // const TurnoDetalle = ({ turnoData, handleGetTurnoInfo, handleCerrarTurno }: TurnoProps) => {
     const [activeKey, setActiveKey] = useState<string | null>(null);
     const [ordenesDelTurno, setOrdenesDelTurno] = useState<OrdenCompraDetallada[]>([]);
@@ -23,17 +23,21 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
 
     const handleRecuperarOrdenesDelTurno = async () => {
         if (turnoData) {
-        try {
-            const ordenesResponse = await OrdenesService.handleReadOrdenByTurnoIdBackendApiV1OrdenesByTurnoTurnoIdGet(turnoData.id);
-            // const parsedOrdenes = ordenesResponse.map(parseOrdenCompraDetallada);
-            const parsedOrdenes = ordenesResponse
-            setOrdenesDelTurno(parsedOrdenes);
-        } catch (error: unknown) {
-            setOrdenesDelTurno([]);
-            // handleApiError(error); // You can remove this line
-        }
+            try {
+                const ordenesResponse = await OrdenesService.handleReadOrdenByTurnoIdBackendApiV1OrdenesByTurnoTurnoIdGet(turnoData.id);
+                // const parsedOrdenes = ordenesResponse.map(parseOrdenCompraDetallada);
+                const parsedOrdenes = ordenesResponse
+                setOrdenesDelTurno(parsedOrdenes);
+            } catch (error: unknown) {
+                setOrdenesDelTurno([]);
+                // handleApiError(error); // You can remove this line
+            }
         }
     };
+
+    const handleOrdenCobrada = async () => {
+        onReloadStatus()
+    }
 
     const handleClientesActivosClick = () => {
         setActiveKey(activeKey === '0' ? null : '0');
@@ -145,7 +149,7 @@ const TurnoDetalle = ({ turnoData }: TurnoProps) => {
                                         ordenesList={ordenesDelTurno || []}
                                         onDeleteOrden={() => {}}
                                         columnasReducidas={true}
-                                        ordenCobradaTrigger={handleRecuperarOrdenesDelTurno}
+                                        ordenCobradaTrigger={handleOrdenCobrada}
                                     />
                                 )}
                             </Accordion.Body>

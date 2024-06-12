@@ -67,7 +67,7 @@ function CartItem({ item }: Props) {
           {/* Product Details */}
           <div className="cart-item-details">
             <Card.Title>{item.producto.titulo}</Card.Title>
-            <Card.Subtitle>${item.monto.toFixed(2)}</Card.Subtitle>
+            <Card.Subtitle>${item.monto.toLocaleString('es-ES')}</Card.Subtitle>
           </div>
           {/* Remove Button */}
           <Button variant="danger" onClick={handleRemoveFromCart} className="cart-item-remove">

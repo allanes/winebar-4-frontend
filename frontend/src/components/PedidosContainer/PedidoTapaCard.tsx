@@ -8,9 +8,10 @@ import { CheckCircleFill, ExclamationCircle, CurrencyDollar } from 'react-bootst
 interface PedidoTapaCardProps {
     pedido: Pedido;
     pedidoNumberedNumber: number;
+    refreshData: () => void;
 }
 
-const PedidoTapaCard: React.FC<PedidoTapaCardProps> = ({ pedido, pedidoNumberedNumber }) => {
+const PedidoTapaCard: React.FC<PedidoTapaCardProps> = ({ pedido, pedidoNumberedNumber, refreshData }) => {
     // Calculate the total cantidad of all renglones
     const totalCantidad = pedido.renglones.reduce((total, renglon) => total + renglon.cantidad, 0);
 
@@ -72,7 +73,10 @@ const PedidoTapaCard: React.FC<PedidoTapaCardProps> = ({ pedido, pedidoNumberedN
                                 </Col>
                             </Row>
                         </div>
-                        <RenglonesTapaList renglones={pedido.renglones} />
+                        <RenglonesTapaList 
+                            renglones={pedido.renglones} 
+                            refreshData={refreshData}
+                        />
                     </Card.Body>
                 </Card>
             </Row>

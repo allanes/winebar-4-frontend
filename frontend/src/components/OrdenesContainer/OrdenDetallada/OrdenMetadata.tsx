@@ -10,9 +10,10 @@ import MontoMaximoBadge from './MontoMaximoBadge'; // Import the new component
 interface OrdenMetadataProps {
   ordenData: OrdenCompraDetallada;
   onCobrar?: (ordenId: number, infoPago: OrdenCompraInfoPago) => void;
+  refreshData: () => void;
 }
 
-const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) => {
+const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar, refreshData }) => {
   const openedPedidos = ordenData.pedidos.filter(pedido => pedido.cerrado === false).length;
 
   return (
@@ -64,7 +65,7 @@ const OrdenMetadata: React.FC<OrdenMetadataProps> = ({ ordenData, onCobrar }) =>
               <Col>
                 <Badge pill bg='success' className='ps-5 pe-5'>
                   <Row>
-                    <h1>{`$ ${ordenData.monto_cargado}`}</h1>
+                    <h1>{`$ ${ordenData.monto_cargado.toLocaleString('es-ES')}`}</h1>
                   </Row>
                   <Row>
                     <h6>Monto Cargado</h6>

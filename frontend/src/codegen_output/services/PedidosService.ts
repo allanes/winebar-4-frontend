@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { Pedido } from '../models/Pedido';
-import type { PedidoUpdate } from '../models/PedidoUpdate';
 import type { RenglonCreate } from '../models/RenglonCreate';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -97,13 +96,13 @@ export class PedidosService {
         });
     }
     /**
-     * Handle Quitar Renglon
+     * Handle Quitar Producto
      * @param tarjetaCliente
      * @param productoId
      * @returns Pedido Successful Response
      * @throws ApiError
      */
-    public static handleQuitarRenglonBackendApiV1PedidosQuitarProductoPost(
+    public static handleQuitarProductoBackendApiV1PedidosQuitarProductoPost(
         tarjetaCliente: number,
         productoId: number,
     ): CancelablePromise<Pedido> {
@@ -140,24 +139,20 @@ export class PedidosService {
         });
     }
     /**
-     * Handle Update Pedido
-     * @param id
-     * @param requestBody
+     * Handle Cancelar Renglon
+     * @param renglonId
      * @returns Pedido Successful Response
      * @throws ApiError
      */
-    public static handleUpdatePedidoBackendApiV1PedidosIdPut(
-        id: number,
-        requestBody: PedidoUpdate,
+    public static handleCancelarRenglonBackendApiV1PedidosCancelarRenglonRenglonIdPost(
+        renglonId: number,
     ): CancelablePromise<Pedido> {
         return __request(OpenAPI, {
-            method: 'PUT',
-            url: '/backend/api/v1/pedidos/{id}',
+            method: 'POST',
+            url: '/backend/api/v1/pedidos/cancelar-renglon/{renglon_id}',
             path: {
-                'id': id,
+                'renglon_id': renglonId,
             },
-            body: requestBody,
-            mediaType: 'application/json',
             errors: {
                 422: `Validation Error`,
             },

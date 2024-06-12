@@ -26,7 +26,7 @@ const CajeroView = () => {
               </Col>
               <Col>
                 <Row>
-                  <StatusPanel reloadStatus={reloadStatus} />
+                  <StatusPanel reloadStatus={reloadStatus} onReloadStatus={handleReloadStatus} />
                 </Row>
                 <Row className='mt-3 justify-content-center'>
                   <BusquedaPanel />

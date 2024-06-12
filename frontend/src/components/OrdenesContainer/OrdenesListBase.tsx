@@ -129,11 +129,11 @@ export const OrdenesListBase = ({
           {ordenesList.map((orden, index) => (
             <tr key={index} onClick={() => handleOrdenClick(orden.id)}>
               <th scope="row">{orden.id}</th>
-              {!columnasReducidas && <td>{orden.monto_maximo_orden}</td>}
+              {!columnasReducidas && <td>{orden.monto_maximo_orden.toLocaleString('es-ES')}</td>}
               {!columnasReducidas && <td>{orden.turno_id}</td>}
               <td>{orden.nombre_cliente}</td>
               <td>${orden.monto_cargado}</td>
-              <td><strong>${orden.monto_cobrado}</strong></td>
+              <td><strong>${orden.monto_cobrado.toLocaleString('es-ES')}</strong></td>
               <td><TimestampFormateadoBadge timestamp={orden.timestamp_apertura_orden} /></td>
               <td>
                 {orden.timestamp_cierre_orden ?

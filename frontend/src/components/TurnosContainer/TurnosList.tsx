@@ -10,6 +10,7 @@ import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge'
 interface Props {
   turnosList: Array<Turno>
   onDeleteTurno: (id: number) => void
+  onReloadStatus: () => void
 }
 
 const keysTabTurno = [
@@ -17,7 +18,7 @@ const keysTabTurno = [
   "Ordenes",
   // "# de Tapas",
   // "# Usuarios VIP",
-  "En Caja",
+  "Cobrado",
   "Abierto por",
   "Cerrado por",
   "Abierto",
@@ -25,7 +26,7 @@ const keysTabTurno = [
   ""
 ]
 
-export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: Props) => {
+export const TurnosList = ({ turnosList, onDeleteTurno, onReloadStatus }: Props) => {
   const [selectedTurno, setSelectedTurno] = useState<Turno | null>(null);
   const [showTurnoView, setShowTurnoView] = useState(false);
 
@@ -41,7 +42,7 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         Swal.fire('Turno eliminado!', '', 'error')
-        onDeleteTurno_propin(turno.id)
+        onDeleteTurno(turno.id)
       }
     })
   }
@@ -85,7 +86,7 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
                   <td>{turno.cantidad_de_ordenes}</td>
                   {/* <td>{turno.cantidad_tapas}</td> */}
                   {/* <td>{turno.cantidad_usuarios_vip}</td> */}
-                  <td>${turno.monto_en_caja}</td>
+                  <td>${turno.suma_ordenes_cobradas?.toLocaleString('es-ES')}</td>
                   <td>{turno.abierto_por_nombre}</td>
                   <td>{turno.cerrado_por_nombre || ''}</td>
                   <td><TimestampFormateadoBadge timestamp={turno.timestamp_apertura}/></td>
@@ -117,7 +118,7 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
           {selectedTurno && (
             <TurnoDetalle
               turnoData={selectedTurno} 
-              
+              onReloadStatus={onReloadStatus}
             />
           )}
         </Modal.Body>

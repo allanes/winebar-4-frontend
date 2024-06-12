@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Row, Accordion, Col, Card, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { OrdenCompraDetallada, OrdenCompraInfoPago, OrdenesService } from '../../codegen_output';
 import PedidosList from '../PedidosContainer/PedidosList';
@@ -23,11 +23,12 @@ interface TooltipProps {
 }
 
 const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false, ordenCobradaTrigger }) => {
-  const totalPedidos = ordenData.pedidos.length;
-  const openedPedidos = ordenData.pedidos.filter(pedido => !pedido.cerrado).length;
-  const vinoAmount = ordenData.pedidos.filter(pedido => pedido.renglones.some(renglon => renglon.vitte_consumo_id))
+  const [data, setData] = useState(ordenData);
+  const totalPedidos = data.pedidos.length;
+  const openedPedidos = data.pedidos.filter(pedido => !pedido.cerrado).length;
+  const vinoAmount = data.pedidos.filter(pedido => pedido.renglones.some(renglon => renglon.vitte_consumo_id))
                      .reduce((sum, pedido) => sum + pedido.renglones.reduce((sumRenglon, renglon) => sumRenglon + renglon.monto, 0), 0);
-  const tapaAmount = ordenData.pedidos.filter(pedido => !pedido.renglones.some(renglon => renglon.vitte_consumo_id))
+  const tapaAmount = data.pedidos.filter(pedido => !pedido.renglones.some(renglon => renglon.vitte_consumo_id))
                      .reduce((sum, pedido) => sum + pedido.renglones.reduce((sumRenglon, renglon) => sumRenglon + renglon.monto, 0), 0);
 
   const renderTooltip = (props: TooltipProps) => (
@@ -72,12 +73,26 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
     .catch(handleApiError)    
   };
 
+  const refreshData = async () => {
+    try {
+      const updatedData = await OrdenesService.handleReadOrdenByIdBackendApiV1OrdenesIdGet(data.id); // Method to fetch updated data
+      setData(updatedData);
+      // if (ordenCobradaTrigger) {
+      //   ordenCobradaTrigger();
+      // }
+    } catch (error) {
+      console.error("Failed to refresh data", error);
+    }
+  };
+
   return (
     <div className="orden-view">
       <Row className="sticky-top">
         <OrdenMetadata 
-          ordenData={ordenData} 
-          onCobrar={handleInfoPagoSubmit}/>
+          ordenData={data} 
+          onCobrar={handleInfoPagoSubmit}
+          refreshData={refreshData}
+        />
       </Row>
       <Row>
         <Accordion defaultActiveKey="" className="pedidos-accordion">
@@ -93,7 +108,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
                   overlay={renderTooltip3}
                 >
                   <Badge bg='light' className='text-dark'>
-                    <img src={copaImage} alt="Vinos" style={{ width: 24, height: 24 }} /> $ {vinoAmount.toFixed(2)}
+                    <img src={copaImage} alt="Vinos" style={{ width: 24, height: 24 }} /> $ {vinoAmount.toLocaleString('es-ES')}
                   </Badge>
                 </OverlayTrigger>
                 <OverlayTrigger
@@ -102,7 +117,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
                   overlay={renderTooltip4}
                 >
                   <Badge bg='light' className='text-dark'>
-                    <img src={foodImage} alt="Tapas" style={{ width: 24, height: 24 }} /> $ {tapaAmount.toFixed(2)}
+                    <img src={foodImage} alt="Tapas" style={{ width: 24, height: 24 }} /> $ {tapaAmount.toLocaleString('es-ES')}
                   </Badge>
                 </OverlayTrigger>
                 <OverlayTrigger
@@ -126,7 +141,10 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
               </Col>
             </Accordion.Header>
             <Accordion.Body>
-              <PedidosList pedidos={ordenData.pedidos} />
+              <PedidosList 
+                pedidos={data.pedidos} 
+                refreshData={refreshData}
+              />
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>

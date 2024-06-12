@@ -87,7 +87,7 @@ const CartSummaryContainer = () => {
             </Col>
             <Col>
               <h4><Badge pill bg="warning" text="dark" className='text-white'>
-                <Row className='px-3 pb-1'>$ {maxAmount.toFixed(0)}</Row>
+                <Row className='px-3 pb-1'>$ {maxAmount.toLocaleString('es-ES')}</Row>
                 <Row className='justify-content-center'>MAX</Row>
               </Badge></h4>
             </Col>
@@ -101,7 +101,7 @@ const CartSummaryContainer = () => {
           </ListGroupItem>
           <ListGroupItem className="d-flex justify-content-between align-items-center light-background">
             <strong>Subtotal:</strong>
-            <h4 className="mb-0">${subtotal.toFixed(2)}</h4>
+            <h4 className="mb-0">${subtotal.toLocaleString('es-ES')}</h4>
           </ListGroupItem>
         </ListGroup>
         <Row>
