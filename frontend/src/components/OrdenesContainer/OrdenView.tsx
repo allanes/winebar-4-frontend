@@ -69,6 +69,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
       // setOrdenCobrada(ordenResponse)
       Swal.fire('Orden Cobrada', `Monto $ ${ordenResponse.monto_cobrado}`, 'success')
       if (ordenCobradaTrigger) {ordenCobradaTrigger()};
+      refreshData()
     })
     .catch(handleApiError)    
   };
