@@ -24,11 +24,11 @@ interface TooltipProps {
 
 const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false, ordenCobradaTrigger }) => {
   const [data, setData] = useState(ordenData);
-  const totalPedidos = ordenData.pedidos.length;
-  const openedPedidos = ordenData.pedidos.filter(pedido => !pedido.cerrado).length;
-  const vinoAmount = ordenData.pedidos.filter(pedido => pedido.renglones.some(renglon => renglon.vitte_consumo_id))
+  const totalPedidos = data.pedidos.length;
+  const openedPedidos = data.pedidos.filter(pedido => !pedido.cerrado).length;
+  const vinoAmount = data.pedidos.filter(pedido => pedido.renglones.some(renglon => renglon.vitte_consumo_id))
                      .reduce((sum, pedido) => sum + pedido.renglones.reduce((sumRenglon, renglon) => sumRenglon + renglon.monto, 0), 0);
-  const tapaAmount = ordenData.pedidos.filter(pedido => !pedido.renglones.some(renglon => renglon.vitte_consumo_id))
+  const tapaAmount = data.pedidos.filter(pedido => !pedido.renglones.some(renglon => renglon.vitte_consumo_id))
                      .reduce((sum, pedido) => sum + pedido.renglones.reduce((sumRenglon, renglon) => sumRenglon + renglon.monto, 0), 0);
 
   const renderTooltip = (props: TooltipProps) => (
@@ -75,7 +75,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
 
   const refreshData = async () => {
     try {
-      const updatedData = await OrdenesService.handleReadOrdenByIdBackendApiV1OrdenesIdGet(ordenData.id); // Method to fetch updated data
+      const updatedData = await OrdenesService.handleReadOrdenByIdBackendApiV1OrdenesIdGet(data.id); // Method to fetch updated data
       setData(updatedData);
       // if (ordenCobradaTrigger) {
       //   ordenCobradaTrigger();
@@ -89,7 +89,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
     <div className="orden-view">
       <Row className="sticky-top">
         <OrdenMetadata 
-          ordenData={ordenData} 
+          ordenData={data} 
           onCobrar={handleInfoPagoSubmit}
           refreshData={refreshData}
         />
@@ -142,7 +142,7 @@ const OrdenView: React.FC<OrdenViewProps> = ({ ordenData, showPanelCobro = false
             </Accordion.Header>
             <Accordion.Body>
               <PedidosList 
-                pedidos={ordenData.pedidos} 
+                pedidos={data.pedidos} 
                 refreshData={refreshData}
               />
             </Accordion.Body>

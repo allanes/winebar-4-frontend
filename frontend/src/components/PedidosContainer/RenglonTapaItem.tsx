@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Row, Col, Badge } from 'react-bootstrap';
 import { Renglon, PedidosService } from '../../codegen_output';
 import Swal from 'sweetalert2';
 import { XCircleFill } from 'react-bootstrap-icons';
@@ -9,28 +9,32 @@ import { handleApiError } from '../ClientsContainer/ClientsContainer';
 
 interface RenglonTapaItemProps {
     renglon: Renglon;
-    refreshData: () => void;  // Trigger to refresh parent data
+    refreshData: () => void;
 }
 
 const RenglonTapaItem: React.FC<RenglonTapaItemProps> = ({ renglon, refreshData }) => {
     const [loadedImage, setLoadedImage] = useState<string | null>(null);
-    const [isCancelled, setIsCancelled] = useState(renglon.monto === 0);  // Directly reflect cancellation based on data
+    const [hover, setHover] = useState(false);  // State to manage hover for displaying the cancel icon
+    const [isCancelled, setIsCancelled] = useState(renglon.monto === 0);  
 
     useEffect(() => {
-        const fetchImage = async () => {
+        async function fetchImage() {
             try {
                 const imageUrl = await fetchTapaImageByProductId(renglon.producto_id);
                 setLoadedImage(imageUrl);
             } catch (error) {
-                setLoadedImage(tapaNotAvailableImage);  // Fallback image on error
+                console.error('Failed to load image:', error);
+                setLoadedImage(tapaNotAvailableImage);
             }
-        };
+        }
         fetchImage();
     }, [renglon.producto_id]);
 
     const handleCancel = async () => {
+        if (isCancelled) return;  // No action if already cancelled
+
         const result = await Swal.fire({
-            title: '¿Cancelar Renglón?',
+            title: 'Cancelar Renglón',
             text: "El renglón será cancelado. ¿Continuar?",
             icon: 'warning',
             showCancelButton: true,
@@ -44,7 +48,7 @@ const RenglonTapaItem: React.FC<RenglonTapaItemProps> = ({ renglon, refreshData 
             try {
                 await PedidosService.handleCancelarRenglonBackendApiV1PedidosCancelarRenglonRenglonIdPost(renglon.id);
                 setIsCancelled(true); // Update state to reflect cancellation
-                refreshData(); // Optionally refresh data if needed
+                refreshData();  // Optionally refresh data if needed
                 Swal.fire('Cancelado', 'El renglón ha sido cancelado.', 'success');
             } catch (error) {
                 handleApiError(error);
@@ -52,7 +56,6 @@ const RenglonTapaItem: React.FC<RenglonTapaItemProps> = ({ renglon, refreshData 
         }
     };
 
-    // Conditional styling based on cancellation state
     const itemStyle = isCancelled ? { opacity: 0.4, backgroundColor: "#ccc" } : {};
 
     return (
@@ -60,13 +63,14 @@ const RenglonTapaItem: React.FC<RenglonTapaItemProps> = ({ renglon, refreshData 
             <div className="card-content">
                 <Row className="d-flex align-items-center">
                     <Col md={2} className="text-center">
-                        <OverlayTrigger
-                            placement="top"
-                            overlay={<Tooltip>{isCancelled ? 'Cancelado' : 'Cancelar'}</Tooltip>}>
-                            <Badge bg={isCancelled ? 'secondary' : 'light'} className='text-dark' onClick={isCancelled ? undefined : handleCancel}>
-                                {isCancelled ? <XCircleFill color="red" /> : renglon.cantidad}
-                            </Badge>
-                        </OverlayTrigger>
+                        <Badge
+                            bg={isCancelled ? 'secondary' : 'light'}
+                            className='text-dark'
+                            onMouseEnter={() => !isCancelled && setHover(true)}
+                            onMouseLeave={() => setHover(false)}
+                            onClick={!isCancelled ? handleCancel : undefined}>
+                            {hover && !isCancelled ? <XCircleFill color="red" /> : renglon.cantidad}
+                        </Badge>
                     </Col>
                     <Col md={2} className='me-2 p-0'>
                         <img src={loadedImage || tapaNotAvailableImage} alt="Tapa" style={{ width: '100%', height: 'auto' }} />
@@ -80,7 +84,9 @@ const RenglonTapaItem: React.FC<RenglonTapaItemProps> = ({ renglon, refreshData 
                         </Row>
                     </Col>
                     <Col md={4} className="cart-item-details">
-                        <Row className='text-center'><h5>{renglon.producto.titulo}</h5></Row>
+                        <Row className='text-center'>
+                            <h5>{renglon.producto.titulo}</h5>
+                        </Row>
                     </Col>
                 </Row>
             </div>
@@ -88,4 +94,4 @@ const RenglonTapaItem: React.FC<RenglonTapaItemProps> = ({ renglon, refreshData 
     );
 };
 
-export default RenglonTapaItem
+export default RenglonTapaItem;
