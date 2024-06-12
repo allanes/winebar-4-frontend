@@ -8,9 +8,10 @@ import { ArrowClockwise } from 'react-bootstrap-icons'; // Importing the refresh
 
 interface StatusPanelProps {
   reloadStatus: boolean;
+  onReloadStatus: () => void;
 }
 
-const StatusPanel: React.FC<StatusPanelProps> = ({ reloadStatus }) => {
+const StatusPanel: React.FC<StatusPanelProps> = ({ reloadStatus, onReloadStatus }) => {
   const [turnoData, setTurnoData] = useState<Turno | null>(null);
   const [showCierreDeCajaDetalle, setShowCierreDeCajaDetalle] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
@@ -68,6 +69,7 @@ const StatusPanel: React.FC<StatusPanelProps> = ({ reloadStatus }) => {
 
   const handleCloseCierreDeCajaDetalle = () => {
     setShowCierreDeCajaDetalle(false);
+    onReloadStatus();
   };
 
   const handleRefreshClick = () => {
@@ -127,6 +129,7 @@ const StatusPanel: React.FC<StatusPanelProps> = ({ reloadStatus }) => {
         turnoData={turnoData}
         handleGetTurnoInfo={handleGetTurnoInfo}
         handleCerrarTurno={handleCerrarTurno}
+        onReloadStatus={onReloadStatus}
       />
     </Card>
   );

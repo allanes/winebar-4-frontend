@@ -34,8 +34,12 @@ const ConfiguracionMontosCard: React.FC<ConfiguracionMontosCardProps> = ({ onCha
 
   const parseNumber = (value: string) => parseFloat(value.replace(/[^0-9]/g, ''));
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeFromEvent = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    handleChange(name, value)
+  };
+
+  const handleChange = (name: string, value: string) => {
     const numericalValue = parseNumber(value);
 
     setConfig(prev => ({
@@ -61,7 +65,7 @@ const ConfiguracionMontosCard: React.FC<ConfiguracionMontosCardProps> = ({ onCha
                   type="text"
                   name="monto_maximo_orden_def"
                   value={formatNumber(config.monto_maximo_orden_def || 0)}
-                  onChange={handleChange}
+                  onChange={handleChangeFromEvent}
                 />
               </InputGroup>
             </Col>
@@ -76,7 +80,7 @@ const ConfiguracionMontosCard: React.FC<ConfiguracionMontosCardProps> = ({ onCha
                   type="text"
                   name="monto_maximo_pedido_def"
                   value={formatNumber(config.monto_maximo_pedido_def || 0)}
-                  onChange={handleChange}
+                  onChange={handleChangeFromEvent}
                 />
               </InputGroup>
             </Col>

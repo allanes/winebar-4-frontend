@@ -39,7 +39,11 @@ export const TurnosContainer = () => {
 
   return (
     <div>
-      <TurnosList turnosList={turnosList} onDeleteTurno={handleDelete} />
+      <TurnosList 
+        turnosList={turnosList} 
+        onDeleteTurno={handleDelete} 
+        onReloadStatus={fetchTurno}
+      />
     </div>
   );
 };

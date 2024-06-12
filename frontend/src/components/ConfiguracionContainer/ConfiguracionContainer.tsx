@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ConfiguracionService, ConfiguracionCreate } from '../../codegen_output';
+import { ConfiguracionService, ConfiguracionCreate, Configuracion } from '../../codegen_output';
 import { LectorTapasContainer } from '../LectorTapasContainer/LectorTapasContainer';
 import ConfiguracionMontosCard from './ConfiguracionMontosCard';
 import { Row, Col, Button } from 'react-bootstrap';
@@ -11,6 +11,25 @@ export const ConfiguracionContainer = () => {
     monto_maximo_orden_def: 0,
     monto_maximo_pedido_def: 0
   });
+  const [lastModified, setLastModified] = useState('');
+
+  useEffect(() => {
+    fetchConfig();
+  }, []);
+
+  const fetchConfig = async () => {
+    try {
+      const lastConfig: Configuracion = await ConfiguracionService.handleGetLastConfiguracionBackendApiV1ConfiguracionesLastGet();
+      setConfigInputs({
+        monto_maximo_orden_def: lastConfig.monto_maximo_orden_def || 0,
+        monto_maximo_pedido_def: lastConfig.monto_maximo_pedido_def || 0
+      });
+      setLastModified(lastConfig.fecha_ultima_actualizacion || '')
+    } catch (error) {
+      console.error('Failed to fetch configuration:', error);
+      Swal.fire('Error', 'Error al cargar la configuración de montos.', 'error');
+    }
+  };
 
   const handleConfigChange = (name: string, value: number) => {
     setConfigInputs(prev => ({
@@ -21,20 +40,14 @@ export const ConfiguracionContainer = () => {
 
   const handleFormSubmit = async () => {
     try {
-      await ConfiguracionService.handleCreateConfiguracionBackendApiV1ConfiguracionesPost(configInputs);
+      const response = await ConfiguracionService.handleCreateConfiguracionBackendApiV1ConfiguracionesPost(configInputs);
+      setLastModified(response.fecha_ultima_actualizacion || '')
       Swal.fire('Actualizado', 'Configuración de montos actualizada correctamente.', 'success');
     } catch (error) {
       console.error('Failed to update configuration:', error);
       Swal.fire('Error', 'No se pudo actualizar la configuración de montos.', 'error');
     }
   };
-
-  const [lastModified, setLastModified] = useState('');
-
-  // Simulate fetching the last modification date
-  useEffect(() => {
-    setLastModified(new Date().toLocaleDateString());
-  }, []);
 
   return (
     <div>
@@ -47,8 +60,8 @@ export const ConfiguracionContainer = () => {
         <Col md={7}>
           <h3>Configuración de Montos</h3>
           <ConfiguracionMontosCard onChange={handleConfigChange} />
-          <Button onClick={handleFormSubmit} className="mt-3 boton-cop">Actualizar</Button>
           <div className="mt-2">Última Actualización: <TimestampFormateadoBadge timestamp={lastModified} /></div>
+          <Button onClick={handleFormSubmit} className="mt-3 boton-cop">Actualizar</Button>
         </Col>
       </Row>
     </div>

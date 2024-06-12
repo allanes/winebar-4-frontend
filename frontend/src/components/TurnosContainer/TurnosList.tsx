@@ -10,6 +10,7 @@ import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge'
 interface Props {
   turnosList: Array<Turno>
   onDeleteTurno: (id: number) => void
+  onReloadStatus: () => void
 }
 
 const keysTabTurno = [
@@ -25,7 +26,7 @@ const keysTabTurno = [
   ""
 ]
 
-export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: Props) => {
+export const TurnosList = ({ turnosList, onDeleteTurno, onReloadStatus }: Props) => {
   const [selectedTurno, setSelectedTurno] = useState<Turno | null>(null);
   const [showTurnoView, setShowTurnoView] = useState(false);
 
@@ -41,7 +42,7 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         Swal.fire('Turno eliminado!', '', 'error')
-        onDeleteTurno_propin(turno.id)
+        onDeleteTurno(turno.id)
       }
     })
   }
@@ -117,7 +118,7 @@ export const TurnosList = ({ turnosList, onDeleteTurno: onDeleteTurno_propin }: 
           {selectedTurno && (
             <TurnoDetalle
               turnoData={selectedTurno} 
-              
+              onReloadStatus={onReloadStatus}
             />
           )}
         </Modal.Body>

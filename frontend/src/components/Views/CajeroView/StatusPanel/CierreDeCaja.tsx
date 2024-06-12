@@ -1,9 +1,6 @@
 // CierreDeCaja.tsx
-import React, {useState, useEffect} from 'react';
-import { Modal, Button, Row, Col, Badge, Accordion } from 'react-bootstrap';
-// import InfoCard from './InfoCard';
-// import TimestampFormateadoBadge from '../../../Common/TimestampFormateadoBadge';
-// import { OrdenesList } from '../../../OrdenesContainer/OrdenesList';
+import React, {useState} from 'react';
+import { Modal, Button } from 'react-bootstrap';
 import { Turno, InfoDeCierre } from '../../../../codegen_output';
 import TurnoDetalle from '../../../TurnosContainer/TurnoDetail';
 import InfoCierreForm from '../../../../hooks/useNewCierreCajaInfoCierreForm';
@@ -14,9 +11,10 @@ interface CierreDeCajaProps {
     turnoData: Turno | null;
     handleGetTurnoInfo: () => void;
     handleCerrarTurno: (infoDeCierre: InfoDeCierre) => void;
+    onReloadStatus: () => void;
 }
 
-const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerrarTurno }: CierreDeCajaProps) => {
+const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerrarTurno, onReloadStatus }: CierreDeCajaProps) => {
     const [showInfoCierreForm, setShowInfoCierreForm] = useState(false);
 
     const handleInfoCierreSubmit = (infoDeCierre: InfoDeCierre) => {
@@ -43,7 +41,7 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
                         onSubmit={handleInfoCierreSubmit} 
                     />
                 ) : (
-                    <TurnoDetalle turnoData={turnoData} />
+                    <TurnoDetalle turnoData={turnoData} onReloadStatus={onReloadStatus} />
                 )}
             </Modal.Body>
             <Modal.Footer>
