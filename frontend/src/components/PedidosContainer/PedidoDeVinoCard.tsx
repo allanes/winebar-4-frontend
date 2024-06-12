@@ -1,16 +1,17 @@
 import React from 'react';
-import { Card, Badge, Row, Col } from 'react-bootstrap';
+import { Card, Row, Col } from 'react-bootstrap';
 import { Pedido } from '../../codegen_output';
 import RenglonVinoItem from './RenglonVinoItem';
 import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge';
-import { CheckCircleFill, ExclamationCircle, CurrencyDollar } from 'react-bootstrap-icons';
+import { CheckCircleFill } from 'react-bootstrap-icons';
 
 interface PedidoDeVinoCardProps {
     pedidoDeVino: Pedido;
     pedidoNumberedNumber: number;
+    refreshData: () => void;
 }
 
-const PedidoDeVinoCard: React.FC<PedidoDeVinoCardProps> = ({ pedidoDeVino, pedidoNumberedNumber }) => {
+const PedidoDeVinoCard: React.FC<PedidoDeVinoCardProps> = ({ pedidoDeVino, pedidoNumberedNumber, refreshData }) => {
     // Calculate the total cantidad of all renglones
     const totalCantidad = 1;
 
@@ -36,7 +37,9 @@ const PedidoDeVinoCard: React.FC<PedidoDeVinoCardProps> = ({ pedidoDeVino, pedid
                         </Row>
                     </Card.Header>
                     <Card.Body>
-                        <RenglonVinoItem renglonVino={pedidoDeVino.renglones[0]} />
+                        <RenglonVinoItem 
+                            renglonVino={pedidoDeVino.renglones[0]} 
+                            refreshData={refreshData} />
                     </Card.Body>
                 </Card>
             </Row>

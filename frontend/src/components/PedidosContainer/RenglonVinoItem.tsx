@@ -1,16 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import { ListGroup, Button, Card, Row, Col, Badge } from 'react-bootstrap';
-import { Renglon, VinosService, Vino } from '../../codegen_output';
+import { Row, Col, Badge } from 'react-bootstrap';
+import { Renglon, VinosService, Vino, PedidosService } from '../../codegen_output';
 import { fetchVinoImageByNombre } from '../Common/ImageFetcher';
 import tapaNotAvailableImage from '../../assets/icons/generic_tapa_not_available.webp'
+import { handleApiError } from '../ClientsContainer/ClientsContainer';
+import Swal from 'sweetalert2';
+import { XCircleFill } from 'react-bootstrap-icons';
 
 interface RenglonVinoItemProps {
     renglonVino: Renglon;
+    refreshData: () => void;
 }
 
-const RenglonVinoItem: React.FC<RenglonVinoItemProps> = ({ renglonVino }) => {
+const RenglonVinoItem: React.FC<RenglonVinoItemProps> = ({ renglonVino, refreshData }) => {
     const [vinoDetails, setVinoDetails] = useState<Vino | null>(null);
     const [loadedImage, setLoadedImage] = useState<string | null>(null);
+    const [hover, setHover] = useState(false);
+    const [isCancelled, setIsCancelled] = useState(renglonVino.monto === 0);  
 
     useEffect(() => {
         const fetchImage = async () => {
@@ -50,21 +56,56 @@ const RenglonVinoItem: React.FC<RenglonVinoItemProps> = ({ renglonVino }) => {
         return mapa_tamaños[volumen as VolumenKey] || `(${volumen} cc)`;
     };
 
+    const handleCancel = async () => {
+        if (isCancelled) return;  // No action if already cancelled
+
+        const result = await Swal.fire({
+            title: 'Cancelar Renglón',
+            text: "El renglón será cancelado. ¿Continuar?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, cancelar',
+            cancelButtonText: 'No'
+        });
+
+        if (result.isConfirmed) {
+            try {
+                await PedidosService.handleCancelarRenglonBackendApiV1PedidosCancelarRenglonRenglonIdPost(renglonVino.id);
+                setIsCancelled(true); // Update state to reflect cancellation
+                refreshData();  // Optionally refresh data if needed
+                Swal.fire('Cancelado', 'El renglón ha sido cancelado.', 'success');
+            } catch (error) {
+                handleApiError(error);
+            }
+        }
+    };
+
+    const itemStyle = isCancelled ? { opacity: 0.4, backgroundColor: "#ccc" } : {};
+
     return (
         <div className="renglon-list">
             <Col>
                 <Row md={7}>
-                    <div className="cart-item">
+                    <div className="cart-item" style={itemStyle}>
                         <div className="card-content">
                             <Row className="d-flex align-items-center">
                                 <Col md={3} className="text-center  ">
-                                    <Badge bg='light' className='text-dark'>
+                                    <Badge 
+                                        bg='light' 
+                                        className='text-dark'
+                                        onMouseEnter={() => !isCancelled && setHover(true)}
+                                        onMouseLeave={() => setHover(false)}
+                                        onClick={!isCancelled ? handleCancel : undefined}
+                                    >
                                         <Row>
-                                            <h6>
-                                                {/* <Badge pill bg={'secondary'} className=''> */}
-                                                    {vinoDetails && getTamañoVino(`${vinoDetails.volumen}`)}
-                                                {/* </Badge> */}
-                                            </h6>
+                                            {
+                                                hover && !isCancelled ? 
+                                                    <XCircleFill color="red" /> 
+                                                :
+                                                    <h6>{vinoDetails && getTamañoVino(`${vinoDetails.volumen}`)}</h6>
+                                            }
                                         </Row>
                                         <Row><p className=' '>
                                             {`${vinoDetails && vinoDetails.volumen} cc`}

@@ -19,6 +19,7 @@ const PedidosList: React.FC<PedidosListProps> = ({ pedidos, refreshData }) => {
             key={pedido.id} 
             pedidoDeVino={pedido} 
             pedidoNumberedNumber={pedidosVino.length - pedidosVino.indexOf(pedido)}
+            refreshData={refreshData}
         />
     );
 
