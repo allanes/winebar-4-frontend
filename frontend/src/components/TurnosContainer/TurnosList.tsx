@@ -18,7 +18,7 @@ const keysTabTurno = [
   "Ordenes",
   // "# de Tapas",
   // "# Usuarios VIP",
-  "En Caja",
+  "Cobrado",
   "Abierto por",
   "Cerrado por",
   "Abierto",
@@ -86,7 +86,7 @@ export const TurnosList = ({ turnosList, onDeleteTurno, onReloadStatus }: Props)
                   <td>{turno.cantidad_de_ordenes}</td>
                   {/* <td>{turno.cantidad_tapas}</td> */}
                   {/* <td>{turno.cantidad_usuarios_vip}</td> */}
-                  <td>${turno.monto_en_caja}</td>
+                  <td>${turno.suma_ordenes_cobradas?.toLocaleString('es-ES')}</td>
                   <td>{turno.abierto_por_nombre}</td>
                   <td>{turno.cerrado_por_nombre || ''}</td>
                   <td><TimestampFormateadoBadge timestamp={turno.timestamp_apertura}/></td>

@@ -16,14 +16,14 @@ const FooterOrdenCerrada: React.FC<FooterOrdenCerradaProps> = ({ ordenData }) =>
         <Col>
           <TimestampFormateadoBadge timestamp={ordenData.timestamp_cierre_orden || ''} />
         </Col>
-        <Col>
+        <Col className='text-white'>
           {'Cobrada'}
         </Col>
         <Col className="text-end">
           <CheckCircleFill color='green' size={30} />
         </Col>      
       </Row>
-      <Row className="mb-1">
+      <Row className="mb-1 text-white">
         <Col>
           <strong>Efectivo:</strong> ${ordenData.monto_cobrado_efectivo?.toLocaleString('es-ES') || '0.00'}
         </Col>
