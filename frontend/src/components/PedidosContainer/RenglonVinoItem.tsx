@@ -121,7 +121,7 @@ const RenglonVinoItem: React.FC<RenglonVinoItemProps> = ({ renglonVino, refreshD
                                 </Col>                
                                 <Col md={6}>
                                     <Row>
-                                        <h4><Badge bg='success' className='p-1'>$ {renglonVino.producto.precio}</Badge></h4>
+                                        <h4><Badge bg='success' className='p-1'>$ {renglonVino.monto}</Badge></h4>
                                     </Row>
                                     {/* <Row className='justify-content-end'>
                                         {renglonVino.promocion_aplicada && 
