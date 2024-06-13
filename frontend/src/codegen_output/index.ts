@@ -44,7 +44,6 @@ export type { TarjetaCreate } from './models/TarjetaCreate';
 export type { TarjetaUpdate } from './models/TarjetaUpdate';
 export type { Token } from './models/Token';
 export type { Turno } from './models/Turno';
-export type { TurnoUpdate } from './models/TurnoUpdate';
 export type { ValidationError } from './models/ValidationError';
 export type { Vino } from './models/Vino';
 
@@ -85,7 +84,6 @@ export { $TarjetaCreate } from './schemas/$TarjetaCreate';
 export { $TarjetaUpdate } from './schemas/$TarjetaUpdate';
 export { $Token } from './schemas/$Token';
 export { $Turno } from './schemas/$Turno';
-export { $TurnoUpdate } from './schemas/$TurnoUpdate';
 export { $ValidationError } from './schemas/$ValidationError';
 export { $Vino } from './schemas/$Vino';
 

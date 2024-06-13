@@ -4,7 +4,6 @@
 /* eslint-disable */
 import type { InfoDeCierre } from '../models/InfoDeCierre';
 import type { Turno } from '../models/Turno';
-import type { TurnoUpdate } from '../models/TurnoUpdate';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -40,6 +39,30 @@ export class TurnosService {
         });
     }
     /**
+     * Handle Cambiar Cajero
+     * @param nuevoCajeroRfid
+     * @param requestBody
+     * @returns Turno Successful Response
+     * @throws ApiError
+     */
+    public static handleCambiarCajeroBackendApiV1TurnosCambiarCajeroPost(
+        nuevoCajeroRfid: number,
+        requestBody: InfoDeCierre,
+    ): CancelablePromise<Turno> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/backend/api/v1/turnos/cambiar-cajero',
+            query: {
+                'nuevo_cajero_rfid': nuevoCajeroRfid,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Handle Get Turno Abierto
      * @returns Turno Successful Response
      * @throws ApiError
@@ -48,30 +71,6 @@ export class TurnosService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/backend/api/v1/turnos/turno-en-curso',
-        });
-    }
-    /**
-     * Handle Update Turno
-     * @param id
-     * @param requestBody
-     * @returns Turno Successful Response
-     * @throws ApiError
-     */
-    public static handleUpdateTurnoBackendApiV1TurnosIdPut(
-        id: number,
-        requestBody: TurnoUpdate,
-    ): CancelablePromise<Turno> {
-        return __request(OpenAPI, {
-            method: 'PUT',
-            url: '/backend/api/v1/turnos/{id}',
-            path: {
-                'id': id,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                422: `Validation Error`,
-            },
         });
     }
     /**
