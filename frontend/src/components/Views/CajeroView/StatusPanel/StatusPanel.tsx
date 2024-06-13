@@ -76,6 +76,15 @@ const StatusPanel: React.FC<StatusPanelProps> = ({ reloadStatus, onReloadStatus 
     handleGetTurnoInfo(); // Call the function to refresh the data
   };
 
+  const handleCambiarCajero = async (infoDeCierre: InfoDeCierre, nuevoCajeroRfid: number) => {
+    try {
+        await TurnosService.handleCambiarCajeroBackendApiV1TurnosCambiarCajeroPost(nuevoCajeroRfid, infoDeCierre);
+        Swal.fire('Cambio de Cajero Realizado', '', 'success');
+    } catch (error) {
+        Swal.fire('Error', 'No se pudo cambiar el cajero.', 'error');
+    }
+  };
+
   // Helper function to force a component re-render
   const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
 
@@ -129,6 +138,7 @@ const StatusPanel: React.FC<StatusPanelProps> = ({ reloadStatus, onReloadStatus 
         turnoData={turnoData}
         handleGetTurnoInfo={handleGetTurnoInfo}
         handleCerrarTurno={handleCerrarTurno}
+        handleCambiarCajero={handleCambiarCajero}
         onReloadStatus={onReloadStatus}
       />
     </Card>
