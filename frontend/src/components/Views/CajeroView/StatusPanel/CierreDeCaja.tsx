@@ -69,6 +69,7 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
                 )}
             </Modal.Footer>
             <CardReaderModal
+                title='Tarjeta del Cajero NUEVO'
                 show={showCardReader}
                 onHide={() => setShowCardReader(false)}
                 onCardRead={handleCardRead}
