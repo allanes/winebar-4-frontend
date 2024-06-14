@@ -23,7 +23,7 @@ const keysTabClients = [
   // "Tarjeta",
   "Tarjeta entregada",
   "Tarjeta en salón",
-  ""
+  // ""
 ]
 
 export const ClientsList = ({ clientsList, onDeleteClient }: Props) => {
@@ -76,11 +76,11 @@ export const ClientsList = ({ clientsList, onDeleteClient }: Props) => {
                 </td>
                 <td><BooleanBadge value={!!client.tarjeta?.entregada} /></td>
                 <td><BooleanBadge value={!!client.tarjeta?.presente_en_salon} /></td>
-                <td>
+                {/* <td>
                   <button className="btn btn-danger p-0" onClick={() => handleDelete(client)}>
                     <img src={deleteIcon} alt="Delete" className='icon-img--size' />
                   </button>
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>

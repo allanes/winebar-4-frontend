@@ -25,7 +25,7 @@ const keysTabOrden = [
   'Apertura',
   'Cierre',
   'Cerrada Por',
-  '',
+  // '',
   ''
 ];
 
@@ -36,7 +36,7 @@ const keysTabOrdenReducido = [
   'Cobrado',
   'Apertura',
   'Cierre',
-  '',
+  // '',
   ''
 ];
 
@@ -149,17 +149,7 @@ export const OrdenesListBase = ({
                 }
               </td>
               {!columnasReducidas && <td>{orden.cerrada_por_nombre}</td>}
-              <td>
-                {!columnasReducidas && 
-                  <button
-                    className="icons-border icon--size icon--delete"
-                    type="button"
-                    onClick={() => handleDelete(orden)}
-                  >
-                    <img className="icon-img--size" src={deleteIcon} alt="" />
-                  </button>
-                }
-              </td>
+              
               <td>
                 <button
                   onClick={() => downloadPDF(orden.id)}
