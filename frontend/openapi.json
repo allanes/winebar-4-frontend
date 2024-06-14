@@ -1472,6 +1472,63 @@
         ]
       }
     },
+    "/backend/api/v1/turnos/cambiar-cajero": {
+      "post": {
+        "tags": [
+          "Turnos"
+        ],
+        "summary": "Handle Cambiar Cajero",
+        "operationId": "handle_cambiar_cajero_backend_api_v1_turnos_cambiar_cajero_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "nuevo_cajero_rfid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Nuevo Cajero Rfid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InfoDeCierre"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Turno"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/backend/api/v1/turnos/turno-en-curso": {
       "get": {
         "tags": [
@@ -1499,56 +1556,6 @@
       }
     },
     "/backend/api/v1/turnos/{id}": {
-      "put": {
-        "tags": [
-          "Turnos"
-        ],
-        "summary": "Handle Update Turno",
-        "operationId": "handle_update_turno_backend_api_v1_turnos__id__put",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "title": "Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TurnoUpdate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Turno"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
       "get": {
         "tags": [
           "Turnos"
@@ -4817,35 +4824,6 @@
           "monto_en_caja"
         ],
         "title": "Turno"
-      },
-      "TurnoUpdate": {
-        "properties": {
-          "timestamp_cierre": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date-time"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Timestamp Cierre"
-          },
-          "cerrado_por": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Cerrado Por"
-          }
-        },
-        "type": "object",
-        "title": "TurnoUpdate"
       },
       "ValidationError": {
         "properties": {
