@@ -5,6 +5,8 @@ import { InfoDeCierre, Turno, TurnosService } from '../../../../codegen_output';
 import CierreDeCaja from './CierreDeCaja';
 import Swal from 'sweetalert2';
 import { ArrowClockwise } from 'react-bootstrap-icons'; // Importing the refresh icon
+import { handleApiError } from '../../../ClientsContainer/ClientsContainer';
+import { useAuth } from '../../../auth/AuthContext';
 
 interface StatusPanelProps {
   reloadStatus: boolean;
@@ -15,6 +17,7 @@ const StatusPanel: React.FC<StatusPanelProps> = ({ reloadStatus, onReloadStatus 
   const [turnoData, setTurnoData] = useState<Turno | null>(null);
   const [showCierreDeCajaDetalle, setShowCierreDeCajaDetalle] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const { logout } = useAuth();
 
   useEffect(() => {
     handleGetTurnoInfo();
@@ -45,8 +48,8 @@ const StatusPanel: React.FC<StatusPanelProps> = ({ reloadStatus, onReloadStatus 
       setTurnoData(turnoResponse);
       setLastUpdated(new Date()); // Update the last updated time
     } catch (error) {
-      setTurnoData(null);
-      Swal.fire('Error', 'No se pudo abrir el turno.', 'error');
+      // setTurnoData(null);
+      handleApiError(error)
     }
   };
 
@@ -56,9 +59,9 @@ const StatusPanel: React.FC<StatusPanelProps> = ({ reloadStatus, onReloadStatus 
       setTurnoData(updatedTurnoData);
       Swal.fire('Turno Cerrado', '', 'success').then(() => window.location.reload());
       setLastUpdated(new Date()); // Update the last updated time
+      logout()
     } catch (error) {
-      setTurnoData(null);
-      Swal.fire('Error', 'No se pudo cerrar el turno.', 'error');
+      handleApiError(error)
     }
   };
 
@@ -80,8 +83,9 @@ const StatusPanel: React.FC<StatusPanelProps> = ({ reloadStatus, onReloadStatus 
     try {
         await TurnosService.handleCambiarCajeroBackendApiV1TurnosCambiarCajeroPost(nuevoCajeroRfid, infoDeCierre);
         Swal.fire('Cambio de Cajero Realizado', '', 'success');
+        logout()
     } catch (error) {
-        Swal.fire('Error', 'No se pudo cambiar el cajero.', 'error');
+        handleApiError(error)
     }
   };
 
@@ -129,7 +133,9 @@ const StatusPanel: React.FC<StatusPanelProps> = ({ reloadStatus, onReloadStatus 
         </Row>
       </Card.Body>
       <Card.Footer className='d-flex justify-content-center'>
-        <Button className='boton-cop' onClick={handleShowCierreDeCajaDetalle}>Cerrar Caja</Button>
+        <Button className='boton-cop' onClick={handleShowCierreDeCajaDetalle}>
+          Cerrar Caja
+        </Button>
       </Card.Footer>
 
       <CierreDeCaja
