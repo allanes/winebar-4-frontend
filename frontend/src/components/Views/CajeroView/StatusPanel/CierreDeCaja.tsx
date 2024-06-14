@@ -19,19 +19,27 @@ interface CierreDeCajaProps {
 const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerrarTurno, handleCambiarCajero, onReloadStatus }: CierreDeCajaProps) => {
     const [showInfoCierreForm, setShowInfoCierreForm] = useState(false);
     const [showCardReader, setShowCardReader] = useState(false);
+    const [currentInfoCierre, setCurrentInfoCierre] = useState<InfoDeCierre | null>(null);
 
     const handleInfoCierreSubmit = (infoDeCierre: InfoDeCierre) => {
+        setCurrentInfoCierre(infoDeCierre);
         handleCerrarTurno(infoDeCierre);
         setShowInfoCierreForm(false);
     };
 
-    const handleCambiarCajeroClick = (infoDeCierre: InfoDeCierre) => {
-        setShowCardReader(true);
+    const handleCambiarCajeroClick = () => {
+        if (currentInfoCierre) {
+            setShowCardReader(true);
+        } else {
+            console.log("No InfoDeCierre available"); // Debugging line
+        }
     };
 
     const handleCardRead = (tarjetaId: string) => {
         setShowCardReader(false);
-        handleCambiarCajero({ comentarios: '', monto_en_caja: 0 }, Number(tarjetaId)); // Example usage, adjust as needed
+        if (currentInfoCierre) {
+            handleCambiarCajero(currentInfoCierre, Number(tarjetaId));
+        }
     };
 
     const handleOnHide = () => {
@@ -52,7 +60,7 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
                     <InfoCierreForm 
                         sumaCobradaOrdenes={turnoData?.suma_ordenes_cobradas || 0}
                         onCerrarTurno={handleInfoCierreSubmit}
-                        onCambiarCajero={handleCambiarCajeroClick}
+                        onCambiarCajero={() => handleCambiarCajeroClick()} // Ensure this is being called
                     />
                 ) : (
                     <TurnoDetalle turnoData={turnoData} onReloadStatus={onReloadStatus} />
