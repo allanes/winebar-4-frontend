@@ -43,11 +43,11 @@ const RenglonVinoItem: React.FC<RenglonVinoItemProps> = ({ renglonVino, refreshD
         }
     }, [renglonVino.producto_id]);
 
-    const volumenKeys = ['15', '75', '150'] as const;
+    const volumenKeys = ['25', '75', '150'] as const;
     type VolumenKey = typeof volumenKeys[number];
 
     const mapa_tamaños: { [key in VolumenKey]: string } = {
-        '15': 'Degustacion',
+        '25': 'Degustacion',
         '75': 'Media Copa',
         '150': 'Copa'
     };
