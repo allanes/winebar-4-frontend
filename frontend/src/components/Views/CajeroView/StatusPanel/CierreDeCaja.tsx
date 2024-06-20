@@ -27,12 +27,10 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
         setShowInfoCierreForm(false);
     };
 
-    const handleCambiarCajeroClick = () => {
-        if (currentInfoCierre) {
-            setShowCardReader(true);
-        } else {
-            console.log("No InfoDeCierre available"); // Debugging line
-        }
+    const handleCambiarCajeroClick = (infoDeCierre: InfoDeCierre) => {
+        setCurrentInfoCierre(infoDeCierre);
+        setShowCardReader(true);
+        
     };
 
     const handleCardRead = (tarjetaId: string) => {
@@ -60,7 +58,7 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
                     <InfoCierreForm 
                         sumaCobradaOrdenes={turnoData?.suma_ordenes_cobradas || 0}
                         onCerrarTurno={handleInfoCierreSubmit}
-                        onCambiarCajero={() => handleCambiarCajeroClick()} // Ensure this is being called
+                        onCambiarCajero={handleCambiarCajeroClick} // Ensure this is being called
                     />
                 ) : (
                     <TurnoDetalle turnoData={turnoData} onReloadStatus={onReloadStatus} />
