@@ -1,10 +1,12 @@
-// CierreDeCaja.tsx
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { Turno, InfoDeCierre } from '../../../../codegen_output';
+import { PersonalInternoService } from '../../../../codegen_output';
 import TurnoDetalle from '../../../TurnosContainer/TurnoDetail';
 import InfoCierreForm from '../../../../hooks/useNewCierreCajaInfoCierreForm';
 import CardReaderModal from '../../../ClientsContainer/CardReaderModal';
+import Swal from 'sweetalert2';
+import { useAuth } from '../../../auth/AuthContext';
 
 interface CierreDeCajaProps {
     show: boolean;
@@ -16,10 +18,20 @@ interface CierreDeCajaProps {
     onReloadStatus: () => void;
 }
 
-const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerrarTurno, handleCambiarCajero, onReloadStatus }: CierreDeCajaProps) => {
+const CierreDeCaja = ({
+    show,
+    onHide,
+    turnoData,
+    handleGetTurnoInfo,
+    handleCerrarTurno,
+    handleCambiarCajero,
+    onReloadStatus
+}: CierreDeCajaProps) => {
     const [showInfoCierreForm, setShowInfoCierreForm] = useState(false);
     const [showCardReader, setShowCardReader] = useState(false);
     const [currentInfoCierre, setCurrentInfoCierre] = useState<InfoDeCierre | null>(null);
+
+    const { user } = useAuth();
 
     const handleInfoCierreSubmit = (infoDeCierre: InfoDeCierre) => {
         setCurrentInfoCierre(infoDeCierre);
@@ -27,18 +39,52 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
         setShowInfoCierreForm(false);
     };
 
-    const handleCambiarCajeroClick = () => {
-        if (currentInfoCierre) {
-            setShowCardReader(true);
-        } else {
-            console.log("No InfoDeCierre available"); // Debugging line
-        }
+    const handleCambiarCajeroClick = (infoDeCierre: InfoDeCierre) => {
+        setCurrentInfoCierre(infoDeCierre);
+        setShowCardReader(true);
     };
 
-    const handleCardRead = (tarjetaId: string) => {
+    const handleCardRead = async (tarjetaId: string) => {
         setShowCardReader(false);
+
+        const tarjetaNumber = Number(tarjetaId);
+        console.log('usuario logueado tarjeta:', user?.tarjeta?.id, 'Tipo:', typeof user?.tarjeta?.id);
+        console.log('tarjeta leida:', tarjetaNumber, 'Tipo:', typeof tarjetaNumber);
+
         if (currentInfoCierre) {
-            handleCambiarCajero(currentInfoCierre, Number(tarjetaId));
+            if (turnoData) {
+                const usarioAperturaTurno = await PersonalInternoService.handleReadPersonalInternoByIdBackendApiV1PersonalIdGet(turnoData.abierto_por)
+                if (user && user.tarjeta && usarioAperturaTurno.tarjeta && usarioAperturaTurno.tarjeta.id === tarjetaNumber) {
+                    console.log('IDs match, showing SweetAlert');
+                    try {
+                        // Introduce a small delay before showing the SweetAlert
+                        await new Promise(resolve => setTimeout(resolve, 100));
+
+                        const result = await Swal.fire({
+                            title: 'Está por abrir un turno con el mismo usuario que abrió el turno actual. ¿Continuar?',
+                            showCancelButton: true,
+                            confirmButtonText: 'Continuar',
+                            cancelButtonText: 'Cancelar',
+                            showConfirmButton: true
+                        });
+
+                        console.log('SweetAlert result:', result);
+                        if (result.isConfirmed) {
+                            console.log('Confirmed, changing cashier');
+                            handleCambiarCajero(currentInfoCierre, tarjetaNumber);
+                        } else {
+                            console.log('Canceled by user');
+                        }
+                    } catch (error) {
+                        console.error('SweetAlert failed:', error);
+                    }
+                } else {
+                    console.log('IDs do not match, proceeding with handleCambiarCajero');
+                    handleCambiarCajero(currentInfoCierre, tarjetaNumber);
+                }
+            } else {
+                console.log('currentInfoCierre is null');
+            }
         }
     };
 
@@ -60,7 +106,7 @@ const CierreDeCaja = ({ show, onHide, turnoData, handleGetTurnoInfo, handleCerra
                     <InfoCierreForm 
                         sumaCobradaOrdenes={turnoData?.suma_ordenes_cobradas || 0}
                         onCerrarTurno={handleInfoCierreSubmit}
-                        onCambiarCajero={() => handleCambiarCajeroClick()} // Ensure this is being called
+                        onCambiarCajero={handleCambiarCajeroClick}
                     />
                 ) : (
                     <TurnoDetalle turnoData={turnoData} onReloadStatus={onReloadStatus} />
