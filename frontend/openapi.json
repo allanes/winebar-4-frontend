@@ -4811,6 +4811,42 @@
               }
             ],
             "title": "Diferencia"
+          },
+          "suma_ordenes_cobradas_tarjeta": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suma Ordenes Cobradas Tarjeta",
+            "default": 0
+          },
+          "suma_ordenes_cobradas_efectivo": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suma Ordenes Cobradas Efectivo",
+            "default": 0
+          },
+          "suma_ordenes_cobradas_transferencia": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suma Ordenes Cobradas Transferencia",
+            "default": 0
           }
         },
         "type": "object",
