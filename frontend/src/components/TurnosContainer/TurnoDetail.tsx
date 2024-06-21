@@ -47,7 +47,7 @@ const TurnoDetalle = ({ turnoData, onReloadStatus }: TurnoProps) => {
 
     return (
         <Card className='card-in-modal-content'>
-            <Card.Header>
+            {/* <Card.Header>
                 <Card.Title className='d-flex justify-content-between align-items-center'>
                     <Col md={8}>
                         <h3>Detalles del Turno {turnoData.id}</h3>
@@ -56,7 +56,7 @@ const TurnoDetalle = ({ turnoData, onReloadStatus }: TurnoProps) => {
                         {isClosed ? <Badge bg='success'>CERRADO</Badge> : <Badge bg='warning'>EN CURSO</Badge>}
                     </Col>
                 </Card.Title>
-            </Card.Header>
+            </Card.Header> */}
             <Card.Body>
                 <Col>
                     <Row className='mt-1 p-3'>
