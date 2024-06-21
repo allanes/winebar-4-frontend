@@ -9,16 +9,13 @@ interface DifferenceCardProps {
 const DifferenceCard = ({ diferencia }: DifferenceCardProps) => {
   return (
     <Card className='transparent-card cierre-caja-pago-card'>
-        <Card.Title>
-                <h4 className='mb-2'>Diferencia (entre usuario y sistema) </h4>
-            </Card.Title>
-            <Card.Body>
-                <Row>
-                    <Col className='info-card-total mt-4'>
-                        <InfoCard title="Diferencia" count={`$${diferencia}`} />
-                    </Col>
-                </Row>
-            </Card.Body>
+      <Card.Body>
+        <Row>
+          <Col>
+            <InfoCard title="Diferencia" count={`$${diferencia}`} />
+          </Col>
+        </Row>
+      </Card.Body>
     </Card>
   );
 };

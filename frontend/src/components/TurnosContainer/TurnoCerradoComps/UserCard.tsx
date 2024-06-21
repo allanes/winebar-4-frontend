@@ -8,17 +8,14 @@ interface UserCardProps {
 
 const SegunUsuarioCard = ({ montoEnCaja }: UserCardProps) => {
   return (
-    <Card className='transparent-card cierre-caja-pago-card'>
-        <Card.Title>
-                <h4 className='mb-2'>Según Usuario</h4>
-            </Card.Title>
-            <Card.Body>
-                <Row>
-                    <Col className='info-card-total mt-4'>
-                        <InfoCard title="Efectivo" count={`$${montoEnCaja}`} />
-                    </Col>
-                </Row>
-            </Card.Body>
+    <Card className='cierre-caja-pago-card'>
+      <Card.Body>
+        <Row>
+          <Col>
+            <InfoCard title="Efectivo" count={`$${montoEnCaja}`} />
+          </Col>
+        </Row>
+      </Card.Body>
     </Card>
   );
 };

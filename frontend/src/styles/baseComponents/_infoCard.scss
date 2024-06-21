@@ -1,5 +1,5 @@
 // _infoCard.scss
-$accent-color: #FFC107; // Accent color for buttons and highlights
+$accent-color: #FFC107;
 
 .info-card {
     background-color: $mi-dark-grey-2;
@@ -13,13 +13,13 @@ $accent-color: #FFC107; // Accent color for buttons and highlights
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
+}
 
-  .info-card-body {
+.info-card-body {
     padding: 10px;
-  }
-  
-  .info-card-count {
+}
+
+.info-card-count {
     color: $mi-white;
     border-radius: 10px;
     font-size: 50px;
@@ -30,22 +30,21 @@ $accent-color: #FFC107; // Accent color for buttons and highlights
     justify-content: center;
     padding-left: 1px;
     padding-right: 1px;
-  }
-  
-  .info-card-title {
+}
+
+.info-card-title {
     color: $accent-color;
     font-size: 22px;
     font-weight: bold;
     padding-bottom: 2px;
     margin-bottom: 0px;
-  }
+}
 
-  .info-pill {
+.info-pill {
     color: $mi-white;
     background-color: $mi-dark-grey !important;
 }
 
-// Button styling for consistency
 .boton-cop {
     background-color: $accent-color;
     color: white;
@@ -65,15 +64,9 @@ $accent-color: #FFC107; // Accent color for buttons and highlights
     color: $accent-color;
     font-size: 20px;
     font-weight: bolder;
-    // stroke-width: 3;
     cursor: pointer;
-
-    // &:hover {
-    //     background-color: darken($accent-color, 10%);
-    // }
 }
 
-// Modal customization for a unified look
 .modal-content {
     background-color: $mi-light-grey-2;
     border-radius: 15px;
@@ -91,8 +84,6 @@ $accent-color: #FFC107; // Accent color for buttons and highlights
 
 .card-in-modal-colored {
     background-color: $mi-light-grey-2;
-    // border-radius: 15px;
-    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .card-in-modal-content {
@@ -105,12 +96,11 @@ $accent-color: #FFC107; // Accent color for buttons and highlights
     display: flex;
     justify-content: space-around;
     font-size: 16px;
-    color: #FFF; // Adjust color based on your theme
+    color: #FFF;
     margin-top: 5px;
-  }
+}
 
-  
-  .mini-info-card {
+.mini-info-card {
     background-color: $mi-dark-grey-2;
     border-radius: 10px;
     width: 150px;
@@ -121,62 +111,69 @@ $accent-color: #FFC107; // Accent color for buttons and highlights
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .mini-info-card-body {
+}
+
+.mini-info-card-body {
     display: flex;
     align-items: center;
     padding: 5px;
-  }
-  
-  .mini-info-card-image img {
+}
+
+.mini-info-card-image img {
     width: 30px;
     height: 30px;
     margin-right: 10px;
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100%) contrast(100%);
-  }
-  
-  .mini-info-card-details {
+}
+
+.mini-info-card-details {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .mini-info-card-count {
+}
+
+.mini-info-card-count {
     color: $mi-white;
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 5px;
-  }
-  
-  .mini-info-card-title {
+}
+
+.mini-info-card-title {
     color: $accent-color;
     font-size: 14px;
     font-weight: bold;
-  }
-  
-  // Add this to your _infoCard.scss or a similar style file
+}
+
 .detalle-turno-metadata-card {
     margin-bottom: 1rem;
     padding: 1rem;
     background-color: $mi-dark-grey-2;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .detalle-turno-metadata-card .info-pill {
+}
+
+.detalle-turno-metadata-card .info-pill {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 5px;
     margin-bottom: 0.5rem;
-  }
-  
-  .detalle-turno-metadata-card .info-pill div {
-    color: $mi-white;
-  }
+}
 
-  .cierre-caja-pago-card {
+.detalle-turno-metadata-card .info-pill div {
+    color: $mi-white;
+}
+
+.cierre-caja-pago-card {
     color: $mi-dark-grey;
-  }
+    background-color: $mi-light-grey;
+    border: none;
+    border-radius: 5px;
+}
+
+.cierre-caja-global-card {
+    color: $mi-white;
+    background-color: $mi-dark-grey-2;
+}
