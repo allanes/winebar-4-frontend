@@ -1,121 +1,88 @@
-// Base color variables for easier adjustments and consistency
-$primary-color: #888; // Example primary color (adjust accordingly)
-$secondary-color: #EEE; // Light grey for backgrounds
-$accent-color: #FFC107; // Accent color for buttons and highlights
+// _infoCard.scss
+$primary-color: #888;
+$secondary-color: #EEE;
+$accent-color: #FFC107;
 
-// Card styling
 .info-card {
-    // background-color: rgba(255, 255, 255, 0.3);
-    // background-color: $secondary-color;
-    background-color: $mi-dark-grey-2;
-    border-radius: 15px;
-    width: 250px;
-    max-height: 150px;
-    margin: 10px auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  background-color: $mi-dark-grey-2;
+  border-radius: 15px;
+  width: 250px;
+  max-height: 150px;
+  margin: 10px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .info-card-body {
-    padding: 10px;
-    // width: 70%;
+  padding: 10px;
 }
 
 .info-card-count {
-    // background-color: $mi-light-grey;
-    color: $mi-white;
-    border-radius: 10px;
-    font-size: 50px;
-    font-weight: bold;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-left: 1px;
-    padding-right: 1px;
-    // margin-bottom: 10px;
+  color: $mi-white;
+  border-radius: 10px;
+  font-size: 50px;
+  font-weight: bold;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 1px;
+  padding-right: 1px;
 }
 
 .info-card-title {
-    // border: 1px solid red;
-    color: $accent-color;
-    font-size: 22px;
-    font-weight: bold;
-    padding-bottom: 2px;
-    margin-bottom: 0px;
-    // margin-top: 10px;
+  color: $accent-color;
+  font-size: 22px;
+  font-weight: bold;
+  padding-bottom: 2px;
+  margin-bottom: 0px;
 }
 
-.info-pill {
-    color: $mi-white;
-    background-color: $mi-dark-grey !important;
+.mini-info-card {
+  background-color: $mi-dark-grey-2;
+  border-radius: 10px;
+  width: 150px;
+  max-height: 100px;
+  margin: 5px auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-// Button styling for consistency
-.boton-cop {
-    background-color: $accent-color;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 20px;
-    font-weight: normal;
-    cursor: pointer;
-
-    &:hover {
-        background-color: darken($accent-color, 10%);
-    }
+.mini-info-card-body {
+  display: flex;
+  align-items: center;
+  padding: 5px;
 }
 
-.boton-refresh-status {
-    color: $accent-color;
-    font-size: 20px;
-    font-weight: bolder;
-    // stroke-width: 3;
-    cursor: pointer;
-
-    // &:hover {
-    //     background-color: darken($accent-color, 10%);
-    // }
+.mini-info-card-image img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  filter: invert(100%);
 }
 
-// Modal customization for a unified look
-.modal-content {
-    background-color: $mi-light-grey-2;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+.mini-info-card-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.modal-header, .modal-footer {
-    border-bottom: none;
-    border-top: none;
+.mini-info-card-count {
+  color: $mi-white;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-.modal-body {
-    padding: 20px;
+.mini-info-card-title {
+  color: $accent-color;
+  font-size: 14px;
+  font-weight: bold;
 }
-
-.card-in-modal-colored {
-    background-color: $mi-light-grey-2;
-    // border-radius: 15px;
-    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.card-in-modal-content {
-    background-color: $mi-light-grey;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.monto-desglosado .info-card-breakdown {
-    display: flex;
-    justify-content: space-around;
-    font-size: 16px;
-    color: #FFF; // Adjust color based on your theme
-    margin-top: 5px;
-  }
-  

@@ -2,10 +2,11 @@ import React, {useState} from 'react'
 import { Turno, TurnosService } from '../../codegen_output'
 import deleteIcon from '../../assets/icons/outline_delete_white_24dp.png'
 import Swal from 'sweetalert2'
-import { Badge, Modal, Table, Card } from 'react-bootstrap'
+import { Badge, Modal, Table, Card, Row, Col } from 'react-bootstrap'
 import { handleApiError } from '../ClientsContainer/ClientsContainer'
 import TurnoDetalle from './TurnoDetail'
 import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge'
+import DetalleTurnoMetadataCard from './DetalleTurnoMetadataCard'
 
 interface Props {
   turnosList: Array<Turno>
@@ -112,7 +113,7 @@ export const TurnosList = ({ turnosList, onDeleteTurno, onReloadStatus }: Props)
       </Card.Body>
       <Modal show={showTurnoView} onHide={handleCloseTurnoView} centered size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>Detalle de Turno</Modal.Title>
+          <h4>Detalle de Turno</h4>
         </Modal.Header>
         <Modal.Body>
           {selectedTurno && (
