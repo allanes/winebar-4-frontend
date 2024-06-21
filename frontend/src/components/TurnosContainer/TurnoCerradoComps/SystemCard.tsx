@@ -15,7 +15,7 @@ interface SystemCardProps {
 
 const SegunSistemaCard = ({ montoCargado1, montoCargado2, montoCargado3, montoCargado4 }: SystemCardProps) => {
     return (
-        <Card>
+        <Card className='transparent-card cierre-caja-pago-card'>
             <Card.Title>
                 <h4 className='mb-2'>Según Sistema</h4>
             </Card.Title>

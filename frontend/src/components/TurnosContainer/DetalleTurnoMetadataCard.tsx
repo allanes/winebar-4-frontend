@@ -10,7 +10,7 @@ interface DetalleTurnoMetadataCardProps {
 
 const DetalleTurnoMetadataCard = ({ turnoData }: DetalleTurnoMetadataCardProps) => {
   return (
-    <Card className='detalle-turno-metadata-card'>
+    <Card className='detalle-turno-metadata-card w-auto'>
       <Card.Body>
         <Row className='mt-1'>
           <Col>

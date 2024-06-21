@@ -1,4 +1,6 @@
 // _infoCard.scss
+$accent-color: #FFC107; // Accent color for buttons and highlights
+
 .info-card {
     background-color: $mi-dark-grey-2;
     border-radius: 15px;
@@ -31,12 +33,82 @@
   }
   
   .info-card-title {
-    color: $mi-yellow;
+    color: $accent-color;
     font-size: 22px;
     font-weight: bold;
     padding-bottom: 2px;
     margin-bottom: 0px;
   }
+
+  .info-pill {
+    color: $mi-white;
+    background-color: $mi-dark-grey !important;
+}
+
+// Button styling for consistency
+.boton-cop {
+    background-color: $accent-color;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: normal;
+    cursor: pointer;
+
+    &:hover {
+        background-color: darken($accent-color, 10%);
+    }
+}
+
+.boton-refresh-status {
+    color: $accent-color;
+    font-size: 20px;
+    font-weight: bolder;
+    // stroke-width: 3;
+    cursor: pointer;
+
+    // &:hover {
+    //     background-color: darken($accent-color, 10%);
+    // }
+}
+
+// Modal customization for a unified look
+.modal-content {
+    background-color: $mi-light-grey-2;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header, .modal-footer {
+    border-bottom: none;
+    border-top: none;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.card-in-modal-colored {
+    background-color: $mi-light-grey-2;
+    // border-radius: 15px;
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card-in-modal-content {
+    background-color: $mi-light-grey;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.monto-desglosado .info-card-breakdown {
+    display: flex;
+    justify-content: space-around;
+    font-size: 16px;
+    color: #FFF; // Adjust color based on your theme
+    margin-top: 5px;
+  }
+
   
   .mini-info-card {
     background-color: $mi-dark-grey-2;
@@ -78,7 +150,7 @@
   }
   
   .mini-info-card-title {
-    color: $mi-yellow;
+    color: $accent-color;
     font-size: 14px;
     font-weight: bold;
   }
@@ -103,4 +175,8 @@
   
   .detalle-turno-metadata-card .info-pill div {
     color: $mi-white;
+  }
+
+  .cierre-caja-pago-card {
+    color: $mi-dark-grey;
   }

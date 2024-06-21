@@ -17,12 +17,12 @@ const TurnoDetailClosed = ({ turnoData }: TurnoDetailClosedProps) => {
   const montoCargado4 = turnoData.suma_ordenes_cobradas || 0;
 
   return (
-    <Card className='p-3'>
+    // <Card className='p-3 detalle-turno-cerrado-card'>
+    <Card className='p-3 transparent-card'>
       <Card.Header>
         <div>
           <h5 className='mb-0'>Cierre de Caja</h5>
         </div>
-        {/* <Badge bg='success'>Cerrada</Badge> */}
       </Card.Header>
       <Card.Body>        
         <Row className='mt-2'>
@@ -40,7 +40,7 @@ const TurnoDetailClosed = ({ turnoData }: TurnoDetailClosedProps) => {
             <SegunUsuarioCard montoEnCaja={turnoData.monto_en_caja} />
           </Col>
         </Row>
-        <Row>
+        <Row className='mt-2'>
           <Col>
             <DifferenceCard diferencia={turnoData.diferencia || 0} />
           </Col>

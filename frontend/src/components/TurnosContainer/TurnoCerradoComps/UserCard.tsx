@@ -8,7 +8,7 @@ interface UserCardProps {
 
 const SegunUsuarioCard = ({ montoEnCaja }: UserCardProps) => {
   return (
-    <Card>
+    <Card className='transparent-card cierre-caja-pago-card'>
         <Card.Title>
                 <h4 className='mb-2'>Según Usuario</h4>
             </Card.Title>

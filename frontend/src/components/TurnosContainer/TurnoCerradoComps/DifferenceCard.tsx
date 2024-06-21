@@ -8,7 +8,7 @@ interface DifferenceCardProps {
 
 const DifferenceCard = ({ diferencia }: DifferenceCardProps) => {
   return (
-    <Card>
+    <Card className='transparent-card cierre-caja-pago-card'>
         <Card.Title>
                 <h4 className='mb-2'>Diferencia (entre usuario y sistema) </h4>
             </Card.Title>
