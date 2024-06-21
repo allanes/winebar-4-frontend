@@ -110,3 +110,12 @@ $accent-color: #FFC107; // Accent color for buttons and highlights
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
+
+.monto-desglosado .info-card-breakdown {
+    display: flex;
+    justify-content: space-around;
+    font-size: 16px;
+    color: #FFF; // Adjust color based on your theme
+    margin-top: 5px;
+  }
+  

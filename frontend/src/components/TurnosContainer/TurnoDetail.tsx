@@ -4,6 +4,7 @@ import { OrdenesList } from '../OrdenesContainer/OrdenesListCard';
 import { OrdenesService, OrdenCompra, OrdenCompraDetallada, Turno } from '../../codegen_output';
 import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge';
 import InfoCard from '../Views/CajeroView/StatusPanel/InfoCard';
+import InfoCardMontoDesglosado from '../Views/CajeroView/StatusPanel/InfoCardMontoDesglosado';
 import { Card, Badge, Row, Col, Accordion, Button } from 'react-bootstrap';
 
 interface TurnoProps {
@@ -107,7 +108,7 @@ const TurnoDetalle = ({ turnoData, onReloadStatus }: TurnoProps) => {
                     <Col md={6}>
                         {turnoData?.cerrado_por && 
                             <InfoCard 
-                                title={'Monto en Caja Cerrada'}
+                                title={'Informado al Cerrar Caja'}
                                 count={`$${turnoData.monto_en_caja}`}
                             />
                         }
@@ -115,9 +116,12 @@ const TurnoDetalle = ({ turnoData, onReloadStatus }: TurnoProps) => {
                 </Row>        
                 <Row className='d-flex'>
                     <Col md={6}>
-                        <InfoCard 
+                        <InfoCardMontoDesglosado 
                             title="Monto Cobrado" 
-                            count={`$${turnoData?.suma_ordenes_cobradas || 0}`} 
+                            totalAmount={`$${turnoData?.suma_ordenes_cobradas || 0}`} 
+                            cash={`$${turnoData?.suma_ordenes_cobradas_efectivo || 0}`}
+                            card={`$${turnoData?.suma_ordenes_cobradas_tarjeta || 0}`}
+                            bankTransfer={`$${turnoData?.suma_ordenes_cobradas_transferencia || 0}`}
                         />
                     </Col>
                     <Col md={6}>
