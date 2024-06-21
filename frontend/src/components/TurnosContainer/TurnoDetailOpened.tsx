@@ -1,38 +1,20 @@
 // OpenTurnDetail.tsx
-import React, { useState, useEffect } from 'react';
-import { OrdenesList } from '../OrdenesContainer/OrdenesListCard';
-import { OrdenesService, OrdenCompraDetallada, Turno } from '../../codegen_output';
+import React from 'react';
+
+import { Turno } from '../../codegen_output';
 import TimestampFormateadoBadge from '../Common/TimestampFormateadoBadge';
 import InfoCard from '../Views/CajeroView/StatusPanel/InfoCard';
-import InfoCardMontoDesglosado from '../Views/CajeroView/StatusPanel/InfoCardMontoDesglosado';
-import { Badge, Row, Col, Accordion } from 'react-bootstrap';
+import { Badge, Row, Col } from 'react-bootstrap';
 
 interface OpenTurnDetailProps {
   turnoData: Turno;
   onReloadStatus: () => void;
+  onClickOpenOrdenes: () => void;
 }
 
-const OpenTurnDetail = ({ turnoData, onReloadStatus }: OpenTurnDetailProps) => {
-  const [activeKey, setActiveKey] = useState<string | null>(null);
-  const [ordenesDelTurno, setOrdenesDelTurno] = useState<OrdenCompraDetallada[]>([]);
-
-  useEffect(() => {
-    handleRecuperarOrdenesDelTurno();
-  }, [turnoData]);
-
-  const handleRecuperarOrdenesDelTurno = async () => {
-    if (turnoData) {
-      try {
-        const ordenesResponse = await OrdenesService.handleReadOrdenByTurnoIdBackendApiV1OrdenesByTurnoTurnoIdGet(turnoData.id);
-        setOrdenesDelTurno(ordenesResponse);
-      } catch (error) {
-        setOrdenesDelTurno([]);
-      }
-    }
-  };
-
+const OpenTurnDetail = ({ turnoData, onReloadStatus, onClickOpenOrdenes }: OpenTurnDetailProps) => {
   const handleClientesActivosClick = () => {
-    setActiveKey(activeKey === '0' ? null : '0');
+    onClickOpenOrdenes()
   };
 
   return (
@@ -82,22 +64,6 @@ const OpenTurnDetail = ({ turnoData, onReloadStatus }: OpenTurnDetailProps) => {
                 count={`$${turnoData.suma_ordenes_cobradas || 0}`}
             />
         </Col>
-      </Row>
-      <Row className='mb-2'>
-        <Col md={3}>
-          <Badge bg='light' text='dark'>Comentarios</Badge>
-        </Col>
-        <Col className='text-start'>{turnoData.comentarios || 'No se guardaron comentarios'}</Col>
-      </Row>
-      <Row>
-        <Accordion activeKey={activeKey} onSelect={handleClientesActivosClick}>
-          <Accordion.Item eventKey="0" className='card-in-modal-colored'>
-            <Accordion.Header>Lista de Ordenes</Accordion.Header>
-            <Accordion.Body className='ms-4'>
-              <OrdenesList ordenesList={ordenesDelTurno || []} onDeleteOrden={() => {}} columnasReducidas={true} ordenCobradaTrigger={onReloadStatus} />
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
       </Row>
     </>
   );

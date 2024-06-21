@@ -17,7 +17,7 @@ const TurnoDetailClosed = ({ turnoData }: TurnoDetailClosedProps) => {
   const montoCargado1 = turnoData.suma_ordenes_cobradas_efectivo || 0;
   const montoCargado2 = turnoData.suma_ordenes_cobradas_tarjeta || 0;
   const montoCargado3 = turnoData.suma_ordenes_cobradas_transferencia || 0;
-  const montoCargado4 = turnoData.suma_ordenes_cobradas || 0;
+  const total = turnoData.suma_ordenes_cobradas || 0;
 
   const handleToggle = (key: string) => {
     setOpenItems(prevOpenItems => 
@@ -29,9 +29,6 @@ const TurnoDetailClosed = ({ turnoData }: TurnoDetailClosedProps) => {
 
   return (
     <Card className='p-3 cierre-caja-global-card'>
-      <Card.Header>
-        <h5 className='mb-0'>Cierre de Caja</h5>
-      </Card.Header>
       <Card.Body>
         <Accordion activeKey={openItems}>
           <Accordion.Item eventKey="0" className='mb-2 cierre-caja-pago-card'>
@@ -41,7 +38,7 @@ const TurnoDetailClosed = ({ turnoData }: TurnoDetailClosedProps) => {
                   <strong>Según Sistema</strong>
                 </Col>
                 <Col className='text-end'>
-                  <strong>${montoCargado4}</strong>
+                  <strong>${total.toLocaleString('es-ES')}</strong>
                 </Col>
               </Row>
             </Accordion.Header>
@@ -50,7 +47,7 @@ const TurnoDetailClosed = ({ turnoData }: TurnoDetailClosedProps) => {
                 montoCargado1={montoCargado1} 
                 montoCargado2={montoCargado2} 
                 montoCargado3={montoCargado3} 
-                montoCargado4={montoCargado4} 
+                montoCargado4={total} 
               />
             </Accordion.Body>
           </Accordion.Item>
@@ -62,7 +59,7 @@ const TurnoDetailClosed = ({ turnoData }: TurnoDetailClosedProps) => {
                   <strong>Según Usuario</strong>
                 </Col>
                 <Col className='text-end'>
-                  <strong>${turnoData.monto_en_caja}</strong>
+                  <strong>${turnoData.monto_en_caja.toLocaleString('es-ES')}</strong>
                 </Col>
               </Row>
             </Accordion.Header>
@@ -78,7 +75,7 @@ const TurnoDetailClosed = ({ turnoData }: TurnoDetailClosedProps) => {
                   <strong>Diferencia</strong>
                 </Col>
                 <Col className='text-end'>
-                  <strong>${turnoData.diferencia || 0}</strong>
+                  <strong>${turnoData.diferencia?.toLocaleString('es-ES') || 0}</strong>
                 </Col>
               </Row>
             </Accordion.Header>

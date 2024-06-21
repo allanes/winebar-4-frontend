@@ -77,7 +77,7 @@ const AccionesPanel: React.FC<AccionesPanelProps> = ({ onReloadStatus }) => {
                 >
                     <div className="accionable--contenido">
                         <CurrencyDollar className="icon"/>
-                        <h3>Cobrar Tarjeta</h3>
+                        <h3>Info de Tarjeta</h3>
                     </div>
                 </Button>
             </div>

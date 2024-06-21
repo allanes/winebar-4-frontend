@@ -134,7 +134,7 @@ const StatusPanel: React.FC<StatusPanelProps> = ({ reloadStatus, onReloadStatus 
       </Card.Body>
       <Card.Footer className='d-flex justify-content-center'>
         <Button className='boton-cop' onClick={handleShowCierreDeCajaDetalle}>
-          Cerrar Caja
+          Info del Turno
         </Button>
       </Card.Footer>
 
