@@ -24,8 +24,7 @@ const TurnoDetailClosed = ({ turnoData }: TurnoDetailClosedProps) => {
         </div>
         {/* <Badge bg='success'>Cerrada</Badge> */}
       </Card.Header>
-      <Card.Body>
-        
+      <Card.Body>        
         <Row className='mt-2'>
           <Col>
             <SegunSistemaCard 
@@ -38,12 +37,12 @@ const TurnoDetailClosed = ({ turnoData }: TurnoDetailClosedProps) => {
         </Row>
         <Row className='mt-2'>
           <Col>
-            {/* <SegunUsuarioCard montoEnCaja={turnoData.monto_en_caja} /> */}
+            <SegunUsuarioCard montoEnCaja={turnoData.monto_en_caja} />
           </Col>
         </Row>
         <Row>
           <Col>
-            {/* <DifferenceCard diferencia={turnoData.diferencia || 0} /> */}
+            <DifferenceCard diferencia={turnoData.diferencia || 0} />
           </Col>
         </Row>
       </Card.Body>

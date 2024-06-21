@@ -17,7 +17,7 @@ const SegunSistemaCard = ({ montoCargado1, montoCargado2, montoCargado3, montoCa
     return (
         <Card>
             <Card.Title>
-                <h4 className='mb-4'>Según sistema</h4>
+                <h4 className='mb-2'>Según Sistema</h4>
             </Card.Title>
             <Card.Body>
                 <Row>
