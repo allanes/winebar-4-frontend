@@ -98,5 +98,29 @@ export const $Turno = {
                 type: 'null',
             }],
         },
+        suma_ordenes_cobradas_tarjeta: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
+        suma_ordenes_cobradas_efectivo: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
+        suma_ordenes_cobradas_transferencia: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
     },
 } as const;

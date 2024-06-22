@@ -18,5 +18,8 @@ export type Turno = {
     cerrado_por_nombre?: (string | null);
     suma_ordenes_cobradas?: (number | null);
     diferencia?: (number | null);
+    suma_ordenes_cobradas_tarjeta?: (number | null);
+    suma_ordenes_cobradas_efectivo?: (number | null);
+    suma_ordenes_cobradas_transferencia?: (number | null);
 };
 
