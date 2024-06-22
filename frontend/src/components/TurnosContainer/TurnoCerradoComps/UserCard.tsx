@@ -1,20 +1,31 @@
 import React from 'react';
-import { Card, Col, Row } from 'react-bootstrap';
+import { Card, Col, Row, Badge } from 'react-bootstrap';
 import InfoCard from '../../Views/CajeroView/StatusPanel/InfoCard';
 
 interface UserCardProps {
   montoEnCaja: number;
+  comentarios: string | null | undefined;
 }
 
-const SegunUsuarioCard = ({ montoEnCaja }: UserCardProps) => {
+const SegunUsuarioCard = ({ montoEnCaja, comentarios }: UserCardProps) => {
   return (
     <Card className='cierre-caja-pago-card'>
       <Card.Body>
-        <Row>
-          <Col>
+        <Col>
+          <Row>
             <InfoCard title="Efectivo" count={`$${montoEnCaja}`} />
-          </Col>
+          </Row>
+          <Row>
+            <Col md={3}>
+                <Badge bg='light' text='dark'>
+                    Comentarios
+                </Badge>
+            </Col>
+            <Col className='text-start'>
+              {comentarios || 'No se guardaron comentarios'}
+            </Col>
         </Row>
+        </Col>
       </Card.Body>
     </Card>
   );

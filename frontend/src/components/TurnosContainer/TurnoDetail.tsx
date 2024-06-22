@@ -59,12 +59,12 @@ const TurnoDetalle = ({ turnoData, onReloadStatus }: TurnoProps) => {
             </Card.Header> */}
             <Card.Body>
                 <Col>
-                    <Row className='mt-1 p-3'>
+                    <Row className=''>
                         <Col>
                             {turnoData && <DetalleTurnoMetadataCard turnoData={turnoData} />}
                         </Col>
                     </Row>
-                    <Row className='mt-2'>
+                    <Row className=''>
                         <Accordion activeKey={openItems}>
                             <Accordion.Item eventKey="0" className='cierre-caja-pago-card'>
                                 <Accordion.Header onClick={() => handleToggle('0')}>

@@ -146,11 +146,14 @@ $accent-color: #FFC107;
 }
 
 .detalle-turno-metadata-card {
-    margin-bottom: 1rem;
-    padding: 1rem;
-    background-color: $mi-dark-grey-2;
+    // margin-bottom: 1rem;
+    // padding: 1rem;
+    margin: 0px;
+    padding: 0px;
+    background-color: $mi-light-grey;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: none;
+    // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .detalle-turno-metadata-card .info-pill {
@@ -179,8 +182,8 @@ $accent-color: #FFC107;
 }
 
 .header-badge-image img {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     // margin-right: 10px;
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(180deg) brightness(100%) contrast(100%);
 }

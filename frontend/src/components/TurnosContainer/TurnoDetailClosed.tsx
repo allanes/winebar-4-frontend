@@ -64,7 +64,10 @@ const TurnoDetailClosed = ({ turnoData }: TurnoDetailClosedProps) => {
               </Row>
             </Accordion.Header>
             <Accordion.Body>
-              <SegunUsuarioCard montoEnCaja={turnoData.monto_en_caja} />
+              <SegunUsuarioCard 
+                montoEnCaja={turnoData.monto_en_caja} 
+                comentarios={turnoData.comentarios}
+              />
             </Accordion.Body>
           </Accordion.Item>
 
