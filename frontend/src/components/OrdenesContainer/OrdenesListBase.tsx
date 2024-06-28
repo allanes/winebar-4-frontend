@@ -153,8 +153,9 @@ export const OrdenesListBase = ({
               <td>
                 <button
                   onClick={() => downloadPDF(orden.id)}
-                  disabled={!orden.cerrada_por}
-                  title={!orden.cerrada_por ? "Order must be closed to download PDF" : "Download PDF"}
+                  // disabled={!orden.cerrada_por}
+                  // title={!orden.cerrada_por ? "Order must be closed to download PDF" : "Download PDF"}
+                  title="Download PDF"
                   className="btn btn-primary"
                 >
                   <FiletypePdf/>
