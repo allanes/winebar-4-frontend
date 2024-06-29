@@ -2,40 +2,40 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export const $MesaFudoCustom = {
+export const $CustomSaleDetailResponse = {
     properties: {
         id: {
-            type: 'number',
-            isRequired: true,
-        },
-        number: {
-            type: 'number',
-            isRequired: true,
-        },
-        room_id: {
             type: 'string',
             isRequired: true,
         },
-        room_name: {
+        type: {
+            type: 'string',
+            isRequired: true,
+        },
+        createdAt: {
+            type: 'string',
+            isRequired: true,
+            format: 'date-time',
+        },
+        people: {
+            type: 'number',
+            isRequired: true,
+        },
+        customerName: {
             type: 'any-of',
             contains: [{
                 type: 'string',
             }, {
                 type: 'null',
             }],
+            isRequired: true,
         },
-        cant_ventas: {
+        total: {
             type: 'number',
             isRequired: true,
         },
-        activeSales: {
-            type: 'dictionary',
-            contains: {
-                type: 'array',
-                contains: {
-                    type: 'SaleData',
-                },
-            },
+        saleState: {
+            type: 'string',
             isRequired: true,
         },
     },

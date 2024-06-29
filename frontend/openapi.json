@@ -2713,6 +2713,52 @@
         }
       }
     },
+    "/backend/api/v1/fudo/ventas/por-mesa/{mesa_id}": {
+      "get": {
+        "tags": [
+          "Fudo"
+        ],
+        "summary": "Read Sales By Mesa",
+        "operationId": "read_sales_by_mesa_backend_api_v1_fudo_ventas_por_mesa__mesa_id__get",
+        "parameters": [
+          {
+            "name": "mesa_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Mesa Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CustomSaleDetailResponse"
+                  },
+                  "title": "Response Read Sales By Mesa Backend Api V1 Fudo Ventas Por Mesa  Mesa Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/backend/api/v1/fudo/ventas/{sale_id}": {
       "get": {
         "tags": [
@@ -3475,6 +3521,57 @@
         ],
         "title": "ConfiguracionCreate"
       },
+      "CustomSaleDetailResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Createdat"
+          },
+          "people": {
+            "type": "integer",
+            "title": "People"
+          },
+          "customerName": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Customername"
+          },
+          "total": {
+            "type": "number",
+            "title": "Total"
+          },
+          "saleState": {
+            "type": "string",
+            "title": "Salestate"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "createdAt",
+          "people",
+          "customerName",
+          "total",
+          "saleState"
+        ],
+        "title": "CustomSaleDetailResponse"
+      },
       "CustomTableResponse": {
         "properties": {
           "data": {
@@ -3738,6 +3835,10 @@
             "title": "Room Name",
             "default": "Hab."
           },
+          "cant_ventas": {
+            "type": "integer",
+            "title": "Cant Ventas"
+          },
           "activeSales": {
             "additionalProperties": {
               "items": {
@@ -3754,6 +3855,7 @@
           "id",
           "number",
           "room_id",
+          "cant_ventas",
           "activeSales"
         ],
         "title": "MesaFudoCustom"

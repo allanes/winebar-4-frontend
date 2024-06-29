@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CustomSaleDetailResponse } from '../models/CustomSaleDetailResponse';
 import type { CustomTableResponse } from '../models/CustomTableResponse';
 import type { SaleResponse } from '../models/SaleResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -22,6 +23,26 @@ export class FudoService {
             url: '/backend/api/v1/fudo/mesas',
             query: {
                 'only_active': onlyActive,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Read Sales By Mesa
+     * @param mesaId
+     * @returns CustomSaleDetailResponse Successful Response
+     * @throws ApiError
+     */
+    public static readSalesByMesaBackendApiV1FudoVentasPorMesaMesaIdGet(
+        mesaId: number,
+    ): CancelablePromise<Array<CustomSaleDetailResponse>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/backend/api/v1/fudo/ventas/por-mesa/{mesa_id}',
+            path: {
+                'mesa_id': mesaId,
             },
             errors: {
                 422: `Validation Error`,
