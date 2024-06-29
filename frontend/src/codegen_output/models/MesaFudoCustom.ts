@@ -8,6 +8,7 @@ export type MesaFudoCustom = {
     number: number;
     room_id: string;
     room_name?: (string | null);
+    cant_ventas: number;
     activeSales: Record<string, Array<SaleData>>;
 };
 

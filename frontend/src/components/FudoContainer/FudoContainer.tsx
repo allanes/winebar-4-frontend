@@ -1,0 +1,54 @@
+import React, { useState } from 'react';
+import ListadoMesas from './ListadoMesas';
+import { FudoService, MesaFudoCustom, OrdenCompraDetallada, OrdenCompraInfoPago } from '../../codegen_output';
+import { Modal } from 'react-bootstrap';
+// import DetallesMesa from './DetallesMesa';
+
+interface PanelFudoProps {
+  show: boolean;
+  onHide: () => void;
+  onSubmit: (infoPago: OrdenCompraInfoPago) => void;
+  ordenData: OrdenCompraDetallada;
+}
+
+function FudoContainer(
+  { show, onHide, onSubmit, ordenData }: PanelFudoProps
+) {
+  const [selectedMesa, setSelectedMesa] = useState<MesaFudoCustom | null>(null);
+  const [refreshListado, setRefreshListado] = useState(false);
+
+  const refreshListadoMesas = () => {
+    setRefreshListado(prev => !prev); // Toggles the state to trigger a re-render
+  };
+
+  return (
+    <Modal show={show} onHide={onHide} centered size='lg'>
+      <Modal.Header closeButton>
+          <Modal.Title>Información de FUDO</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div className="container">
+          <h2 className="mb-4">Mesas activas</h2>
+          <div className="row">
+            <div className="col-md-6">
+              <ListadoMesas 
+                onSelectMesa={setSelectedMesa} 
+                refreshTrigger={refreshListado}
+              />
+            </div>
+            <div className="col-md-6">
+              {/* {selectedCollection && 
+                <DetallesMesa 
+                  collectionId={selectedCollection.id} 
+                  onRefreshListado={refreshListadoColecciones}
+                />
+              } */}
+            </div>
+          </div>
+        </div>
+      </Modal.Body>
+    </Modal>
+  );
+}
+
+export default FudoContainer;

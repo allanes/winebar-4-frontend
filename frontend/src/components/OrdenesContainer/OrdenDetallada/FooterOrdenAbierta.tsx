@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Col, Row, Button } from 'react-bootstrap';
 import { OrdenCompraInfoPago, OrdenCompraDetallada } from '../../../codegen_output';
 import PanelInfoPagoOrden from '../../Views/CajeroView/PanelInfoPagoOrden';
+import FudoContainer from '../../FudoContainer/FudoContainer';
 
 interface FooterOrdenAbiertaProps {
   ordenData: OrdenCompraDetallada;
@@ -38,7 +39,13 @@ const FooterOrdenAbierta: React.FC<FooterOrdenAbiertaProps> = ({ ordenData, open
           </Row>
         </Col>
       </Row>
-      <PanelInfoPagoOrden
+      {/* <PanelInfoPagoOrden
+        show={showPanelInfoPago}
+        onHide={() => setShowPanelInfoPago(false)}
+        onSubmit={handleInfoPagoSubmit}
+        ordenData={ordenData}
+      /> */}
+      <FudoContainer
         show={showPanelInfoPago}
         onHide={() => setShowPanelInfoPago(false)}
         onSubmit={handleInfoPagoSubmit}
