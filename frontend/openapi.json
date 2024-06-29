@@ -2668,6 +2668,93 @@
         }
       }
     },
+    "/backend/api/v1/fudo/mesas": {
+      "get": {
+        "tags": [
+          "Fudo"
+        ],
+        "summary": "Read Tables",
+        "operationId": "read_tables_backend_api_v1_fudo_mesas_get",
+        "parameters": [
+          {
+            "name": "only_active",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Return only tables with active sales",
+              "default": true,
+              "title": "Only Active"
+            },
+            "description": "Return only tables with active sales"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomTableResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/backend/api/v1/fudo/ventas/{sale_id}": {
+      "get": {
+        "tags": [
+          "Fudo"
+        ],
+        "summary": "Read Sale",
+        "operationId": "read_sale_backend_api_v1_fudo_ventas__sale_id__get",
+        "parameters": [
+          {
+            "name": "sale_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sale Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SaleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/backend/api/v1/lectores-tapas/informar-lector-tapa": {
       "post": {
         "tags": [
@@ -3388,6 +3475,22 @@
         ],
         "title": "ConfiguracionCreate"
       },
+      "CustomTableResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/MesaFudoCustom"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "CustomTableResponse"
+      },
       "DetallesAdicionales": {
         "properties": {
           "dni": {
@@ -3608,6 +3711,52 @@
           "lista_lectores_disponibles"
         ],
         "title": "LectorTapaReceive"
+      },
+      "MesaFudoCustom": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "number": {
+            "type": "integer",
+            "title": "Number"
+          },
+          "room_id": {
+            "type": "string",
+            "title": "Room Id"
+          },
+          "room_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Room Name",
+            "default": "Hab."
+          },
+          "activeSales": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/SaleData"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Activesales"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "number",
+          "room_id",
+          "activeSales"
+        ],
+        "title": "MesaFudoCustom"
       },
       "OrdenCompra": {
         "properties": {
@@ -4264,6 +4413,38 @@
         ],
         "title": "Producto"
       },
+      "RelationshipData": {
+        "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Type"
+          },
+          "id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "title": "RelationshipData"
+      },
       "Renglon": {
         "properties": {
           "cantidad": {
@@ -4368,6 +4549,249 @@
           "id"
         ],
         "title": "Rol"
+      },
+      "Sale": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/SaleAttributes"
+          },
+          "relationships": {
+            "$ref": "#/components/schemas/SaleRelationships"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "id",
+          "attributes",
+          "relationships"
+        ],
+        "title": "Sale"
+      },
+      "SaleAttributes": {
+        "properties": {
+          "closedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Closedat"
+          },
+          "comment": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Createdat"
+          },
+          "people": {
+            "type": "integer",
+            "title": "People"
+          },
+          "customerName": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Customername"
+          },
+          "total": {
+            "type": "number",
+            "title": "Total"
+          },
+          "saleType": {
+            "type": "string",
+            "title": "Saletype"
+          },
+          "saleState": {
+            "type": "string",
+            "title": "Salestate"
+          }
+        },
+        "type": "object",
+        "required": [
+          "closedAt",
+          "comment",
+          "createdAt",
+          "people",
+          "customerName",
+          "total",
+          "saleType",
+          "saleState"
+        ],
+        "title": "SaleAttributes"
+      },
+      "SaleData": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "title": "SaleData"
+      },
+      "SaleRelationships": {
+        "properties": {
+          "customer": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/RelationshipData"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "object",
+            "title": "Customer"
+          },
+          "discounts": {
+            "additionalProperties": {
+              "items": {
+
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Discounts"
+          },
+          "items": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/RelationshipData"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Items"
+          },
+          "payments": {
+            "additionalProperties": {
+              "items": {
+
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Payments"
+          },
+          "tips": {
+            "additionalProperties": {
+              "items": {
+
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Tips"
+          },
+          "shippingCosts": {
+            "additionalProperties": {
+              "items": {
+
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Shippingcosts"
+          },
+          "table": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/RelationshipData"
+            },
+            "type": "object",
+            "title": "Table"
+          },
+          "waiter": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/RelationshipData"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "object",
+            "title": "Waiter"
+          },
+          "saleIdentifier": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/RelationshipData"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "object",
+            "title": "Saleidentifier"
+          }
+        },
+        "type": "object",
+        "required": [
+          "customer",
+          "discounts",
+          "items",
+          "payments",
+          "tips",
+          "shippingCosts",
+          "table",
+          "waiter",
+          "saleIdentifier"
+        ],
+        "title": "SaleRelationships"
+      },
+      "SaleResponse": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Sale"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "SaleResponse"
       },
       "Tapa": {
         "properties": {
