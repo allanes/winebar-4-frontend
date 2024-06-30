@@ -1,12 +1,14 @@
 import React, { useState, useMemo } from 'react';
-import { MesaFudoCustom } from '../../codegen_output';
+import { MesaFudoCustom, CustomSaleDetailResponse } from '../../codegen_output';
 import { Table } from 'react-bootstrap';
 import { ColumnaFiltrableProps, SortConfig, FudoMesaKey } from './FudoTypes';
 
+type DataItem = MesaFudoCustom | CustomSaleDetailResponse;
+
 interface SortableFilterableTableProps {
   columns: ColumnaFiltrableProps[], 
-  data: MesaFudoCustom[], 
-  onSelect?: (arg0: MesaFudoCustom) => void, 
+  data: DataItem[], 
+  onSelect?: (arg0: DataItem) => void, 
   onSort?: (sortConfig: SortConfig ) => void, 
   onFilter?: (filters: Record<string, string | number>) => void;
 }
@@ -14,7 +16,6 @@ interface SortableFilterableTableProps {
 const SortableFilterableTable = (
   { columns, data, onSelect, onSort, onFilter }: SortableFilterableTableProps
 ) => {
-  // State for sorting and filtering
   const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
   const [filters, setFilters] = useState<Record<string, string | number>>({});
 
@@ -22,10 +23,10 @@ const SortableFilterableTable = (
     let sortableItems = [...data];
     if (sortConfig !== null) {
       sortableItems.sort((a, b) => {
-        const aValue = a[sortConfig.key];
-        const bValue = b[sortConfig.key];
-        if (!aValue || !bValue) {
-          return 0
+        const aValue = a[sortConfig.key as keyof DataItem];
+        const bValue = b[sortConfig.key as keyof DataItem];
+        if (aValue === undefined || bValue === undefined) {
+          return 0;
         }
         if (aValue < bValue) {
           return sortConfig.direction === 'ascending' ? -1 : 1;
@@ -42,15 +43,14 @@ const SortableFilterableTable = (
   const filteredData = useMemo(() => {
     return sortedData.filter(item => {
       return Object.entries(filters).every(([key, value]) => {
-        // If no filter is set for a key, or the item matches the filter, it's included
-        const itemValue = item[key as FudoMesaKey];
+        const itemValue = item[key as keyof DataItem];
         return !value || (typeof itemValue === 'string' && itemValue.toLowerCase().includes(String(value).toLowerCase()));
       });
     });
   }, [sortedData, filters]);
 
   const requestSort = (key: FudoMesaKey) => {
-    let direction: 'ascending' | 'descending'= 'ascending';
+    let direction: 'ascending' | 'descending' = 'ascending';
     if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
       direction = 'descending';
     }
@@ -64,12 +64,11 @@ const SortableFilterableTable = (
     onFilter?.(newFilters);
   };
 
-  // Function to render sorting icons
   const renderSortIcons = (key: string) => {
     if (!sortConfig || sortConfig.key !== key) {
-      return '↕'; // or your default sorting icon
+      return '↕';
     }
-    return sortConfig.direction === 'ascending' ? '↑' : '↓'; // Replace with icons if available
+    return sortConfig.direction === 'ascending' ? '↑' : '↓';
   };
 
   return (
@@ -88,7 +87,7 @@ const SortableFilterableTable = (
             <th key={`${column.accessor}-filter`}>
               {column.canFilter && (
                 <input
-                  style={{ width: '100%', boxSizing: 'border-box' }} // Ensure input takes full width of cell
+                  style={{ width: '100%', boxSizing: 'border-box' }}
                   onChange={(e) => handleFilterChange(column.accessor, e.target.value)}
                 />
               )}
@@ -103,7 +102,7 @@ const SortableFilterableTable = (
               <td key={column.accessor}>
                 {column.customRenderer 
                   ? column.customRenderer(item)
-                  : String(item[column.accessor as keyof MesaFudoCustom])}
+                  : String(item[column.accessor as keyof DataItem] ?? '')}
               </td>
             ))}
           </tr>

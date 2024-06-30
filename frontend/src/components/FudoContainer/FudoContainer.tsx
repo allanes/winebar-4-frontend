@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import ListadoMesas from './ListadoMesas';
+import DetallesMesa from './DetallesMesa';
 import { FudoService, MesaFudoCustom, OrdenCompraDetallada, OrdenCompraInfoPago } from '../../codegen_output';
 import { Modal } from 'react-bootstrap';
-// import DetallesMesa from './DetallesMesa';
 
 interface PanelFudoProps {
   show: boolean;
@@ -21,10 +21,14 @@ function FudoContainer(
     setRefreshListado(prev => !prev); // Toggles the state to trigger a re-render
   };
 
+  const handleSelectMesa = (mesa: MesaFudoCustom) => {
+    setSelectedMesa(mesa);
+  };
+
   return (
     <Modal show={show} onHide={onHide} centered size='lg'>
       <Modal.Header closeButton>
-          <Modal.Title>Información de FUDO</Modal.Title>
+        <Modal.Title>Información de FUDO</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="container">
@@ -32,17 +36,17 @@ function FudoContainer(
           <div className="row">
             <div className="col-md-6">
               <ListadoMesas 
-                onSelectMesa={setSelectedMesa} 
+                onSelectMesa={handleSelectMesa} 
                 refreshTrigger={refreshListado}
               />
             </div>
             <div className="col-md-6">
-              {/* {selectedCollection && 
+              {selectedMesa && 
                 <DetallesMesa 
-                  collectionId={selectedCollection.id} 
-                  onRefreshListado={refreshListadoColecciones}
+                  mesaFudoId={selectedMesa.id} 
+                  onRefreshListado={refreshListadoMesas}
                 />
-              } */}
+              }
             </div>
           </div>
         </div>

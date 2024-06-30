@@ -31,7 +31,7 @@ export const $CustomSaleDetailResponse = {
             isRequired: true,
         },
         total: {
-            type: 'number',
+            type: 'string',
             isRequired: true,
         },
         saleState: {

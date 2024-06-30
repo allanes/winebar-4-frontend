@@ -1,12 +1,12 @@
-import { MesaFudoCustom } from '../../codegen_output';
+import { MesaFudoCustom, CustomSaleDetailResponse } from '../../codegen_output';
 
-export type FudoMesaKey = keyof MesaFudoCustom;
+export type FudoMesaKey = keyof MesaFudoCustom | keyof CustomSaleDetailResponse;
 
 export interface ColumnaFiltrableProps {
   Header: string;
-  accessor: FudoMesaKey;
+  accessor: FudoMesaKey | keyof CustomSaleDetailResponse;
   canFilter: boolean;
-  customRenderer?: (item: MesaFudoCustom) => React.ReactNode;
+  customRenderer?: (item: MesaFudoCustom | CustomSaleDetailResponse) => React.ReactNode;
 }
 
 export interface SortConfig {

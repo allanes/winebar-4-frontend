@@ -8,7 +8,7 @@ export type CustomSaleDetailResponse = {
     createdAt: string;
     people: number;
     customerName: (string | null);
-    total: number;
+    total: string;
     saleState: string;
 };
 

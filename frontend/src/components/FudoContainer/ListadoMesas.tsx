@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { FudoService, MesaFudoCustom } from '../../codegen_output';
+import { FudoService, MesaFudoCustom, CustomSaleDetailResponse } from '../../codegen_output';
 import SortableFilterableTable from './SortableFilterableTable';
 import Spinner from 'react-bootstrap/Spinner';
 import {ArrowClockwise} from 'react-bootstrap-icons'
 import Button from 'react-bootstrap/Button'
 import { ColumnaFiltrableProps } from './FudoTypes';
 import './Colecciones.css'
+
+type DataItem = MesaFudoCustom | CustomSaleDetailResponse;
 
 interface ListadoMesasProps {
   onSelectMesa: (arg0: MesaFudoCustom) => void;
@@ -14,7 +16,7 @@ interface ListadoMesasProps {
 
 function ListadoMesas({ onSelectMesa, refreshTrigger }: ListadoMesasProps) {
   const [mesasList, setMesasList] = useState<MesaFudoCustom[]>([]);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -36,9 +38,15 @@ function ListadoMesas({ onSelectMesa, refreshTrigger }: ListadoMesasProps) {
     });
   };
 
+  const handleSelectItem = (item: DataItem) => {
+    if ('room_id' in item) {
+      onSelectMesa(item as MesaFudoCustom);
+    } else {
+      console.warn('Selected item is not a MesaFudoCustom');
+    }
+  };
+
   const columns: ColumnaFiltrableProps[] = [
-    // Define columns here
-    // { Header: 'ID', accessor: 'id', canFilter: true },
     { 
       Header: 'Numero', 
       accessor: 'number', 
@@ -46,7 +54,7 @@ function ListadoMesas({ onSelectMesa, refreshTrigger }: ListadoMesasProps) {
     },
     { 
       Header: 'Lugar', 
-      accessor: 'room_id', 
+      accessor: 'room_name', 
       canFilter: true 
     },
     { 
@@ -73,7 +81,7 @@ function ListadoMesas({ onSelectMesa, refreshTrigger }: ListadoMesasProps) {
             <SortableFilterableTable 
                 columns={columns} 
                 data={mesasList}
-                onSelect={onSelectMesa}       
+                onSelect={handleSelectItem}       
             />
         </div>
         {error && <div className="alert alert-danger" role="alert">{error}</div>}
