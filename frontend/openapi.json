@@ -3552,7 +3552,7 @@
             "title": "Customername"
           },
           "total": {
-            "type": "number",
+            "type": "string",
             "title": "Total"
           },
           "saleState": {
@@ -3906,6 +3906,10 @@
             "type": "number",
             "title": "Monto Cobrado Transferencia"
           },
+          "monto_cargado_fudo": {
+            "type": "number",
+            "title": "Monto Cargado Fudo"
+          },
           "monto_maximo_pedido": {
             "type": "number",
             "title": "Monto Maximo Pedido"
@@ -3975,6 +3979,7 @@
           "monto_cobrado_efectivo",
           "monto_cobrado_tarjeta",
           "monto_cobrado_transferencia",
+          "monto_cargado_fudo",
           "monto_maximo_pedido",
           "timestamp_apertura_orden"
         ],
@@ -4025,6 +4030,10 @@
           "monto_cobrado_transferencia": {
             "type": "number",
             "title": "Monto Cobrado Transferencia"
+          },
+          "monto_cargado_fudo": {
+            "type": "number",
+            "title": "Monto Cargado Fudo"
           },
           "monto_maximo_pedido": {
             "type": "number",
@@ -4110,6 +4119,7 @@
           "monto_cobrado_efectivo",
           "monto_cobrado_tarjeta",
           "monto_cobrado_transferencia",
+          "monto_cargado_fudo",
           "monto_maximo_pedido",
           "timestamp_apertura_orden",
           "pedidos",
@@ -4155,6 +4165,17 @@
             ],
             "title": "Cobrado Transferencia",
             "default": 0
+          },
+          "carga_fudo_venta_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Carga Fudo Venta Id"
           },
           "comentarios": {
             "anyOf": [
@@ -4267,6 +4288,18 @@
               }
             ],
             "title": "Monto Cargado"
+          },
+          "exportado_fudo": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exportado Fudo",
+            "default": false
           },
           "atendido_por_nombre": {
             "anyOf": [

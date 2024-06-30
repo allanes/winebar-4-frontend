@@ -48,6 +48,10 @@ export const $OrdenCompra = {
             type: 'number',
             isRequired: true,
         },
+        monto_cargado_fudo: {
+            type: 'number',
+            isRequired: true,
+        },
         monto_maximo_pedido: {
             type: 'number',
             isRequired: true,

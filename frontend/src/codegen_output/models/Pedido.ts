@@ -11,6 +11,7 @@ export type Pedido = {
     orden_id: number;
     monto_maximo_pedido: number;
     monto_cargado: (number | null);
+    exportado_fudo?: (boolean | null);
     atendido_por_nombre?: (string | null);
     renglones: Array<Renglon>;
 };

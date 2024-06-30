@@ -43,6 +43,14 @@ export const $Pedido = {
             }],
             isRequired: true,
         },
+        exportado_fudo: {
+            type: 'any-of',
+            contains: [{
+                type: 'boolean',
+            }, {
+                type: 'null',
+            }],
+        },
         atendido_por_nombre: {
             type: 'any-of',
             contains: [{
