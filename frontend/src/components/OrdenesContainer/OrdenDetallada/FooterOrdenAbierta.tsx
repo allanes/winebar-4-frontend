@@ -5,6 +5,7 @@ import { Cash, BoxArrowUpRight } from 'react-bootstrap-icons';
 import { OrdenCompraInfoPago, OrdenCompraDetallada } from '../../../codegen_output';
 import PanelInfoPagoOrden from '../../Views/CajeroView/PanelInfoPagoOrden';
 import FudoContainer from '../../FudoContainer/FudoContainer';
+import exportacionFudoImage from '../../../assets/icons/icono-fudo.png';
 
 interface FooterOrdenAbiertaProps {
   ordenData: OrdenCompraDetallada;
@@ -63,7 +64,8 @@ const FooterOrdenAbierta: React.FC<FooterOrdenAbiertaProps> = ({ ordenData, open
             </Col>
             <Col className="text-center">
               <Button variant="secondary" size="lg" onClick={handleExportarFudo}>
-                <BoxArrowUpRight /> Exportar a Fudo
+                <img src={exportacionFudoImage} alt="" width={26}/> Exportar a Fudo
+                {/* <BoxArrowUpRight /> Exportar a Fudo */}
               </Button>
             </Col>
           </Row>

@@ -3,7 +3,7 @@ import { MesaFudoCustom, CustomSaleDetailResponse } from '../../codegen_output';
 import { Table } from 'react-bootstrap';
 import { ColumnaFiltrableProps, SortConfig, FudoMesaKey } from './FudoTypes';
 
-type DataItem = MesaFudoCustom | CustomSaleDetailResponse;
+export type DataItem = MesaFudoCustom | CustomSaleDetailResponse;
 
 interface SortableFilterableTableProps {
   columns: ColumnaFiltrableProps[], 
@@ -11,10 +11,11 @@ interface SortableFilterableTableProps {
   onSelect?: (arg0: DataItem) => void, 
   onSort?: (sortConfig: SortConfig ) => void, 
   onFilter?: (filters: Record<string, string | number>) => void;
+  selectedItem?: DataItem | null;
 }
 
 const SortableFilterableTable = (
-  { columns, data, onSelect, onSort, onFilter }: SortableFilterableTableProps
+  { columns, data, onSelect, onSort, onFilter, selectedItem }: SortableFilterableTableProps
 ) => {
   const [sortConfig, setSortConfig] = useState<SortConfig | null>(null);
   const [filters, setFilters] = useState<Record<string, string | number>>({});
@@ -97,7 +98,12 @@ const SortableFilterableTable = (
       </thead>
       <tbody>
       {filteredData.map((item, index) => (
-          <tr key={index} onClick={() => onSelect?.(item)}>
+          <tr 
+            key={index} 
+            onClick={() => onSelect?.(item)}
+            className={selectedItem && selectedItem.id === item.id ? 'selected-row' : ''}
+            style={{ cursor: 'pointer' }}
+          >
             {columns.map(column => (
               <td key={column.accessor}>
                 {column.customRenderer 

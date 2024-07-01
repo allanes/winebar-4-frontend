@@ -1,30 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { FudoService, CustomSaleDetailResponse, MesaFudoCustom } from '../../codegen_output';
+import { FudoService, CustomSaleDetailResponse, OrdenCompraInfoPago } from '../../codegen_output';
 import SortableFilterableTable from './SortableFilterableTable';
 import Spinner from 'react-bootstrap/Spinner';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import { ArrowClockwise } from 'react-bootstrap-icons';
-// import AgregarItemModal from './AgregarItems';
 import { ColumnaFiltrableProps } from './FudoTypes';
-import './Colecciones.css'
+import './Colecciones.css';
 
 interface DetallesMesaProps {
     mesaFudoId: number;
     onRefreshListado: () => void;
+    onSubmit: (infoPago: OrdenCompraInfoPago) => void;
 }
 
-type DataItem = CustomSaleDetailResponse | MesaFudoCustom;
-
-function DetallesMesa({ mesaFudoId, onRefreshListado }: DetallesMesaProps) {
+function DetallesMesa({ mesaFudoId, onRefreshListado, onSubmit }: DetallesMesaProps) {
     const [ventasCustom, setVentasCustom] = useState<CustomSaleDetailResponse[]>([]);
     const [selectedVenta, setSelectedVenta] = useState<CustomSaleDetailResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [showAgregarModal, setShowAgregarModal] = useState(false);
+    const [comentarios, setComentarios] = useState('');
 
     useEffect(() => {
         fetchItems();
-    }, [mesaFudoId]);
+    }, [mesaFudoId, selectedVenta]);
 
     const fetchItems = () => {
         setVentasCustom([]);
@@ -41,38 +40,29 @@ function DetallesMesa({ mesaFudoId, onRefreshListado }: DetallesMesaProps) {
         });
     };
 
-    const handleSelectVenta = (item: DataItem) => {
-        if ('type' in item && item.type === 'customSaleDetail') {
-            setSelectedVenta(item as CustomSaleDetailResponse);
+    const handleSelectVenta = (item: CustomSaleDetailResponse ) => {
+        setSelectedVenta(item);
+    };
+
+    const handleSubmit = () => {
+        console.log('Submit clicked. selectedVenta:', selectedVenta);
+        if (selectedVenta) {
+            const infoPago: OrdenCompraInfoPago = {
+                carga_fudo_venta_id: Number(selectedVenta.id),
+                comentarios: comentarios
+            };
+            console.log('Submitting infoPago:', infoPago);
+            onSubmit(infoPago);
         } else {
-            console.warn('Selected item is not a CustomSaleDetailResponse');
-            setSelectedVenta(null);
+            setError('Por favor, seleccione una venta antes de exportar.');
         }
     };
     
     const columns: ColumnaFiltrableProps[] = [
-        { 
-            Header: 'ID', 
-            accessor: 'id', 
-            canFilter: true 
-        },
-        { 
-            Header: 'Personas', 
-            accessor: 'people', 
-            canFilter: true 
-        },
-        { 
-            Header: 'Total', 
-            accessor: 'total', 
-            canFilter: true 
-        },
+        { Header: 'ID', accessor: 'id', canFilter: false },
+        { Header: 'Personas', accessor: 'people', canFilter: false },
+        { Header: 'Total', accessor: 'total', canFilter: false },
     ];
-
-    // Function to refresh items after adding a new item
-    const onItemAdded = () => {
-        fetchItems();
-        onRefreshListado();
-    };
 
     return (
         <>
@@ -90,33 +80,27 @@ function DetallesMesa({ mesaFudoId, onRefreshListado }: DetallesMesaProps) {
                     <SortableFilterableTable 
                         columns={columns} 
                         data={ventasCustom}
-                        onSelect={handleSelectVenta}       
+                        onSelect={(item) => handleSelectVenta(item as CustomSaleDetailResponse)}
+                        selectedItem={selectedVenta}
                     />
                 </div>
             )}
             
-            <div className="action-buttons-container">
-                <Button variant="primary" onClick={() => setShowAgregarModal(true)} className="btn-agregar">Agregar</Button>
-            </div>
-
-            {/* Agregar Item Modal */}
-            {/* <AgregarItemModal 
-                show={showAgregarModal} 
-                onHide={() => setShowAgregarModal(false)}
-                collectionId={mesaFudoId}
-                onItemAdded={onItemAdded}
-            /> */}
-
             {error && <div className="alert alert-danger" role="alert">{error}</div>}
 
-            {selectedVenta && (
-                <div className="selected-venta-details">
-                    <h4>Venta Seleccionada:</h4>
-                    <p>ID: {selectedVenta.id}</p>
-                    <p>Personas: {selectedVenta.people}</p>
-                    <p>Total: {selectedVenta.total}</p>
-                </div>
-            )}
+            <Form.Group className="mb-3">
+                <Form.Label>Comentarios adicionales</Form.Label>
+                <Form.Control 
+                    as="textarea" 
+                    rows={3} 
+                    value={comentarios}
+                    onChange={(e) => setComentarios(e.target.value)}
+                />
+            </Form.Group>
+
+            <div className="action-buttons-container">
+                <Button onClick={handleSubmit} className="boton-cop">Exportar a FUDO</Button>
+            </div>
         </>
     );
 }

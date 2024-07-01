@@ -50,17 +50,17 @@ function ListadoMesas({ onSelectMesa, refreshTrigger }: ListadoMesasProps) {
     { 
       Header: 'Numero', 
       accessor: 'number', 
-      canFilter: true 
+      canFilter: false 
     },
     { 
       Header: 'Lugar', 
       accessor: 'room_name', 
-      canFilter: true 
+      canFilter: false 
     },
     { 
       Header: 'Ventas', 
       accessor: 'cant_ventas', 
-      canFilter: true 
+      canFilter: false 
     },
   ];
 

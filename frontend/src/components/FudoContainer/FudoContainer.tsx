@@ -1,3 +1,4 @@
+// FudoContainer.tsx
 import React, { useState } from 'react';
 import ListadoMesas from './ListadoMesas';
 import DetallesMesa from './DetallesMesa';
@@ -11,9 +12,7 @@ interface PanelFudoProps {
   ordenData: OrdenCompraDetallada;
 }
 
-function FudoContainer(
-  { show, onHide, onSubmit, ordenData }: PanelFudoProps
-) {
+function FudoContainer({ show, onHide, onSubmit, ordenData }: PanelFudoProps) {
   const [selectedMesa, setSelectedMesa] = useState<MesaFudoCustom | null>(null);
   const [refreshListado, setRefreshListado] = useState(false);
 
@@ -28,11 +27,11 @@ function FudoContainer(
   return (
     <Modal show={show} onHide={onHide} centered size='lg'>
       <Modal.Header closeButton>
-        <Modal.Title>Información de FUDO</Modal.Title>
+        <Modal.Title>Exportación a FUDO - {ordenData.nombre_cliente}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="container">
-          <h2 className="mb-4">Mesas activas</h2>
+          <h4 className="mb-4">Elegir mesa y venta de Fudo</h4>
           <div className="row">
             <div className="col-md-6">
               <ListadoMesas 
@@ -45,6 +44,7 @@ function FudoContainer(
                 <DetallesMesa 
                   mesaFudoId={selectedMesa.id} 
                   onRefreshListado={refreshListadoMesas}
+                  onSubmit={onSubmit}
                 />
               }
             </div>

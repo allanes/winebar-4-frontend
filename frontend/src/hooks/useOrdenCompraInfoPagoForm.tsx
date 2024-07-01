@@ -7,6 +7,7 @@ const useOrdenCompraInfoPagoForm = (onSubmit: (infoPago: OrdenCompraInfoPago) =>
         cobrado_efectivo: null,
         cobrado_tarjeta: null,
         cobrado_transferencia: null,
+        carga_fudo_venta_id: null,
         comentarios: null,
     });
 

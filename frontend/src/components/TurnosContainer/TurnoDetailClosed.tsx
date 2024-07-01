@@ -17,6 +17,7 @@ const TurnoDetailClosed = ({ turnoData }: TurnoDetailClosedProps) => {
   const montoCargado1 = turnoData.suma_ordenes_cobradas_efectivo || 0;
   const montoCargado2 = turnoData.suma_ordenes_cobradas_tarjeta || 0;
   const montoCargado3 = turnoData.suma_ordenes_cobradas_transferencia || 0;
+  const montoCargado4 = turnoData.suma_ordenes_exportadas_fudo || 0;
   const total = turnoData.suma_ordenes_cobradas || 0;
 
   const handleToggle = (key: string) => {
@@ -47,7 +48,8 @@ const TurnoDetailClosed = ({ turnoData }: TurnoDetailClosedProps) => {
                 montoCargado1={montoCargado1} 
                 montoCargado2={montoCargado2} 
                 montoCargado3={montoCargado3} 
-                montoCargado4={total} 
+                montoCargado4={montoCargado4} 
+                montoTotal={total}
               />
             </Accordion.Body>
           </Accordion.Item>
