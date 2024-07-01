@@ -5406,6 +5406,18 @@
             ],
             "title": "Suma Ordenes Cobradas Transferencia",
             "default": 0
+          },
+          "suma_ordenes_exportadas_fudo": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suma Ordenes Exportadas Fudo",
+            "default": 0
           }
         },
         "type": "object",

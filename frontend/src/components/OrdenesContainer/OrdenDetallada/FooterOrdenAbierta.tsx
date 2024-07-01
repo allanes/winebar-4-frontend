@@ -1,6 +1,7 @@
 // FooterOrdenAbierta.tsx
 import React, { useState } from 'react';
-import { Col, Row, Button } from 'react-bootstrap';
+import { Col, Row, Button, Modal } from 'react-bootstrap';
+import { Cash, BoxArrowUpRight } from 'react-bootstrap-icons';
 import { OrdenCompraInfoPago, OrdenCompraDetallada } from '../../../codegen_output';
 import PanelInfoPagoOrden from '../../Views/CajeroView/PanelInfoPagoOrden';
 import FudoContainer from '../../FudoContainer/FudoContainer';
@@ -13,10 +14,18 @@ interface FooterOrdenAbiertaProps {
 }
 
 const FooterOrdenAbierta: React.FC<FooterOrdenAbiertaProps> = ({ ordenData, openedPedidos, onCobrar, ordenId }) => {
+  const [showModal, setShowModal] = useState(false);
   const [showPanelInfoPago, setShowPanelInfoPago] = useState(false);
+  const [showFudoContainer, setShowFudoContainer] = useState(false);
 
   const handleCobrar = () => {
+    setShowModal(false);
     setShowPanelInfoPago(true);
+  };
+
+  const handleExportarFudo = () => {
+    setShowModal(false);
+    setShowFudoContainer(true);
   };
 
   const handleInfoPagoSubmit = (infoPago: OrdenCompraInfoPago) => {
@@ -29,7 +38,7 @@ const FooterOrdenAbierta: React.FC<FooterOrdenAbiertaProps> = ({ ordenData, open
       <Row>
         <Col md={4} />
         <Col md={4} className='justify-content-center'>
-          <Button variant="success" size="lg" onClick={handleCobrar}>
+          <Button variant="success" size="lg" onClick={() => setShowModal(true)}>
             Cobrar
           </Button>
         </Col>
@@ -39,15 +48,38 @@ const FooterOrdenAbierta: React.FC<FooterOrdenAbiertaProps> = ({ ordenData, open
           </Row>
         </Col>
       </Row>
-      {/* <PanelInfoPagoOrden
+
+      {/* <Modal show={show} onHide={onHide} centered size='lg'> */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Seleccione una opción</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Row>
+            <Col className="text-center">
+              <Button variant="primary" size="lg" onClick={handleCobrar}>
+                <Cash /> Cobrar Acá
+              </Button>
+            </Col>
+            <Col className="text-center">
+              <Button variant="secondary" size="lg" onClick={handleExportarFudo}>
+                <BoxArrowUpRight /> Exportar a Fudo
+              </Button>
+            </Col>
+          </Row>
+        </Modal.Body>
+      </Modal>
+
+      <PanelInfoPagoOrden
         show={showPanelInfoPago}
         onHide={() => setShowPanelInfoPago(false)}
         onSubmit={handleInfoPagoSubmit}
         ordenData={ordenData}
-      /> */}
+      />
+
       <FudoContainer
-        show={showPanelInfoPago}
-        onHide={() => setShowPanelInfoPago(false)}
+        show={showFudoContainer}
+        onHide={() => setShowFudoContainer(false)}
         onSubmit={handleInfoPagoSubmit}
         ordenData={ordenData}
       />
