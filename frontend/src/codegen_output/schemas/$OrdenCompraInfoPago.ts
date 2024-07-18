@@ -28,6 +28,14 @@ export const $OrdenCompraInfoPago = {
                 type: 'null',
             }],
         },
+        carga_fudo_venta_id: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
         comentarios: {
             type: 'any-of',
             contains: [{

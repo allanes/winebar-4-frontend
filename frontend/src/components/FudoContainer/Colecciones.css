@@ -1,0 +1,30 @@
+.scrollable-table--collections-list {
+    max-height: 700px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.scrollable-table--collections-details {
+    max-height: 600px; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.tabla-s-f--boton-refresh {
+    margin-left: 20px;
+    /* border: 1px solid blue; */
+}
+
+.action-buttons-container {
+    display: flex;
+    justify-content: flex-start; /* Aligns items to the start */
+    align-items: center;
+  }
+  
+  .btn-agregar, .btn-borrar {
+    margin-right: 10px; /* Adjust spacing as needed */
+  }
+  
+  .clickable-text-seleccionar-todos {
+    cursor: pointer;
+    margin-left: auto; /* Pushes it to the far right */
+  }
+  

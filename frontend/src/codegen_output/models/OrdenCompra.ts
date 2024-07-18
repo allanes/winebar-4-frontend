@@ -14,6 +14,7 @@ export type OrdenCompra = {
     monto_cobrado_efectivo: number;
     monto_cobrado_tarjeta: number;
     monto_cobrado_transferencia: number;
+    monto_cargado_fudo: number;
     monto_maximo_pedido: number;
     timestamp_apertura_orden: string;
     timestamp_cierre_orden?: (string | null);

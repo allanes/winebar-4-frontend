@@ -21,5 +21,6 @@ export type Turno = {
     suma_ordenes_cobradas_tarjeta?: (number | null);
     suma_ordenes_cobradas_efectivo?: (number | null);
     suma_ordenes_cobradas_transferencia?: (number | null);
+    suma_ordenes_exportadas_fudo?: (number | null);
 };
 

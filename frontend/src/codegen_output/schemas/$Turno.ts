@@ -122,5 +122,13 @@ export const $Turno = {
                 type: 'null',
             }],
         },
+        suma_ordenes_exportadas_fudo: {
+            type: 'any-of',
+            contains: [{
+                type: 'number',
+            }, {
+                type: 'null',
+            }],
+        },
     },
 } as const;

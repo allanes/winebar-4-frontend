@@ -33,6 +33,9 @@ const FooterOrdenCerrada: React.FC<FooterOrdenCerradaProps> = ({ ordenData }) =>
         <Col>
           <strong>Transferencia:</strong> ${ordenData.monto_cobrado_transferencia?.toLocaleString('es-ES') || '0.00'}
         </Col>
+        <Col>
+          <strong>Exportado a Fudo:</strong> ${ordenData.monto_cargado_fudo?.toLocaleString('es-ES') || '0.00'}
+        </Col>
       </Row>
     </div>
   );
