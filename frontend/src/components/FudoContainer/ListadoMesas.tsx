@@ -67,7 +67,7 @@ function ListadoMesas({ onSelectMesa, refreshTrigger }: ListadoMesasProps) {
   return (
     <>
         <h3>
-            Listado
+            Mesas Fudo
             {!isLoading && 
               <Button onClick={fetchCollections} variant='secondary' size='sm' className='tabla-s-f--boton-refresh'>
                   <ArrowClockwise size={20} />
