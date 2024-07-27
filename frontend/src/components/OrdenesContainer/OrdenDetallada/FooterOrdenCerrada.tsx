@@ -37,6 +37,12 @@ const FooterOrdenCerrada: React.FC<FooterOrdenCerradaProps> = ({ ordenData }) =>
           <strong>Exportado a Fudo:</strong> ${ordenData.monto_cargado_fudo?.toLocaleString('es-ES') || '0.00'}
         </Col>
       </Row>
+      <Row className="mb-1 mt-2 text-white text-start">
+        <Col>
+          <strong>Notas: </strong>
+          {ordenData.comentarios}
+        </Col>
+      </Row>
     </div>
   );
 };
