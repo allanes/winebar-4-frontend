@@ -10,11 +10,12 @@ import './Colecciones.css';
 
 interface DetallesMesaProps {
     mesaFudoId: number;
+    mesaFudoNumero: number;
     onRefreshListado: () => void;
     onSubmit: (infoPago: OrdenCompraInfoPago) => void;
 }
 
-function DetallesMesa({ mesaFudoId, onRefreshListado, onSubmit }: DetallesMesaProps) {
+function DetallesMesa({ mesaFudoId, mesaFudoNumero, onRefreshListado, onSubmit }: DetallesMesaProps) {
     const [ventasCustom, setVentasCustom] = useState<CustomSaleDetailResponse[]>([]);
     const [selectedVenta, setSelectedVenta] = useState<CustomSaleDetailResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -67,7 +68,7 @@ function DetallesMesa({ mesaFudoId, onRefreshListado, onSubmit }: DetallesMesaPr
     return (
         <>
             <h3>
-                Ventas de mesa {mesaFudoId}
+                Ventas de mesa {mesaFudoNumero}
                 {!isLoading && 
                     <Button onClick={fetchItems} variant='secondary' size='sm' className='tabla-s-f--boton-refresh'>
                         <ArrowClockwise size={20} />

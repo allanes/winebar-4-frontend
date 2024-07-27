@@ -43,6 +43,7 @@ function FudoContainer({ show, onHide, onSubmit, ordenData }: PanelFudoProps) {
               {selectedMesa && 
                 <DetallesMesa 
                   mesaFudoId={selectedMesa.id} 
+                  mesaFudoNumero={selectedMesa.number}
                   onRefreshListado={refreshListadoMesas}
                   onSubmit={onSubmit}
                 />
