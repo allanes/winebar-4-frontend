@@ -162,7 +162,7 @@ export const OrdenesListBase = ({
       <Modal show={showOrdenView} onHide={handleCloseOrdenView} centered size="xl">
         <Modal.Header closeButton>
           <Modal.Title>
-            Detalle de Orden
+            {"Detalle de Orden "}
             {selectedOrden && <PdfDownloadButton ordenId={selectedOrden.id} />}
           </Modal.Title>
         </Modal.Header>
