@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { CheckCircleFill, FiletypePdf } from 'react-bootstrap-icons';
 import { handleApiError } from '../ClientsContainer/ClientsContainer';
 import OrdenView from './OrdenView';
+import { PdfDownloadButton } from './DownloadButton';
 
 interface Props {
   ordenesList: Array<OrdenCompraDetallada>;
@@ -151,15 +152,7 @@ export const OrdenesListBase = ({
               {!columnasReducidas && <td>{orden.cerrada_por_nombre}</td>}
               
               <td>
-                <button
-                  onClick={() => downloadPDF(orden.id)}
-                  // disabled={!orden.cerrada_por}
-                  // title={!orden.cerrada_por ? "Order must be closed to download PDF" : "Download PDF"}
-                  title="Download PDF"
-                  className="btn btn-primary"
-                >
-                  <FiletypePdf/>
-                </button>
+                <PdfDownloadButton ordenId={orden.id} />
               </td>
             </tr>
           ))}
@@ -168,7 +161,10 @@ export const OrdenesListBase = ({
 
       <Modal show={showOrdenView} onHide={handleCloseOrdenView} centered size="xl">
         <Modal.Header closeButton>
-          <Modal.Title>Detalle de Orden</Modal.Title>
+          <Modal.Title>
+            Detalle de Orden
+            {selectedOrden && <PdfDownloadButton ordenId={selectedOrden.id} />}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedOrden && (
