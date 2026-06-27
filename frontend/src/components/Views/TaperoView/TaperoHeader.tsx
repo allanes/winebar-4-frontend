@@ -1,11 +1,13 @@
   import React, { useState, useEffect } from 'react';
-  import { Button, Row, Col, Badge } from 'react-bootstrap';
+  import { Button, Row, Col } from 'react-bootstrap';
   import logoBar from '../../../assets/icons/logo_bn.png';
   import { useAuth } from '../../auth/AuthContext';
   import LoginPanel from '../../auth/LoginPanel';
   import { HeaderStatusBadgeTapero } from '../../Header/HeaderStatusBadge';
-  import { LectoresDeTapasService, LectorTapaReceive, VinosService } from '../../../codegen_output';
+  import { LectoresDeTapasService, LectorTapaReceive } from '../../../codegen_output';
   import servidorClavesConfig from '../../../config';
+  import { useVitteStatus } from '../../../hooks/useVitteStatus';
+  import { getVitteStatusLabel } from '../../../services/vitteStatusService';
 
   interface TaperoHeaderProps {
       title: string;
@@ -13,16 +15,16 @@
 
   const TaperoHeader: React.FC<TaperoHeaderProps> = ({ title }) => {
       const [showLoginModal, setShowLoginModal] = useState(true);
-      const { isLoggedIn, user, login, logout } = useAuth();
+      const { isLoggedIn, user, logout } = useAuth();
       const [keyboardCount, setKeyboardCount] = useState(0);
       const [lcdStatus, setLcdStatus] = useState(false);
-      const [vitteIsOnline, setVitteIsOnline] = useState(false);
+      const vitteStatus = useVitteStatus(true);
 
       useEffect(() => {
           if (!isLoggedIn && showLoginModal) {
               setShowLoginModal(true);            
           }
-      }, [isLoggedIn]);
+      }, [isLoggedIn, showLoginModal]);
 
       useEffect(() => {
           const fetchKeyboardCount = async () => {
@@ -48,7 +50,7 @@
           const fetchLcdStatus = async () => {
               try {
                   const lcdHealthResponse = await fetch(`http://localhost:${servidorClavesConfig.servidorClavesPort}/lcd/health`);
-                  if (lcdHealthResponse.status == 200) {
+                  if (lcdHealthResponse.status === 200) {
                     setLcdStatus(true);
                   }
                   else {
@@ -60,19 +62,8 @@
               }
           };
 
-          const fetchVitteStatus = async () => {
-            try {
-                const response = await VinosService.handleCheckHealthBackendApiV1VinosCheckHealthGet();
-                setVitteIsOnline(true); // Assuming the API just returns a successful response if healthy
-            } catch (error) {
-                console.error('Failed to check Vitte health:', error);
-                setVitteIsOnline(false);
-            }
-          }
-
           fetchKeyboardCount();
           fetchLcdStatus();
-          fetchVitteStatus();
       }, []);
 
       return (
@@ -82,8 +73,8 @@
                     <Row className='mb-1'>
                       <Col>
                         <HeaderStatusBadgeTapero 
-                          status={vitteIsOnline} 
-                          label={`Vitte`} 
+                          status={vitteStatus.isOnline} 
+                          label={getVitteStatusLabel(vitteStatus.status, vitteStatus.failed)}
                         />
                       </Col>
                       <Col>

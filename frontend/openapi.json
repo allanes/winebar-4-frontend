@@ -2668,6 +2668,27 @@
         }
       }
     },
+    "/backend/api/v1/vitte/status": {
+      "get": {
+        "tags": [
+          "Vitte"
+        ],
+        "summary": "Handle Read Vitte Status",
+        "operationId": "handle_read_vitte_status_backend_api_v1_vitte_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VitteStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/backend/api/v1/fudo/mesas": {
       "get": {
         "tags": [
@@ -2823,9 +2844,7 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {
-
-                }
+                "schema": {}
               }
             }
           },
@@ -3370,7 +3389,7 @@
             ],
             "title": "Nombre"
           },
-          "contraseña": {
+          "contrase\u00f1a": {
             "anyOf": [
               {
                 "type": "string"
@@ -3379,7 +3398,7 @@
                 "type": "null"
               }
             ],
-            "title": "Contraseña"
+            "title": "Contrase\u00f1a"
           }
         },
         "type": "object",
@@ -3623,7 +3642,7 @@
             ],
             "title": "Email"
           },
-          "teléfono": {
+          "tel\u00e9fono": {
             "anyOf": [
               {
                 "type": "string"
@@ -3632,7 +3651,7 @@
                 "type": "null"
               }
             ],
-            "title": "Teléfono"
+            "title": "Tel\u00e9fono"
           },
           "domicilio": {
             "anyOf": [
@@ -3696,7 +3715,7 @@
             ],
             "title": "Email"
           },
-          "teléfono": {
+          "tel\u00e9fono": {
             "anyOf": [
               {
                 "type": "string"
@@ -3705,7 +3724,7 @@
                 "type": "null"
               }
             ],
-            "title": "Teléfono"
+            "title": "Tel\u00e9fono"
           },
           "domicilio": {
             "anyOf": [
@@ -4818,9 +4837,7 @@
           },
           "discounts": {
             "additionalProperties": {
-              "items": {
-
-              },
+              "items": {},
               "type": "array"
             },
             "type": "object",
@@ -4838,9 +4855,7 @@
           },
           "payments": {
             "additionalProperties": {
-              "items": {
-
-              },
+              "items": {},
               "type": "array"
             },
             "type": "object",
@@ -4848,9 +4863,7 @@
           },
           "tips": {
             "additionalProperties": {
-              "items": {
-
-              },
+              "items": {},
               "type": "array"
             },
             "type": "object",
@@ -4858,9 +4871,7 @@
           },
           "shippingCosts": {
             "additionalProperties": {
-              "items": {
-
-              },
+              "items": {},
               "type": "array"
             },
             "type": "object",
@@ -5505,6 +5516,88 @@
           "id"
         ],
         "title": "Vino"
+      },
+      "VitteStatus": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "online": {
+            "type": "boolean",
+            "title": "Online"
+          },
+          "last_success_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Success At"
+          },
+          "last_error_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Error At"
+          },
+          "last_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Error"
+          },
+          "cached_for_seconds": {
+            "type": "integer",
+            "title": "Cached For Seconds"
+          },
+          "circuit_open_until": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Circuit Open Until"
+          },
+          "catalog_last_sync_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Catalog Last Sync At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "online",
+          "cached_for_seconds"
+        ],
+        "title": "VitteStatus"
       }
     },
     "securitySchemes": {
@@ -5512,9 +5605,7 @@
         "type": "oauth2",
         "flows": {
           "password": {
-            "scopes": {
-
-            },
+            "scopes": {},
             "tokenUrl": "/backend/api/v1/login/access-token"
           }
         }

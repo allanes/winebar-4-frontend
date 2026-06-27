@@ -2,7 +2,4 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type TapaUpdate = {
-    foto?: (string | null);
-};
-
+export type TapaUpdate = Record<string, any>;

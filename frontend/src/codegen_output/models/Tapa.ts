@@ -6,6 +6,6 @@ import type { Producto } from './Producto';
 export type Tapa = {
     foto?: (string | null);
     id: number;
-    producto: Producto;
+    producto: (Producto | null);
 };
 
