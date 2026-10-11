@@ -118,7 +118,7 @@ export const OrdenesListBase = ({
 
   return (
     <>
-      <Table striped hover variant='dark'>
+      <Table striped hover variant='dark' responsive>
         <thead>
           <tr>
             {selectedKeys.map((item, index) => (
