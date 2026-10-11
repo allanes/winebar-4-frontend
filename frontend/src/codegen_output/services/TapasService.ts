@@ -51,7 +51,6 @@ export class TapasService {
             path: {
                 'id': id,
             },
-            responseType: 'blob',
             query: {
                 'by_product_id': byProductId,
             },

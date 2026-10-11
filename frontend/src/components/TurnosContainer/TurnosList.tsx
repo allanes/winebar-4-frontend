@@ -111,7 +111,7 @@ export const TurnosList = ({ turnosList, onDeleteTurno, onReloadStatus }: Props)
           </tbody>
         </Table>
       </Card.Body>
-      <Modal show={showTurnoView} onHide={handleCloseTurnoView} centered size="lg">
+      <Modal show={showTurnoView} onHide={handleCloseTurnoView} centered size="xl">
         <Modal.Header closeButton>
           <h4>Detalle de Turno</h4>
         </Modal.Header>

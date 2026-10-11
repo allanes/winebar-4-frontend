@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { VinosService } from '../../codegen_output';
+import React, { useState } from 'react';
 import { Button, Row, Col } from 'react-bootstrap';
 import logoBar from '../../assets/icons/logo_bn.png';
 import { useAuth } from '../auth/AuthContext';
 import LoginPanel from '../auth/LoginPanel';
 import { HeaderStatusBadgeClassic } from './HeaderStatusBadge';
+import { useVitteStatus } from '../../hooks/useVitteStatus';
+import { getVitteStatusLabel } from '../../services/vitteStatusService';
 
 interface HeaderWithUserProps {
     title: string;
@@ -12,24 +13,8 @@ interface HeaderWithUserProps {
 
 const HeaderWithUser: React.FC<HeaderWithUserProps> = ({ title }) => {
     const [showLoginModal, setShowLoginModal] = useState(false);
-    const [vitteIsOnline, setVitteIsOnline] = useState(false);
-    const { isLoggedIn, user, login, logout } = useAuth();
-
-    useEffect(() => {
-        if (isLoggedIn) {
-            const checkVitteHealth = async () => {
-                try {
-                    const response = await VinosService.handleCheckHealthBackendApiV1VinosCheckHealthGet();
-                    setVitteIsOnline(true); // Assuming the API just returns a successful response if healthy
-                } catch (error) {
-                    console.error('Failed to check Vitte health:', error);
-                    setVitteIsOnline(false);
-                }
-            };
-
-            checkVitteHealth();
-        }
-    }, [isLoggedIn]); // Dependency on isLoggedIn ensures this runs only when the login status changes
+    const { isLoggedIn, user, logout } = useAuth();
+    const vitteStatus = useVitteStatus(isLoggedIn);
 
     return (
         <Col className="container-fluid container-header py-1">
@@ -40,8 +25,8 @@ const HeaderWithUser: React.FC<HeaderWithUserProps> = ({ title }) => {
                     </Row>
                     <Row>
                         <HeaderStatusBadgeClassic 
-                            status={vitteIsOnline} 
-                            label={`Vitte ${vitteIsOnline ? '(Conectado)' : '(Sin Conexión)'}`} 
+                            status={vitteStatus.isOnline} 
+                            label={getVitteStatusLabel(vitteStatus.status, vitteStatus.failed)}
                         />                        
                     </Row>
                 </Col>

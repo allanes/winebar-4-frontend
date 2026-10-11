@@ -99,7 +99,7 @@ const CierreDeCaja = ({
     };
 
     return (
-        <Modal show={show} onHide={handleOnHide} centered size='lg'>
+        <Modal show={show} onHide={handleOnHide} centered size='xl'>
             <Modal.Header closeButton />
             <Modal.Body>
                 {showInfoCierreForm ? (

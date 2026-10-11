@@ -55,6 +55,7 @@ export type { Token } from './models/Token';
 export type { Turno } from './models/Turno';
 export type { ValidationError } from './models/ValidationError';
 export type { Vino } from './models/Vino';
+export type { VitteStatus } from './models/VitteStatus';
 
 export { $Body_handle_create_cliente_with_tarjeta_backend_api_v1_clientes__post } from './schemas/$Body_handle_create_cliente_with_tarjeta_backend_api_v1_clientes__post';
 export { $Body_handle_upload_foto_backend_api_v1_tapas_foto__id__post } from './schemas/$Body_handle_upload_foto_backend_api_v1_tapas_foto__id__post';
@@ -104,6 +105,7 @@ export { $Token } from './schemas/$Token';
 export { $Turno } from './schemas/$Turno';
 export { $ValidationError } from './schemas/$ValidationError';
 export { $Vino } from './schemas/$Vino';
+export { $VitteStatus } from './schemas/$VitteStatus';
 
 export { ClientesService } from './services/ClientesService';
 export { ConfiguracionService } from './services/ConfiguracionService';
@@ -118,3 +120,4 @@ export { TapasService } from './services/TapasService';
 export { TarjetasService } from './services/TarjetasService';
 export { TurnosService } from './services/TurnosService';
 export { VinosService } from './services/VinosService';
+export { VitteService } from './services/VitteService';

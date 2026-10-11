@@ -6,16 +6,6 @@ export const $TapaUpdate = {
     type: 'dictionary',
     contains: {
         properties: {
-            properties: {
-                foto: {
-                    type: 'any-of',
-                    contains: [{
-                        type: 'string',
-                    }, {
-                        type: 'null',
-                    }],
-                }
-            }
         },
     },
 } as const;

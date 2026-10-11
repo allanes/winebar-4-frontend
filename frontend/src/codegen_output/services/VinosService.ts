@@ -22,7 +22,6 @@ export class VinosService {
             path: {
                 'nombre': nombre,
             },
-            responseType: 'blob',
             errors: {
                 422: `Validation Error`,
             },
