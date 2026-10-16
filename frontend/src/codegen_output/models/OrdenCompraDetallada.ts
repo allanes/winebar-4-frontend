@@ -21,9 +21,11 @@ export type OrdenCompraDetallada = {
     timestamp_cierre_orden?: (string | null);
     cerrada_por?: (number | null);
     comentarios?: (string | null);
+    cerrada_sin_vitte?: (boolean | null);
     cerrada_por_nombre?: (string | null);
     pedidos: Array<Pedido>;
     nombre_cliente: string;
     rol: string;
+    vitte_ultima_sincronizacion?: (string | null);
 };
 

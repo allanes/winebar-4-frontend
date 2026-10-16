@@ -20,6 +20,7 @@ export type OrdenCompra = {
     timestamp_cierre_orden?: (string | null);
     cerrada_por?: (number | null);
     comentarios?: (string | null);
+    cerrada_sin_vitte?: (boolean | null);
     cerrada_por_nombre?: (string | null);
 };
 

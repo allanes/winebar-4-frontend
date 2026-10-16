@@ -8,5 +8,6 @@ export type OrdenCompraInfoPago = {
     cobrado_transferencia?: (number | null);
     carga_fudo_venta_id?: (number | null);
     comentarios?: (string | null);
+    cerrar_sin_vitte?: (boolean | null);
 };
 

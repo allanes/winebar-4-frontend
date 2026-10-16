@@ -1,10 +1,12 @@
 // PanelInfoPagoOrden.tsx
 import React from 'react';
-import { Modal, Button, Form, Row, Col, Badge } from 'react-bootstrap';
+import { Modal, Button, Form, Row, Col, Badge, Alert } from 'react-bootstrap';
+import Swal from 'sweetalert2';
 import { OrdenCompraInfoPago, OrdenCompraDetallada } from '../../../codegen_output';
 import useOrdenCompraInfoPagoForm from '../../../hooks/useOrdenCompraInfoPagoForm';
 import InfoCard from './StatusPanel/InfoCard';
 import FormGroupMontoCobrado from './FormGroupMedioDePagoCobradoComponent';
+import { useVitteStatus } from '../../../hooks/useVitteStatus';
 
 interface PanelInfoPagoOrdenProps {
     show: boolean;
@@ -29,6 +31,32 @@ const PanelInfoPagoOrden = ({ show, onHide, onSubmit, ordenData }: PanelInfoPago
     const totalPaid = (form.cobrado_efectivo || 0) + (form.cobrado_tarjeta || 0) + (form.cobrado_transferencia || 0);
     const remainingAmount = ordenData.monto_cargado - totalPaid;
 
+    // Sin conexion con Vitte no se pueden traer los consumos de vino. Se permite cerrar igual,
+    // dejando claro que el total puede estar incompleto.
+    const { status: vitteStatus, isOnline: vitteOnline, failed: vitteFailed } = useVitteStatus(show);
+    const sinConexionVitte = (vitteStatus !== null && !vitteOnline) || vitteFailed;
+    const ultimaSincronizacion = ordenData.vitte_ultima_sincronizacion
+        ? new Date(ordenData.vitte_ultima_sincronizacion).toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' })
+        : null;
+
+    const handleCerrarSinVitte = () => {
+        Swal.fire({
+            title: 'Cerrar sin conexión con Vitte',
+            html: 'No se pueden recuperar los consumos de vino en este momento.<br/>'
+                + 'Si el cliente se sirvió vino después de la última actualización, <b>esos consumos no se van a cobrar</b>.<br/><br/>'
+                + `Última actualización de vinos de esta orden: <b>${ultimaSincronizacion || 'desconocida'}</b>`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Cerrar la orden igual',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#dc3545',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                onSubmit({ ...form, cerrar_sin_vitte: true });
+            }
+        });
+    };
+
     return (
         <Modal show={show} onHide={onHide} centered size='lg'>
             <Modal.Header closeButton>
@@ -39,6 +67,14 @@ const PanelInfoPagoOrden = ({ show, onHide, onSubmit, ordenData }: PanelInfoPago
                 <Row className='mb-4'><h2>
                     Ingresar medio de pago usado
                 </h2></Row>
+
+                {sinConexionVitte && (
+                    <Alert variant="warning">
+                        <Alert.Heading>Sin conexión con Vitte</Alert.Heading>
+                        No se pueden recuperar los consumos de vino, por lo que el total puede estar incompleto.
+                        {' '}Última actualización de vinos de esta orden: <strong>{ultimaSincronizacion || 'desconocida'}</strong>.
+                    </Alert>
+                )}
 
                 <Form onSubmit={handleSubmit}>
                     <Row >
@@ -111,9 +147,21 @@ const PanelInfoPagoOrden = ({ show, onHide, onSubmit, ordenData }: PanelInfoPago
                     <Row>
                         <Col>
                             <div className="d-grid">
-                                <Button variant="primary" type="submit" size="lg" disabled={remainingAmount !== 0}>
+                                <Button variant="primary" type="submit" size="lg" disabled={remainingAmount !== 0 || sinConexionVitte}>
                                     Confirmar Pago
                                 </Button>
+                                {sinConexionVitte && (
+                                    <Button
+                                        variant="outline-danger"
+                                        type="button"
+                                        size="lg"
+                                        className="mt-2"
+                                        disabled={remainingAmount !== 0}
+                                        onClick={handleCerrarSinVitte}
+                                    >
+                                        Cerrar sin conexión con Vitte
+                                    </Button>
+                                )}
                             </div>
                         </Col>
                     </Row>
